@@ -1,0 +1,37 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/style_color</item>
+        <item name="colorPrimaryDark">@color/style_color</item>
+        <item name="colorAccent">@color/style_color</item>
+    </style>
+    <style name="AppTheme_NOACTIONBAR" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/style_color</item>
+        <item name="colorPrimaryDark">@color/style_color</item>
+        <item name="colorAccent">@color/style_color</item>
+        <item name="android:windowBackground">@color/line_wider</item>
+    </style>
+    <style name="AppTheme_FULLSCREEN" parent="AppTheme_NOACTIONBAR">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="SelectBackgroundWhile">
+        <item name="android:background">@drawable/select_background_while</item>
+    </style>
+
+    <style name="SelectBackground">
+        <item name="android:background">@drawable/select_background</item>
+    </style>
+
+    <style name="SelectBackgroundBorderless">
+        <item name="android:background">@drawable/select_background</item>
+    </style>
+
+    <style name="tab_appearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/text_color2</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+</resources>

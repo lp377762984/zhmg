@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
+        android:id="@+id/mb"
+        app:textTail="入驻商家"
+        app:textTitle="周边"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/money_bar_height"/>
+    <FrameLayout
+        android:background="@color/style_color"
+        android:layout_width="match_parent"
+        android:layout_height="59dp">
+        <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:textColor="@color/text_color2"
+            android:textSize="16sp"
+            android:paddingLeft="8dp"
+            android:drawablePadding="9dp"
+            android:drawableLeft="@mipmap/side_search"
+            android:background="@drawable/side_search_bg"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </FrameLayout>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

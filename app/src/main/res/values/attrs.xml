@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="EditTextHint">
+        <attr name="hintSize" format="dimension|reference" />
+    </declare-styleable>
+    <declare-styleable name="MoneyBar">
+        <attr name="textTitle" format="string" />
+        <attr name="needBack" format="boolean" />
+        <attr name="barBg" format="color" />
+        <attr name="titleColor" format="color" />
+        <attr name="needLine" format="boolean" />
+        <attr name="backImg" format="integer|reference"/>
+        <attr name="textTail" format="string" />
+        <attr name="tailImg" format="integer|reference" />
+    </declare-styleable>
+</resources>
