@@ -42,4 +42,9 @@ public class SplashActivity extends BaseActivity {
     public void initData(@Nullable Bundle savedInstanceState) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();//禁用返回键
+    }
 }

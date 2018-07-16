@@ -41,13 +41,13 @@ public class UserModel extends BaseModel implements IUserModel {
 
     @Override
     public Observable<Result<User>> sendCode(String phone) {
-        //return mRepositoryManager.obtainRetrofitService(HttpServices.class).sendCode(phone);
-        return Observable.timer(2, TimeUnit.SECONDS).map(new Function<Long, Result<User>>() {
-            @Override
-            public Result<User> apply(Long aLong) throws Exception {
-                return new Result<>(200);
-            }
-        });
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).sendCode(phone);
+//        return Observable.timer(2, TimeUnit.SECONDS).map(new Function<Long, Result<User>>() {
+//            @Override
+//            public Result<User> apply(Long aLong) throws Exception {
+//                return new Result<>(200);
+//            }
+//        });
     }
 
     @Override

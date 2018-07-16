@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.wta.NewCloudApp.mvp.ui.activity.SplashActivity">
     <ImageView
-        android:src="@mipmap/ic_launcher"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

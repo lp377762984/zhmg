@@ -26,6 +26,6 @@ package com.wta.NewCloudApp.mvp.model.api;
  * ================================================
  */
 public interface Api {
-    String APP_DOMAIN = "http://app.qlqwgw.com";
+    String APP_DOMAIN = "http://zhmg.jjzbest.com";
     String IBB="http://app-test-api.ibbtech.cn";
 }

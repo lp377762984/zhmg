@@ -11,6 +11,7 @@ import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.jiuwei210278.R;
 import com.wta.NewCloudApp.mvp.ui.widget.Banner2;
 import com.wta.NewCloudApp.mvp.ui.widget.PJImageLoader;
+import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.Arrays;
@@ -32,8 +33,9 @@ public class GuideActivity extends BaseActivity implements OnBannerListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
         bind = ButterKnife.bind(this);
-        List<Integer> list = Arrays.asList(R.mipmap.tab_home_select, R.mipmap.tab_mine_select, R.mipmap.tab_side_select);
-        banner.setNeedTurn(false);
+        List<Integer> list = Arrays.asList(R.mipmap.guide_01, R.mipmap.guide_02, R.mipmap.guide_03);
+        banner.setNeedTurn(false);//设置禁止循环
+        banner.setBannerStyle(BannerConfig.NOT_INDICATOR);//设置没有指示器
         banner.setImageLoader(new PJImageLoader());
         banner.setImages(list);
         banner.start();
