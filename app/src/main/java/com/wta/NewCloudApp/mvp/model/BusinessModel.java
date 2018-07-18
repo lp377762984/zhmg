@@ -29,7 +29,7 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
             @Override
             public Result<List<Business>> apply(Long aLong) throws Exception {
                 if (isRefresh) index = 0;
-                Result result = new Result(200);
+                Result result = new Result(404);
                 List<Business> businessList = new ArrayList<>();
                 if (index < 5) {
                     for (int i = 0; i < 3; i++) {
@@ -38,7 +38,9 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
                                         "华华", "服装", "获得的8%", "朝九晚六", "三里屯", "1.5KM"));
                     }
                 }
-                result.data = businessList;
+                result.msg="开心哈哈哈";
+                result.data ="hahhahah";
+                //result.data = businessList;
                 Timber.d("apply: " + businessList.size());
                 index++;
                 return result;

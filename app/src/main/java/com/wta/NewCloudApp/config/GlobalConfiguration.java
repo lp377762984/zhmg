@@ -21,6 +21,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.di.module.GlobalConfigModule;
@@ -32,6 +34,7 @@ import com.wta.NewCloudApp.config.convert.GsonConverterFactory;
 import com.wta.NewCloudApp.jiuwei210278.BuildConfig;
 import com.wta.NewCloudApp.mvp.model.api.Api;
 import com.squareup.leakcanary.RefWatcher;
+import com.wta.NewCloudApp.mvp.model.entity.Result;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
