@@ -49,18 +49,18 @@
         app:layout_constraintStart_toStartOf="@+id/et_phone" />
 
     <com.wta.NewCloudApp.mvp.ui.widget.EditTextHint
-        android:textColor="@color/text_color2"
-        app:hintSize="16sp"
-        android:maxLength="8"
-        android:maxLines="1"
-        android:textColorHint="#a0987a"
-        android:inputType="number"
         android:id="@+id/et_code"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@null"
         android:hint="请输入验证码"
+        android:inputType="number"
+        android:maxLength="8"
+        android:maxLines="1"
         android:paddingTop="20dp"
+        android:textColor="@color/text_color2"
+        android:textColorHint="#a0987a"
+        app:hintSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/et_phone"
         app:layout_constraintTop_toBottomOf="@+id/et_phone" />
 
@@ -78,6 +78,7 @@
     <TextView
         android:id="@+id/tv_get_code"
         android:layout_width="wrap_content"
+        android:minWidth="90dp"
         android:layout_height="30dp"
         android:background="@drawable/login_code_bg"
         android:ellipsize="end"
@@ -105,7 +106,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_code" />
 
     <View
-        android:id="@+id/view3"
+        android:id="@+id/rec_line"
         android:layout_width="0dp"
         android:layout_height="0.5dp"
         android:background="#e2dccb"
@@ -114,6 +115,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_recommend_code" />
 
     <CheckBox
+        android:checked="true"
         android:layout_marginLeft="5dp"
         android:button="@drawable/login_cb_bg"
         android:id="@+id/checkBox"

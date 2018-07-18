@@ -8,6 +8,7 @@ public class Result<T> {
     public T data;
     @SerializedName("version_upgrade")
     public AppUpdate update;
+
     public static class AppUpdate{
         public int android_type;
         public int ios_type;
@@ -19,14 +20,8 @@ public class Result<T> {
 
     public Result() {
     }
-
-    @Override
-    public String toString() {
-        return "Result{" +
-                "code=" + code +
-                ", msg='" + msg + '\'' +
-                ", data=" + data +
-                ", update=" + update +
-                '}';
+    public LoginAccessBean login_access;
+    public static class LoginAccessBean {
+        public String sessionId;
     }
 }

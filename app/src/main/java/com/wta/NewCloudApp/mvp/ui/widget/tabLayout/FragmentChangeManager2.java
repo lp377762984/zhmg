@@ -44,7 +44,7 @@ public class FragmentChangeManager2 {
             } else {
                 ft.hide(fragment);
             }
-            ft.commit();
+            ft.commitAllowingStateLoss();
         }
         mCurrentTab = index;
     }

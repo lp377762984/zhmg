@@ -2,34 +2,27 @@ package com.wta.NewCloudApp.mvp.model.entity;
 
 public class User {
 
+    public int expiring_in;
+    public int is_member;
     /**
-     * avatar : http://apidebug.qlqwp2p.com/public/uploads/avatar/92/92.png?1503481238
-     * expiring_in : 1800
+     * avatar : http://zhmg.com/public/static/base/images/default.jpg
+     * white_score : 0
+     * nickname : 15510253064
+     * card_status : 0
+     * number : 1014953064
+     * mobile : 15510253064
+     * is_weixin : 0
+     * wx_name : 已绑定
+     * group_name : 会员
      */
 
     public String avatar;
-    public int expiring_in;
-
-
-    /**
-     * mobile : 15510115653
-     * nickname : 疯狂牛仔衬衫
-     * sex : 男
-     * age : 25
-     * location : 未设置
-     * card_status : 1
-     * company_status : 1
-     * group_name : 中级合伙人
-     * is_level_pwd : 1
-     */
-
-    public String mobile;
+    public int white_score;
     public String nickname;
-    public String sex;
-    public int age;
-    public String location;
     public int card_status;
-    public int company_status;
+    public String number;
+    public String mobile;
+    public int is_weixin;
+    public String wx_name;
     public String group_name;
-    public int is_level_pwd;
 }

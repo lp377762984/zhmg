@@ -6,19 +6,26 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
+import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.ui.fragment.HomeFragment;
 import com.wta.NewCloudApp.mvp.ui.fragment.MineFragment;
 import com.wta.NewCloudApp.mvp.ui.fragment.SideFragment;
 import com.wta.NewCloudApp.mvp.ui.widget.tabLayout.CommonTabLayout2;
+
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 
 public class MainActivity extends BaseActivity {
@@ -34,12 +41,27 @@ public class MainActivity extends BaseActivity {
         bind = ButterKnife.bind(this);
 
         tabLayout.setTabData(createTabData(), this, R.id.frameLayout, createFragments());
+        tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                if (position == 2) {
+                    if (!AppConfig.getInstance().getBoolean("is_login", false))
+                        ArmsUtils.startActivity(LoginActivity.class);
+                    else tabLayout.setCurrentTab(position);
+                } else tabLayout.setCurrentTab(position);
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (bind!=null) bind.unbind();
+        if (bind != null) bind.unbind();
     }
 
     private ArrayList<Fragment> createFragments() {
@@ -51,7 +73,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private ArrayList<CustomTabEntity> createTabData() {
-        ArrayList<CustomTabEntity> customTabEntities=new ArrayList<>(3);
+        ArrayList<CustomTabEntity> customTabEntities = new ArrayList<>(3);
         customTabEntities.add(new CustomTabEntity() {
             @Override
             public String getTabTitle() {
@@ -114,5 +136,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+    }
+
+    @Subscriber
+    public void onLoginSuccess(TabWhat no) {
+        Timber.d("onLoginSuccess: %s", no.position);
+        tabLayout.setCurrentTab(no.position);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);
     }
 }

@@ -1,14 +1,17 @@
 package com.wta.NewCloudApp.mvp.model;
 
-import android.app.Application;
+import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 
-import com.google.gson.Gson;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
+import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.uitls.FileUtils;
 
 import java.io.File;
 import java.util.Map;
@@ -18,14 +21,11 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
+import timber.log.Timber;
 
 
 @ActivityScope
 public class UserModel extends BaseModel implements IUserModel {
-    @Inject
-    Gson mGson;
-    @Inject
-    Application mApplication;
 
     @Inject
     public UserModel(IRepositoryManager repositoryManager) {
@@ -33,32 +33,13 @@ public class UserModel extends BaseModel implements IUserModel {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        this.mGson = null;
-        this.mApplication = null;
-    }
-
-    @Override
     public Observable<Result<User>> sendCode(String phone) {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).sendCode(phone);
-//        return Observable.timer(2, TimeUnit.SECONDS).map(new Function<Long, Result<User>>() {
-//            @Override
-//            public Result<User> apply(Long aLong) throws Exception {
-//                return new Result<>(200);
-//            }
-//        });
     }
 
     @Override
-    public Observable<Result<User>> login(String phone, String code, String recCode) {
-        //return mRepositoryManager.obtainRetrofitService(HttpServices.class).login(phone,code,recCode);
-        return Observable.timer(2, TimeUnit.SECONDS).map(new Function<Long, Result<User>>() {
-            @Override
-            public Result<User> apply(Long aLong) throws Exception {
-                return new Result<>(200);
-            }
-        });
+    public Observable<Result<LoginEntity>> login(String phone, String code, String recCode) {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).login(phone, code, recCode);
     }
 
     @Override
@@ -78,12 +59,13 @@ public class UserModel extends BaseModel implements IUserModel {
     }
 
     @Override
-    public Observable<Result<User>> setName(String name) {
-        return null;
+    public Observable<Result<User>> setUser(String name, File head) {
+        String avatar=null;
+        if (head!=null && head.exists()){
+            byte[] bytes = FileUtils.File2byte(head);
+            avatar = "data:image/jpeg;base64,"+Base64.encodeToString(bytes, Base64.DEFAULT);
+        }
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).setUser(name, avatar);
     }
 
-    @Override
-    public Observable<Result<User>> setPortrait(File head) {
-        return null;
-    }
 }

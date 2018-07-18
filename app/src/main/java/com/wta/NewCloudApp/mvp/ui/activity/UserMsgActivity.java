@@ -13,16 +13,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jess.arms.base.delegate.IFragment;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.jess.arms.utils.ArmsUtils;
-import com.jess.arms.utils.DataHelper;
+import com.jess.arms.utils.PermissionUtil;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerUserMsgComponent;
 import com.wta.NewCloudApp.di.module.UserMsgModule;
 import com.wta.NewCloudApp.jiuwei210278.R;
 import com.wta.NewCloudApp.mvp.contract.UserMsgContract;
 import com.wta.NewCloudApp.mvp.presenter.UserMsgPresenter;
+import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import org.devio.takephoto.app.TakePhoto;
@@ -38,6 +41,8 @@ import org.devio.takephoto.permission.PermissionManager;
 import org.devio.takephoto.permission.TakePhotoInvocationHandler;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -49,17 +54,13 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
 
     @BindView(R.id.im_head)
     ImageView imHead;
-    @BindView(R.id.lat_head)
-    RelativeLayout latHead;
     @BindView(R.id.tv_name)
     TextView tvName;
-    @BindView(R.id.lat_name)
-    RelativeLayout latName;
     @BindView(R.id.im_code)
     RoundedImageView imCode;
-    @BindView(R.id.lat_code)
-    RelativeLayout latCode;
     BottomSheetDialog btmDialog;
+    @BindView(R.id.tv_state)
+    TextView tvState;
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
 
@@ -80,10 +81,13 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        GlideArms.with(this).load(AppConfig.getInstance().getString(ConfigTag.AVATAR, null))
+                .placeholder(R.mipmap.user_default).into(imHead);
+        tvName.setText(AppConfig.getInstance().getString(ConfigTag.NICKNAME, null));
+        tvState.setText(AppConfig.getInstance().getInt(ConfigTag.CARD_STATUS, 0) == 0 ? "待认证" : "已认证");
     }
 
-    @OnClick({R.id.lat_head, R.id.lat_name, R.id.lat_code})
+    @OnClick({R.id.lat_head, R.id.lat_name, R.id.lat_code, R.id.lat_real})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_head:
@@ -97,26 +101,59 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
                 btmDialog.show();
                 break;
             case R.id.lat_name:
-                NameSetActivity.start(this,tvName.getText().toString());
+                NameSetActivity.start(this, tvName.getText().toString());
                 break;
             case R.id.lat_code:
                 ArmsUtils.startActivity(UserQRActivity.class);
+            case R.id.lat_real:
+
                 break;
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_album:
                 btmDialog.dismiss();
-                configCompress();
-                takePhoto.onPickFromGalleryWithCrop(getImageUri(),getCropConfig());
+                PermissionUtil.externalStorage(new PermissionUtil.RequestPermission() {
+                    @Override
+                    public void onRequestPermissionSuccess() {
+                        configCompress();
+                        takePhoto.onPickFromGalleryWithCrop(getImageUri(), getCropConfig());
+                    }
+
+                    @Override
+                    public void onRequestPermissionFailure(List<String> permissions) {
+                        ArmsUtils.makeText(UserMsgActivity.this, "没有权限不能修改头像");
+                    }
+
+                    @Override
+                    public void onRequestPermissionFailureWithAskNeverAgain(List<String> permissions) {
+
+                    }
+                }, new RxPermissions(this), mPresenter.mErrorHandler);
                 break;
             case R.id.tv_camera:
                 btmDialog.dismiss();
-                configCompress();
-                takePhoto.onPickFromCaptureWithCrop(getImageUri(),getCropConfig());
+                PermissionUtil.externalStorage(new PermissionUtil.RequestPermission() {
+                    @Override
+                    public void onRequestPermissionSuccess() {
+                        configCompress();
+                        takePhoto.onPickFromCaptureWithCrop(getImageUri(), getCropConfig());
+                    }
+
+                    @Override
+                    public void onRequestPermissionFailure(List<String> permissions) {
+                        ArmsUtils.makeText(UserMsgActivity.this, "没有权限不能修改头像");
+                    }
+
+                    @Override
+                    public void onRequestPermissionFailureWithAskNeverAgain(List<String> permissions) {
+
+                    }
+                }, new RxPermissions(this), mPresenter.mErrorHandler);
+
                 break;
             case R.id.tv_cancel:
                 btmDialog.dismiss();
@@ -125,14 +162,20 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
     }
 
     private Uri getImageUri() {
-        //File file = new File(DataHelper.getCacheFile(this), "/temp/" + System.currentTimeMillis() + ".jpg");
         File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
         if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return Uri.fromFile(file);
     }
 
     private CropOptions getCropConfig() {
-       return new CropOptions.Builder().setAspectX(1).setAspectY(1).setOutputX(148).setOutputY(148).setWithOwnCrop(false).create();
+        return new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(false).create();
     }
 
     @Override
@@ -151,7 +194,11 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         getTakePhoto().onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK && requestCode== FinalUtils.REQUEST_SET_NAME) tvName.setText(data.getStringExtra("name"));
+        if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_SET_NAME) {
+            tvName.setText(data.getStringExtra("name"));
+            mPresenter.setUser(data.getStringExtra("name"), null,0);
+        }
+
     }
 
     @Override
@@ -182,7 +229,7 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
                 imHead.setImageBitmap(BitmapFactory.decodeFile(result.getImage().getCompressPath()));
             }
         });
-        //mPresenter.uploadFile(result.getImage());
+        mPresenter.setUser(null, new File(result.getImage().getCompressPath()),1);
     }
 
     @Override
@@ -203,10 +250,11 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
         }
         return type;
     }
+
     private void configCompress() {
-        int maxSize = 1000 * 500;
-        int width = 720;
-        int height = 1280;
+        int maxSize = 1024 * 300;
+        int width = 512;
+        int height = 512;
         LubanOptions option = new LubanOptions.Builder().setMaxHeight(height).setMaxWidth(width).setMaxSize(maxSize).create();
         CompressConfig config = CompressConfig.ofLuban(option);
         takePhoto.onEnableCompress(config, false);

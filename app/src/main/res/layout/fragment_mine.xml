@@ -1,39 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/style_color" />
-
-    <ImageView
-        android:id="@+id/im_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="9dp"
-        app:srcCompat="@mipmap/mine_setting" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/im_setting"
-        android:layout_marginEnd="11dp"
-        android:layout_marginRight="11dp"
-        android:layout_toLeftOf="@id/im_setting"
-        app:srcCompat="@mipmap/mine_msg" />
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider3">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +18,31 @@
                 android:background="@mipmap/mine_head_bg"
                 android:id="@+id/head_lat"
                 android:layout_width="match_parent"
-                android:layout_height="195dp">
+                android:layout_height="173dp">
+
+                <ImageView
+                    android:id="@+id/im_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="9dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@mipmap/mine_setting" />
+
+                <ImageView
+                    android:id="@+id/im_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/im_setting"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/im_setting"
+                    app:layout_constraintEnd_toStartOf="@+id/im_setting"
+                    app:layout_constraintTop_toTopOf="@+id/im_setting"
+                    app:srcCompat="@mipmap/mine_msg" />
+
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/im_head"
                     android:layout_width="67dp"
@@ -53,13 +51,13 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
-                    android:src="@mipmap/ic_launcher"
-                    app:riv_border_color="#bfbfbf"
-                    app:riv_border_width="3dp"
-                    app:riv_corner_radius="15dp"
+                    android:src="@mipmap/user_default"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/im_msg"
+                    app:riv_border_color="#bfbfbf"
+                    app:riv_border_width="3dp"
+                    app:riv_corner_radius="15dp" />
 
                 <TextView
                     android:id="@+id/tv_nick_name"
@@ -70,145 +68,94 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="15510115653"
                     android:textColor="@color/white"
                     android:textSize="17sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/im_head" />
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.33" />
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/guideline2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.66" />
 
-                <TextView
-                    android:id="@+id/tv_get_str"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="收益"
-                    android:textColor="@color/text_color2"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_get"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="￥88.88"
-                    android:textColor="@color/style_color"
-                    android:textSize="17sp"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_get_str"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline"
-                    app:layout_constraintStart_toStartOf="parent" />
-
+            </android.support.constraint.ConstraintLayout>
+            <android.support.constraint.ConstraintLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
                 <TextView
                     android:id="@+id/tv_class_str"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="79dp"
+                    android:layout_marginStart="79dp"
                     android:text="等级"
                     android:textColor="@color/text_color2"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                    app:layout_constraintStart_toStartOf="@+id/guideline" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_class"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="商家会员"
                     android:textColor="@color/style_color"
                     android:textSize="17sp"
                     app:layout_constraintBottom_toTopOf="@+id/tv_class_str"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                    app:layout_constraintStart_toStartOf="@+id/guideline" />
+                    app:layout_constraintEnd_toEndOf="@+id/tv_class_str"
+                    app:layout_constraintStart_toStartOf="@+id/tv_class_str" />
 
                 <TextView
                     android:id="@+id/tv_score_str"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="66dp"
+                    android:layout_marginRight="66dp"
                     android:text="积分"
                     android:textColor="@color/text_color2"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/guideline2" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="2000"
                     android:textColor="@color/style_color"
                     android:textSize="17sp"
                     app:layout_constraintBottom_toTopOf="@+id/tv_score_str"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/guideline2" />
-
+                    app:layout_constraintEnd_toEndOf="@+id/tv_score_str"
+                    app:layout_constraintStart_toStartOf="@+id/tv_score_str" />
             </android.support.constraint.ConstraintLayout>
-
             <View
                 android:id="@+id/divider5"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="@color/line_wider" />
-            <!--我的订单-->
+            <!--兑换记录-->
             <RelativeLayout
+                android:id="@+id/lat_record"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:background="@color/white"
                 android:paddingLeft="17dp"
                 android:paddingRight="17dp">
+                <ImageView
+                    android:id="@+id/im_01"
+                    android:src="@mipmap/mine_order"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_centerVertical="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:drawableLeft="@mipmap/mine_order"
-                    android:drawablePadding="20dp"
-                    android:text="我的订单"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/im_01"
+                    android:text="兑换记录"
                     android:textColor="@color/text_color2"
                     android:textSize="16sp" />
 
@@ -225,21 +172,69 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="@color/line_wider" />
-            <!--商家入驻-->
+            <!--我的卡包-->
             <RelativeLayout
+                android:id="@+id/lat_card"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:background="@color/white"
                 android:paddingLeft="17dp"
                 android:paddingRight="17dp">
 
+                <ImageView
+                    android:id="@+id/im_02"
+                    android:src="@mipmap/mine_card"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_centerVertical="true" />
+
                 <TextView
+                    android:layout_toRightOf="@id/im_02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:drawableLeft="@mipmap/mine_bussiness"
-                    android:drawablePadding="20dp"
-                    android:text="商家入驻"
+                    android:layout_marginLeft="20dp"
+                    android:text="我的卡包"
+                    android:textColor="@color/text_color2"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/go" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line_wider" />
+            </RelativeLayout>
+
+            <!--我的团队-->
+            <RelativeLayout
+                android:id="@+id/lat_group"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:background="@color/white"
+                android:paddingLeft="17dp"
+                android:paddingRight="17dp">
+
+                <ImageView
+                    android:id="@+id/im_06"
+                    android:src="@mipmap/mine_group"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:layout_toRightOf="@id/im_06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:text="我的团队"
                     android:textColor="@color/text_color2"
                     android:textSize="16sp" />
 
@@ -258,18 +253,25 @@
             </RelativeLayout>
             <!--我的分享-->
             <RelativeLayout
+                android:id="@+id/lat_share"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:background="@color/white"
                 android:paddingLeft="17dp"
                 android:paddingRight="17dp">
+                <ImageView
+                    android:id="@+id/im_03"
+                    android:src="@mipmap/mine_share"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_centerVertical="true" />
 
                 <TextView
+                    android:layout_toRightOf="@id/im_03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:drawableLeft="@mipmap/mine_share"
-                    android:drawablePadding="20dp"
+                    android:layout_marginLeft="20dp"
                     android:text="我的分享"
                     android:textColor="@color/text_color2"
                     android:textSize="16sp" />
@@ -280,21 +282,32 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@mipmap/go" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line_wider" />
             </RelativeLayout>
             <!--收货地址-->
             <RelativeLayout
+                android:id="@+id/lat_location"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:background="@color/white"
                 android:paddingLeft="17dp"
                 android:paddingRight="17dp">
-
+                <ImageView
+                    android:id="@+id/im_04"
+                    android:src="@mipmap/mine_location"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_centerVertical="true" />
                 <TextView
+                    android:layout_toRightOf="@id/im_04"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:drawableLeft="@mipmap/mine_location"
-                    android:drawablePadding="20dp"
+                    android:layout_marginLeft="20dp"
                     android:text="收货地址"
                     android:textColor="@color/text_color2"
                     android:textSize="16sp" />
@@ -306,26 +319,27 @@
                     android:layout_centerVertical="true"
                     android:src="@mipmap/go" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/line_wider" />
             </RelativeLayout>
             <!--关于我们-->
             <RelativeLayout
+                android:id="@+id/lat_about_us"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:background="@color/white"
                 android:paddingLeft="17dp"
                 android:paddingRight="17dp">
-
+                <ImageView
+                    android:id="@+id/im_05"
+                    android:src="@mipmap/mine_about_us"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_centerVertical="true" />
                 <TextView
+                    android:layout_toRightOf="@id/im_05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:drawableLeft="@mipmap/mine_about_us"
-                    android:drawablePadding="20dp"
+                    android:layout_marginLeft="20dp"
                     android:text="关于我们"
                     android:textColor="@color/text_color2"
                     android:textSize="16sp" />

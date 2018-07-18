@@ -3,6 +3,7 @@ package com.wta.NewCloudApp.mvp.presenter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
@@ -10,6 +11,7 @@ import com.jess.arms.mvp.IView;
 import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.RxLifecycleUtils;
 import com.wta.NewCloudApp.config.App;
+import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.config.DefaultHandleSubscriber;
 import com.wta.NewCloudApp.config.HttpResponseHandler;
 import com.wta.NewCloudApp.mvp.model.entity.Resend;
@@ -25,6 +27,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import timber.log.Timber;
 
 
 public class BBasePresenter<M extends IModel, V extends IView> extends BasePresenter<M, V> implements HttpResponseHandler {
@@ -55,11 +58,22 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
 
     @Override
     public <T> void handle200(int what, Result<T> result) {
-
+        /*try {
+            String sessionId = result.login_access.sessionId;
+            AppConfig.getInstance().putString("sessionId", sessionId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
     }
 
     @Override
     public <T> void handle404(int what, Result<T> result) {
+        /*try {
+            String sessionId = result.login_access.sessionId;
+            AppConfig.getInstance().putString("sessionId", sessionId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
         ArmsUtils.snackbarText(result.msg);
     }
 

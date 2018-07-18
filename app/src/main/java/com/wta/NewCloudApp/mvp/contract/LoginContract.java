@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.contract;
 
 import com.jess.arms.mvp.IView;
+import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.ui.activity.LoginActivity;
@@ -11,6 +12,6 @@ public interface LoginContract {
     interface View extends IView {
         LoginActivity getActivity();
         void timeCutDown(Result<User> results);
-        void loginSuccess(Result<User> results);
+        void loginSuccess(Result<LoginEntity> results);
     }
 }

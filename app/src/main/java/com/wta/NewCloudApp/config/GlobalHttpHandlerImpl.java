@@ -58,8 +58,8 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
                 .header("noncestr", nonceStr)
                 .header("sign",strs[1])
                 .header("timestamp", strs[0])
-                .header("sessionId", AppConfig.getInstance().getString("session_id", "no_id"))
-                .header("accessToken", AppConfig.getInstance().getString("access_token", "no_token"))
+                .header("sessionId", AppConfig.getInstance().getString("sessionId", "no_id"))
+                .header("accessToken", AppConfig.getInstance().getString("accessToken", "no_token"))
                 /*.header("network", AppConfig.getInstance().getString("network",null))*/
                 .build();
     }

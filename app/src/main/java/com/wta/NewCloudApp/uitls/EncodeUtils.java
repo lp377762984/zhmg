@@ -34,7 +34,7 @@ public class EncodeUtils {
         TreeMap map = new TreeMap();
         map.put("nonce_str", nonceStr);//3
         map.put("timestamp", System.currentTimeMillis()/1000);//4
-        map.put("key", "qlqw46c229d7zjf4bc3a813332aff792d32c23");//2
+        map.put("key", "zhmg46c229d7zjf4bc3a813332aff792d32c23");//2
         map.put("api_url", url);//1
         StringBuilder sb = new StringBuilder();
         for (Object o : map.keySet()) {
@@ -54,7 +54,7 @@ public class EncodeUtils {
         map.put("nonce_str", nonceStr);//3
         long time = System.currentTimeMillis()/1000;
         map.put("timestamp", time);//4
-        map.put("key", "qlqw46c229d7zjf4bc3a813332aff792d32c23");//2
+        map.put("key", "zhmg46c229d7zjf4bc3a813332aff792d32c23");//2
         map.put("api_url", url);//1
         StringBuilder sb = new StringBuilder();
         for (Object o : map.keySet()) {

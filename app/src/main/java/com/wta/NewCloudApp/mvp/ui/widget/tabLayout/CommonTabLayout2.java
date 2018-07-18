@@ -242,7 +242,7 @@ public class CommonTabLayout2 extends FrameLayout implements ValueAnimator.Anima
             public void onClick(View v) {
                 int position = (Integer) v.getTag();
                 if (mCurrentTab != position) {
-                    setCurrentTab(position);
+                    //setCurrentTab(position);
                     if (mListener != null) {
                         mListener.onTabSelect(position);
                     }

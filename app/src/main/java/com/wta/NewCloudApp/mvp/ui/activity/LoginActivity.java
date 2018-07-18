@@ -20,11 +20,14 @@ import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.wta.NewCloudApp.config.App;
+import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerLoginComponent;
 import com.wta.NewCloudApp.di.module.LoginModule;
 import com.wta.NewCloudApp.jiuwei210278.R;
 import com.wta.NewCloudApp.mvp.contract.LoginContract;
+import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.LoginPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
@@ -37,12 +40,14 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 
 public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implements LoginContract.View, UMAuthListener {
@@ -66,6 +71,8 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     @BindView(R.id.im_wx_login)
     ImageView imWxLogin;
     private static int CODE_TIME = 30;
+    @BindView(R.id.rec_line)
+    View recLine;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -84,6 +91,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        setAgreeVisible(AppConfig.getInstance().getBoolean("is_login", false) ? 1 : 0);
         final boolean[] etPhoneEnable = {false};
         final boolean[] etCodeEnable = {false};
         etPhone.addTextChangedListener(new TextWatcher() {
@@ -150,7 +158,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
             case R.id.im_wx_login:
                 if (UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN))
                     UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.WEIXIN, this);
-                else ArmsUtils.makeText(App.getInstance(),"您没有安装微信");
+                else ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
                 break;
         }
     }
@@ -163,6 +171,10 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
         }
         if (etCode.length() == 0) {
             ArmsUtils.makeText(this.getApplicationContext(), "请输入验证码");
+            return false;
+        }
+        if (checkBox.isEnabled() && !checkBox.isChecked()) {
+            ArmsUtils.makeText(this.getApplicationContext(), "请阅读并同意协议");
             return false;
         }
         return false;
@@ -178,7 +190,8 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
 
     @Override
     public void timeCutDown(Result<User> results) {
-        ArmsUtils.makeText(this, "短信验证码已发送");
+        ArmsUtils.makeText(getApplicationContext(), "短信验证码已发送");
+        setAgreeVisible(results.data.is_member);
         Observable.interval(0, 1, TimeUnit.SECONDS)
                 .compose(RxLifecycleUtils.bindToLifecycle((Lifecycleable) this))
                 .subscribeOn(Schedulers.io())
@@ -213,6 +226,16 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
                 });
     }
 
+    /**
+     * 设置协议是否显示
+     */
+    private void setAgreeVisible(int is_member) {
+        checkBox.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
+        tvAgree.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
+        recLine.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
+        etRecommendCode.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
+    }
+
     @Override
     public void onStart(SHARE_MEDIA share_media) {
         showLoading();
@@ -235,10 +258,21 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     }
 
     @Override
-    public void loginSuccess(Result<User> results) {
-        ArmsUtils.makeText(this,"登陆成功");
-        //ArmsUtils.startActivity(MainActivity.class);
-        EventBus.getDefault().post(1);
+    public void loginSuccess(Result<LoginEntity> results) {
+        Timber.d("loginSuccess: ");
+        ArmsUtils.makeText(getApplicationContext(), results.msg);
+        if (!AppConfig.getInstance().getBoolean("is_login", false))
+            EventBus.getDefault().post(new TabWhat(2));
+        else
+            EventBus.getDefault().post(1);
+        //用于判断是否显示注册协议,点击主页面第三个tab的判断
+        AppConfig.getInstance().putBoolean("is_login", true);
+        //save user
+        User user = results.data.user_info;
+        AppConfig.getInstance().putUser(user);
+        //save session
+        AppConfig.getInstance().putString("sessionId",results.data.update_token.sessionId);
+        AppConfig.getInstance().putString("accessToken",results.data.update_token.accessToken);
         finish();
     }
 }
