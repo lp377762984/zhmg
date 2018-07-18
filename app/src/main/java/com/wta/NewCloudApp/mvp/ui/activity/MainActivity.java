@@ -10,6 +10,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.umeng.socialize.UMShareAPI;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.jiuwei210278.R;
 import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
@@ -62,6 +63,7 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (bind != null) bind.unbind();
+        UMShareAPI.get(this).release();
     }
 
     private ArrayList<Fragment> createFragments() {

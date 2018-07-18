@@ -26,6 +26,7 @@ import com.wta.NewCloudApp.jiuwei210278.R;
 import com.wta.NewCloudApp.mvp.contract.UserMsgContract;
 import com.wta.NewCloudApp.mvp.presenter.UserMsgPresenter;
 import com.wta.NewCloudApp.uitls.ConfigTag;
+import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import org.devio.takephoto.app.TakePhoto;
@@ -105,8 +106,12 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
                 break;
             case R.id.lat_code:
                 ArmsUtils.startActivity(UserQRActivity.class);
+                break;
             case R.id.lat_real:
-
+                if (AppConfig.getInstance().getInt(ConfigTag.CARD_STATUS, 0) == 0)
+                    ArmsUtils.makeText(this, "跳认证界面");
+                else
+                    DialogUtils.createAuthDialog(this).show();
                 break;
         }
     }
@@ -196,7 +201,7 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_SET_NAME) {
             tvName.setText(data.getStringExtra("name"));
-            mPresenter.setUser(data.getStringExtra("name"), null,0);
+            mPresenter.setUser(data.getStringExtra("name"), null, 0);
         }
 
     }
@@ -229,7 +234,7 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
                 imHead.setImageBitmap(BitmapFactory.decodeFile(result.getImage().getCompressPath()));
             }
         });
-        mPresenter.setUser(null, new File(result.getImage().getCompressPath()),1);
+        mPresenter.setUser(null, new File(result.getImage().getCompressPath()), 1);
     }
 
     @Override

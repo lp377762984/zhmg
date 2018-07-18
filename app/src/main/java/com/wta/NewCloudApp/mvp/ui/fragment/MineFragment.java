@@ -3,6 +3,7 @@ package com.wta.NewCloudApp.mvp.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +11,24 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.jess.arms.utils.ArmsUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerMineComponent;
 import com.wta.NewCloudApp.di.module.MineModule;
 import com.wta.NewCloudApp.jiuwei210278.R;
 import com.wta.NewCloudApp.mvp.contract.MineContract;
+import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.presenter.MinePresenter;
 import com.wta.NewCloudApp.mvp.ui.activity.SettingActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UserMsgActivity;
@@ -28,9 +37,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 
-public class MineFragment extends BaseLoadingFragment<MinePresenter> implements MineContract.View {
+public class MineFragment extends BaseLoadingFragment<MinePresenter> implements MineContract.View, View.OnClickListener {
 
     @BindView(R.id.im_head)
     RoundedImageView imHead;
@@ -55,11 +65,8 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
     RelativeLayout latLocation;
     @BindView(R.id.lat_about_us)
     RelativeLayout latAboutUs;
-
-    public static MineFragment newInstance() {
-        MineFragment fragment = new MineFragment();
-        return fragment;
-    }
+    private BottomSheetDialog dialog;
+    private Share share;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -119,6 +126,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
             case R.id.lat_group:
                 break;
             case R.id.lat_share:
+                mPresenter.startShare();
                 break;
             case R.id.lat_location:
                 break;
@@ -128,8 +136,97 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
     }
 
     @Override
+    public void onClick(View v) {
+        UMWeb web = new UMWeb(share.share_url);
+        web.setTitle(share.share_title);//标题
+        web.setThumb(new UMImage(getActivity(), share.share_img));  //缩略图
+        web.setDescription(share.share_desc);//描述
+
+        switch (v.getId()) {
+            case R.id.tv_wx:
+                if (!UMShareAPI.get(getActivity()).isInstall(getActivity(), SHARE_MEDIA.WEIXIN)) {
+                    ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
+                    return;
+                }
+                new ShareAction(getActivity()).setPlatform(SHARE_MEDIA.WEIXIN)
+                        .setCallback(new ShareListener())
+                        .withMedia(web).share();
+                break;
+            case R.id.tv_wx_friends:
+                if (!UMShareAPI.get(getActivity()).isInstall(getActivity(), SHARE_MEDIA.WEIXIN)) {
+                    ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
+                    return;
+                }
+                new ShareAction(getActivity()).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
+                        .setCallback(new ShareListener())
+                        .withMedia(web).share();
+                break;
+            case R.id.tv_qq:
+                if (!UMShareAPI.get(getActivity()).isInstall(getActivity(), SHARE_MEDIA.QQ)) {
+                    ArmsUtils.makeText(App.getInstance(), "您没有安装QQ");
+                    return;
+                }
+                new ShareAction(getActivity()).setPlatform(SHARE_MEDIA.QQ)
+                        .setCallback(new ShareListener())
+                        .withMedia(web).share();
+                break;
+            case R.id.tv_qq_zone:
+                if (!UMShareAPI.get(getActivity()).isInstall(getActivity(), SHARE_MEDIA.QQ)) {
+                    ArmsUtils.makeText(App.getInstance(), "您没有安装QQ");
+                    return;
+                }
+                new ShareAction(getActivity()).setPlatform(SHARE_MEDIA.QZONE)
+                        .setCallback(new ShareListener())
+                        .withMedia(web).share();
+                break;
+            case R.id.imageView:
+                dialog.dismiss();
+                break;
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    @Override
+    public void share(Result<Share> result) {
+        share = result.data;
+        if (dialog == null) {
+            dialog = new BottomSheetDialog(getActivity());
+            dialog.setContentView(R.layout.share_dialog);
+            dialog.findViewById(R.id.tv_wx).setOnClickListener(this);
+            dialog.findViewById(R.id.tv_wx_friends).setOnClickListener(this);
+            dialog.findViewById(R.id.tv_qq).setOnClickListener(this);
+            dialog.findViewById(R.id.tv_qq_zone).setOnClickListener(this);
+            dialog.findViewById(R.id.imageView).setOnClickListener(this);
+        }
+        dialog.show();
+    }
+
+    public static class ShareListener implements UMShareListener {
+
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+            ArmsUtils.makeText(App.getInstance(), "分享成功");
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+            Timber.d("onError: %s", throwable);
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+            ArmsUtils.makeText(App.getInstance(), "分享已取消");
+        }
+    }
+
 }

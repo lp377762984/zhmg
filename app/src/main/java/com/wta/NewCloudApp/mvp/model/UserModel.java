@@ -1,15 +1,15 @@
 package com.wta.NewCloudApp.mvp.model;
 
-import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 
 import com.jess.arms.di.scope.ActivityScope;
+import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.uitls.FileUtils;
 
@@ -21,8 +21,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
-import timber.log.Timber;
-
 
 @ActivityScope
 public class UserModel extends BaseModel implements IUserModel {
@@ -60,12 +58,17 @@ public class UserModel extends BaseModel implements IUserModel {
 
     @Override
     public Observable<Result<User>> setUser(String name, File head) {
-        String avatar=null;
-        if (head!=null && head.exists()){
+        String avatar = null;
+        if (head != null && head.exists()) {
             byte[] bytes = FileUtils.File2byte(head);
-            avatar = "data:image/jpeg;base64,"+Base64.encodeToString(bytes, Base64.DEFAULT);
+            avatar = "data:image/jpeg;base64," + Base64.encodeToString(bytes, Base64.DEFAULT);
         }
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).setUser(name, avatar);
+    }
+
+    @Override
+    public Observable<Result<Share>> getShare() {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getShare();
     }
 
 }

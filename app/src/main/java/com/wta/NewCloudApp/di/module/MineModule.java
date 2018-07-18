@@ -1,12 +1,12 @@
 package com.wta.NewCloudApp.di.module;
 
-import com.jess.arms.di.scope.FragmentScope;
+import com.jess.arms.di.scope.ActivityScope;
+import com.wta.NewCloudApp.mvp.contract.MineContract;
+import com.wta.NewCloudApp.mvp.model.IUserModel;
+import com.wta.NewCloudApp.mvp.model.UserModel;
 
 import dagger.Module;
 import dagger.Provides;
-
-import com.wta.NewCloudApp.mvp.contract.MineContract;
-import com.wta.NewCloudApp.mvp.model.MineModel;
 
 
 @Module
@@ -22,15 +22,15 @@ public class MineModule {
         this.view = view;
     }
 
-    @FragmentScope
+    @ActivityScope
     @Provides
     MineContract.View provideMineView() {
         return this.view;
     }
 
-    @FragmentScope
+    @ActivityScope
     @Provides
-    MineContract.Model provideMineModel(MineModel model) {
+    IUserModel provideMineModel(UserModel model) {
         return model;
     }
 }
