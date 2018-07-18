@@ -41,5 +41,4 @@ public interface HttpServices {
     @GET("/messageList")
     Observable<Result<List<Msg>>> getMsgList(@Query("page") int index);
 
-
 }

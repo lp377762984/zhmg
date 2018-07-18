@@ -27,6 +27,7 @@ import io.reactivex.functions.Function;
 @ActivityScope
 public class UserModel extends BaseModel implements IUserModel {
     private int index = 1;
+
     @Inject
     public UserModel(IRepositoryManager repositoryManager) {
         super(repositoryManager);
@@ -75,9 +76,13 @@ public class UserModel extends BaseModel implements IUserModel {
 
     @Override
     public Observable<Result<List<Msg>>> getMsgList(boolean isRefresh) {
-        if (isRefresh) index=1;
-        else  index++;
-        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getMsgList(index);
+        if (isRefresh) index = 1;
+        else index++;
+        Observable<Result<List<Msg>>> msgList = null;
+        msgList = mRepositoryManager.obtainRetrofitService(HttpServices.class).getMsgList(index);
+        return msgList;
+
+
     }
 
 }

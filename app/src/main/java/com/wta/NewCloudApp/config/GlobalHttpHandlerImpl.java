@@ -24,6 +24,7 @@ import com.wta.NewCloudApp.uitls.PackageUtils;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
+import timber.log.Timber;
 
 /**
  * ================================================
@@ -60,7 +61,6 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
                 .header("timestamp", strs[0])
                 .header("sessionId", AppConfig.getInstance().getString("sessionId", "no_id"))
                 .header("accessToken", AppConfig.getInstance().getString("accessToken", "no_token"))
-                /*.header("network", AppConfig.getInstance().getString("network",null))*/
                 .build();
     }
 }

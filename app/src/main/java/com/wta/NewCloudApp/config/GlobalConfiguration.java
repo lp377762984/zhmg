@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.jess.arms.base.BaseActivity;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.di.module.GlobalConfigModule;
@@ -29,6 +28,7 @@ import com.jess.arms.http.log.RequestInterceptor;
 import com.jess.arms.integration.ConfigModule;
 import com.jess.arms.utils.ArmsUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.wta.NewCloudApp.config.convert.GsonConverterFactory;
 import com.wta.NewCloudApp.jiuwei210278.BuildConfig;
 import com.wta.NewCloudApp.mvp.model.api.Api;
 import com.squareup.leakcanary.RefWatcher;
@@ -82,6 +82,7 @@ public final class GlobalConfiguration implements ConfigModule {
                 })
                 .retrofitConfiguration((context1, retrofitBuilder) -> {//这里可以自己自定义配置Retrofit的参数,甚至你可以替换系统配置好的okhttp对象
 //                    retrofitBuilder.addConverterFactory(FastJsonConverterFactory.create());//比如使用fastjson替代gson
+                    retrofitBuilder.addConverterFactory(GsonConverterFactory.create());
                 })
                 .okhttpConfiguration((context1, okhttpBuilder) -> {//这里可以自己自定义配置Okhttp的参数
 //                    okhttpBuilder.sslSocketFactory(); //支持 Https,详情请百度
