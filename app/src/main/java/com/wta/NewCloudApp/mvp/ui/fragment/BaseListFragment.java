@@ -45,7 +45,6 @@ public class BaseListFragment<P extends IPresenter> extends BaseLoadingFragment<
             public void onLoadMoreRequested() {
                 isRefresh = false;
                 loadData(isRefresh);
-                //mPresenter.getData(data.get(data.size() - 1).getId());
             }
         }, recyclerView);
         refreshLayout.setEnableRefresh(true);
@@ -63,13 +62,11 @@ public class BaseListFragment<P extends IPresenter> extends BaseLoadingFragment<
                 isRefresh = true;
                 isComplete = false;
                 loadData(isRefresh);
-                //mPresenter.getData(null);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         loadData(isRefresh);
-        //mPresenter.getData(null);
     }
 
     protected void getAdapter() {

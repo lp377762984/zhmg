@@ -8,12 +8,14 @@ import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
+import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.uitls.FileUtils;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +26,7 @@ import io.reactivex.functions.Function;
 
 @ActivityScope
 public class UserModel extends BaseModel implements IUserModel {
-
+    private int index = 1;
     @Inject
     public UserModel(IRepositoryManager repositoryManager) {
         super(repositoryManager);
@@ -69,6 +71,13 @@ public class UserModel extends BaseModel implements IUserModel {
     @Override
     public Observable<Result<Share>> getShare() {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).getShare();
+    }
+
+    @Override
+    public Observable<Result<List<Msg>>> getMsgList(boolean isRefresh) {
+        if (isRefresh) index=1;
+        else  index++;
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getMsgList(index);
     }
 
 }
