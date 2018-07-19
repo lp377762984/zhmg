@@ -24,8 +24,8 @@ public interface HttpServices {
     Observable<Result<User>> sendCode(@Field("mobile") String phone);
 
     @FormUrlEncoded
-    @POST("/Wechatlogin")
-    Observable<Result<User>> wxLogin(@FieldMap Map<String, String> user);
+    @POST("/WechatLogin")
+    Observable<Result<LoginEntity>> wxLogin(@FieldMap Map<String, String> user);
 
     @FormUrlEncoded
     @POST("/login")
@@ -40,5 +40,9 @@ public interface HttpServices {
 
     @GET("/messageList")
     Observable<Result<List<Msg>>> getMsgList(@Query("page") int index);
+
+    @FormUrlEncoded
+    @POST("/user/nameAuth")
+    Observable<Result<User>> auth(@Field("realname") String nickname, @Field("cardno") String avatar);
 
 }

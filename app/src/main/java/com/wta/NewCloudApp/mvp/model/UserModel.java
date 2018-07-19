@@ -44,19 +44,16 @@ public class UserModel extends BaseModel implements IUserModel {
     }
 
     @Override
-    public Observable<Result<User>> wxLogin(Map<String, String> map) {
-//        String uid = map.get("uid");
-//        String name = map.get("name");
-//        String gender = map.get("gender");
-//        String iconurl = map.get("iconurl");
-//        return mRepositoryManager.obtainRetrofitService(HttpServices.class).wxLogin(map);
-
-        return Observable.timer(2, TimeUnit.SECONDS).map(new Function<Long, Result<User>>() {
-            @Override
-            public Result<User> apply(Long aLong) throws Exception {
-                return new Result<>(200);
-            }
-        });
+    public Observable<Result<LoginEntity>> wxLogin(Map<String, String> map) {
+        String uid = map.get("uid");
+        String name = map.get("name");
+        //String gender = map.get("gender");
+        String iconurl = map.get("iconurl");
+        map.put("openid",uid);
+        map.put("nickname",name);
+        map.put("type","weixin");
+        map.put("headimg",iconurl);
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).wxLogin(map);
     }
 
     @Override
@@ -83,6 +80,11 @@ public class UserModel extends BaseModel implements IUserModel {
         return msgList;
 
 
+    }
+
+    @Override
+    public Observable<Result<User>> auth(String nickname, String cardno) {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).auth(nickname,cardno);
     }
 
 }

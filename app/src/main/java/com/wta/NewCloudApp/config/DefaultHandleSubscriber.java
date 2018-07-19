@@ -64,4 +64,9 @@ public class DefaultHandleSubscriber<K> extends ErrorHandleSubscriber<K> {
             }
         }
     }
+
+    @Override
+    public void onError(Throwable t) {
+        super.onError(t);
+    }
 }

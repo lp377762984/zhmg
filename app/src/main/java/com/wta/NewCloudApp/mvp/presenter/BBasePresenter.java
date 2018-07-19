@@ -58,22 +58,22 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
 
     @Override
     public <T> void handle200(int what, Result<T> result) {
-        /*try {
+        try {
             String sessionId = result.login_access.sessionId;
             AppConfig.getInstance().putString("sessionId", sessionId);
         }catch (Exception e){
             e.printStackTrace();
-        }*/
+        }
     }
 
     @Override
     public <T> void handle404(int what, Result<T> result) {
-        /*try {
+        try {
             String sessionId = result.login_access.sessionId;
             AppConfig.getInstance().putString("sessionId", sessionId);
         }catch (Exception e){
             e.printStackTrace();
-        }*/
+        }
         ArmsUtils.snackbarText(result.msg);
     }
 

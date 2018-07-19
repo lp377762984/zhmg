@@ -16,8 +16,9 @@ import io.reactivex.Observable;
 public interface IUserModel extends IModel {
     Observable<Result<User>> sendCode(String phone);//发送验证码
     Observable<Result<LoginEntity>> login(String phone, String code, String recCode);//登陆
-    Observable<Result<User>> wxLogin(Map<String, String> map);//微信登陆
+    Observable<Result<LoginEntity>> wxLogin(Map<String, String> map);//微信登陆
     Observable<Result<User>> setUser(String name, File head);//修改用户信息 上传用户头像
     Observable<Result<Share>> getShare();//分享
     Observable<Result<List<Msg>>> getMsgList(boolean refresh);//获取消息列表
+    Observable<Result<User>> auth(String nickname,String cardno);//实名认证
 }

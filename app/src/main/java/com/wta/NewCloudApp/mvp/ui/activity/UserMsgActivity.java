@@ -109,7 +109,7 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
                 break;
             case R.id.lat_real:
                 if (AppConfig.getInstance().getInt(ConfigTag.CARD_STATUS, 0) == 0)
-                    ArmsUtils.makeText(this, "跳认证界面");
+                    AuthActivity.startAuth(this);
                 else
                     DialogUtils.createAuthDialog(this).show();
                 break;
@@ -202,6 +202,8 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_SET_NAME) {
             tvName.setText(data.getStringExtra("name"));
             mPresenter.setUser(data.getStringExtra("name"), null, 0);
+        }else if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_AUTH){
+            tvState.setText("已认证");
         }
 
     }
