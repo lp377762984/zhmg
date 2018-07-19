@@ -23,6 +23,7 @@ public class User {
     public String number;
     public String mobile;
     public int is_weixin;
+    public int is_mobile;
     public String wx_name;
     public String group_name;
 }

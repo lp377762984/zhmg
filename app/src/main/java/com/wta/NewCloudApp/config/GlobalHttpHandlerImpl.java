@@ -19,8 +19,10 @@ import android.content.Context;
 
 import com.jess.arms.http.GlobalHttpHandler;
 
+import com.wta.NewCloudApp.mvp.model.api.Api;
 import com.wta.NewCloudApp.uitls.EncodeUtils;
 import com.wta.NewCloudApp.uitls.PackageUtils;
+
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -51,13 +53,17 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
         String nonceStr = EncodeUtils.makeNonceStr();
         String url = request.url().toString();
+        if (request.method().equals("GET") && url.contains(Api.APP_DOMAIN) && url.contains("?")) {
+            String[] split = url.split("\\?");
+            url = split[0];
+        }
         String[] strs = EncodeUtils.makeSignHead(nonceStr, url);
         return chain.request().newBuilder()
                 .header("apiversion", PackageUtils.getPackageVersion(context))
                 .header("clientfrom", "android" + PackageUtils.getAndroidVersion())
                 .header("deviceuuid", PackageUtils.getDeviceId())
                 .header("noncestr", nonceStr)
-                .header("sign",strs[1])
+                .header("sign", strs[1])
                 .header("timestamp", strs[0])
                 .header("sessionId", AppConfig.getInstance().getString("sessionId", "no_id"))
                 .header("accessToken", AppConfig.getInstance().getString("accessToken", "no_token"))

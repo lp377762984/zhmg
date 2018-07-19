@@ -75,16 +75,35 @@ public class UserModel extends BaseModel implements IUserModel {
     public Observable<Result<List<Msg>>> getMsgList(boolean isRefresh) {
         if (isRefresh) index = 1;
         else index++;
-        Observable<Result<List<Msg>>> msgList = null;
-        msgList = mRepositoryManager.obtainRetrofitService(HttpServices.class).getMsgList(index);
-        return msgList;
-
-
+        return  mRepositoryManager.obtainRetrofitService(HttpServices.class).getMsgList(index);
     }
 
     @Override
     public Observable<Result<User>> auth(String nickname, String cardno) {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).auth(nickname,cardno);
+    }
+
+    @Override
+    public Observable<Result<User>> bindSendCode(String phone) {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindSendCode(phone);
+    }
+
+    @Override
+    public Observable<Result<User>> bindPhone(String mobile, String verify) {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindPhone(mobile,verify);
+    }
+
+    @Override
+    public Observable<Result<User>> bindWX(Map<String, String> map) {
+        String uid = map.get("uid");
+        String name = map.get("name");
+        //String gender = map.get("gender");
+        String iconurl = map.get("iconurl");
+        map.put("openid",uid);
+        map.put("nickname",name);
+        map.put("type","weixin");
+        map.put("headimg",iconurl);
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindWX(map);
     }
 
 }

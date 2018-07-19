@@ -61,7 +61,7 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
         try {
             String sessionId = result.login_access.sessionId;
             AppConfig.getInstance().putString("sessionId", sessionId);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -71,7 +71,7 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
         try {
             String sessionId = result.login_access.sessionId;
             AppConfig.getInstance().putString("sessionId", sessionId);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         ArmsUtils.snackbarText(result.msg);
@@ -133,6 +133,10 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
         if (resend != null) {
             doRequest(resend.observable, mErrorHandler, resend.what);
         }
+    }
+
+    public void showToast(String content) {
+        ArmsUtils.makeText(App.getInstance(), content);
     }
 
 }

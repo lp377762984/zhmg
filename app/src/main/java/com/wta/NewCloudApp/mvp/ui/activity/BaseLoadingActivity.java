@@ -11,12 +11,14 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.mvp.IPresenter;
 import com.jess.arms.mvp.IView;
 import com.jess.arms.utils.ArmsUtils;
+import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 public class BaseLoadingActivity<P extends IPresenter> extends BaseActivity<P> implements IView {
     private Dialog progress;
+
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
 
@@ -62,5 +64,9 @@ public class BaseLoadingActivity<P extends IPresenter> extends BaseActivity<P> i
     @Override
     public void killMyself() {
         finish();
+    }
+
+    public void showToast(String content) {
+        ArmsUtils.makeText(App.getInstance(), content);
     }
 }

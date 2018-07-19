@@ -77,6 +77,7 @@ public class AppConfig {
                 .remove("number")
                 .remove("mobile")
                 .remove("is_weixin")
+                .remove("is_mobile")
                 .remove("wx_name")
                 .remove("group_name")
                 .apply();
@@ -90,6 +91,7 @@ public class AppConfig {
         AppConfig.getInstance().putString("number", user.number);
         AppConfig.getInstance().putString("mobile", user.mobile);
         AppConfig.getInstance().putInt("is_weixin", user.is_weixin);
+        AppConfig.getInstance().putInt("is_mobile", user.is_mobile);
         AppConfig.getInstance().putString("wx_name", user.wx_name);
         AppConfig.getInstance().putString("group_name", user.group_name);
     }

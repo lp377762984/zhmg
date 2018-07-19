@@ -45,6 +45,6 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
 
     @Override
     public void loadData(boolean isRefresh) {
-        mPresenter.getData(isRefresh);
+        //mPresenter.getData(isRefresh);
     }
 }

@@ -45,4 +45,16 @@ public interface HttpServices {
     @POST("/user/nameAuth")
     Observable<Result<User>> auth(@Field("realname") String nickname, @Field("cardno") String avatar);
 
+    @FormUrlEncoded
+    @POST("/set/setVerify")
+    Observable<Result<User>> bindSendCode(@Field("mobile") String phone);
+
+    @FormUrlEncoded
+    @POST("/set/setMobile")
+    Observable<Result<User>> bindPhone(@Field("mobile") String phone, @Field("verify") String verify);
+
+    @FormUrlEncoded
+    @POST("/set/WechatLogin")
+    Observable<Result<User>> bindWX(@FieldMap Map<String, String> user);
+
 }

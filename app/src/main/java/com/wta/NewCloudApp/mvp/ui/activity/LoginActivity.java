@@ -238,18 +238,18 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
 
     @Override
     public void onStart(SHARE_MEDIA share_media) {
-        showLoading();
+        //showLoading();
     }
 
     @Override
     public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-        hideLoading();
+        //hideLoading();
         mPresenter.wxLogin(map);
     }
 
     @Override
     public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-        hideLoading();
+        //hideLoading();
     }
 
     @Override
