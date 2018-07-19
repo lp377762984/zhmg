@@ -144,7 +144,11 @@
             android:name="com.wta.NewCloudApp.mvp.ui.activity.MsgActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.BindPhoneActivity"
+        <activity
+            android:name="com.wta.NewCloudApp.mvp.ui.activity.BindPhoneActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.GroupActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
     </application>

@@ -57,4 +57,7 @@ public interface HttpServices {
     @POST("/set/WechatLogin")
     Observable<Result<User>> bindWX(@FieldMap Map<String, String> user);
 
+    @GET("/user/myTeam")
+    Observable<Result<User>> getTeam();
+
 }

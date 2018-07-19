@@ -106,4 +106,9 @@ public class UserModel extends BaseModel implements IUserModel {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindWX(map);
     }
 
+    @Override
+    public Observable<Result<User>> getTeam() {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getTeam();
+    }
+
 }

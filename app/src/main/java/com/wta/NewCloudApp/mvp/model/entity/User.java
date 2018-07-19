@@ -26,4 +26,16 @@ public class User {
     public int is_mobile;
     public String wx_name;
     public String group_name;
+
+    /**
+     * team_img : http://zhmg.jjzbest.com/public/static/base/images/join_picbak.png
+     * is_referee : 0
+     * referee : 上级推荐人电话号
+     * people : 2
+     */
+
+    public String team_img;
+    public int is_referee;
+    public String referee;
+    public int people;
 }

@@ -30,6 +30,7 @@ import com.wta.NewCloudApp.mvp.contract.MineContract;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.presenter.MinePresenter;
+import com.wta.NewCloudApp.mvp.ui.activity.GroupActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MsgActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SettingActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UserMsgActivity;
@@ -126,6 +127,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
             case R.id.lat_card:
                 break;
             case R.id.lat_group:
+                ArmsUtils.startActivity(GroupActivity.class);
                 break;
             case R.id.lat_share:
                 mPresenter.startShare();
