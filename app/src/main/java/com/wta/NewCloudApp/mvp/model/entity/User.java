@@ -38,4 +38,5 @@ public class User {
     public int is_referee;
     public String referee;
     public int people;
+    public String share_url;
 }

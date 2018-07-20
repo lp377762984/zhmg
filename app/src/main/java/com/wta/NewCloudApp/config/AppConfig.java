@@ -80,6 +80,7 @@ public class AppConfig {
                 .remove("is_mobile")
                 .remove("wx_name")
                 .remove("group_name")
+                .remove("share_url")
                 .apply();
     }
 
@@ -93,6 +94,7 @@ public class AppConfig {
         AppConfig.getInstance().putInt("is_weixin", user.is_weixin);
         AppConfig.getInstance().putInt("is_mobile", user.is_mobile);
         AppConfig.getInstance().putString("wx_name", user.wx_name);
+        AppConfig.getInstance().putString("share_url", user.share_url);
         AppConfig.getInstance().putString("group_name", user.group_name);
     }
 }

@@ -18,10 +18,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.jess.arms.utils.ArmsUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wta.NewCloudApp.config.App;
+import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerUserQRComponent;
 import com.wta.NewCloudApp.di.module.UserQRModule;
 import com.wta.NewCloudApp.jiuwei210278.R;
@@ -29,6 +31,7 @@ import com.wta.NewCloudApp.mvp.contract.UserQRContract;
 import com.wta.NewCloudApp.mvp.presenter.UserQRPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
 import com.wta.NewCloudApp.uitls.BitmapUtils;
+import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.QRCodeEncoder;
 import com.wta.NewCloudApp.uitls.ScreenDpiUtils;
 
@@ -72,7 +75,7 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mb.setCallBack(this);
-        Glide.with(this).load("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3250997155,395132153&fm=27&gp=0.jpg").into(new SimpleTarget<Drawable>() {
+        Glide.with(this).load(AppConfig.getInstance().getString(ConfigTag.AVATAR, null)).into(new SimpleTarget<Drawable>() {
             @Override
             public void onLoadFailed(@Nullable Drawable errorDrawable) {
                 setImQr(null);
@@ -84,17 +87,20 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
             }
 
         });
+        GlideArms.with(this).load(AppConfig.getInstance().getString(ConfigTag.AVATAR, null)).placeholder(R.mipmap.user_default).into(imHead);
+        tvCode.setText(AppConfig.getInstance().getString(ConfigTag.NUMBER, null));
+
     }
 
     private void setImQr(Drawable drawable) {
         Bitmap bitmap = null;
         if (drawable != null) {
-            RoundedImageView centerIm = (RoundedImageView)getLayoutInflater().inflate(R.layout.center_im, null);
+            RoundedImageView centerIm = (RoundedImageView) getLayoutInflater().inflate(R.layout.center_im, null);
             centerIm.setImageDrawable(drawable);
             bitmap = BitmapUtils.convertViewToBitmap(centerIm);
         }
         int wah = (int) ScreenDpiUtils.dp2px(UserQRActivity.this, 250);
-        qrCode = QRCodeEncoder.syncEncodeQRCode("3.14159265358.333333333333333333333333333333333333333333333333333",
+        qrCode = QRCodeEncoder.syncEncodeQRCode(AppConfig.getInstance().getString(ConfigTag.SHARE_URL,null),
                 wah, Color.BLACK, bitmap);
         imQr.setImageBitmap(qrCode);
     }

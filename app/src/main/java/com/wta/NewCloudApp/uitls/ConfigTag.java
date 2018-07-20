@@ -12,5 +12,5 @@ public class ConfigTag {
     public static final String IS_MOBILE= "is_mobile";
     public static final String WX_NAME= "wx_name";
     public static final String GROUP_NAME= "group_name";
-
+    public static final String SHARE_URL= "share_url";
 }
