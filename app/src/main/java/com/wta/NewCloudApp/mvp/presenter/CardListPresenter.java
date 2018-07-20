@@ -26,7 +26,7 @@ public class CardListPresenter extends BBasePresenter<UserModel, CardListContrac
     }
 
     public void deleteCard(int id) {
-        doRequest(buildListRequest(mModel.delBankCard(id)), 2);
+        doRequest(buildRequest(mModel.delBankCard(id)), 2);
     }
 
 
@@ -36,7 +36,7 @@ public class CardListPresenter extends BBasePresenter<UserModel, CardListContrac
         if (what == 1) {
             ((BaseDataView) mRootView).getData(what, (List) result.data);
         } else if (what == 2) {
-
+            mRootView.deleteSuccess();
         }
     }
 }

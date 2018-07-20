@@ -99,7 +99,9 @@ public class CardListActivity extends BaseListActivity<CardListPresenter> implem
 
     @Override
     public void deleteSuccess() {
+        data.remove(delPosition);
         adapter.notifyItemRemoved(delPosition);
+        showToast("银行卡删除成功。");
     }
     public boolean needLoadmore(){
         return false;
