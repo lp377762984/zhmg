@@ -16,9 +16,9 @@
     <application
         android:name="com.wta.NewCloudApp.config.App"
         android:allowBackup="true"
-        android:icon="@mipmap/app_logo"
+        android:icon="@drawable/logo03"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/app_logo"
+        android:roundIcon="@drawable/logo03"
         android:supportsRtl="true"
         android:theme="@style/AppTheme_NOACTIONBAR">
         <meta-data
@@ -148,7 +148,11 @@
             android:name="com.wta.NewCloudApp.mvp.ui.activity.BindPhoneActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.GroupActivity"
+        <activity
+            android:name="com.wta.NewCloudApp.mvp.ui.activity.GroupActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.AddRecActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
     </application>

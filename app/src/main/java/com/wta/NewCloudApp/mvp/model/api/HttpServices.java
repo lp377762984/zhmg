@@ -60,4 +60,7 @@ public interface HttpServices {
     @GET("/user/myTeam")
     Observable<Result<User>> getTeam();
 
+    @FormUrlEncoded
+    @POST("/set/setReferee")
+    Observable<Result<User>> setRecCode(@Field("number") String code);
 }

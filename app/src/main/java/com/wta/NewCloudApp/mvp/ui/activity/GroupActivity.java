@@ -1,12 +1,12 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jess.arms.base.delegate.IFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.di.component.DaggerGroupComponent;
 import com.wta.NewCloudApp.di.module.GroupModule;
@@ -15,6 +15,7 @@ import com.wta.NewCloudApp.mvp.contract.GroupContract;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.GroupPresenter;
+import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -57,7 +58,7 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_add:
-
+                AddRecActivity.start(this);
                 break;
             case R.id.tv_details:
                 showToast("尽请期待");
@@ -70,12 +71,25 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
         User user = userResult.data;
         tvCode.setText("我的推广码：" + user.number);
         tvAdd.setVisibility(user.is_referee == 0 ? View.VISIBLE : View.GONE);
-        if (user.is_referee == 0){
-           tvRec.setText("我的推荐人：暂无");
-        }else {
-            tvRec.setText("我的推荐人："+user.referee);
+        if (user.is_referee == 0) {
+            tvRec.setText("我的推荐人：暂无");
+        } else {
+            tvRec.setText("我的推荐人：" + user.referee);
         }
-        tvCount.setText(user.people+"");
-        tvScore.setText(user.white_score+"");
+        tvCount.setText(user.people + "");
+        tvScore.setText(user.white_score + "");
+    }
+
+    @Override
+    public void showCode(Result<User> codeResult) {
+        mPresenter.getTeam();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_REC_CODE) {
+            mPresenter.setRecCode(data.getStringExtra("rec_code"));
+        }
     }
 }

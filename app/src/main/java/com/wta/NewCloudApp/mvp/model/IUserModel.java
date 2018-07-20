@@ -25,4 +25,5 @@ public interface IUserModel extends IModel {
     Observable<Result<User>> bindPhone(String mobile,String verify);//设置手机号
     Observable<Result<User>> bindWX(Map<String, String> map);//微信绑定
     Observable<Result<User>> getTeam();//我的团队
+    Observable<Result<User>> setRecCode(String code);//添加推荐人
 }

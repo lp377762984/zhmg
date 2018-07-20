@@ -10,5 +10,6 @@ public interface GroupContract {
 
     interface View extends IView {
         void showTeam(Result<User> userResult);
+        void showCode(Result<User> codeResult);
     }
 }

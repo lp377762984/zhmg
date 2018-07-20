@@ -45,4 +45,5 @@
     <color name="text_color_gray2">#909090</color>
     <color name="text_color">#666666</color>
     <color name="text_color2">#646464</color>
+    <color name="hint_color">#999999</color>
 </resources>

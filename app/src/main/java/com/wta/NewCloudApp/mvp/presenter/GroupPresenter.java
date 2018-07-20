@@ -18,15 +18,21 @@ public class GroupPresenter extends BBasePresenter<UserModel, GroupContract.View
         super(model, rootView);
     }
 
-    public void getTeam(){
-        doRequest(buildRequest(mModel.getTeam()),1);
+    public void getTeam() {
+        doRequest(buildRequest(mModel.getTeam()), 1);
+    }
+
+    public void setRecCode(String code) {
+        doRequest(buildRequest(mModel.setRecCode(code)), 2);
     }
 
     @Override
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
-        if (what==1){
+        if (what == 1) {
             mRootView.showTeam((Result<User>) result);
+        } else if (what == 2) {
+            mRootView.showCode((Result<User>) result);
         }
     }
 }

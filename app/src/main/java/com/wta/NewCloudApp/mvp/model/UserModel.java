@@ -111,4 +111,9 @@ public class UserModel extends BaseModel implements IUserModel {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).getTeam();
     }
 
+    @Override
+    public Observable<Result<User>> setRecCode(String code) {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).setRecCode(code);
+    }
+
 }
