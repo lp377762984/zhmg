@@ -62,7 +62,7 @@ public interface HttpServices {
     Observable<Result<User>> getTeam();
 
     @FormUrlEncoded
-    @POST("/set/setReferee")
+    @POST("/user/setReferee")
     Observable<Result<User>> setRecCode(@Field("number") String code);
 
     @GET("/bank/getBankList")

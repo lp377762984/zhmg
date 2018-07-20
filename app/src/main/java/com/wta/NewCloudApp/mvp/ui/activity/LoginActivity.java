@@ -236,8 +236,6 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
      * 设置协议是否显示
      */
     private void setAgreeVisible(int is_member) {
-        checkBox.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
-        tvAgree.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
         recLine.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
         etRecommendCode.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
     }
