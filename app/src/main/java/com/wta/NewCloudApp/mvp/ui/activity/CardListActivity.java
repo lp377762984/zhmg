@@ -1,5 +1,7 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -52,8 +54,22 @@ public class CardListActivity extends BaseListActivity<CardListPresenter> implem
         recyclerView.addOnItemTouchListener(new OnItemLongClickListener() {
             @Override
             public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                delPosition = position;
-                mPresenter.deleteCard(((BankCard) data.get(position)).id);
+                new AlertDialog.Builder(CardListActivity.this)
+                        .setTitle("提醒")
+                        .setMessage("确定要删除银行卡吗？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                delPosition = position;
+                                mPresenter.deleteCard(((BankCard) data.get(position)).id);
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
             }
         });
     }
@@ -84,5 +100,8 @@ public class CardListActivity extends BaseListActivity<CardListPresenter> implem
     @Override
     public void deleteSuccess() {
         adapter.notifyItemRemoved(delPosition);
+    }
+    public boolean needLoadmore(){
+        return false;
     }
 }

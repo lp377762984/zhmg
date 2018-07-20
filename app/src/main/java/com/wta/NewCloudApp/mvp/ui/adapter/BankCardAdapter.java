@@ -19,7 +19,7 @@ public class BankCardAdapter extends BaseQuickAdapter<BankCard, BaseViewHolder> 
     @Override
     protected void convert(BaseViewHolder helper, BankCard item) {
         GlideArms.with(mContext).load(item.bank_logo).into((ImageView) helper.getView(R.id.im_logo));
-        helper.setText(R.id.tv_name,item.nature);
+        helper.setText(R.id.tv_name,item.type);
         helper.setText(R.id.tv_number,"**** **** **** "+item.bank_card);
     }
 }

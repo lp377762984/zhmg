@@ -69,7 +69,7 @@ public interface HttpServices {
     Observable<Result<List<BankCard>>> getCardList();
 
     @FormUrlEncoded
-    @POST("/set/verifyBankCard")
+    @POST("/bank/verifyBankCard")
     Observable<Result<BankCard>> addBankCard(@Field("bank_card") String number);
 
     @FormUrlEncoded

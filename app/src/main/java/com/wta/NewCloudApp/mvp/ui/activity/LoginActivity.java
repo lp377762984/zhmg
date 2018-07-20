@@ -74,6 +74,9 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     @BindView(R.id.rec_line)
     View recLine;
 
+    @BindView(R.id.im_back)
+    View back;
+
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerLoginComponent //如找不到该类,请编译一下项目
@@ -137,7 +140,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
         return this;
     }
 
-    @OnClick({R.id.tv_get_code, R.id.btn_login, R.id.tv_agree, R.id.im_wx_login})
+    @OnClick({R.id.tv_get_code, R.id.btn_login, R.id.tv_agree, R.id.im_wx_login,R.id.im_back})
     public void onViewClick(View v) {
         switch (v.getId()) {
             case R.id.tv_get_code:
@@ -159,6 +162,9 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
                 if (UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN))
                     UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.WEIXIN, this);
                 else ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
+                break;
+            case R.id.im_back:
+                finish();
                 break;
         }
     }

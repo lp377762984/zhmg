@@ -41,6 +41,7 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.BaseListActivity" />
         <activity
+            android:theme="@style/AppTheme_FULLSCREEN"
             android:name="com.wta.NewCloudApp.mvp.ui.activity.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
@@ -99,26 +100,21 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.UserMsgActivity"
-            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.UserQRActivity"
-            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.BServiceActivity"
-            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.NameSetActivity"
-            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.ShopInActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.SplashActivity"
-            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme_FULLSCREEN">
             <intent-filter>
@@ -129,38 +125,31 @@
         </activity>
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.GuideActivity"
-            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme_FULLSCREEN" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.SettingActivity"
-            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.AuthActivity"
-            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.MsgActivity"
-            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.BindPhoneActivity"
-            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.GroupActivity"
-            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.AddRecActivity"
-            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.CardListActivity"
-            android:exported="true"
             android:screenOrientation="portrait" />
-        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.AddCardActivity"></activity>
+        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.AddCardActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

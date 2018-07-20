@@ -61,7 +61,7 @@ public class AddCardActivity extends BaseLoadingActivity<AddCardPresenter> imple
     public void getBankCard(Result<BankCard> cardResult) {
         Intent intent = getIntent();
         intent.putExtra("bank_card", cardResult.data);
-        setResult(RESULT_OK);
+        setResult(RESULT_OK,intent);
         finish();
     }
 

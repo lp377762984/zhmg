@@ -74,7 +74,7 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ArmsUtils.snackbarText(result.msg);
+        showToast(result.msg);
     }
 
     //执行网络请求

@@ -10,13 +10,23 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
+import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
 import com.wta.NewCloudApp.uitls.DialogUtils;
+import com.wta.NewCloudApp.uitls.EncodeUtils;
+import com.wta.NewCloudApp.uitls.PackageUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -24,6 +34,7 @@ public class WebViewActivity extends BaseActivity {
     private String url;
     private WebView webView;
     private String name;
+    private MoneyBar moneyBar;
 
     public static void start(Context context, String name, String url) {
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(url)) {
@@ -45,6 +56,7 @@ public class WebViewActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent != null) {
             name = intent.getStringExtra("name");
+            moneyBar.setTextTitle(name);
             url = intent.getStringExtra("url");
             if (url != null) {
                 Dialog waitDialog = DialogUtils.createWaitDialog(this);
@@ -61,7 +73,7 @@ public class WebViewActivity extends BaseActivity {
                         waitDialog.show();
                     }
                 });
-                webView.loadUrl(url);
+                webView.loadUrl(url, createHeader());
             }
         }
     }
@@ -70,6 +82,8 @@ public class WebViewActivity extends BaseActivity {
     private void initViews() {
         webView = ((WebView) findViewById(R.id.webView));
         webView.getSettings().setJavaScriptEnabled(true);
+
+        moneyBar = ((MoneyBar) findViewById(R.id.mb));
     }
 
     @Override
@@ -105,5 +119,18 @@ public class WebViewActivity extends BaseActivity {
     public void initData(@Nullable Bundle savedInstanceState) {
         initViews();
         getMsgFromBefore();
+    }
+
+    private Map<String, String> createHeader() {
+        Map<String, String> map = new HashMap<>();
+        map.put("clientfrom", "android" + PackageUtils.getAndroidVersion());
+        map.put("deviceuuid", PackageUtils.getDeviceId());
+        String nonceStr = EncodeUtils.makeNonceStr();
+        map.put("noncestr", nonceStr);
+        map.put("timestamp", String.valueOf(System.currentTimeMillis() / 1000));
+        map.put("sign", EncodeUtils.makeSign(nonceStr, url));
+        map.put("sessionId", AppConfig.getInstance().getString("session_id", null));
+        map.put("accessToken", AppConfig.getInstance().getString("access_token", null));
+        return map;
     }
 }
