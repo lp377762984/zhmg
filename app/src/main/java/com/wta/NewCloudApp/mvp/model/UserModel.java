@@ -7,6 +7,7 @@ import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
+import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
@@ -33,6 +34,9 @@ public class UserModel extends BaseModel implements IUserModel {
         super(repositoryManager);
     }
 
+    private HttpServices getService(){
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class);
+    }
     @Override
     public Observable<Result<User>> sendCode(String phone) {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).sendCode(phone);
@@ -111,9 +115,23 @@ public class UserModel extends BaseModel implements IUserModel {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).getTeam();
     }
 
-    @Override
     public Observable<Result<User>> setRecCode(String code) {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).setRecCode(code);
+    }
+
+    @Override
+    public Observable<Result<List<BankCard>>> getCardList() {
+        return getService().getCardList();
+    }
+
+    @Override
+    public Observable<Result<BankCard>> addBankCard(String cardNumber) {
+        return getService().addBankCard(cardNumber);
+    }
+
+    @Override
+    public Observable<Result> delBankCard(int id) {
+        return getService().delBankCard(id);
     }
 
 }

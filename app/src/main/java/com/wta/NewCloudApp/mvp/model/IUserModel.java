@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.model;
 
 import com.jess.arms.mvp.IModel;
+import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
@@ -26,4 +27,7 @@ public interface IUserModel extends IModel {
     Observable<Result<User>> bindWX(Map<String, String> map);//微信绑定
     Observable<Result<User>> getTeam();//我的团队
     Observable<Result<User>> setRecCode(String code);//添加推荐人
+    Observable<Result<List<BankCard>>> getCardList();//银行卡列表
+    Observable<Result<BankCard>> addBankCard(String cardNumber);//添加银行卡
+    Observable<Result> delBankCard(int id);//删除银行卡
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
+        app:textTitle="添加银行卡"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/money_bar_height"/>
+    <TextView
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center_vertical"
+        android:textColor="#bf656565"
+        android:text="请填写实名认证身份证号绑定的银行卡"
+        android:textSize="16sp"
+        android:background="#f5f5f5"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:textSize="18sp"
+            android:textColor="#323232"
+            android:text="银行卡号"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.wta.NewCloudApp.mvp.ui.widget.EditTextHint
+            android:id="@+id/et_number"
+            android:maxLines="1"
+            android:hint="请填写银行卡号"
+            android:paddingLeft="9dp"
+            app:hintSize="18sp"
+            android:textColorHint="@color/hint_color"
+            android:background="@null"
+            android:textColor="@color/text_color2"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <View
+        android:background="#f5f5f5"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+    <Button
+        android:id="@+id/btn_apply"
+        android:text="保存"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="182dp"
+        android:background="@drawable/add_card_save_bg"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="36dp" />
+</LinearLayout>

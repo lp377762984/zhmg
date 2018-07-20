@@ -14,7 +14,6 @@ import com.wta.NewCloudApp.mvp.contract.MsgContract;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.presenter.MsgPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.MsgAdapter;
-import com.wta.NewCloudApp.mvp.ui.adapter.SideAdapter;
 
 
 public class MsgActivity extends BaseListActivity<MsgPresenter> implements MsgContract.View {

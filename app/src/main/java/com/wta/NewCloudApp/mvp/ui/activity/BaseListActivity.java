@@ -36,15 +36,17 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
     public void initData(@Nullable Bundle savedInstanceState) {
         getAdapter();
         if (adapter == null) throw new NullPointerException("adapter is null");
-        adapter.setEnableLoadMore(true);
-        adapter.setLoadMoreView(new CustomLoadMoreView());
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                isRefresh = false;
-                loadData(isRefresh);
-            }
-        }, recyclerView);
+        if (needLoadmore()){
+            adapter.setEnableLoadMore(true);
+            adapter.setLoadMoreView(new CustomLoadMoreView());
+            adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+                @Override
+                public void onLoadMoreRequested() {
+                    isRefresh = false;
+                    loadData(isRefresh);
+                }
+            }, recyclerView);
+        }
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadmore(false);
         ClassicsHeader ch = new ClassicsHeader(this);
@@ -108,5 +110,9 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
 
     public void loadData(boolean isRefresh) {
 
+    }
+
+    public boolean needLoadmore(){
+        return true;
     }
 }

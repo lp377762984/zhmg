@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.model.api;
 
 
+import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
@@ -63,4 +64,15 @@ public interface HttpServices {
     @FormUrlEncoded
     @POST("/set/setReferee")
     Observable<Result<User>> setRecCode(@Field("number") String code);
+
+    @GET("/bank/getBankList")
+    Observable<Result<List<BankCard>>> getCardList();
+
+    @FormUrlEncoded
+    @POST("/set/verifyBankCard")
+    Observable<Result<BankCard>> addBankCard(@Field("bank_card") String number);
+
+    @FormUrlEncoded
+    @POST("/bank/delBanks")
+    Observable<Result> delBankCard(@Field("bank_id") int id);
 }

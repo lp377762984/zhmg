@@ -152,9 +152,15 @@
             android:name="com.wta.NewCloudApp.mvp.ui.activity.GroupActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.AddRecActivity"
+        <activity
+            android:name="com.wta.NewCloudApp.mvp.ui.activity.AddRecActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wta.NewCloudApp.mvp.ui.activity.CardListActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.AddCardActivity"></activity>
     </application>
 
 </manifest>
