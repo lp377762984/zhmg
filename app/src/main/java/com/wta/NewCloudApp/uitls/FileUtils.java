@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class FileUtils {
     public static byte[] File2byte(File file) {
@@ -41,6 +43,9 @@ public class FileUtils {
                 dir.mkdirs();
             }
             file = new File(filePath + File.separator + fileName);
+            if (file.exists()) {
+                file.delete();
+            }
             fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
             bos.write(buf);
@@ -62,6 +67,27 @@ public class FileUtils {
                 }
             }
         }
-
     }
+
+    public static void writeToFile(InputStream inputStream, File file) {
+        if (file.exists()) {
+            file.delete();
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            byte[] b = new byte[1024];
+            int len;
+            while ((len = inputStream.read(b)) != -1) {
+                fos.write(b,0,len);
+            }
+            inputStream.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

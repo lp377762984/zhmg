@@ -18,6 +18,7 @@ import com.wta.NewCloudApp.mvp.ui.fragment.HomeFragment;
 import com.wta.NewCloudApp.mvp.ui.fragment.MineFragment;
 import com.wta.NewCloudApp.mvp.ui.fragment.SideFragment;
 import com.wta.NewCloudApp.mvp.ui.widget.tabLayout.CommonTabLayout2;
+import com.wta.NewCloudApp.uitls.ConfigTag;
 
 import org.simple.eventbus.Subscriber;
 
@@ -46,7 +47,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onTabSelect(int position) {
                 if (position == 2) {
-                    if (!AppConfig.getInstance().getBoolean("is_login", false))
+                    if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
                         ArmsUtils.startActivity(LoginActivity.class);
                     else tabLayout.setCurrentTab(position);
                 } else tabLayout.setCurrentTab(position);

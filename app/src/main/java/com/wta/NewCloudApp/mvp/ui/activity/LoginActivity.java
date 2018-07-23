@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,10 +33,13 @@ import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.LoginPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
+import com.wta.NewCloudApp.uitls.ConfigTag;
+import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.RegexUtils;
 
 import org.simple.eventbus.EventBus;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -76,6 +80,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
 
     @BindView(R.id.im_back)
     View back;
+    private Map<String, String> map;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -94,7 +99,6 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setAgreeVisible(AppConfig.getInstance().getBoolean("is_login", false) ? 1 : 0);
         final boolean[] etPhoneEnable = {false};
         final boolean[] etCodeEnable = {false};
         etPhone.addTextChangedListener(new TextWatcher() {
@@ -140,7 +144,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
         return this;
     }
 
-    @OnClick({R.id.tv_get_code, R.id.btn_login, R.id.tv_agree, R.id.im_wx_login,R.id.im_back})
+    @OnClick({R.id.tv_get_code, R.id.btn_login, R.id.tv_agree, R.id.im_wx_login, R.id.im_back})
     public void onViewClick(View v) {
         switch (v.getId()) {
             case R.id.tv_get_code:
@@ -156,7 +160,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
                 }
                 break;
             case R.id.tv_agree:
-                WebViewActivity.start(this, "用户协议", "http://www.baidu.com");
+                WebViewActivity.start(this, "用户协议", FinalUtils.REGISTER_PROTOCOL);
                 break;
             case R.id.im_wx_login:
                 if (UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN))
@@ -170,7 +174,6 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     }
 
     private boolean checkLoginEnable() {
-        if (RegexUtils.isMobile(etPhone.getText().toString()) && etCode.length() > 0) return true;
         if (!RegexUtils.isMobile(etPhone.getText().toString())) {
             ArmsUtils.makeText(this.getApplicationContext(), "输入不符合规范，请重新输入");
             return false;
@@ -183,19 +186,23 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
             ArmsUtils.makeText(this.getApplicationContext(), "请阅读并同意协议");
             return false;
         }
+
+        if (RegexUtils.isMobile(etPhone.getText().toString()) && etCode.length() > 0) {
+            return true;
+        }
         return false;
     }
 
     public boolean checkError(String msg) {
-        if (msg.length() != 0)
-            if (RegexUtils.isMobile(msg)) return true;
-            else ArmsUtils.makeText(this.getApplicationContext(), "手机号码输入不符合规范，请重新输入");
-        else ArmsUtils.makeText(this.getApplicationContext(), "请输入11位手机号码");
+        if (RegexUtils.isMobile(msg)) return true;
+        else showToast("请输入11位手机号码");
         return false;
     }
 
     @Override
     public void timeCutDown(Result<User> results) {
+        etCode.requestFocus();
+        etCode.setFocusable(true);
         ArmsUtils.makeText(getApplicationContext(), "短信验证码已发送");
         setAgreeVisible(results.data.is_member);
         Observable.interval(0, 1, TimeUnit.SECONDS)
@@ -242,18 +249,16 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
 
     @Override
     public void onStart(SHARE_MEDIA share_media) {
-        //showLoading();
     }
 
     @Override
     public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-        //hideLoading();
+        this.map = map;
         mPresenter.wxLogin(map);
     }
 
     @Override
     public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-        //hideLoading();
     }
 
     @Override
@@ -263,20 +268,31 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
 
     @Override
     public void loginSuccess(Result<LoginEntity> results) {
-        Timber.d("loginSuccess: ");
-        ArmsUtils.makeText(getApplicationContext(), results.msg);
-        if (!AppConfig.getInstance().getBoolean("is_login", false))
-            EventBus.getDefault().post(new TabWhat(2));
-        else
-            EventBus.getDefault().post(1);
-        //用于判断是否显示注册协议,点击主页面第三个tab的判断
-        AppConfig.getInstance().putBoolean("is_login", true);
-        //save user
-        User user = results.data.user_info;
-        AppConfig.getInstance().putUser(user);
-        //save session
-        AppConfig.getInstance().putString("sessionId",results.data.update_token.sessionId);
-        AppConfig.getInstance().putString("accessToken",results.data.update_token.accessToken);
-        finish();
+        if (results.data.code_type == 0) {//微信登陆需要绑定手机号
+            BindPhoneActivity.startBind(this);
+        } else {
+            ArmsUtils.makeText(getApplicationContext(), results.msg);
+            if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
+                EventBus.getDefault().post(new TabWhat(2));
+            else
+                EventBus.getDefault().post(1);
+            //用于判断是否显示注册协议,点击主页面第三个tab的判断
+            AppConfig.getInstance().putBoolean(ConfigTag.IS_LOGIN, true);
+            //save user
+            User user = results.data.user_info;
+            AppConfig.getInstance().putUser(user);
+            //save session
+            AppConfig.getInstance().putString("sessionId", results.data.update_token.sessionId);
+            AppConfig.getInstance().putString("accessToken", results.data.update_token.accessToken);
+            finish();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_BIND) {
+            mPresenter.bindPhoneLogin(data.getStringExtra("mobile"),data.getStringExtra("code"),map);
+        }
     }
 }

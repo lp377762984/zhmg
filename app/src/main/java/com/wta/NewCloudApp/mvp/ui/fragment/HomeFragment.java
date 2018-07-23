@@ -100,7 +100,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_sweep:
-                ArmsUtils.startActivity(SweepActivity.class);
+                //ArmsUtils.startActivity(SweepActivity.class);
                 break;
             case R.id.im_bus_code:
                 break;

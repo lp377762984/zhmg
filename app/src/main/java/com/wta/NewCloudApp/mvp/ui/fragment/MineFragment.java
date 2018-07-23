@@ -36,6 +36,7 @@ import com.wta.NewCloudApp.mvp.ui.activity.MsgActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SettingActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UserMsgActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity;
+import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -138,7 +139,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
             case R.id.lat_location:
                 break;
             case R.id.lat_about_us:
-                WebViewActivity.start(getActivity(), "关于我们", "http://zhmg.jjzbest.com/about");
+                WebViewActivity.start(getActivity(), "关于我们", FinalUtils.ABOUT_US);
                 break;
         }
     }

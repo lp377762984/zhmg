@@ -23,7 +23,7 @@
         android:layout_marginRight="19dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="13dp"
-        android:text="兵丁手机号可提高账号安全等级和权限"
+        android:text="绑定手机号可提高账号安全等级和权限"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

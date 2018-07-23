@@ -46,7 +46,7 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
     }
 
     public void getMsgList(){
-        doRequest(buildRequest(false,mModel.getBillList(),true),1);
+        doRequest(buildRequest(false,mModel.getBillList(),false),1);
     }
 
     @Override

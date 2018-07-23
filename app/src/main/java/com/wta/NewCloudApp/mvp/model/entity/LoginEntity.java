@@ -20,4 +20,6 @@ public class LoginEntity {
         public String accessToken;
     }
 
+    public int code_type=1;
+
 }

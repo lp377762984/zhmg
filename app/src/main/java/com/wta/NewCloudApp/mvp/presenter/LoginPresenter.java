@@ -29,7 +29,11 @@ public class LoginPresenter extends BBasePresenter<IUserModel, LoginContract.Vie
     }
 
     public void wxLogin(Map<String, String> map) {
-        doRequest(buildRequest(mModel.wxLogin(map)), 2);
+        doRequest(buildRequest(mModel.wxLogin(map.get("uid"))), 2);
+    }
+
+    public void bindPhoneLogin(String mobile, String verify, Map<String,String> map){
+        doRequest(buildRequest(mModel.bindPhone(mobile,verify,map)),4);
     }
 
     @Override

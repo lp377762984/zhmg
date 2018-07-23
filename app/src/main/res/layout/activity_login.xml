@@ -93,6 +93,7 @@
         app:layout_constraintEnd_toEndOf="@+id/et_phone" />
 
     <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
+        android:visibility="gone"
         android:textColor="@color/text_color2"
         app:hintSize="16sp"
         android:maxLines="1"
@@ -119,20 +120,19 @@
 
     <CheckBox
         android:checked="true"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="51dp"
         android:button="@drawable/login_cb_bg"
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:textColor="#333333"
-        android:textSize="7sp"
-        app:layout_constraintStart_toStartOf="@+id/et_recommend_code"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_recommend_code" />
 
     <TextView
-        android:textColor="#333333"
-        android:textSize="8sp"
+        android:textColor="@color/text_color2"
+        android:textSize="14sp"
         android:id="@+id/tv_agree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
         android:layout_marginTop="60dp"
         android:background="@drawable/login_btn_bg"
         android:enabled="false"
-        android:text="登陆"
+        android:text="登录"
         android:textColor="@android:color/background_light"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"

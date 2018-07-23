@@ -19,13 +19,19 @@ import com.wta.NewCloudApp.di.component.DaggerBindPhoneComponent;
 import com.wta.NewCloudApp.di.module.BindPhoneModule;
 import com.wta.NewCloudApp.jiuwei210278.R;
 import com.wta.NewCloudApp.mvp.contract.BindPhoneContract;
+import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.BindPhonePresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
 import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
+import org.simple.eventbus.EventBus;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -63,11 +69,10 @@ public class BindPhoneActivity extends BaseLoadingActivity<BindPhonePresenter> i
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
     }
 
-    public static void startBind(Activity activity){
-        Intent intent=new Intent(activity,BindPhoneActivity.class);
+    public static void startBind(Activity activity) {
+        Intent intent = new Intent(activity, BindPhoneActivity.class);
         activity.startActivityForResult(intent, FinalUtils.REQUEST_BIND);
     }
 
@@ -77,22 +82,27 @@ public class BindPhoneActivity extends BaseLoadingActivity<BindPhonePresenter> i
         String phone = etPhone.getText().toString();
         switch (view.getId()) {
             case R.id.tv_get_code:
-                if (TextUtils.isEmpty(phone)){
+                if (TextUtils.isEmpty(phone)) {
                     showToast("请输入手机号码");
                     return;
                 }
                 mPresenter.sendCode(phone);
                 break;
             case R.id.btn_apply:
-                if (TextUtils.isEmpty(phone)){
+                if (TextUtils.isEmpty(phone)) {
                     showToast("请输入手机号码");
                     return;
                 }
-                if (TextUtils.isEmpty(code)){
+                if (TextUtils.isEmpty(code)) {
                     showToast("请输入验证码");
                     return;
                 }
-                mPresenter.bindPhone(phone,code);
+                Intent intent = getIntent();
+                intent.putExtra("mobile",phone);
+                intent.putExtra("code",code);
+                setResult(RESULT_OK,getIntent());
+                finish();
+                //mPresenter.bindPhone(phone, code, userMap);
                 break;
         }
     }
@@ -135,10 +145,8 @@ public class BindPhoneActivity extends BaseLoadingActivity<BindPhonePresenter> i
     }
 
     @Override
-    public void bindPhone(Result<User> result) {
+    public void bindPhone(Result<LoginEntity> result) {
         showToast(result.msg);
-        AppConfig.getInstance().putInt(ConfigTag.IS_MOBILE,1);
-        AppConfig.getInstance().putString(ConfigTag.MOBILE,result.data.mobile);
         setResult(RESULT_OK);
         finish();
     }

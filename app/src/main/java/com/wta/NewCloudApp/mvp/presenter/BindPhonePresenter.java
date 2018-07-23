@@ -3,8 +3,12 @@ package com.wta.NewCloudApp.mvp.presenter;
 import com.jess.arms.di.scope.ActivityScope;
 import com.wta.NewCloudApp.mvp.contract.BindPhoneContract;
 import com.wta.NewCloudApp.mvp.model.UserModel;
+import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -22,8 +26,8 @@ public class BindPhonePresenter extends BBasePresenter<UserModel, BindPhoneContr
         doRequest(buildListRequest(mModel.bindSendCode(mobile)),1);
     }
 
-    public void bindPhone(String mobile,String verify){
-        doRequest(buildRequest(mModel.bindPhone(mobile,verify)),2);
+    public void bindPhone(String mobile, String verify, Map<String,String> map){
+        doRequest(buildRequest(mModel.bindPhone(mobile,verify,map)),2);
     }
 
     @Override
@@ -32,7 +36,7 @@ public class BindPhonePresenter extends BBasePresenter<UserModel, BindPhoneContr
         if (what==1){
             mRootView.sendCode((Result<User>) result);
         }else if (what==2){
-            mRootView.bindPhone((Result<User>) result);
+            mRootView.bindPhone((Result<LoginEntity>) result);
         }
     }
 }

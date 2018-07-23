@@ -12,6 +12,7 @@ import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
+import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.uitls.FileUtils;
 
@@ -24,6 +25,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
+import okhttp3.ResponseBody;
 
 @ActivityScope
 public class UserModel extends BaseModel implements IUserModel {
@@ -34,9 +36,10 @@ public class UserModel extends BaseModel implements IUserModel {
         super(repositoryManager);
     }
 
-    private HttpServices getService(){
+    private HttpServices getService() {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class);
     }
+
     @Override
     public Observable<Result<User>> sendCode(String phone) {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).sendCode(phone);
@@ -48,16 +51,8 @@ public class UserModel extends BaseModel implements IUserModel {
     }
 
     @Override
-    public Observable<Result<LoginEntity>> wxLogin(Map<String, String> map) {
-        String uid = map.get("uid");
-        String name = map.get("name");
-        //String gender = map.get("gender");
-        String iconurl = map.get("iconurl");
-        map.put("openid",uid);
-        map.put("nickname",name);
-        map.put("type","weixin");
-        map.put("headimg",iconurl);
-        return mRepositoryManager.obtainRetrofitService(HttpServices.class).wxLogin(map);
+    public Observable<Result<LoginEntity>> wxLogin(String openID) {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).wxLogin(openID);
     }
 
     @Override
@@ -79,12 +74,12 @@ public class UserModel extends BaseModel implements IUserModel {
     public Observable<Result<List<Msg>>> getMsgList(boolean isRefresh) {
         if (isRefresh) index = 1;
         else index++;
-        return  mRepositoryManager.obtainRetrofitService(HttpServices.class).getMsgList(index);
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getMsgList(index);
     }
 
     @Override
     public Observable<Result<User>> auth(String nickname, String cardno) {
-        return mRepositoryManager.obtainRetrofitService(HttpServices.class).auth(nickname,cardno);
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).auth(nickname, cardno);
     }
 
     @Override
@@ -93,8 +88,14 @@ public class UserModel extends BaseModel implements IUserModel {
     }
 
     @Override
-    public Observable<Result<User>> bindPhone(String mobile, String verify) {
-        return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindPhone(mobile,verify);
+    public Observable<Result<LoginEntity>> bindPhone(String mobile, String verify, Map<String, String> map) {
+        String name = map.get("name");
+        //String gender = map.get("gender");
+        String iconurl = map.get("iconurl");
+        map.put("nickname", name);
+        map.put("type", "weixin");
+        map.put("headimg", iconurl);
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindPhone(mobile, verify, map);
     }
 
     @Override
@@ -103,10 +104,10 @@ public class UserModel extends BaseModel implements IUserModel {
         String name = map.get("name");
         //String gender = map.get("gender");
         String iconurl = map.get("iconurl");
-        map.put("openid",uid);
-        map.put("nickname",name);
-        map.put("type","weixin");
-        map.put("headimg",iconurl);
+        map.put("openid", uid);
+        map.put("nickname", name);
+        map.put("type", "weixin");
+        map.put("headimg", iconurl);
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindWX(map);
     }
 
@@ -132,6 +133,16 @@ public class UserModel extends BaseModel implements IUserModel {
     @Override
     public Observable<Result> delBankCard(int id) {
         return getService().delBankCard(id);
+    }
+
+    @Override
+    public Observable<Result<Update>> checkUpdate(String version) {
+        return getService().checkUpdate(version);
+    }
+
+    @Override
+    public Observable<ResponseBody> downloadApp(String url) {
+        return getService().downApp(url);
     }
 
 }

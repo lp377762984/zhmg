@@ -6,18 +6,22 @@ import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
+import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 
 public interface HttpServices {
     @FormUrlEncoded
@@ -26,7 +30,7 @@ public interface HttpServices {
 
     @FormUrlEncoded
     @POST("/WechatLogin")
-    Observable<Result<LoginEntity>> wxLogin(@FieldMap Map<String, String> user);
+    Observable<Result<LoginEntity>> wxLogin(@Field("openid") String openId);
 
     @FormUrlEncoded
     @POST("/login")
@@ -47,12 +51,12 @@ public interface HttpServices {
     Observable<Result<User>> auth(@Field("realname") String nickname, @Field("cardno") String avatar);
 
     @FormUrlEncoded
-    @POST("/set/setVerify")
+    @POST("/WechatVerify")
     Observable<Result<User>> bindSendCode(@Field("mobile") String phone);
 
     @FormUrlEncoded
-    @POST("/set/setMobile")
-    Observable<Result<User>> bindPhone(@Field("mobile") String phone, @Field("verify") String verify);
+    @POST("/WxBindMobile")
+    Observable<Result<LoginEntity>> bindPhone(@Field("mobile") String phone, @Field("verify") String verify, @FieldMap Map<String, String> user);
 
     @FormUrlEncoded
     @POST("/set/WechatLogin")
@@ -75,4 +79,11 @@ public interface HttpServices {
     @FormUrlEncoded
     @POST("/bank/delBanks")
     Observable<Result> delBankCard(@Field("bank_id") int id);
+
+    @GET("/app/getUpgrade")
+    Observable<Result<Update>> checkUpdate(@Query("version") String version);
+
+    @Streaming
+    @GET()
+    Observable<ResponseBody> downApp(@Url String fileUrl);
 }
