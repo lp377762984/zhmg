@@ -83,11 +83,7 @@
             android:layout_toLeftOf="@id/im_back1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/line"/>
+
     </RelativeLayout>
 
     <!--二维码-->
@@ -113,18 +109,18 @@
             android:src="@mipmap/go"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:visibility="gone"
+        <ImageView
             android:id="@+id/im_code"
             android:layout_marginRight="21dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/im_back2"
-            android:src="@mipmap/ic_launcher"
-            app:riv_border_color="#bfbfbf"
-            app:riv_border_width="3dp"
-            app:riv_corner_radius="15dp"
             android:layout_width="51dp"
             android:layout_height="51dp" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line"/>
     </RelativeLayout>
 
     <!--实名认证-->
@@ -136,6 +132,7 @@
         android:layout_width="match_parent"
         android:layout_height="65dp">
         <TextView
+            android:id="@+id/tv"
             android:text="实名认证"
             android:layout_centerVertical="true"
             android:textSize="16sp"

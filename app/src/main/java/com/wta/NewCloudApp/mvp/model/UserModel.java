@@ -147,4 +147,9 @@ public class UserModel extends BaseModel implements IUserModel {
         return getService().downApp(url);
     }
 
+    @Override
+    public Observable<Result<User>> getUserInfo() {
+        return getService().getUserInfo();
+    }
+
 }

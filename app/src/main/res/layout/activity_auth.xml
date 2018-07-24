@@ -27,7 +27,7 @@
         android:drawableLeft="@mipmap/auth_warn"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:text="填写您的真是信息通过后将不能修改"
+        android:text="填写您的真实信息通过后将不能修改"
         android:textColor="@color/text_color_gray2"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"

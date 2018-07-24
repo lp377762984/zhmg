@@ -34,4 +34,5 @@ public interface IUserModel extends IModel {
     Observable<Result> delBankCard(int id);//删除银行卡
     Observable<Result<Update>> checkUpdate(String version);//app更新接口
     Observable<ResponseBody> downloadApp(String url);//app下载
+    Observable<Result<User>> getUserInfo();//获取用户信息
 }

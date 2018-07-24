@@ -15,6 +15,10 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.jess.arms.utils.ArmsUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
@@ -29,6 +33,7 @@ import com.wta.NewCloudApp.jiuwei210278.R;
 import com.wta.NewCloudApp.mvp.contract.MineContract;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
+import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.MinePresenter;
 import com.wta.NewCloudApp.mvp.ui.activity.CardListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.GroupActivity;
@@ -38,11 +43,15 @@ import com.wta.NewCloudApp.mvp.ui.activity.UserMsgActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import timber.log.Timber;
+
+import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 
 public class MineFragment extends BaseLoadingFragment<MinePresenter> implements MineContract.View, View.OnClickListener {
@@ -70,6 +79,8 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
     RelativeLayout latLocation;
     @BindView(R.id.lat_about_us)
     RelativeLayout latAboutUs;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     private BottomSheetDialog dialog;
     private Share share;
 
@@ -98,11 +109,31 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
+        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setEnableLoadmore(false);
+        ClassicsHeader ch = new ClassicsHeader(getActivity());
+        ch.setTextSizeTitle(COMPLEX_UNIT_SP,14);
+        ch.setDrawableArrowSize(15);
+        ch.setDrawableProgressSize(15);
+        ch.setEnableLastTime(false);
+        ch.setAccentColorId(R.color.white);
+        ch.setPrimaryColorId(R.color.style_color);
+        refreshLayout.setHeaderHeight(48);
+        refreshLayout.setRefreshHeader(ch);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                mPresenter.getUserInfo();
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        showUserMsg();
+    }
+    private void showUserMsg(){
         GlideArms.with(this)
                 .load(AppConfig.getInstance().getString("avatar", null))
                 .placeholder(R.mipmap.user_default)
@@ -213,6 +244,27 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
             dialog.findViewById(R.id.imageView).setOnClickListener(this);
         }
         dialog.show();
+    }
+
+    @Override
+    public void showUser(Result<User> result) {
+        AppConfig.getInstance().putUser(result.data);
+        showUserMsg();
+    }
+
+    @Override
+    public void getData(int what, List data) {
+
+    }
+
+    @Override
+    public void showListLoading() {
+        refreshLayout.autoRefresh();
+    }
+
+    @Override
+    public void hideListLoading() {
+        refreshLayout.finishRefresh();
     }
 
     public static class ShareListener implements UMShareListener {

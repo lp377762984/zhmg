@@ -86,4 +86,7 @@ public interface HttpServices {
     @Streaming
     @GET()
     Observable<ResponseBody> downApp(@Url String fileUrl);
+
+    @GET("/user/myGet")
+    Observable<Result<User>> getUserInfo();
 }

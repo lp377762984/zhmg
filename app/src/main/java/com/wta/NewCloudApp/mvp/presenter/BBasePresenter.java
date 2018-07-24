@@ -95,6 +95,10 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(disposable -> {
                     if (!isList && needLoading) mRootView.showLoading();
+                    else if(isList){
+                        if (mRootView instanceof BaseDataView)
+                            ((BaseDataView) mRootView).showListLoading();
+                    }
                 })
                 .subscribeOn(AndroidSchedulers.mainThread())//
                 .observeOn(AndroidSchedulers.mainThread())

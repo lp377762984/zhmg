@@ -2,6 +2,7 @@ package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,6 +29,8 @@ import com.wta.NewCloudApp.mvp.presenter.UserMsgPresenter;
 import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
+import com.wta.NewCloudApp.uitls.QRCodeEncoder;
+import com.wta.NewCloudApp.uitls.ScreenDpiUtils;
 
 import org.devio.takephoto.app.TakePhoto;
 import org.devio.takephoto.app.TakePhotoImpl;
@@ -58,10 +61,12 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.im_code)
-    RoundedImageView imCode;
+    ImageView imCode;
     BottomSheetDialog btmDialog;
     @BindView(R.id.tv_state)
     TextView tvState;
+    @BindView(R.id.im_back3)
+    ImageView imBack;
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
 
@@ -86,6 +91,9 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
                 .placeholder(R.mipmap.user_default).into(imHead);
         tvName.setText(AppConfig.getInstance().getString(ConfigTag.NICKNAME, null));
         tvState.setText(AppConfig.getInstance().getInt(ConfigTag.CARD_STATUS, 0) == 0 ? "待认证" : "已认证");
+        imBack.setVisibility(AppConfig.getInstance().getInt(ConfigTag.CARD_STATUS, 0) == 0 ? View.VISIBLE : View.INVISIBLE);
+        imCode.setImageBitmap(QRCodeEncoder.syncEncodeQRCode(AppConfig.getInstance().getString(ConfigTag.SHARE_URL,null),
+                (int) ScreenDpiUtils.dp2px(this,51), Color.BLACK, null));
     }
 
     @OnClick({R.id.lat_head, R.id.lat_name, R.id.lat_code, R.id.lat_real})
