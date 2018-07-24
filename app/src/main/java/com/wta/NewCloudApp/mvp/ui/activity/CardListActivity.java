@@ -1,7 +1,6 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +17,8 @@ import com.wta.NewCloudApp.mvp.contract.CardListContract;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.presenter.CardListPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.BankCardAdapter;
+import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
+import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
 
@@ -54,22 +55,13 @@ public class CardListActivity extends BaseListActivity<CardListPresenter> implem
         recyclerView.addOnItemTouchListener(new OnItemLongClickListener() {
             @Override
             public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                new AlertDialog.Builder(CardListActivity.this)
-                        .setTitle("提醒")
-                        .setMessage("确定要删除银行卡吗？")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                delPosition = position;
-                                mPresenter.deleteCard(((BankCard) data.get(position)).id);
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                DialogUtils.showAlertDialog(CardListActivity.this,"确定要删除银行卡吗？",new DetDialogCallback(){
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        delPosition = position;
+                        mPresenter.deleteCard(((BankCard) data.get(position)).id);
+                    }
+                }).show();
             }
         });
     }

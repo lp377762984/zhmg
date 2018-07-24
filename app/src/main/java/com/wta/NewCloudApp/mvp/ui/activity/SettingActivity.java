@@ -3,6 +3,7 @@ package com.wta.NewCloudApp.mvp.ui.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,8 +37,10 @@ import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.SettingPresenter;
+import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.DataCleanUtils;
+import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.PackageUtils;
 
@@ -50,6 +53,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
+import timber.log.Timber;
 
 
 public class SettingActivity extends BaseLoadingActivity<SettingPresenter> implements SettingContract.View, UMAuthListener {
@@ -73,6 +77,7 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
     @BindView(R.id.tv_wx_state)
     TextView tvWxState;
     private ProgressDialog progressDialog;
+    private Dialog updateDialog;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -124,48 +129,29 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
                     ArmsUtils.makeText(App.getInstance(), "无缓存");
                     return;
                 }
-                new AlertDialog.Builder(this)
-                        .setTitle("提醒")
-                        .setMessage("是否清除缓存")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                DataCleanUtils.cleanApplicationData(SettingActivity.this);
-                                tvMemory.setText(DataCleanUtils.getApplicationDataSize(SettingActivity.this));
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
-
+                DialogUtils.showAlertDialog(this,"是否清除缓存？",new DetDialogCallback(){
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        dialog.dismiss();
+                        DataCleanUtils.cleanApplicationData(SettingActivity.this);
+                        tvMemory.setText(DataCleanUtils.getApplicationDataSize(SettingActivity.this));
+                    }
+                }).show();
                 break;
             case R.id.lat_update:
                 mPresenter.checkUpdate();
                 break;
             case R.id.btn_exit:
-                new AlertDialog.Builder(this)
-                        .setTitle("提醒")
-                        .setMessage("确定要退出登陆吗？")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                AppConfig.getInstance().clearUser();
-                                AppConfig.getInstance().removeValue(ConfigTag.IS_LOGIN);
-                                EventBus.getDefault().post(new TabWhat(0));
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                DialogUtils.showAlertDialog(this,"确定要退出登陆吗？",new DetDialogCallback(){
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        dialog.dismiss();
+                        AppConfig.getInstance().clearUser();
+                        AppConfig.getInstance().removeValue(ConfigTag.IS_LOGIN);
+                        EventBus.getDefault().post(new TabWhat(0));
+                        finish();
+                    }
+                }).show();
                 break;
         }
     }
@@ -206,15 +192,24 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
     @SuppressLint("CheckResult")
     @Override
     public void showUpdate(Update update) {
-        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        if (aBoolean) {
-                            mPresenter.downLoadApp(update.version_stable_url);
-                        } else showToast("请打开读写权限");
-                    }
-                });
+        if (updateDialog==null){
+            updateDialog = DialogUtils.createUpdateDialog(this, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateDialog.dismiss();
+                    new RxPermissions(SettingActivity.this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            .subscribe(new Consumer<Boolean>() {
+                                @Override
+                                public void accept(Boolean aBoolean) throws Exception {
+                                    if (aBoolean) {
+                                        mPresenter.downLoadApp(update.version_stable_url);
+                                    } else showToast("请打开读写权限");
+                                }
+                            });
+                }
+            });
+        }
+        updateDialog.show();
     }
 
     public void installApp(File file) {

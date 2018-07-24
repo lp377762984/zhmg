@@ -66,6 +66,7 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
 
     @Override
     public <T> void handle404(int what, Result<T> result) {
+        showToast(result.msg);
         if (result.login_access!=null){
             String sessionId = result.login_access.sessionId;
             AppConfig.getInstance().putString("sessionId", sessionId);

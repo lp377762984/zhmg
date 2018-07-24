@@ -85,7 +85,6 @@ public class SettingPresenter extends BBasePresenter<UserModel, SettingContract.
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(new DefaultHandleSubscriber<>(mErrorHandler));
     }
 

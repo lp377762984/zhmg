@@ -21,23 +21,27 @@
                 android:layout_height="173dp">
 
                 <ImageView
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="10dp"
                     android:id="@+id/im_setting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="9dp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@mipmap/mine_setting" />
 
                 <ImageView
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="5dp"
                     android:id="@+id/im_msg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/im_setting"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@id/im_setting"
                     app:layout_constraintEnd_toStartOf="@+id/im_setting"
                     app:layout_constraintTop_toTopOf="@+id/im_setting"

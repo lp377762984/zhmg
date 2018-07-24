@@ -90,10 +90,12 @@ public class UserModel extends BaseModel implements IUserModel {
     @Override
     public Observable<Result<LoginEntity>> bindPhone(String mobile, String verify, Map<String, String> map) {
         String name = map.get("name");
+        String uid = map.get("uid");
         //String gender = map.get("gender");
         String iconurl = map.get("iconurl");
         map.put("nickname", name);
         map.put("type", "weixin");
+        map.put("openid", uid);
         map.put("headimg", iconurl);
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindPhone(mobile, verify, map);
     }
