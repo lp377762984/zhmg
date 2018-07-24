@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/money_bar_height"/>
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/lat_phone"
         android:layout_marginTop="10dp"
         android:paddingLeft="19dp"

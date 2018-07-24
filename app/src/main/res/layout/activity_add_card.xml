@@ -35,6 +35,7 @@
         <com.wta.NewCloudApp.mvp.ui.widget.EditTextHint
             android:id="@+id/et_number"
             android:maxLines="1"
+            android:inputType="number"
             android:hint="请填写银行卡号"
             android:paddingLeft="9dp"
             app:hintSize="18sp"

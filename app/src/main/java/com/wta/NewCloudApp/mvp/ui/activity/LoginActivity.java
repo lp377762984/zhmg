@@ -99,6 +99,8 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        etPhone.setText(AppConfig.getInstance().getString(ConfigTag.MOBILE, null));
+        etPhone.setSelection(etPhone.getText().length());
         final boolean[] etPhoneEnable = {false};
         final boolean[] etCodeEnable = {false};
         etPhone.addTextChangedListener(new TextWatcher() {
@@ -292,7 +294,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_BIND) {
-            mPresenter.bindPhoneLogin(data.getStringExtra("mobile"),data.getStringExtra("code"),map);
+            mPresenter.bindPhoneLogin(data.getStringExtra("mobile"), data.getStringExtra("code"), map);
         }
     }
 }

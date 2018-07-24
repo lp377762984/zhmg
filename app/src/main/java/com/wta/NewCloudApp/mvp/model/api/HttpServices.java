@@ -59,7 +59,7 @@ public interface HttpServices {
     Observable<Result<LoginEntity>> bindPhone(@Field("mobile") String phone, @Field("verify") String verify, @FieldMap Map<String, String> user);
 
     @FormUrlEncoded
-    @POST("/set/WechatLogin")
+    @POST("/set/WechatBind")
     Observable<Result<User>> bindWX(@FieldMap Map<String, String> user);
 
     @GET("/user/myTeam")

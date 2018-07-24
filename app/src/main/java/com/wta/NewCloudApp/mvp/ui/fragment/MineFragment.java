@@ -146,6 +146,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
 
     @Override
     public void onClick(View v) {
+        if (dialog!=null && dialog.isShowing()) dialog.dismiss();
         UMWeb web = new UMWeb(share.share_url);
         web.setTitle(share.share_title);//标题
         web.setThumb(new UMImage(getActivity(), share.share_img));  //缩略图
@@ -189,7 +190,6 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
                         .withMedia(web).share();
                 break;
             case R.id.imageView:
-                dialog.dismiss();
                 break;
         }
     }
