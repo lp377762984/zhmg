@@ -184,9 +184,9 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
 
     @Override
     public void showData(User user) {
-        tvWxState.setText(user.nickname);
+        tvWxState.setText(user.wx_name);
         AppConfig.getInstance().putInt(ConfigTag.IS_WEIXIN, 1);
-        AppConfig.getInstance().putString(ConfigTag.NICKNAME, (user.nickname));
+        AppConfig.getInstance().putString(ConfigTag.WX_NAME, (user.wx_name));
     }
 
     @SuppressLint("CheckResult")

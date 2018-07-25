@@ -2,6 +2,7 @@ package com.wta.NewCloudApp.mvp.presenter;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.text.TextUtils;
 
@@ -17,7 +18,9 @@ import com.wta.NewCloudApp.config.HttpResponseHandler;
 import com.wta.NewCloudApp.mvp.model.entity.Resend;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.ui.activity.LoginActivity;
+import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.mvp.view.BaseDataView;
+import com.wta.NewCloudApp.uitls.DialogUtils;
 
 import org.simple.eventbus.Subscriber;
 
@@ -52,8 +55,13 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
     @Override
     public void handle20(int what, Result result) {
         Activity topActivity = App.getInstance().getAppComponent().appManager().getTopActivity();
-        Intent intent = new Intent(topActivity, LoginActivity.class);
-        topActivity.startActivity(intent);
+        DialogUtils.showAlertDialog(topActivity,result.msg,new DetDialogCallback(){
+            @Override
+            public void handleRight(Dialog dialog) {
+                Intent intent = new Intent(topActivity, LoginActivity.class);
+                topActivity.startActivity(intent);
+            }
+        });
     }
 
     @Override
