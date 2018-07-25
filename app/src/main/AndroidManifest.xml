@@ -22,14 +22,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme_NOACTIONBAR">
         <provider
-            android:authorities="${applicationId}.provider"
             android:name="com.wta.NewCloudApp.config.FileProVider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="66e8559c8e8a3ec03f6bb1e028721bcc" />
@@ -50,10 +51,10 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.BaseListActivity" />
         <activity
-            android:theme="@style/AppTheme_FULLSCREEN"
             android:name="com.wta.NewCloudApp.mvp.ui.activity.LoginActivity"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme_FULLSCREEN" />
         <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.BaseLoadingActivity" />
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity"
@@ -157,8 +158,9 @@
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.CardListActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.AddCardActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.wta.NewCloudApp.mvp.ui.activity.AddCardActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

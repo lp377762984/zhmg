@@ -210,7 +210,7 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
         getTakePhoto().onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_SET_NAME) {
-            mPresenter.setUser(data.getStringExtra("name"), null, 0);
+            tvName.setText(data.getStringExtra("name"));
         }else if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_AUTH){
             tvState.setText("已认证");
         }
