@@ -81,15 +81,10 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
     }
 
     @Override
-    public void showCode(Result<User> codeResult) {
-        mPresenter.getTeam();
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_REC_CODE) {
-            mPresenter.setRecCode(data.getStringExtra("rec_code"));
+            mPresenter.getTeam();
         }
     }
 }
