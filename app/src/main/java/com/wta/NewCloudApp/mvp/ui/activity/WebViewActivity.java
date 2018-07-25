@@ -129,8 +129,8 @@ public class WebViewActivity extends BaseActivity {
         map.put("noncestr", nonceStr);
         map.put("timestamp", String.valueOf(System.currentTimeMillis() / 1000));
         map.put("sign", EncodeUtils.makeSign(nonceStr, url));
-        map.put("sessionId", AppConfig.getInstance().getString("session_id", null));
-        map.put("accessToken", AppConfig.getInstance().getString("access_token", null));
+        map.put("sessionId", AppConfig.getInstance().getString("sessionId", null));
+        map.put("accessToken", AppConfig.getInstance().getString("accessToken", null));
         return map;
     }
 }

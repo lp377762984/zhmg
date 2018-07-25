@@ -24,6 +24,7 @@ public class UserMsgPresenter extends BBasePresenter<IUserModel, UserMsgContract
     @Inject
     public RxErrorHandler mErrorHandler;
 
+
     @Inject
     public UserMsgPresenter(IUserModel model, UserMsgContract.View rootView) {
         super(model, rootView);
@@ -39,6 +40,7 @@ public class UserMsgPresenter extends BBasePresenter<IUserModel, UserMsgContract
         if (what == 0) {
             ArmsUtils.makeText(App.getInstance(), "设置昵称成功");
             AppConfig.getInstance().putString(ConfigTag.NICKNAME, ((User) result.data).nickname);
+            mRootView.showUserName();
         } else if (what == 1) {
             ArmsUtils.makeText(App.getInstance(), "设置头像成功");
             AppConfig.getInstance().putString(ConfigTag.AVATAR, Api.APP_DOMAIN+((User) result.data).avatar);

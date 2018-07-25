@@ -1,5 +1,6 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -50,6 +51,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 import timber.log.Timber;
 
 
@@ -149,7 +151,7 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
                 break;
             case R.id.tv_camera:
                 btmDialog.dismiss();
-                PermissionUtil.externalStorage(new PermissionUtil.RequestPermission() {
+                PermissionUtil.requestPermission(new PermissionUtil.RequestPermission() {
                     @Override
                     public void onRequestPermissionSuccess() {
                         configCompress();
@@ -165,7 +167,7 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
                     public void onRequestPermissionFailureWithAskNeverAgain(List<String> permissions) {
 
                     }
-                }, new RxPermissions(this), mPresenter.mErrorHandler);
+                }, new RxPermissions(this), mPresenter.mErrorHandler,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA);
 
                 break;
             case R.id.tv_cancel:
@@ -208,12 +210,16 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
         getTakePhoto().onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_SET_NAME) {
-            tvName.setText(data.getStringExtra("name"));
             mPresenter.setUser(data.getStringExtra("name"), null, 0);
         }else if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_AUTH){
             tvState.setText("已认证");
         }
 
+    }
+
+    @Override
+    public void showUserName() {
+        tvName.setText(AppConfig.getInstance().getString(ConfigTag.NICKNAME,null));
     }
 
     @Override
