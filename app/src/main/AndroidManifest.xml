@@ -161,6 +161,12 @@
         <activity
             android:name="com.wta.NewCloudApp.mvp.ui.activity.AddCardActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.wta.NewCloudApp.mvp.ui.activity.AddressListActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.AddAddressActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

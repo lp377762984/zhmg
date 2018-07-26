@@ -7,6 +7,7 @@ import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
+import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
@@ -151,5 +152,31 @@ public class UserModel extends BaseModel implements IUserModel {
     public Observable<Result<User>> getUserInfo() {
         return getService().getUserInfo();
     }
+
+    @Override
+    public Observable<Result<List<Address>>> getAddressList() {
+        return getService().getAddressList();
+    }
+
+    @Override
+    public Observable<Result<Address>> addAddress(String consignee, String mobile, int province, int city, int district, String address, int type) {
+        return getService().addAddress(consignee, mobile, province, city, district, address, type);
+    }
+
+    @Override
+    public Observable<Result<Address>> editAddress(int id, String consignee, String mobile, int province, int city, int district, String address, int type) {
+        return getService().editAddress(id,consignee, mobile, province, city, district, address, type);
+    }
+
+    @Override
+    public Observable<Result<Address>> setDefaultAddress(int id) {
+        return getService().defaultAddress(id);
+    }
+
+    @Override
+    public Observable<Result<Address>> delAddress(int id) {
+        return getService().delAddress(id);
+    }
+
 
 }
