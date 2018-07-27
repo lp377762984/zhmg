@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.jiuwei210278.R;
 

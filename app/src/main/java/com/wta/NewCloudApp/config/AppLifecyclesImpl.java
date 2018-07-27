@@ -23,6 +23,7 @@ import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.utils.ArmsUtils;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.wta.NewCloudApp.jiuwei210278.BuildConfig;
@@ -58,10 +59,10 @@ public class AppLifecyclesImpl implements AppLifecycles {
         }
         ArmsUtils.obtainAppComponentFromContext(application).extras()
                 .put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
-        //umeng
         UMConfigure.init(application,"5b1ddaf8f29d9850ae0000e1","umeng", UMConfigure.DEVICE_TYPE_PHONE,"");
         PlatformConfig.setWeixin("wx2a1f186b101a5e06","fa8346fdf7923eebb9d82ad5d1329d58");
         PlatformConfig.setQQZone("1107053428","6tA0kegZiVmZuzLS");
+        CrashReport.initCrashReport(application, "47f44ff4a7", BuildConfig.CRASH);
     }
 
     @Override
