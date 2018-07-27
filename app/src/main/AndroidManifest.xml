@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.wta.NewCloudApp">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -36,7 +37,7 @@
             android:value="66e8559c8e8a3ec03f6bb1e028721bcc" />
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5b1ddaf8f29d9850ae0000e1" />
+            android:value="5b5ad513b27b0a11d10002b1" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="unknown" /> <!-- 跟推广渠道有关系，暂时写unknown -->
@@ -98,7 +99,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent100424468" /> <!-- 需要换成自己的 -->
+                <data android:scheme="l1lPLxXmLuMS6AyK"
+                    tools:ignore="AppLinkUrlError" /> <!-- 需要换成自己的 -->
             </intent-filter>
         </activity>
         <activity

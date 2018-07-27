@@ -59,10 +59,10 @@ public class AppLifecyclesImpl implements AppLifecycles {
         }
         ArmsUtils.obtainAppComponentFromContext(application).extras()
                 .put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
-        UMConfigure.init(application,"5b1ddaf8f29d9850ae0000e1","umeng", UMConfigure.DEVICE_TYPE_PHONE,"");
+        UMConfigure.init(application,"5b5ad513b27b0a11d10002b1","umeng", UMConfigure.DEVICE_TYPE_PHONE,"");
         PlatformConfig.setWeixin("wx2a1f186b101a5e06","fa8346fdf7923eebb9d82ad5d1329d58");
-        PlatformConfig.setQQZone("1107053428","6tA0kegZiVmZuzLS");
-        CrashReport.initCrashReport(application, "47f44ff4a7", BuildConfig.CRASH);
+        PlatformConfig.setQQZone("1107234154","l1lPLxXmLuMS6AyK");
+        CrashReport.initCrashReport(application, "77f70c3b36", BuildConfig.CRASH);
     }
 
     @Override
