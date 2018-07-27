@@ -87,12 +87,11 @@
             android:text="所在区域："
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <com.wta.NewCloudApp.mvp.ui.widget.EditTextHint
-            android:id="@+id/et_region"
+        <TextView
+            android:id="@+id/tv_region"
             android:background="@null"
             android:textColor="@color/text_color2"
             android:textSize="16sp"
-            app:hintSize="16sp"
             android:layout_marginLeft="90dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

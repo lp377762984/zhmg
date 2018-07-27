@@ -91,4 +91,6 @@ dependencies {
     implementation files('libs/umeng-sharetool-6.9.2.jar')
     implementation files('libs/zxing.jar')
     implementation files('libs/umeng-analytics-7.5.3.jar')
+    implementation project(':pickerview')
+    implementation project(path: ':wheelview')
 }
