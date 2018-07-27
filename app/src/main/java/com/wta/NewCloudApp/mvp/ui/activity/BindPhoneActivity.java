@@ -17,7 +17,7 @@ import com.jess.arms.utils.RxLifecycleUtils;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerBindPhoneComponent;
 import com.wta.NewCloudApp.di.module.BindPhoneModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.BindPhoneContract;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;

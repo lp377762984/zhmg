@@ -25,7 +25,7 @@ import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.utils.ScreenUtils;
 import com.wta.NewCloudApp.uitls.ScreenDpiUtils;
 

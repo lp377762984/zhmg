@@ -8,7 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.ui.listener.DialogCallback;
 
 

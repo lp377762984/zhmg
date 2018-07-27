@@ -2,7 +2,7 @@ package com.wta.NewCloudApp.mvp.ui.widget;
 
 
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 
 /**
  * 上拉加载更多视图

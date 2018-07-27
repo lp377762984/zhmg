@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jess.arms.http.imageloader.glide.GlideArms;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 
 import java.util.List;

@@ -373,7 +373,7 @@
 -keepclassmembers class * {
    public <init> (org.json.JSONObject);
 }
--keep public class com.wta.NewCloudApp.jiuwei210278.R$*{
+-keep public class com.wta.NewCloudApp.R$*{
 public static final int *;
 }
 -keepclassmembers enum * {

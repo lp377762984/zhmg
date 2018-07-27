@@ -10,7 +10,7 @@ import android.text.TextUtils;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.di.component.DaggerAddCardComponent;
 import com.wta.NewCloudApp.di.module.AddCardModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.AddCardContract;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.model.entity.Result;

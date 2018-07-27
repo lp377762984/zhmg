@@ -14,7 +14,7 @@ import com.wta.NewCloudApp.di.component.DaggerNameSetComponent;
 import com.wta.NewCloudApp.di.component.NameSetComponent;
 import com.wta.NewCloudApp.di.module.NameSetModule;
 import com.wta.NewCloudApp.di.module.UserMsgModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.NameSetContract;
 import com.wta.NewCloudApp.mvp.contract.UserMsgContract;
 import com.wta.NewCloudApp.mvp.presenter.NameSetPresenter;

@@ -18,7 +18,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.di.component.DaggerAddAddressComponent;
 import com.wta.NewCloudApp.di.module.AddAddressModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.AddAddressContract;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.model.entity.Province;

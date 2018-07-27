@@ -8,7 +8,6 @@ android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     defaultConfig {
-        applicationId "com.wta.NewCloudApp.jiuwei210278"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode 1
@@ -18,8 +17,8 @@ android {
     }
     signingConfigs {
         release {
-            v1SigningEnabled true
-            v2SigningEnabled false
+            v1SigningEnabled false
+            v2SigningEnabled true
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])

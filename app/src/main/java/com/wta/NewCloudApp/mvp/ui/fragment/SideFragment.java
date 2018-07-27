@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.di.component.DaggerSideComponent;
 import com.wta.NewCloudApp.di.module.SideModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.SideContract;
 import com.wta.NewCloudApp.mvp.presenter.SidePresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.SideAdapter;

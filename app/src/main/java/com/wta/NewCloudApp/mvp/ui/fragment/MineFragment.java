@@ -29,7 +29,7 @@ import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerMineComponent;
 import com.wta.NewCloudApp.di.module.MineModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.MineContract;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;

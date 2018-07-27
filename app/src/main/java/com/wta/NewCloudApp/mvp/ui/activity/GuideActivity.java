@@ -8,7 +8,7 @@ import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.config.AppConfig;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.ui.widget.Banner2;
 import com.wta.NewCloudApp.mvp.ui.widget.PJImageLoader;
 import com.youth.banner.BannerConfig;

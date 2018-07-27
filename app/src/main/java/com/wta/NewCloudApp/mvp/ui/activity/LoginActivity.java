@@ -24,7 +24,7 @@ import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerLoginComponent;
 import com.wta.NewCloudApp.di.module.LoginModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.LoginContract;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;

@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.di.component.DaggerAddressListComponent;
 import com.wta.NewCloudApp.di.module.AddressListModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.AddressListContract;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.presenter.AddressListPresenter;

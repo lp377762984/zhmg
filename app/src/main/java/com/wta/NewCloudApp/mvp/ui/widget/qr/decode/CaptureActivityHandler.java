@@ -18,7 +18,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.google.zxing.Result;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.ui.activity.SweepActivity;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.camera.CameraManager;
 

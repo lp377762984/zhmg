@@ -26,7 +26,7 @@ import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerUserQRComponent;
 import com.wta.NewCloudApp.di.module.UserQRModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.UserQRContract;
 import com.wta.NewCloudApp.mvp.presenter.UserQRPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;

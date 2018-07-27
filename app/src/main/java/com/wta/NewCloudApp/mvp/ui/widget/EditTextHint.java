@@ -9,7 +9,7 @@ import android.text.SpannedString;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.AttributeSet;
 
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.uitls.ScreenDpiUtils;
 
 

@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.di.component.DaggerCardListComponent;
 import com.wta.NewCloudApp.di.module.CardListModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.CardListContract;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.presenter.CardListPresenter;

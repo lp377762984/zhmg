@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.camera.CameraManager;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.decode.CaptureActivityHandler;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.decode.InactivityTimer;

@@ -12,7 +12,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.umeng.socialize.UMShareAPI;
 import com.wta.NewCloudApp.config.AppConfig;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.ui.fragment.HomeFragment;
 import com.wta.NewCloudApp.mvp.ui.fragment.MineFragment;

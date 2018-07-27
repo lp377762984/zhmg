@@ -29,7 +29,7 @@ import com.jess.arms.integration.ConfigModule;
 import com.jess.arms.utils.ArmsUtils;
 import com.squareup.leakcanary.RefWatcher;
 import com.umeng.analytics.MobclickAgent;
-import com.wta.NewCloudApp.jiuwei210278.BuildConfig;
+import com.wta.NewCloudApp.BuildConfig;
 import com.wta.NewCloudApp.mvp.model.api.Api;
 
 import java.util.List;

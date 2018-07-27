@@ -26,7 +26,7 @@ import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
-import com.wta.NewCloudApp.jiuwei210278.BuildConfig;
+import com.wta.NewCloudApp.BuildConfig;
 
 import butterknife.ButterKnife;
 import timber.log.Timber;

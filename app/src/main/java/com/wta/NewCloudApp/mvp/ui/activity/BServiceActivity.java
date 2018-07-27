@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.di.component.DaggerBServiceComponent;
 import com.wta.NewCloudApp.di.module.BServiceModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.BServiceContract;
 import com.wta.NewCloudApp.mvp.presenter.BServicePresenter;
 import com.wta.NewCloudApp.uitls.TablayoutUtils;

@@ -24,7 +24,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerUserMsgComponent;
 import com.wta.NewCloudApp.di.module.UserMsgModule;
-import com.wta.NewCloudApp.jiuwei210278.R;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.UserMsgContract;
 import com.wta.NewCloudApp.mvp.presenter.UserMsgPresenter;
 import com.wta.NewCloudApp.uitls.ConfigTag;
