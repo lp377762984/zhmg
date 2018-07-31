@@ -425,7 +425,7 @@ public static final int *;
 -printmapping mapping.txt
 #生成的mapping.txt在app/build/outputs/mapping/release路径下，移动到/app路径下
 #修复后的项目使用，保证混淆结果一致
--applymapping mapping.txt
+#-applymapping mapping.txt
 -keep class com.taobao.sophix.**{*;}
 -keep class com.ta.utdid2.device.**{*;}
 #防止inline
