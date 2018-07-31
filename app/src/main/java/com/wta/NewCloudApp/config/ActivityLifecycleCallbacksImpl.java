@@ -17,10 +17,18 @@ package com.wta.NewCloudApp.config;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.jess.arms.base.BaseActivity;
+import com.taobao.sophix.PatchStatus;
+import com.taobao.sophix.SophixManager;
 import com.umeng.analytics.MobclickAgent;
+import com.wta.NewCloudApp.mvp.ui.activity.MainActivity;
 
 import timber.log.Timber;
 
@@ -34,10 +42,34 @@ import timber.log.Timber;
  * ================================================
  */
 public class ActivityLifecycleCallbacksImpl implements Application.ActivityLifecycleCallbacks {
+    private BroadcastReceiver mHomeKeyEventReceiver = new BroadcastReceiver() {
+        String SYSTEM_REASON = "reason";
+        String SYSTEM_HOME_KEY = "homekey";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (SophixConfig.patchStatusCode == PatchStatus.CODE_LOAD_RELAUNCH) {
+                String action = intent.getAction();
+                if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+                    String reason = intent.getStringExtra(SYSTEM_REASON);
+                    if (TextUtils.equals(reason, SYSTEM_HOME_KEY)) {
+                        killProcess(context, true);
+                    }
+                } else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
+                    killProcess(context, true);
+                }
+            }
+        }
+    };
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         //Timber.w("%s - onActivityCreated", activity);
+        //加入锁屏和home键监听
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        activity.registerReceiver(mHomeKeyEventReceiver, intentFilter);
     }
 
     @Override
@@ -72,5 +104,23 @@ public class ActivityLifecycleCallbacksImpl implements Application.ActivityLifec
         //Timber.w("%s - onActivityDestroyed", activity);
         //横竖屏切换或配置改变时, Activity 会被重新创建实例, 但 Bundle 中的基础数据会被保存下来,移除该数据是为了保证重新创建的实例可以正常工作
         activity.getIntent().removeExtra("isInitToolbar");
+        activity.unregisterReceiver(mHomeKeyEventReceiver);
+        if (activity instanceof MainActivity) {
+            if (SophixConfig.patchStatusCode == PatchStatus.CODE_LOAD_RELAUNCH) {
+                killProcess(activity,false);
+            }
+        }
     }
+
+    private void killProcess(Context context, boolean needReboot) {
+        SophixManager.getInstance().killProcessSafely();
+        if (needReboot) {
+            Activity activity = (Activity) context;
+            Intent i = activity.getBaseContext().getPackageManager()
+                    .getLaunchIntentForPackage(activity.getBaseContext().getPackageName());
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(i);
+        }
+    }
+
 }

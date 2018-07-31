@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
-import com.tencent.bugly.crashreport.CrashReport;
+import com.taobao.sophix.SophixManager;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.R;
 
@@ -18,6 +18,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        SophixManager.getInstance().queryAndLoadNewPatch();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

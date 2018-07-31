@@ -119,6 +119,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_recommend_code" />
 
     <CheckBox
+        android:visibility="gone"
         android:checked="true"
         android:layout_marginLeft="51dp"
         android:button="@drawable/login_cb_bg"
@@ -131,6 +132,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_recommend_code" />
 
     <TextView
+        android:visibility="gone"
         android:textColor="@color/text_color2"
         android:textSize="14sp"
         android:id="@+id/tv_agree"

@@ -44,7 +44,7 @@ public class AppLifecyclesImpl implements AppLifecycles {
 
     @Override
     public void attachBaseContext(Context base) {
-        MultiDex.install(base);
+        //MultiDex.install(base);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bind = ButterKnife.bind(this);
-
+        ArmsUtils.makeText(this,"bug修复成功"/*"基线包"*/);
         tabLayout.setTabData(createTabData(), this, R.id.frameLayout, createFragments());
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override

@@ -247,6 +247,8 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     private void setAgreeVisible(int is_member) {
         recLine.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
         etRecommendCode.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
+        checkBox.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
+        tvAgree.setVisibility(is_member == 0 ? View.VISIBLE : View.GONE);
     }
 
     @Override
