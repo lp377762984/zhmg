@@ -7,6 +7,7 @@ import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
-import timber.log.Timber;
 
 public class BusinessModel extends BaseModel implements IBusinessModel {
     private int index = 0;
@@ -44,7 +44,6 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
                 result.msg="开心哈哈哈";
                 result.data ="hahhahah";
                 //result.data = businessList;
-                Timber.d("apply: " + businessList.size());
                 index++;
                 return result;
             }
@@ -64,5 +63,12 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
     @Override
     public Observable<Result<List<BClass>>> getBClassList() {
         return mRepositoryManager.obtainCacheService(HttpServices.class).getBClassList();
+    }
+
+    @Override
+    public Observable<Result<List<Street>>> getStreets(int townID) {
+        HttpServices httpServices = mRepositoryManager.obtainRetrofitService(HttpServices.class);
+        Observable<Result<List<Street>>> streetInfo = httpServices.getStreetInfo(townID);
+        return streetInfo;
     }
 }

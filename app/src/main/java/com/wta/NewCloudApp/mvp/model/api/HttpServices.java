@@ -12,6 +12,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
 
 import java.util.List;
 import java.util.Map;
@@ -123,4 +124,7 @@ public interface HttpServices {
 
     @GET("/shopLevel")
     Observable<Result<List<BClass>>> getBClassList();
+
+    @GET("/getRegion")
+    Observable<Result<List<Street>>> getStreetInfo(@Query("town")int townId);
 }

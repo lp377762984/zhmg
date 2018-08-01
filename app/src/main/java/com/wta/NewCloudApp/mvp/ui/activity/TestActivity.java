@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.view.four.OnOptionsSelectListener4;
@@ -14,6 +15,11 @@ import com.bigkoo.pickerview.view.four.OptionsPickerView4;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.mvp.model.entity.Province;
+import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.City;
+import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.County;
+import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.LinkDialog;
+import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.OnAddressSelectedListener;
+import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
 import com.wta.NewCloudApp.uitls.DataUtils;
 
 import org.json.JSONArray;
@@ -26,16 +32,38 @@ public class TestActivity extends AppCompatActivity {
     private ArrayList<Province> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<Province.City>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<Province.City.District>>> options3Items = new ArrayList<>();
-    private ArrayList<ArrayList<ArrayList<ArrayList<Province.City.District.Street>>>> options4Items=new ArrayList<>();
+    private ArrayList<ArrayList<ArrayList<ArrayList<Province.City.District.Street>>>> options4Items = new ArrayList<>();
+    private LinkDialog dialog;
+    private Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        btn = ((Button) findViewById(R.id.btn));
         task.execute();
     }
 
     public void showDiloge(View view) {
+        //show1();
+        show2();
+    }
+
+    private void show2() {
+        if (dialog == null) {
+            dialog = new LinkDialog(this);
+            dialog.setOnAddressSelectedListener(new OnAddressSelectedListener() {
+                @Override
+                public void onAddressSelected(com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Province province, City city, County county, Street street) {
+                    dialog.dismiss();
+                    btn.setText(province.getName()+","+city.getName()+","+county.getName()+","+street.getName());
+                }
+            });
+        }
+        dialog.show();
+    }
+
+    private void show1() {
         if (options1Items.size() == 0) {
             Toast.makeText(this, "数据正在初始化", Toast.LENGTH_SHORT).show();
             return;
