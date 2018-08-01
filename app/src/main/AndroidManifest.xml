@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme_NOACTIONBAR">
         <provider
-            android:name="com.wta.NewCloudApp.config.FileProVider"
+            android:name=".config.FileProVider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -44,7 +44,7 @@
         <meta-data
             android:name="com.wta.NewCloudApp.config.GlobalConfiguration"
             android:value="ConfigModule" />
-        <!--热修复-->
+        <!-- 热修复 -->
         <meta-data
             android:name="com.taobao.android.hotfix.IDSECRET"
             android:value="24994144" />
@@ -56,19 +56,19 @@
             android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCJNXr8iEECs5V7hcWouIo00TMFe07szXls4nTzK7Gzh/8HHz3qDPkIwvG5iM3knBWwzyynV0GuI0Y1P7ZIql05j6jvufhhflI1oZu0uHfI4epxWLDQqHUrz8eU2tUfyL1aqYtdR9Xv7BUdrcNWMkr7jzTaiamLeBWuraJFqsY5h0T6jUXxHRzPp95ne+K/nvkehPQH9mFsYtHxHCXVh/eHbnoB+NcAxtskTE1jiL6eUAr/eAthwujX0naEOoZUs2fdbsGgZuPNRy3PxbWWCv5Ni1Zg08exHzdwGsCIJyHpOvNVAyJ0wc2XEfjvbME9JYn9JNao1Q8wBa6VMyoVfZK1AgMBAAECggEAGwDdfYnLUZ7KUo8XQYdgG9j4M6H6/HvL4/QFlD4LMQwY0uwBIWkAMgs7y4nzC4T0d+GuJhj0IjNrA9vQIij1Q/jUBKoTCgz0XP27SSvs1yovG7OayNX+iWrRGqievSyip48qkGcs4ZUS6s5h3Tr0quGaQ1BIf9xYWBJwF0nuzS9Y/KK04AAPZjuLThJmB31udIQGtXVfYCBav/efQ7N7ZfIiYlw3ipRZPB9PgLzt3zUijMSIEVBv5sCVFKs/ezLLue4ek7Nd7iaqwDdbOyhkCaaBt4Wkd5gBC9sYtEzQ/kEeHrVRafdB2b4D/bcEwgM3JMOqNpWIUFA68LHQ06VugQKBgQDiRIFQmrnSdpxbhBaNc3MXMSYr+sHb6BreBlJ2PLfYbUMXmuNfjrbdACvFgtzabWmU/ASnXkbisHV3R0AhAyHgLmTIFVg/DZLVnfaGxz2yWwPtgNrKwpUEYr8756IwFt/PXO+zsgIua0LnvGv9RqwnBLzGxDOuGWquus3ppltIUQKBgQCbPRlOUnB7P2HwVoU1Bt9t0TdWxOq/62q1jFfupdGHWwCgCnYCZ9zeLSq9d2ONkktfjCR/fIH+eAQe7jbt52ppOPI5+TcFk7/CUwhlVwvfp9mNrC6T82nBSTdiLsywgBqCAzO0AUGrdQLWDrNjcO/laXwMrDow+s6y0wlni6FvJQKBgQCMc6u1xiW84AWUxTxel6CEb+za9e/qOnya/1+mp3ATd1djSrEDOwqFyrphAydmqu4UHhAheGMWCiUQYnkLRO99Qi8rCBzcHufblA9YgErq8JZSkl695+UqcMV2QQWrRjetd2oPqFq0R76jLJH4CSuJmOY5l8bgtkRDrA9vjuUw0QKBgFpS7op3xSKw+ldQwCjeWtoWxVAjO0N3wprnkbI1oPhUpsR30boMnKJZPWkIMlCJMnnhnMrgsvJQ+nTUvfkmkO+wRqActTr1gLmcfmIYh7wWearI6EEFfB8Obr8d49M+di33lvnBUWhlqMTLwOy3JZ4iBh+JhkJBbEr4J5yrzb5RAoGAAqn7A6jsmpiz/ZXV2aE06QgNuC4Cjwhkhop+lwEeBCo4FmqJJlUYrP+Pl/MGWkabTlDJY1D7IZ0xkjiB6H7d/eWPgZFsdhWJpcdPzbRRP3gYFkkBd24bFDIIZBqOLeOnmykPPcvq++IuSzzmNS/2zmMlsqEzFlmpqI2uTN9AHyk=" />
 
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.MainActivity"
+            android:name=".mvp.ui.activity.MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.BaseListActivity" />
+        <activity android:name=".mvp.ui.activity.BaseListActivity" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.LoginActivity"
+            android:name=".mvp.ui.activity.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme_FULLSCREEN" />
-        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.BaseLoadingActivity" />
+        <activity android:name=".mvp.ui.activity.BaseLoadingActivity" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity"
+            android:name=".mvp.ui.activity.WebViewActivity"
             android:screenOrientation="portrait" />
         <!-- third_party -->
         <!-- sina -->
@@ -109,7 +109,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="l1lPLxXmLuMS6AyK"
+                <data
+                    android:scheme="l1lPLxXmLuMS6AyK"
                     tools:ignore="AppLinkUrlError" /> <!-- 需要换成自己的 -->
             </intent-filter>
         </activity>
@@ -118,25 +119,25 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.SweepActivity"
+            android:name=".mvp.ui.activity.SweepActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.UserMsgActivity"
+            android:name=".mvp.ui.activity.UserMsgActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.UserQRActivity"
+            android:name=".mvp.ui.activity.UserQRActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.BServiceActivity"
+            android:name=".mvp.ui.activity.BServiceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.NameSetActivity"
+            android:name=".mvp.ui.activity.NameSetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.ShopInActivity"
+            android:name=".mvp.ui.activity.ShopInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.SplashActivity"
+            android:name=".mvp.ui.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme_FULLSCREEN">
             <intent-filter>
@@ -146,39 +147,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.GuideActivity"
+            android:name=".mvp.ui.activity.GuideActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme_FULLSCREEN" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.SettingActivity"
+            android:name=".mvp.ui.activity.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.AuthActivity"
+            android:name=".mvp.ui.activity.AuthActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.MsgActivity"
+            android:name=".mvp.ui.activity.MsgActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.BindPhoneActivity"
+            android:name=".mvp.ui.activity.BindPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.GroupActivity"
+            android:name=".mvp.ui.activity.GroupActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.AddRecActivity"
+            android:name=".mvp.ui.activity.AddRecActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.CardListActivity"
+            android:name=".mvp.ui.activity.CardListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.AddCardActivity"
+            android:name=".mvp.ui.activity.AddCardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.wta.NewCloudApp.mvp.ui.activity.AddressListActivity"
+            android:name=".mvp.ui.activity.AddressListActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <activity android:name="com.wta.NewCloudApp.mvp.ui.activity.AddAddressActivity"
-            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.ui.activity.AddAddressActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"/>
+        <activity android:name=".mvp.ui.activity.TestActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"/>
     </application>
 
 </manifest>

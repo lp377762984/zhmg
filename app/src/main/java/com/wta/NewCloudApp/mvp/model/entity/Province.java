@@ -63,6 +63,7 @@ public class Province implements IPickerViewData {
         }
 
         public static class District implements IPickerViewData {
+            private ArrayList<Street> streets;
             private int id;
             private String name;
 
@@ -80,6 +81,14 @@ public class Province implements IPickerViewData {
                         "id=" + id +
                         ", name='" + name + '\'' +
                         '}';
+            }
+
+            public ArrayList<Street> getStreets() {
+                return streets;
+            }
+
+            public void setStreets(ArrayList<Street> streets) {
+                this.streets = streets;
             }
 
             public int getId() {
@@ -101,6 +110,32 @@ public class Province implements IPickerViewData {
             @Override
             public String getPickerViewText() {
                 return name;
+            }
+
+            public static class Street implements IPickerViewData{
+                private int id;
+                private String name;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                @Override
+                public String getPickerViewText() {
+                    return name;
+                }
             }
         }
 
