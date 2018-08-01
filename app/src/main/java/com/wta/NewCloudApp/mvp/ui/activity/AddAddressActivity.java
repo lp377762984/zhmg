@@ -126,8 +126,8 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         //返回的分别是三个级别的选中位置
                         String tx = options1Items.get(options1).getPickerViewText() +
-                                options2Items.get(options1).get(options2) +
-                                options3Items.get(options1).get(options2).get(options3);
+                                options2Items.get(options1).get(options2).getPickerViewText() +
+                                options3Items.get(options1).get(options2).get(options3).getPickerViewText();
 
                         Toast.makeText(AddAddressActivity.this, tx, Toast.LENGTH_SHORT).show();
                     }

@@ -2,7 +2,10 @@ package com.wta.NewCloudApp.mvp.model.api;
 
 
 import com.wta.NewCloudApp.mvp.model.entity.Address;
+import com.wta.NewCloudApp.mvp.model.entity.BClass;
+import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
+import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
@@ -96,13 +99,13 @@ public interface HttpServices {
 
     @FormUrlEncoded
     @POST("/memberAddress/add")
-    Observable<Result<Address>> addAddress(@Field("consignee") String consignee,@Field("mobile") String mobile,@Field("province") int province
-            ,@Field("city") int city,@Field("district") int district,@Field("address") String address,@Field("type") int type);
+    Observable<Result<Address>> addAddress(@Field("consignee") String consignee, @Field("mobile") String mobile, @Field("province") int province
+            , @Field("city") int city, @Field("district") int district, @Field("address") String address, @Field("type") int type);
 
     @FormUrlEncoded
     @POST("/memberAddress/edit")
-    Observable<Result<Address>> editAddress(@Field("address_id") int address_id,@Field("consignee") String consignee,@Field("mobile") String mobile,@Field("province") int province
-            ,@Field("city") int city,@Field("district") int district,@Field("address") String address,@Field("type") int type);
+    Observable<Result<Address>> editAddress(@Field("address_id") int address_id, @Field("consignee") String consignee, @Field("mobile") String mobile, @Field("province") int province
+            , @Field("city") int city, @Field("district") int district, @Field("address") String address, @Field("type") int type);
 
     @FormUrlEncoded
     @POST("/memberAddress/setDefault")
@@ -111,4 +114,13 @@ public interface HttpServices {
     @FormUrlEncoded
     @POST("/memberAddress/del")
     Observable<Result<Address>> delAddress(@Field("address_id") int address_id);
+
+    @GET("/admission")
+    Observable<Result<Business>> getBState();
+
+    @GET("/category")
+    Observable<Result<List<BType>>> getBTypeList();
+
+    @GET("/shopLevel")
+    Observable<Result<List<BClass>>> getBClassList();
 }

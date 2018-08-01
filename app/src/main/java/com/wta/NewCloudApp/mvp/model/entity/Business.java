@@ -8,6 +8,7 @@ public class Business {
     public String time;
     public String location;
     public String distance;
+    public int code_type;
 
     public Business(String icon, String name, String type, String scoreType, String time, String location, String distance) {
         this.icon = icon;

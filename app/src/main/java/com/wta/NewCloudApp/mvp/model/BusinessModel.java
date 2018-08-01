@@ -2,6 +2,9 @@ package com.wta.NewCloudApp.mvp.model;
 
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
+import com.wta.NewCloudApp.mvp.model.api.HttpServices;
+import com.wta.NewCloudApp.mvp.model.entity.BClass;
+import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 
@@ -46,5 +49,20 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
                 return result;
             }
         });
+    }
+
+    @Override
+    public Observable<Result<Business>> getBusinessState() {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getBState();
+    }
+
+    @Override
+    public Observable<Result<List<BType>>> getBTypeList() {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getBTypeList();
+    }
+
+    @Override
+    public Observable<Result<List<BClass>>> getBClassList() {
+        return mRepositoryManager.obtainCacheService(HttpServices.class).getBClassList();
     }
 }
