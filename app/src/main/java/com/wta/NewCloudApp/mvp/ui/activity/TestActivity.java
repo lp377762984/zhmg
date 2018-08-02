@@ -9,11 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
 import com.bigkoo.pickerview.view.four.OnOptionsSelectListener4;
 import com.bigkoo.pickerview.view.four.OptionsPickerBuilder4;
 import com.bigkoo.pickerview.view.four.OptionsPickerView4;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
+import com.wta.NewCloudApp.manager.LocationManager;
 import com.wta.NewCloudApp.mvp.model.entity.Province;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.City;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.County;
@@ -35,6 +37,7 @@ public class TestActivity extends AppCompatActivity {
     private ArrayList<ArrayList<ArrayList<ArrayList<Province.City.District.Street>>>> options4Items = new ArrayList<>();
     private LinkDialog dialog;
     private Button btn;
+    private LocationManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,38 @@ public class TestActivity extends AppCompatActivity {
 
     public void showDiloge(View view) {
         //show1();
-        show2();
+        //show2();
+        showLocation();
+    }
+
+    private void showLocation() {
+        if (manager==null){
+            manager=new LocationManager(this, new LocationManager.LocateListener() {
+                @Override
+                public void onLocateSuccess(AMapLocation location) {
+                    btn.setText(location.getAddress()+"\n"
+                            +location.getLocationDetail()+"\n"
+                            +location.getAoiName()+"\n"
+                            +location.getDescription()+"\n"
+                            +location.getStreetNum()+"\n"
+                            +location.toStr(1)+"\n"
+                            +location.toStr(2)+"\n"
+                            +location.toStr(3)+"\n"
+                            +location.getAccuracy()+"\n"
+                            +location.getCountry()+","
+                            +location.getProvince()+","
+                            +location.getCity()+","
+                            +location.getDistrict()+","
+                            +location.getStreet());
+                }
+
+                @Override
+                public boolean onLocateFailed(AMapLocation location) {
+                    return false;
+                }
+            });
+        }
+        manager.start();
     }
 
     private void show2() {

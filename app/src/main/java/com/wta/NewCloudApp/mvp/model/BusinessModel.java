@@ -32,7 +32,7 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
             @Override
             public Result<List<Business>> apply(Long aLong) throws Exception {
                 if (isRefresh) index = 0;
-                Result result = new Result(404);
+                Result result = new Result(200);
                 List<Business> businessList = new ArrayList<>();
                 if (index < 5) {
                     for (int i = 0; i < 3; i++) {
@@ -42,8 +42,7 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
                     }
                 }
                 result.msg="开心哈哈哈";
-                result.data ="hahhahah";
-                //result.data = businessList;
+                result.data = businessList;
                 index++;
                 return result;
             }
