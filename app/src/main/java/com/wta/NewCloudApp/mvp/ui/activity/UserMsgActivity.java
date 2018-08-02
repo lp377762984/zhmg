@@ -1,6 +1,5 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -12,19 +11,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.PermissionUtil;
-import com.makeramen.roundedimageview.RoundedImageView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerUserMsgComponent;
 import com.wta.NewCloudApp.di.module.UserMsgModule;
-import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.UserMsgContract;
 import com.wta.NewCloudApp.mvp.presenter.UserMsgPresenter;
 import com.wta.NewCloudApp.uitls.ConfigTag;
@@ -51,7 +48,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.functions.Consumer;
 import timber.log.Timber;
 
 
@@ -151,7 +147,7 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
                 break;
             case R.id.tv_camera:
                 btmDialog.dismiss();
-                PermissionUtil.requestPermission(new PermissionUtil.RequestPermission() {
+                PermissionUtil.externalStorage(new PermissionUtil.RequestPermission() {
                     @Override
                     public void onRequestPermissionSuccess() {
                         configCompress();
@@ -167,7 +163,7 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
                     public void onRequestPermissionFailureWithAskNeverAgain(List<String> permissions) {
 
                     }
-                }, new RxPermissions(this), mPresenter.mErrorHandler,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA);
+                }, new RxPermissions(this), mPresenter.mErrorHandler);
 
                 break;
             case R.id.tv_cancel:
@@ -231,8 +227,6 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
 
     /**
      * 获取TakePhoto实例
-     *
-     * @return
      */
     public TakePhoto getTakePhoto() {
         if (takePhoto == null) {

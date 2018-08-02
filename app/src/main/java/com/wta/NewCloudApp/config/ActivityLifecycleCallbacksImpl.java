@@ -21,6 +21,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -64,6 +65,9 @@ public class ActivityLifecycleCallbacksImpl implements Application.ActivityLifec
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        if (activity instanceof BaseActivity){
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         //Timber.w("%s - onActivityCreated", activity);
         //加入锁屏和home键监听
         IntentFilter intentFilter = new IntentFilter();
@@ -107,7 +111,7 @@ public class ActivityLifecycleCallbacksImpl implements Application.ActivityLifec
         activity.unregisterReceiver(mHomeKeyEventReceiver);
         if (activity instanceof MainActivity) {
             if (SophixConfig.patchStatusCode == PatchStatus.CODE_LOAD_RELAUNCH) {
-                killProcess(activity,false);
+                killProcess(activity, false);
             }
         }
     }

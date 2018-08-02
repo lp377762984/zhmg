@@ -188,7 +188,10 @@
             android:name=".mvp.ui.activity.TestActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <activity android:name=".mvp.ui.activity.MerchantInActivity"></activity>
+        <activity android:name=".mvp.ui.activity.MerchantInActivity" />
+        <activity
+            android:name=".mvp.ui.activity.MerchantAuthActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

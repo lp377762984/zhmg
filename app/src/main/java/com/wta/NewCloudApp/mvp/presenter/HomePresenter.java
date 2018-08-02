@@ -1,52 +1,30 @@
 package com.wta.NewCloudApp.mvp.presenter;
 
-import android.app.Application;
-
-import com.jess.arms.integration.AppManager;
 import com.jess.arms.di.scope.FragmentScope;
-import com.jess.arms.mvp.BasePresenter;
-import com.jess.arms.http.imageloader.ImageLoader;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
-
-import javax.inject.Inject;
-
 import com.wta.NewCloudApp.mvp.contract.HomeContract;
 import com.wta.NewCloudApp.mvp.model.entity.Bill;
+import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 
 @FragmentScope
 public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContract.View> {
-    @Inject
-    RxErrorHandler mErrorHandler;
-    @Inject
-    Application mApplication;
-    @Inject
-    ImageLoader mImageLoader;
-    @Inject
-    AppManager mAppManager;
 
     @Inject
     public HomePresenter(HomeContract.Model model, HomeContract.View rootView) {
         super(model, rootView);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        this.mErrorHandler = null;
-        this.mAppManager = null;
-        this.mImageLoader = null;
-        this.mApplication = null;
-    }
-
     public void getMsgList(){
         doRequest(buildRequest(false,mModel.getBillList(),false),1);
+    }
+
+    public void getStoreState(){
+        doRequest(buildRequest(mModel.getStoreState()),2);
     }
 
     @Override
@@ -54,6 +32,8 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
         super.handle200(what, result);
         if (what==1){
             mRootView.showList((Result<List<Bill>>) result);
+        }else if (what==2){
+            mRootView.showBState((Result<Business>) result);
         }
     }
 }

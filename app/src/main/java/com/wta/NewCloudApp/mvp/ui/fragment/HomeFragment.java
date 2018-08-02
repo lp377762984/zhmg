@@ -11,15 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jess.arms.di.component.AppComponent;
-import com.jess.arms.utils.ArmsUtils;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerHomeComponent;
 import com.wta.NewCloudApp.di.module.HomeModule;
-import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.HomeContract;
 import com.wta.NewCloudApp.mvp.model.entity.Bill;
+import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.presenter.HomePresenter;
-import com.wta.NewCloudApp.mvp.ui.activity.SweepActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.HomeListAdapter;
 import com.youth.banner.Banner;
 
@@ -50,11 +49,6 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     HomeListAdapter adapter;
     private List<Bill> billData;
 
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-        return fragment;
-    }
-
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
         DaggerHomeComponent //如找不到该类,请编译一下项目
@@ -76,11 +70,6 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     }
 
     @Override
-    public void setData(@Nullable Object data) {
-
-    }
-
-    @Override
     public void showList(Result<List<Bill>> result) {
         if (adapter == null) {
             billData = new ArrayList<>();
@@ -96,13 +85,38 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         }
     }
 
-    @OnClick({R.id.im_sweep, R.id.im_bus_code})
+    @Override
+    public void showBState(Result<Business> businessResult) {
+        showToast(businessResult.msg);
+        switch (businessResult.data.code_type) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+        }
+    }
+
+    @OnClick({R.id.im_sweep, R.id.im_bus_code,R.id.im_business})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_sweep:
                 //ArmsUtils.startActivity(SweepActivity.class);
                 break;
             case R.id.im_bus_code:
+                mPresenter.getStoreState();
+                break;
+            case R.id.im_business:
+                mPresenter.getStoreState();
                 break;
         }
     }

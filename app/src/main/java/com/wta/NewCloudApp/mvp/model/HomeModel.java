@@ -1,23 +1,19 @@
 package com.wta.NewCloudApp.mvp.model;
 
-import android.app.Application;
-
-import com.google.gson.Gson;
+import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
-
-import com.jess.arms.di.scope.FragmentScope;
-
-import javax.inject.Inject;
-
 import com.wta.NewCloudApp.mvp.contract.HomeContract;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
 import com.wta.NewCloudApp.mvp.model.entity.Bill;
+import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
@@ -25,21 +21,10 @@ import io.reactivex.functions.Function;
 
 @FragmentScope
 public class HomeModel extends BaseModel implements HomeContract.Model {
-    @Inject
-    Gson mGson;
-    @Inject
-    Application mApplication;
 
     @Inject
     public HomeModel(IRepositoryManager repositoryManager) {
         super(repositoryManager);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        this.mGson = null;
-        this.mApplication = null;
     }
 
     @Override
@@ -58,5 +43,10 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                         return result;
                     }
                 });
+    }
+
+    @Override
+    public Observable<Result<Business>> getStoreState() {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getBState();
     }
 }

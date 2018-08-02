@@ -10,4 +10,5 @@ public class FinalUtils {
 
     public static final String ABOUT_US = "http://zhmg.jjzbest.com/about";
     public static final int REQUEST_ADDRESS = 2023;
+    public static final int REQUEST_BAUTH = 2024;
 }

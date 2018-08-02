@@ -13,6 +13,7 @@ import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.mvp.IPresenter;
 import com.jess.arms.mvp.IView;
+import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 
 public class BaseLoadingFragment<P extends IPresenter> extends BaseFragment<P> implements IView {
@@ -65,5 +66,9 @@ public class BaseLoadingFragment<P extends IPresenter> extends BaseFragment<P> i
     @Override
     public void killMyself() {
 
+    }
+
+    public void showToast(String content){
+        ArmsUtils.makeText(getActivity(),content);
     }
 }

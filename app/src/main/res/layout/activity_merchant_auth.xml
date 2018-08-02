@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
+        app:textTitle="法人资质"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/money_bar_height"/>
+    <ScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/im_passport"
+                android:layout_margin="15dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+            <ImageView
+                android:id="@+id/im_hand_card"
+                android:layout_margin="15dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+            <ImageView
+                android:id="@+id/im_card_positive"
+                android:layout_margin="15dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+            <ImageView
+                android:id="@+id/im_card_negative"
+                android:layout_margin="15dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+            <Button
+                android:id="@+id/btn_next"
+                android:textColor="@color/white"
+                android:text="下一步"
+                android:layout_margin="15dp"
+                android:background="@drawable/login_btn_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
