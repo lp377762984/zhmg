@@ -27,7 +27,6 @@ import com.wta.NewCloudApp.uitls.FinalUtils;
 import org.devio.takephoto.app.TakePhoto;
 import org.devio.takephoto.app.TakePhotoImpl;
 import org.devio.takephoto.compress.CompressConfig;
-import org.devio.takephoto.model.CropOptions;
 import org.devio.takephoto.model.InvokeParam;
 import org.devio.takephoto.model.LubanOptions;
 import org.devio.takephoto.model.TContextWrap;
@@ -37,7 +36,6 @@ import org.devio.takephoto.permission.PermissionManager;
 import org.devio.takephoto.permission.TakePhotoInvocationHandler;
 
 import java.io.File;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -138,7 +136,7 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
                         if (!aBoolean) showToast("没有权限无法继续操作");
                         else {
                             configCompress();
-                            takePhoto.onPickFromGalleryWithCrop(getImageUri(), getCropConfig());
+                            takePhoto.onPickFromGallery();
                         }
                     }
                 });
@@ -150,7 +148,7 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
                         if (!aBoolean) showToast("没有权限无法继续操作");
                         else {
                             configCompress();
-                            takePhoto.onPickFromCaptureWithCrop(getImageUri(), getCropConfig());
+                            takePhoto.onPickFromCapture(getImageUri());
                         }
                     }
                 });
@@ -173,7 +171,7 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
 
     @Override
     public void takeSuccess(TResult tResult) {
-        String compressPath = tResult.getImage().getCompressPath();
+        String compressPath = tResult.getImage().getOriginalPath();
         File file = new File(compressPath);
         switch (currentId) {
             case R.id.im_passport:
@@ -268,10 +266,6 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
             file.delete();
         }
         return Uri.fromFile(file);
-    }
-
-    private CropOptions getCropConfig() {
-        return new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(false).create();
     }
 
     private void configCompress() {
