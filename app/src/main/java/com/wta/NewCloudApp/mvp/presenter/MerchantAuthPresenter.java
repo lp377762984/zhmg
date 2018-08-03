@@ -3,6 +3,8 @@ package com.wta.NewCloudApp.mvp.presenter;
 import com.jess.arms.di.scope.ActivityScope;
 import com.wta.NewCloudApp.mvp.contract.MerchantAuthContract;
 import com.wta.NewCloudApp.mvp.model.IBusinessModel;
+import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
+import com.wta.NewCloudApp.mvp.model.entity.Result;
 
 import javax.inject.Inject;
 
@@ -13,5 +15,17 @@ public class MerchantAuthPresenter extends BBasePresenter<IBusinessModel, Mercha
     @Inject
     public MerchantAuthPresenter(IBusinessModel model, MerchantAuthContract.View rootView) {
         super(model, rootView);
+    }
+
+    public void applyAuth(String passportImg,String handImg,String positiveImg,String negativeImg){
+        doRequest(buildRequest(mModel.uploadAuth(passportImg,handImg,positiveImg,negativeImg)),1);
+    }
+
+    @Override
+    public <T> void handle200(int what, Result<T> result) {
+        super.handle200(what, result);
+        if (what==1){
+            mRootView.uploadSuccess(((AuthInfo) result.data));
+        }
     }
 }

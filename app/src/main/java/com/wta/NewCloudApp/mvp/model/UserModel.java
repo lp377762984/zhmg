@@ -15,6 +15,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.uitls.EncodeUtils;
 import com.wta.NewCloudApp.uitls.FileUtils;
 
 import java.io.File;
@@ -58,12 +59,7 @@ public class UserModel extends BaseModel implements IUserModel {
 
     @Override
     public Observable<Result<User>> setUser(String name, File head) {
-        String avatar = null;
-        if (head != null && head.exists()) {
-            byte[] bytes = FileUtils.File2byte(head);
-            avatar = "data:image/jpeg;base64," + Base64.encodeToString(bytes, Base64.DEFAULT);
-        }
-        return mRepositoryManager.obtainRetrofitService(HttpServices.class).setUser(name, avatar);
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).setUser(name, EncodeUtils.fileToBase64(head));
     }
 
     @Override

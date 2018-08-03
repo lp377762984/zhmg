@@ -2,6 +2,7 @@ package com.wta.NewCloudApp.mvp.model.api;
 
 
 import com.wta.NewCloudApp.mvp.model.entity.Address;
+import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
@@ -127,4 +128,8 @@ public interface HttpServices {
 
     @GET("/getRegion")
     Observable<Result<List<Street>>> getStreetInfo(@Query("town")int townId);
+
+    @FormUrlEncoded
+    @POST("/qualification")
+    Observable<Result<AuthInfo>> uploadBAuth(@Field("shop_business") String a1,@Field("shop_handheld_idcard") String a2,@Field("shop_facade_idcard") String a3,@Field("shop_reverse_idcard") String a4);
 }

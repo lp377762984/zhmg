@@ -3,6 +3,7 @@ package com.wta.NewCloudApp.mvp.model;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
+import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
@@ -26,6 +27,10 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
         super(repositoryManager);
     }
 
+    private HttpServices getService() {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class);
+    }
+
     @Override
     public Observable<Result<List<Business>>> getBusiness(boolean isRefresh) {
         return Observable.timer(1, TimeUnit.SECONDS).map(new Function<Long, Result<List<Business>>>() {
@@ -41,7 +46,7 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
                                         "华华", "服装", "获得的8%", "朝九晚六", "三里屯", "1.5KM"));
                     }
                 }
-                result.msg="开心哈哈哈";
+                result.msg = "开心哈哈哈";
                 result.data = businessList;
                 index++;
                 return result;
@@ -66,8 +71,11 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
 
     @Override
     public Observable<Result<List<Street>>> getStreets(int townID) {
-        HttpServices httpServices = mRepositoryManager.obtainRetrofitService(HttpServices.class);
-        Observable<Result<List<Street>>> streetInfo = httpServices.getStreetInfo(townID);
-        return streetInfo;
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getStreetInfo(townID);
+    }
+
+    @Override
+    public Observable<Result<AuthInfo>> uploadAuth(String a, String b, String c, String d) {
+        return getService().uploadBAuth(a, b, c, d);
     }
 }

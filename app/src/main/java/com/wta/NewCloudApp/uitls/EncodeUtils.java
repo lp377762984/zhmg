@@ -1,8 +1,10 @@
 package com.wta.NewCloudApp.uitls;
 
+import android.util.Base64;
 import android.util.Log;
 
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -33,7 +35,7 @@ public class EncodeUtils {
     public static String makeSign(String nonceStr, String url) {
         TreeMap map = new TreeMap();
         map.put("nonce_str", nonceStr);//3
-        map.put("timestamp", System.currentTimeMillis()/1000);//4
+        map.put("timestamp", System.currentTimeMillis() / 1000);//4
         map.put("key", "zhmg46c229d7zjf4bc3a813332aff792d32c23");//2
         map.put("api_url", url);//1
         StringBuilder sb = new StringBuilder();
@@ -52,7 +54,7 @@ public class EncodeUtils {
         String[] ss = new String[2];
         TreeMap map = new TreeMap();
         map.put("nonce_str", nonceStr);//3
-        long time = System.currentTimeMillis()/1000;
+        long time = System.currentTimeMillis() / 1000;
         map.put("timestamp", time);//4
         map.put("key", "zhmg46c229d7zjf4bc3a813332aff792d32c23");//2
         map.put("api_url", url);//1
@@ -208,4 +210,13 @@ public class EncodeUtils {
         Log.d(TAG, "getCurrentTime: " + theTime);
         return theTime;
     }*/
+
+    public static String fileToBase64(File file) {
+        String avatar = null;
+        if (file != null && file.exists()) {
+            byte[] bytes = FileUtils.File2byte(file);
+            avatar = "data:image/jpeg;base64," + Base64.encodeToString(bytes, Base64.DEFAULT);
+        }
+        return avatar;
+    }
 }

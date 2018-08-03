@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -18,7 +19,9 @@ import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerMerchantAuthComponent;
 import com.wta.NewCloudApp.di.module.MerchantAuthModule;
 import com.wta.NewCloudApp.mvp.contract.MerchantAuthContract;
+import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.presenter.MerchantAuthPresenter;
+import com.wta.NewCloudApp.uitls.EncodeUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import org.devio.takephoto.app.TakePhoto;
@@ -56,6 +59,10 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
     private InvokeParam invokeParam;
     BottomSheetDialog btmDialog;
     private int currentId;//当前点击的viewID
+    private String passportImg;
+    private String handImg;
+    private String positiveImg;
+    private String negativeImg;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -99,6 +106,23 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
                 showDialog();
                 break;
             case R.id.btn_next:
+                if (TextUtils.isEmpty(passportImg)){
+                    showToast("请上传营业执照");
+                    return;
+                }
+                if (TextUtils.isEmpty(handImg)){
+                    showToast("请上传法人手持身份证照片");
+                    return;
+                }
+                if (TextUtils.isEmpty(positiveImg)){
+                    showToast("请上传法人正面身份证照片");
+                    return;
+                }
+                if (TextUtils.isEmpty(negativeImg)){
+                    showToast("请上传法人反面身份证照片");
+                    return;
+                }
+                mPresenter.applyAuth(passportImg,handImg,positiveImg,negativeImg);
                 break;
         }
     }
@@ -149,7 +173,22 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
 
     @Override
     public void takeSuccess(TResult tResult) {
-
+        String compressPath = tResult.getImage().getCompressPath();
+        File file = new File(compressPath);
+        switch (currentId) {
+            case R.id.im_passport:
+                passportImg = EncodeUtils.fileToBase64(file);
+                break;
+            case R.id.im_hand_card:
+                handImg = EncodeUtils.fileToBase64(file);
+                break;
+            case R.id.im_card_positive:
+                positiveImg = EncodeUtils.fileToBase64(file);
+                break;
+            case R.id.im_card_negative:
+                negativeImg = EncodeUtils.fileToBase64(file);
+                break;
+        }
     }
 
     @Override
@@ -207,19 +246,19 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
     }
 
     private Uri getImageUri() {
-        String name="zhmg.jpg";
-        switch (currentId){
+        String name = "zhmg.jpg";
+        switch (currentId) {
             case R.id.im_passport:
-                name="zhmg_passport.jpg";
+                name = "zhmg_passport.jpg";
                 break;
             case R.id.im_hand_card:
-                name="zhmg_hand_card.jpg";
+                name = "zhmg_hand_card.jpg";
                 break;
             case R.id.im_card_positive:
-                name="zhmg_card_positive.jpg";
+                name = "zhmg_card_positive.jpg";
                 break;
             case R.id.im_card_negative:
-                name="zhmg_card_negative.jpg";
+                name = "zhmg_card_negative.jpg";
                 break;
         }
         File dir = new File(Environment.getExternalStorageDirectory(), "/temp/");
@@ -242,4 +281,8 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
         takePhoto.onEnableCompress(config, false);
     }
 
+    @Override
+    public void uploadSuccess(AuthInfo data) {
+        showToast("上传成功");
+    }
 }

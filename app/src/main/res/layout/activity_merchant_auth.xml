@@ -19,21 +19,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
+                android:src="@mipmap/update_close"
                 android:id="@+id/im_passport"
                 android:layout_margin="15dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp" />
             <ImageView
+                android:src="@mipmap/update_close"
                 android:id="@+id/im_hand_card"
                 android:layout_margin="15dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp" />
             <ImageView
+                android:src="@mipmap/update_close"
                 android:id="@+id/im_card_positive"
                 android:layout_margin="15dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp" />
             <ImageView
+                android:src="@mipmap/update_close"
                 android:id="@+id/im_card_negative"
                 android:layout_margin="15dp"
                 android:layout_width="100dp"

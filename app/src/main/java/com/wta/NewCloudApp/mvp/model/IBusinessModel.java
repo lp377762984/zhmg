@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.model;
 
 import com.jess.arms.mvp.IModel;
+import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
@@ -17,4 +18,5 @@ public interface IBusinessModel extends IModel {
     Observable<Result<List<BType>>> getBTypeList();
     Observable<Result<List<BClass>>> getBClassList();
     Observable<Result<List<Street>>> getStreets(int townID);
+    Observable<Result<AuthInfo>> uploadAuth(String a,String b,String c,String d);
 }
