@@ -17,7 +17,7 @@ public class MsgAdapter extends BaseQuickAdapter<Msg,BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Msg item) {
         helper.setText(R.id.tv_time,item.time);
-        helper.setText(R.id.tv_title,item.title);
+        helper.setText(R.id.im,item.title);
         helper.setText(R.id.tv_content,item.description);
     }
 }

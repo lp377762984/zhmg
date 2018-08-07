@@ -18,7 +18,7 @@ public class HomeListAdapter extends BaseQuickAdapter<Bill, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Bill item) {
-        helper.setText(R.id.tv_title, item.getTitle());
+        helper.setText(R.id.im, item.getTitle());
         helper.setText(R.id.tv_time, item.getTime());
         helper.setText(R.id.tv_content, item.getMoney());
         helper.setText(R.id.tv_type, item.getType());

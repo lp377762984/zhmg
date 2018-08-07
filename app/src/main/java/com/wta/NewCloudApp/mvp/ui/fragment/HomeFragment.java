@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerHomeComponent;
 import com.wta.NewCloudApp.di.module.HomeModule;
@@ -19,6 +20,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.presenter.HomePresenter;
+import com.wta.NewCloudApp.mvp.ui.activity.MerchantInActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.HomeListAdapter;
 import com.youth.banner.Banner;
 
@@ -116,6 +118,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 mPresenter.getStoreState();
                 break;
             case R.id.im_business:
+                ArmsUtils.startActivity(MerchantInActivity.class);
                 mPresenter.getStoreState();
                 break;
         }

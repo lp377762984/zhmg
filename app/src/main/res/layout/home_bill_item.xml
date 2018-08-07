@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/im"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="36dp"
@@ -30,11 +30,11 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="17dp"
         android:text="06-11 10:00"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+        app:layout_constraintBottom_toBottomOf="@+id/im"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_title"
-        app:layout_constraintTop_toTopOf="@+id/tv_title" />
+        app:layout_constraintStart_toEndOf="@+id/im"
+        app:layout_constraintTop_toTopOf="@+id/im" />
 
     <TextView
         android:textSize="17sp"
@@ -48,8 +48,8 @@
         android:text="￥88088"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        app:layout_constraintStart_toStartOf="@+id/im"
+        app:layout_constraintTop_toBottomOf="@+id/im" />
 
     <TextView
         android:textColor="@color/text_color_gray"

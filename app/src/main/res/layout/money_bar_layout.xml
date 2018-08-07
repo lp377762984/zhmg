@@ -33,7 +33,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_20" />
+            android:textSize="@dimen/text_18" />
     </RelativeLayout>
     <TextView
         style="@style/SelectBackgroundBorderless"
