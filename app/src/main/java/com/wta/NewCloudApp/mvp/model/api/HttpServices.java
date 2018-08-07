@@ -131,5 +131,11 @@ public interface HttpServices {
 
     @FormUrlEncoded
     @POST("/qualification")
-    Observable<Result<AuthInfo>> uploadBAuth(@Field("shop_business") String a1,@Field("shop_handheld_idcard") String a2,@Field("shop_facade_idcard") String a3,@Field("shop_reverse_idcard") String a4);
+    Observable<Result<AuthInfo>> uploadBAuth(@Field("shop_business") String a1,@Field("shop_handheld_idcard") String a2,
+                                             @Field("shop_facade_idcard") String a3,@Field("shop_reverse_idcard") String a4);
+
+    @FormUrlEncoded
+    @POST("/shopDetails")
+    Observable<Result<Business>> addStoreInfo(@Field("shop_name") String shop_name,@Field("shop_type") int shop_type,@Field("shop_level") int shop_level,@Field("shop_address_x") double shop_address_x,@Field("shop_address_y") double shop_address_y,@Field("start_time") String start_time,@Field("end_time") String end_time,
+                                              @Field("shop_door_head")String shop_door_head,@Field("province") int province,@Field("city") int city,@Field("district") int district,@Field("town") int town,@Field("location_address") String location_address,@Field("address") String address);
 }

@@ -9,9 +9,7 @@ import android.text.TextUtils;
 
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.di.component.DaggerAddRecComponent;
-import com.wta.NewCloudApp.di.component.DaggerGroupComponent;
 import com.wta.NewCloudApp.di.module.AddRecModule;
-import com.wta.NewCloudApp.di.module.GroupModule;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.AddRecContract;
 import com.wta.NewCloudApp.mvp.presenter.AddRecPresenter;

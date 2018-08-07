@@ -192,7 +192,8 @@
         <activity
             android:name=".mvp.ui.activity.MerchantAuthActivity"
             android:exported="true" />
-        <activity android:name=".mvp.ui.activity.MerchantInfoActivity"></activity>
+        <activity android:name=".mvp.ui.activity.MerchantInfoActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

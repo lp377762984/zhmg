@@ -2,14 +2,23 @@ package com.wta.NewCloudApp.uitls;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectChangeListener;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.ui.listener.DialogCallback;
+
+import java.util.Date;
 
 
 public class DialogUtils {
@@ -89,5 +98,35 @@ public class DialogUtils {
 
     public static Dialog showAlertDialog(Context context, String message, DialogCallback dialogClick) {
         return showAlertDialog(context, message, null, null, dialogClick);
+    }
+
+    public static TimePickerView showTimePicker(Context cotext, OnTimeSelectListener listener) {
+        TimePickerView pvTime = new TimePickerBuilder(cotext, listener)
+                .setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
+                    @Override
+                    public void onTimeSelectChanged(Date date) {
+                    }
+                })
+                .setType(new boolean[]{false, false, false, true, true, false})
+                .isDialog(true)
+                .build();
+        Dialog mDialog = pvTime.getDialog();
+        if (mDialog != null) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.BOTTOM);
+
+            params.leftMargin = 0;
+            params.rightMargin = 0;
+            pvTime.getDialogContainerLayout().setLayoutParams(params);
+
+            Window dialogWindow = mDialog.getWindow();
+            if (dialogWindow != null) {
+                dialogWindow.setWindowAnimations(R.style.Animation_Bottom_Dialog);//修改动画样式
+                dialogWindow.setGravity(Gravity.BOTTOM);//改成Bottom,底部显示
+            }
+        }
+        return pvTime;
     }
 }

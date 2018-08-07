@@ -7,6 +7,6 @@ import com.jess.arms.mvp.IModel;
 public interface MerchantInfoContract {
 
     interface View extends IView {
-
+        void addSuccess();
     }
 }

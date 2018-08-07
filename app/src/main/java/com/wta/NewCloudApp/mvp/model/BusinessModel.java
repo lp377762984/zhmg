@@ -78,4 +78,10 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
     public Observable<Result<AuthInfo>> uploadAuth(String a, String b, String c, String d) {
         return getService().uploadBAuth(a, b, c, d);
     }
+
+    @Override
+    public Observable<Result<Business>> addStoreInfo(String name, int shop_type, int shop_level, double shop_address_x, double shop_address_y, String start_time, String end_time,
+                                                     String shop_door_head, int province, int city, int district, int town, String location_address, String address) {
+        return getService().addStoreInfo(name, shop_type, shop_level, shop_address_x, shop_address_y, start_time, end_time, shop_door_head, province, city, district, town, location_address, address);
+    }
 }
