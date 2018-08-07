@@ -48,7 +48,7 @@ public class ClearEditText extends EditTextHint implements
         //获取EditText的DrawableRight,假如没有设置我们就使用默认的图片,getCompoundDrawables()获取Drawable的四个位置的数组
         mClearDrawable = getCompoundDrawables()[2];
         if (mClearDrawable == null) {
-            mClearDrawable = getResources().getDrawable(R.mipmap.et_clear);
+            mClearDrawable = getResources().getDrawable(R.mipmap.clear);
         }
         //设置图标的位置以及大小,getIntrinsicWidth()获取显示出来的大小而不是原图片的带小
         mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());

@@ -32,26 +32,10 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
     }
 
     @Override
-    public Observable<Result<List<Business>>> getBusiness(boolean isRefresh) {
-        return Observable.timer(1, TimeUnit.SECONDS).map(new Function<Long, Result<List<Business>>>() {
-            @Override
-            public Result<List<Business>> apply(Long aLong) throws Exception {
-                if (isRefresh) index = 0;
-                Result result = new Result(200);
-                List<Business> businessList = new ArrayList<>();
-                if (index < 5) {
-                    for (int i = 0; i < 3; i++) {
-                        businessList.add(new Business
-                                ("http://c.hiphotos.baidu.com/image/pic/item/d439b6003af33a87436092e0ca5c10385343b53f.jpg",
-                                        "华华", "服装", "获得的8%", "朝九晚六", "三里屯", "1.5KM"));
-                    }
-                }
-                result.msg = "开心哈哈哈";
-                result.data = businessList;
-                index++;
-                return result;
-            }
-        });
+    public Observable<Result<List<Business>>> getBusiness(boolean isRefresh, double lat, double lag) {
+        if (isRefresh) index = 1;
+        else index++;
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getBusinessList(lat, lag, index);
     }
 
     @Override

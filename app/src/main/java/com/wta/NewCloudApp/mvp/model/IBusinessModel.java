@@ -13,7 +13,7 @@ import java.util.List;
         import io.reactivex.Observable;
 
 public interface IBusinessModel extends IModel {
-    Observable<Result<List<Business>>> getBusiness(boolean isRefresh);
+    Observable<Result<List<Business>>> getBusiness(boolean isRefresh, double lat, double lag);
     Observable<Result<Business>> getBusinessState();
     Observable<Result<List<BType>>> getBTypeList();
     Observable<Result<List<BClass>>> getBClassList();

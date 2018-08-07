@@ -1,9 +1,6 @@
 package com.wta.NewCloudApp.mvp.model;
 
-import android.util.Base64;
-
 import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
@@ -16,17 +13,14 @@ import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.uitls.EncodeUtils;
-import com.wta.NewCloudApp.uitls.FileUtils;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 import okhttp3.ResponseBody;
 
 @ActivityScope
