@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:layout_height="match_parent">
+    <View
+        android:background="@drawable/merchant_in_bg"
+        android:layout_width="match_parent"
+        android:layout_height="188dp"/>
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
+        android:id="@+id/mb"
+        android:layout_marginTop="@dimen/status_bar"
+        app:barBg="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/money_bar_height"
         app:textTitle="商家服务" />
-
+    <android.support.design.widget.TabLayout
+        android:layout_below="@id/mb"
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:tabIndicatorColor="@color/tab_yellow"
+        app:tabIndicatorHeight="2dp"
+        app:tabTextAppearance="@style/tab_appearance"
+        app:tabTextColor="@color/white"
+        app:tabSelectedTextColor="@color/tab_yellow" />
     <android.support.v4.widget.NestedScrollView
+        android:layout_marginTop="114dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -22,44 +37,28 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="210dp"
+                android:layout_height="119dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/bs_head_bg">
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tabIndicatorColor="@color/style_color"
-                    app:tabIndicatorHeight="1dp"
-                    app:tabTextAppearance="@style/tab_appearance"
-                    app:tabTextColor="@color/text_color2"
-                    app:tabSelectedTextColor="@color/text_color2" />
-
                 <TextView
                     android:id="@+id/tv_benefit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="30dp"
                     android:text="00.00元"
-                    android:textColor="#323232"
-                    android:textSize="33sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@color/style_color"
+                    android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tabLayout" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_code"
@@ -70,9 +69,9 @@
                     android:layout_marginStart="53dp"
                     android:drawableLeft="@mipmap/bs_qr"
                     android:drawablePadding="5dp"
-                    android:text="收款"
-                    android:textColor="@color/text_color2"
-                    android:textSize="12sp"
+                    android:text="收款码"
+                    android:textColor="@color/style_color"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -86,8 +85,8 @@
                     android:drawableLeft="@mipmap/bs_record"
                     android:drawablePadding="5dp"
                     android:text="记录"
-                    android:textColor="@color/text_color2"
-                    android:textSize="12sp"
+                    android:textColor="@color/style_color"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </android.support.constraint.ConstraintLayout>
@@ -181,4 +180,4 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+</RelativeLayout>

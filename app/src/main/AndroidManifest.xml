@@ -131,6 +131,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".mvp.ui.activity.BServiceActivity"
+            android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".mvp.ui.activity.NameSetActivity"

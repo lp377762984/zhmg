@@ -100,6 +100,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
             case 3:
                 break;
             case 4:
+                ArmsUtils.startActivity(MerchantInActivity.class);
                 break;
             case 5:
                 break;
@@ -118,7 +119,6 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 mPresenter.getStoreState();
                 break;
             case R.id.im_business:
-                ArmsUtils.startActivity(MerchantInActivity.class);
                 mPresenter.getStoreState();
                 break;
         }

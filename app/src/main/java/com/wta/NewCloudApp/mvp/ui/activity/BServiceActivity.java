@@ -70,4 +70,9 @@ public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> imp
                 break;
         }
     }
+
+    @Override
+    public int setUIMode() {
+        return UIMODE_TRANSPARENT_NOTALL;
+    }
 }
