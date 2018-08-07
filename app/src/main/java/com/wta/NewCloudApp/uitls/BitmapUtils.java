@@ -14,6 +14,7 @@ import android.view.View;
 import com.wta.NewCloudApp.config.App;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 public class BitmapUtils {
     /**
@@ -109,6 +110,20 @@ public class BitmapUtils {
         return BitmapFactory.decodeByteArray(data, 0, data.length, opts);
     }
 
+    public static Bitmap scaleBitmap(String filePath, int setWidth, int setHeight) {
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inJustDecodeBounds = true; //不加载实际内容,只有图片的边框信息
+        BitmapFactory.decodeFile(filePath, opts);
+        int orginWidth = opts.outWidth; //原始的宽度
+        int orginHeight = opts.outHeight; //原始的高度
+        int scaleWidth = orginWidth / setWidth; // >1才有效果    5
+        int scaleHeight = orginHeight / setHeight; // >1才有效果  4
+        opts.inSampleSize = scaleWidth < scaleHeight ? scaleWidth : scaleHeight;
+        opts.inPreferredConfig = Bitmap.Config.RGB_565;
+        opts.inJustDecodeBounds = false; //要获取图片内容
+        return BitmapFactory.decodeFile(filePath,opts);
+    }
+
     /**
      * Bitmap转换成byte[]并且进行压缩,压缩到不大于maxkb
      *
@@ -131,6 +146,7 @@ public class BitmapUtils {
 
     /**
      * 从view中获取bitmap
+     *
      * @param view 目标view
      * @return
      */

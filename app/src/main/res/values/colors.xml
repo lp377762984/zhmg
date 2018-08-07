@@ -40,10 +40,11 @@
 
     <color name="line_wider">#FFECE8DC</color>
     <color name="line">#d9d8d9</color>
-    <color name="style_color">#bf3b3e</color>
+    <color name="style_color">#ff4c6a</color>
     <color name="text_color_gray">#999999</color>
     <color name="text_color_gray2">#909090</color>
     <color name="text_color">#666666</color>
     <color name="text_color2">#646464</color>
     <color name="hint_color">#999999</color>
+    <color name="app_bg">#FFF1F1F1</color>
 </resources>

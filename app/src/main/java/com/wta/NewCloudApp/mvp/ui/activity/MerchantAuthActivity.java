@@ -3,6 +3,7 @@ package com.wta.NewCloudApp.mvp.ui.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,6 +13,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -21,6 +23,7 @@ import com.wta.NewCloudApp.di.module.MerchantAuthModule;
 import com.wta.NewCloudApp.mvp.contract.MerchantAuthContract;
 import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.presenter.MerchantAuthPresenter;
+import com.wta.NewCloudApp.uitls.BitmapUtils;
 import com.wta.NewCloudApp.uitls.EncodeUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
@@ -53,6 +56,15 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
     ImageView imCardPositive;
     @BindView(R.id.im_card_negative)
     ImageView imCardNegative;
+
+    @BindView(R.id.tv_passport)
+    TextView tvPassport;
+    @BindView(R.id.tv_hand_card)
+    TextView tvHandCard;
+    @BindView(R.id.tv_card_positive)
+    TextView tvCardPositive;
+    @BindView(R.id.tv_card_negative)
+    TextView tvCardNegative;
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
     BottomSheetDialog btmDialog;
@@ -104,23 +116,23 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
                 showDialog();
                 break;
             case R.id.btn_next:
-                if (TextUtils.isEmpty(passportImg)){
+                if (TextUtils.isEmpty(passportImg)) {
                     showToast("请上传营业执照");
                     return;
                 }
-                if (TextUtils.isEmpty(handImg)){
+                if (TextUtils.isEmpty(handImg)) {
                     showToast("请上传法人手持身份证照片");
                     return;
                 }
-                if (TextUtils.isEmpty(positiveImg)){
+                if (TextUtils.isEmpty(positiveImg)) {
                     showToast("请上传法人正面身份证照片");
                     return;
                 }
-                if (TextUtils.isEmpty(negativeImg)){
+                if (TextUtils.isEmpty(negativeImg)) {
                     showToast("请上传法人反面身份证照片");
                     return;
                 }
-                mPresenter.applyAuth(passportImg,handImg,positiveImg,negativeImg);
+                mPresenter.applyAuth(passportImg, handImg, positiveImg, negativeImg);
                 break;
         }
     }
@@ -171,22 +183,36 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
 
     @Override
     public void takeSuccess(TResult tResult) {
-        String compressPath = tResult.getImage().getOriginalPath();
-        File file = new File(compressPath);
-        switch (currentId) {
-            case R.id.im_passport:
-                passportImg = EncodeUtils.fileToBase64(file);
-                break;
-            case R.id.im_hand_card:
-                handImg = EncodeUtils.fileToBase64(file);
-                break;
-            case R.id.im_card_positive:
-                positiveImg = EncodeUtils.fileToBase64(file);
-                break;
-            case R.id.im_card_negative:
-                negativeImg = EncodeUtils.fileToBase64(file);
-                break;
-        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String compressPath = tResult.getImage().getOriginalPath();
+                File file = new File(compressPath);
+                switch (currentId) {
+                    case R.id.im_passport:
+                        passportImg = EncodeUtils.fileToBase64(file);
+                        setImageView(imPassport, tvPassport, compressPath);
+                        break;
+                    case R.id.im_hand_card:
+                        handImg = EncodeUtils.fileToBase64(file);
+                        setImageView(imHandCard, tvHandCard, compressPath);
+                        break;
+                    case R.id.im_card_positive:
+                        positiveImg = EncodeUtils.fileToBase64(file);
+                        setImageView(imCardPositive, tvCardPositive, compressPath);
+                        break;
+                    case R.id.im_card_negative:
+                        negativeImg = EncodeUtils.fileToBase64(file);
+                        setImageView(imCardNegative, tvCardNegative, compressPath);
+                        break;
+                }
+            }
+        });
+    }
+
+    private void setImageView(ImageView imageView, TextView textView, String compressPath) {
+        imageView.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 280, 180));
+        textView.setVisibility(View.GONE);
     }
 
     @Override

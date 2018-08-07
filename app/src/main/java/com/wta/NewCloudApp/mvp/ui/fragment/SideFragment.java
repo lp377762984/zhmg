@@ -1,7 +1,6 @@
 package com.wta.NewCloudApp.mvp.ui.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,7 +35,6 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
-
     }
 
     @Override

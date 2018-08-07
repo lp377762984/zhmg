@@ -1,55 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
-        app:textTitle="法人资质"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/money_bar_height"/>
-    <ScrollView
-
+        android:layout_height="@dimen/money_bar_height"
+        app:textTitle="店铺资质" />
+    <TextView
+        android:visibility="gone"
+        android:background="#ffcc99"
+        android:textSize="12sp"
+        android:textColor="#cc5f29"
+        android:gravity="center"
+        android:id="@+id/tv_error_msg"
+        android:text="错误信息"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:src="@mipmap/update_close"
-                android:id="@+id/im_passport"
-                android:layout_margin="15dp"
-                android:layout_width="100dp"
-                android:layout_height="100dp" />
-            <ImageView
-                android:src="@mipmap/update_close"
-                android:id="@+id/im_hand_card"
-                android:layout_margin="15dp"
-                android:layout_width="100dp"
-                android:layout_height="100dp" />
-            <ImageView
-                android:src="@mipmap/update_close"
-                android:id="@+id/im_card_positive"
-                android:layout_margin="15dp"
-                android:layout_width="100dp"
-                android:layout_height="100dp" />
-            <ImageView
-                android:src="@mipmap/update_close"
-                android:id="@+id/im_card_negative"
-                android:layout_margin="15dp"
-                android:layout_width="100dp"
-                android:layout_height="100dp" />
-            <Button
-                android:id="@+id/btn_next"
-                android:textColor="@color/white"
-                android:text="下一步"
-                android:layout_margin="15dp"
-                android:background="@drawable/login_btn_bg"
+        android:layout_height="35dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <android.support.v7.widget.CardView
+            app:cardElevation="5dp"
+            app:cardCornerRadius="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/auth_text_bg"
+                    android:gravity="center"
+                    android:text="营业执照"
+                    android:textColor="#333"
+                    android:textSize="15sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#ccc"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/break_line_bg">
+
+                    <ImageView
+                        android:id="@+id/im_passport"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/tv_passport"
+                        android:textColor="#999"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="10dp"
+                        android:gravity="center"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginRight="22dp"
+                        android:text="请上传您的营业执照"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            app:cardElevation="5dp"
+            app:cardCornerRadius="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/auth_text_bg"
+                    android:gravity="center"
+                    android:text="法人手持身份证"
+                    android:textColor="#333"
+                    android:textSize="15sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#ccc"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/break_line_bg">
+
+                    <ImageView
+                        android:id="@+id/im_hand_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/tv_hand_card"
+                        android:textColor="#999"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="10dp"
+                        android:gravity="center"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginRight="22dp"
+                        android:text="请上传您的手持身份证照"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <android.support.v7.widget.CardView
+            app:cardElevation="5dp"
+            app:cardCornerRadius="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/auth_text_bg"
+                    android:gravity="center"
+                    android:text="法人身份证正面"
+                    android:textColor="#333"
+                    android:textSize="15sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#ccc"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/break_line_bg">
+
+                    <ImageView
+                        android:id="@+id/im_card_positive"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/tv_card_positive"
+                        android:textColor="#999"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="10dp"
+                        android:gravity="center"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginRight="22dp"
+                        android:text="请上传您的法人身份证正面"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            app:cardElevation="5dp"
+            app:cardCornerRadius="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/auth_text_bg"
+                    android:gravity="center"
+                    android:text="法人身份证反面"
+                    android:textColor="#333"
+                    android:textSize="15sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#ccc"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/break_line_bg">
+
+                    <ImageView
+                        android:id="@+id/im_card_negative"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:id="@+id/tv_card_negative"
+                        android:textColor="#999"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="10dp"
+                        android:gravity="center"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginRight="22dp"
+                        android:text="请上传您的法人身份证反面"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+    <Button
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/det_btn_bg"
+        android:id="@+id/btn_next"
+        android:text="下一步"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
 </LinearLayout>

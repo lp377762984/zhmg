@@ -10,7 +10,7 @@
         <item name="colorPrimary">@color/style_color</item>
         <item name="colorPrimaryDark">@color/style_color</item>
         <item name="colorAccent">@color/style_color</item>
-        <item name="android:windowBackground">@color/line_wider</item>
+        <item name="android:windowBackground">@color/app_bg</item>
     </style>
 
     <style name="AppTheme_FULLSCREEN" parent="AppTheme_NOACTIONBAR">

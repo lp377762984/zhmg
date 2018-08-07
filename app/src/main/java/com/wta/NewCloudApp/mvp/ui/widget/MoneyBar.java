@@ -52,7 +52,7 @@ public class MoneyBar extends LinearLayout implements View.OnClickListener {
     }
 
     protected int initBackImg() {
-        return R.mipmap.white_back;
+        return R.mipmap.white_back_new;
     }
 
     private int initTailImg() {
