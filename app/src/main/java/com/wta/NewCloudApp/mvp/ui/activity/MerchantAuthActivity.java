@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,13 +16,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jess.arms.base.delegate.IFragment;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.http.imageloader.glide.GlideArms;
+import com.jess.arms.utils.ArmsUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerMerchantAuthComponent;
 import com.wta.NewCloudApp.di.module.MerchantAuthModule;
 import com.wta.NewCloudApp.mvp.contract.MerchantAuthContract;
 import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
+import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.presenter.MerchantAuthPresenter;
 import com.wta.NewCloudApp.uitls.BitmapUtils;
 import com.wta.NewCloudApp.uitls.EncodeUtils;
@@ -65,6 +70,15 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
     TextView tvCardPositive;
     @BindView(R.id.tv_card_negative)
     TextView tvCardNegative;
+
+    @BindView(R.id.tv_passport_str)
+    TextView tvPassportStr;
+    @BindView(R.id.tv_hand_card_str)
+    TextView tvHandCardStr;
+    @BindView(R.id.tv_card_positive_str)
+    TextView tvCardPositiveStr;
+    @BindView(R.id.tv_card_negative_str)
+    TextView tvCardNegativeStr;
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
     BottomSheetDialog btmDialog;
@@ -73,6 +87,7 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
     private String handImg;
     private String positiveImg;
     private String negativeImg;
+    private int type = 6;//6:未入驻店铺 2：店铺资质错误；3：店铺资质和详情错误
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -91,11 +106,13 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        type = getIntent().getIntExtra("type", 0);
+        if (type == 2 || type == 3) mPresenter.getStoreMsg();
     }
 
-    public static void startAuth(Activity activity) {
+    public static void startAuth(Activity activity, int type) {
         Intent intent = new Intent(activity, MerchantAuthActivity.class);
+        intent.putExtra("type", type);
         activity.startActivityForResult(intent, FinalUtils.REQUEST_BAUTH);
     }
 
@@ -248,6 +265,10 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         getTakePhoto().onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_BINFO) {
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 
     @Override
@@ -303,6 +324,50 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
 
     @Override
     public void uploadSuccess(AuthInfo data) {
-        showToast("上传成功");
+        if (type == 6 || type == 3) {
+            showToast("上传成功");
+            setResult(RESULT_OK);
+            finish();
+            MerchantInfoActivity.startInfo(this, type);
+        } else if (type == 2) {
+            showToast("审核中");
+            finish();
+        }
+
+    }
+
+    @Override
+    public void getStoreErrorMsg(ErrorBusiness errorBusiness) {
+        ErrorBusiness.PhotoBean photo = errorBusiness.photo;
+        GlideArms.with(this).load(photo.shop_business.info).placeholder(R.color.grey_ccc).into(imPassport);
+        GlideArms.with(this).load(photo.shop_handheld_idcard.info).placeholder(R.color.grey_ccc).into(imHandCard);
+        GlideArms.with(this).load(photo.shop_facade_idcard.info).placeholder(R.color.grey_ccc).into(imCardPositive);
+        GlideArms.with(this).load(photo.shop_reverse_idcard.info).placeholder(R.color.grey_ccc).into(imCardNegative);
+        if (photo.shop_business.status == 0){
+            tvPassportStr.setTextColor(getResources().getColor(R.color.style_color));
+        }
+        if (photo.shop_handheld_idcard.status == 0){
+            tvHandCardStr.setTextColor(getResources().getColor(R.color.style_color));
+        }
+        if (photo.shop_facade_idcard.status == 0){
+            tvCardPositiveStr.setTextColor(getResources().getColor(R.color.style_color));
+        }
+        if (photo.shop_reverse_idcard.status == 0){
+            tvCardNegativeStr.setTextColor(getResources().getColor(R.color.style_color));
+        }
+
+        tvPassport.setVisibility(View.GONE);
+        tvHandCard.setVisibility(View.GONE);
+        tvCardPositive.setVisibility(View.GONE);
+        tvCardNegative.setVisibility(View.GONE);
+
+        imPassport.setEnabled(photo.shop_business.status == 0);
+        imHandCard.setEnabled(photo.shop_handheld_idcard.status == 0);
+        imCardPositive.setEnabled(photo.shop_facade_idcard.status == 0);
+        imCardNegative.setEnabled(photo.shop_reverse_idcard.status == 0);
+        passportImg = photo.shop_business.info;
+        handImg = photo.shop_handheld_idcard.info;
+        positiveImg = photo.shop_facade_idcard.info;
+        negativeImg = photo.shop_reverse_idcard.info;
     }
 }

@@ -4,36 +4,36 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:background="@drawable/alert_bg"
-    android:minHeight="108dp"
-    android:layout_width="320dp"
+    android:minHeight="102dp"
+    android:layout_width="250dp"
     android:layout_height="wrap_content">
     <TextView
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="21dp"
         android:lineSpacingExtra="7dp"
         android:text="我家住在黄土高坡"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"
         android:id="@+id/tv_alert_msg"
         android:textSize="16sp"
-        android:textColor="@color/grey_black_tv"
+        android:textColor="#333"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line" />
+        android:background="#ccc" />
     <LinearLayout
         android:id="@+id/lat_btn"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="63dp">
+        android:layout_height="44dp">
         <TextView
             android:background="@drawable/alert_text_left_half_bg"
             android:id="@+id/tv_alert_sure"
             android:gravity="center"
-            android:textColor="@color/text_color_gray2"
+            android:textColor="#999"
             android:textSize="16sp"
             android:text="取消"
             android:layout_width="0dp"
@@ -42,12 +42,12 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/line"/>
+            android:background="#ccc"/>
         <TextView
             android:background="@drawable/alert_text_right_half_bg"
             android:id="@+id/tv_alert_cancel"
             android:gravity="center"
-            android:textColor="#89c4f7"
+            android:textColor="@color/style_color"
             android:textSize="16sp"
             android:text="确定"
             android:layout_width="0dp"

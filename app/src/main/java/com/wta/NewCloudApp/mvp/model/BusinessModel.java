@@ -7,6 +7,7 @@ import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
+import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
 
@@ -50,7 +51,7 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
 
     @Override
     public Observable<Result<List<BClass>>> getBClassList() {
-        return mRepositoryManager.obtainCacheService(HttpServices.class).getBClassList();
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getBClassList();
     }
 
     @Override
@@ -68,4 +69,10 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
                                                      String shop_door_head, int province, int city, int district, int town, String location_address, String address) {
         return getService().addStoreInfo(name, shop_type, shop_level, shop_address_x, shop_address_y, start_time, end_time, shop_door_head, province, city, district, town, location_address, address);
     }
+
+    @Override
+    public Observable<Result<ErrorBusiness>> getStoreMsg() {
+        return getService().getStoreErrorMsg();
+    }
+
 }

@@ -5,7 +5,8 @@ import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
-        import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
+import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
 
 import java.util.List;
@@ -21,4 +22,5 @@ public interface IBusinessModel extends IModel {
     Observable<Result<AuthInfo>> uploadAuth(String a,String b,String c,String d);
     Observable<Result<Business>> addStoreInfo(String name,int shop_type,int shop_level,double shop_address_x,double shop_address_y,String start_time,String end_time,
                                               String shop_door_head,int province,int city,int district,int town,String location_address,String address);
+    Observable<Result<ErrorBusiness>> getStoreMsg();
 }

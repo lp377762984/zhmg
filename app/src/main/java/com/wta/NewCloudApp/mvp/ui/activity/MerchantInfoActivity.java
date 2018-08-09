@@ -1,10 +1,14 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +19,21 @@ import android.widget.TextView;
 import com.amap.api.location.AMapLocation;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerMerchantInfoComponent;
 import com.wta.NewCloudApp.di.module.MerchantInfoModule;
 import com.wta.NewCloudApp.manager.IconSelector;
 import com.wta.NewCloudApp.manager.LocationManager;
 import com.wta.NewCloudApp.mvp.contract.MerchantInfoContract;
+import com.wta.NewCloudApp.mvp.model.entity.BClass;
+import com.wta.NewCloudApp.mvp.model.entity.BType;
+import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.presenter.MerchantInfoPresenter;
+import com.wta.NewCloudApp.mvp.ui.adapter.ClassAdapter;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.City;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.County;
@@ -32,6 +43,7 @@ import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Province;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.EncodeUtils;
+import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import org.devio.takephoto.app.TakePhoto;
 import org.devio.takephoto.app.TakePhotoImpl;
@@ -47,7 +59,9 @@ import org.devio.takephoto.permission.TakePhotoInvocationHandler;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -77,6 +91,10 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
     CheckBox checkBox;
     @BindView(R.id.btn_apply)
     Button btnApply;
+    @BindView(R.id.tv_01)
+    TextView tvNameStr;
+    @BindView(R.id.tv_08)
+    TextView tvHeadStr;
     private LinkDialog locationDialog;
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
@@ -91,6 +109,11 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
     private double longitude;
     private TimePickerView startTimePicker;
     private TimePickerView endTimePicker;
+    private List<BClass> classes = new ArrayList<>();
+    private BType type;
+    private int iType;//6未入住店铺 1店铺详情错误 3店铺资质和详情错误
+    private BClass bClass;
+    private ErrorBusiness errorBusiness;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -109,7 +132,18 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        startLocation();
+        iType = getIntent().getIntExtra("type", 6);
+        if (iType == 6) {
+            startLocation();
+        } else if (iType == 1 || iType == 3) {
+            mPresenter.getErrorStore();
+        }
+    }
+
+    public static void startInfo(Activity activity, int type) {
+        Intent intent = new Intent(activity, MerchantInfoActivity.class);
+        intent.putExtra("type", type);
+        activity.startActivityForResult(intent, FinalUtils.REQUEST_BINFO);
     }
 
     private void startLocation() {
@@ -137,19 +171,28 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
             case R.id.lat_name:
                 break;
             case R.id.lat_start_time:
-                showStartTimePicker();
+                if (errorBusiness == null)
+                    showStartTimePicker();
                 break;
             case R.id.lat_end_time:
-                showEndTimePicker();
+                if (errorBusiness == null)
+                    showEndTimePicker();
                 break;
             case R.id.lat_type:
+                if (errorBusiness == null)
+                    MerchantTypeActivity.startType(this, tvType.getText().toString());
                 break;
             case R.id.lat_class:
+                if (errorBusiness == null) {
+                    if (classes.size() > 0) showClassPop();
+                    else mPresenter.getBClass();
+                }
                 break;
             case R.id.lat_location:
                 break;
             case R.id.lat_loc_4:
-                showLocationDialog();
+                if (errorBusiness == null)
+                    showLocationDialog();
                 break;
             case R.id.btn_apply:
                 if (TextUtils.isEmpty(etName.getText())) {
@@ -188,8 +231,19 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
                     showToast("请阅读商户协议");
                     return;
                 }
-                mPresenter.addStoreInfo(etName.getText().toString(), 1, 2, latitude, longitude, tvStartTime.getText().toString(), tvEndTime.getText().toString()
-                        , imgHeadStr, provinceID, cityID, districitID, townID, tvLocation.getText().toString(), tvLoc4.getText().toString());
+                //6未入住店铺 1店铺详情错误 3店铺资质和详情错误
+                mPresenter.addStoreInfo(etName.getText().toString(), iType == 6 ? type.cate_id : errorBusiness.store.shop_type
+                        , iType == 6 ? bClass.level_id : errorBusiness.store.shop_level
+                        , iType == 6 ? latitude : errorBusiness.store.shop_address_x
+                        , iType == 6 ? longitude : errorBusiness.store.shop_address_y
+                        , tvStartTime.getText().toString(), tvEndTime.getText().toString()
+                        , iType == 6 || errorBusiness == null || errorBusiness.store.shop_doorhead.status == 0 ? imgHeadStr : errorBusiness.store.shop_doorhead.info
+                        , iType == 6 ? provinceID : errorBusiness.store.province
+                        , iType == 6 ? cityID : errorBusiness.store.city
+                        , iType == 6 ? districitID : errorBusiness.store.district
+                        , iType == 6 ? townID : errorBusiness.store.twon
+                        , tvLocation.getText().toString()
+                        , tvLoc4.getText().toString());
                 break;
             case R.id.im_head:
                 if (iconSelector == null) {
@@ -249,9 +303,14 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
 
     @Override
     public void takeSuccess(TResult tResult) {
-        String compressPath = tResult.getImage().getOriginalPath();
-        imHead.setImageBitmap(BitmapFactory.decodeFile(compressPath));
-        imgHeadStr = EncodeUtils.fileToBase64(new File(compressPath));
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String compressPath = tResult.getImage().getCompressPath();
+                imHead.setImageBitmap(BitmapFactory.decodeFile(compressPath));
+                imgHeadStr = EncodeUtils.fileToBase64(new File(compressPath));
+            }
+        });
     }
 
     @Override
@@ -287,6 +346,10 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         getTakePhoto().onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_TAG) {
+            type = ((BType) data.getSerializableExtra("tag"));
+            tvType.setText(type.type_name);
+        }
     }
 
     @Override
@@ -321,6 +384,56 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
 
     @Override
     public void addSuccess() {
+        btnApply.setText("审核中");
         btnApply.setEnabled(false);
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
+    public void getType(List<BClass> classes) {
+        if (classes != null && classes.size() > 0) {
+            this.classes.clear();
+            this.classes.addAll(classes);
+            showClassPop();
+        }
+    }
+
+    private void showClassPop() {
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(R.layout.b_class_layout);
+        RecyclerView rv = dialog.findViewById(R.id.recyclerView);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        ClassAdapter adapter = new ClassAdapter(R.layout.b_class_item, classes);
+        rv.setAdapter(adapter);
+        rv.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                dialog.dismiss();
+                bClass = ((BClass) adapter.getItem(position));
+                tvClass.setText(bClass.level_name);
+            }
+        });
+        dialog.show();
+    }
+
+    @Override
+    public void getStoreErrorMsg(ErrorBusiness errorBusiness) {
+        this.errorBusiness = errorBusiness;
+        ErrorBusiness.StoreBean store = errorBusiness.store;
+        etName.setText(store.shop_name.info);
+        if (store.shop_name.status == 0)
+            tvNameStr.setTextColor(getResources().getColor(R.color.style_color));
+        tvStartTime.setText(store.start_time);
+        tvEndTime.setText(store.end_time);
+        tvType.setText(store.type_name);
+        tvClass.setText(store.level_name);
+        tvLocation.setText(store.location_address);
+        tvLoc4.setText(store.address);
+        GlideArms.with(this).load(store.shop_doorhead.info).placeholder(R.mipmap.b_head_placeholder).into(imHead);
+        if (store.shop_doorhead.status == 0)
+            tvHeadStr.setTextColor(getResources().getColor(R.color.style_color));
+
+
     }
 }

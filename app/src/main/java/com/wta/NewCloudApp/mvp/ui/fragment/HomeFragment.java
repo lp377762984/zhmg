@@ -20,8 +20,13 @@ import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.presenter.HomePresenter;
+import com.wta.NewCloudApp.mvp.ui.activity.BServiceActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.MerchantAuthActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.MerchantInfoActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.HomeListAdapter;
+import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
+import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
@@ -89,27 +94,33 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
 
     @Override
     public void showBState(Result<Business> businessResult) {
-        showToast(businessResult.msg);
+        String msg = businessResult.data.msg;
         switch (businessResult.data.code_type) {
             case 0:
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback());
                 break;
-            case 1:
+            case 1://店铺详情错误
+                MerchantInfoActivity.startInfo(getActivity(),1);
                 break;
-            case 2:
+            case 2://资质错误
+                MerchantAuthActivity.startAuth(getActivity(), 2);
                 break;
-            case 3:
+            case 3://都错误
+                MerchantAuthActivity.startAuth(getActivity(), 3);
                 break;
             case 4:
-                ArmsUtils.startActivity(MerchantInActivity.class);
+                ArmsUtils.startActivity(BServiceActivity.class);
                 break;
             case 5:
+                ArmsUtils.startActivity(BServiceActivity.class);
                 break;
             case 6:
+                ArmsUtils.startActivity(MerchantInActivity.class);
                 break;
         }
     }
 
-    @OnClick({R.id.im_sweep, R.id.im_bus_code,R.id.im_business})
+    @OnClick({R.id.im_sweep, R.id.im_bus_code, R.id.im_business})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_sweep:

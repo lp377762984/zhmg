@@ -62,7 +62,7 @@ public class MerchantInActivity extends BaseLoadingActivity<MerchantInPresenter>
 
     @OnClick(R.id.btn_apply)
     public void onViewClicked() {
-        MerchantAuthActivity.startAuth(this);
+        MerchantAuthActivity.startAuth(this,6);
     }
 
     @Override

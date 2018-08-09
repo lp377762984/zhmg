@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class Business {
     public String distance;
     public int code_type;
+    public String msg;
     @SerializedName("/shopDetails")
     public String _$ShopDetails138; // FIXME check this code
     public String debug;

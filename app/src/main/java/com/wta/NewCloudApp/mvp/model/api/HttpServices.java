@@ -7,6 +7,7 @@ import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
+import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
@@ -137,9 +138,12 @@ public interface HttpServices {
     @FormUrlEncoded
     @POST("/shopDetails")
     Observable<Result<Business>> addStoreInfo(@Field("shop_name") String shop_name,@Field("shop_type") int shop_type,@Field("shop_level") int shop_level,@Field("shop_address_x") double shop_address_x,@Field("shop_address_y") double shop_address_y,@Field("start_time") String start_time,@Field("end_time") String end_time,
-                                              @Field("shop_door_head")String shop_door_head,@Field("province") int province,@Field("city") int city,@Field("district") int district,@Field("town") int town,@Field("location_address") String location_address,@Field("address") String address);
+                                              @Field("shop_doorhead")String shop_door_head,@Field("province") int province,@Field("city") int city,@Field("district") int district,@Field("twon") int town,@Field("location_address") String location_address,@Field("address") String address);
 
     @FormUrlEncoded
     @POST("/nearbyList")
     Observable<Result<List<Business>>> getBusinessList(@Field("lat") double lat,@Field("lng") double lng,@Field("page") int page);
+
+    @GET("/errorStore ")
+    Observable<Result<ErrorBusiness>> getStoreErrorMsg();
 }

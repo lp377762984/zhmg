@@ -89,7 +89,7 @@ public class DialogUtils {
         WindowManager.LayoutParams wlp;
         if (window != null) {
             wlp = window.getAttributes();
-            wlp.width = (int) ScreenDpiUtils.dp2px(context, 320);
+            wlp.width = (int) ScreenDpiUtils.dp2px(context, 250);
             window.setAttributes(wlp);
         }
         dialogAlterSure.show();
