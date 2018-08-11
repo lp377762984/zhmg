@@ -147,7 +147,7 @@ public interface HttpServices {
     @POST("/nearbyList")
     Observable<Result<List<Business>>> getBusinessList(@Field("lat") double lat,@Field("lng") double lng,@Field("page") int page);
 
-    @GET("/errorStore ")
+    @GET("/errorStore")
     Observable<Result<ErrorBusiness>> getStoreErrorMsg();
     @GET("/myStore")
     Observable<Result<Business>> getAllStoreMsg();
@@ -156,4 +156,7 @@ public interface HttpServices {
     Observable<Result<Business>> modifyStore(@Field("shop_doorhead")String shop_doorhead, @Field("start_time")String start_time, @Field("end_time")String end_time,
                                              @Field("shop_type")int shop_type, @Field("telephone")String telephone
             , @Field("introduction")String introduction, @FieldMap TreeMap<String, Object> map);
+    @FormUrlEncoded
+    @POST("/nearbyDetails")
+    Observable<Result<Business>> getStoreDet(@Field("store_id") int storeID);
 }

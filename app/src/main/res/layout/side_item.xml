@@ -98,6 +98,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <com.makeramen.roundedimageview.RoundedImageView
+        android:scaleType="centerCrop"
         android:elevation="6dp"
         android:id="@+id/im_head"
         android:layout_width="100dp"

@@ -87,4 +87,9 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
         return getService().modifyStore(shop_doorhead, start_time, end_time, shop_type, telephone, introduction, picture);
     }
 
+    @Override
+    public Observable<Result<Business>> getStoreDet(int storeID) {
+        return getService().getStoreDet(storeID);
+    }
+
 }

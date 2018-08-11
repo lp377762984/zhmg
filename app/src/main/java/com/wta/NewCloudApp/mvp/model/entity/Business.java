@@ -37,6 +37,8 @@ public class Business {
     public String telephone;
     public String introduction;
     public PictureBean picture;
+    public int store_id;
+    public String level_img;
 
     public static class PictureBean {
         /**

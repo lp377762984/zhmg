@@ -29,4 +29,6 @@ public interface IBusinessModel extends IModel {
     Observable<Result<Business>> getAllStoreInfo();
 
     Observable<Result<Business>> modifyStore(String shop_doorhead, String start_time, String end_time, int shop_type, String telephone, String introduction, TreeMap<String,Object> picture);
+
+    Observable<Result<Business>> getStoreDet(int storeID);
 }

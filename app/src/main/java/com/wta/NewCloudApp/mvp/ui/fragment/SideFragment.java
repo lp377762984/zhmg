@@ -14,7 +14,9 @@ import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerSideComponent;
 import com.wta.NewCloudApp.di.module.SideModule;
 import com.wta.NewCloudApp.mvp.contract.SideContract;
+import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.presenter.SidePresenter;
+import com.wta.NewCloudApp.mvp.ui.activity.SideDetActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.SideAdapter;
 
 
@@ -45,7 +47,7 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                SideDetActivity.startDet(getActivity(), ((Business) data.get(position)).store_id);
             }
         });
     }
