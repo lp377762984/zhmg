@@ -13,6 +13,8 @@ import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -73,6 +75,16 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
     @Override
     public Observable<Result<ErrorBusiness>> getStoreMsg() {
         return getService().getStoreErrorMsg();
+    }
+
+    @Override
+    public Observable<Result<Business>> getAllStoreInfo() {
+        return getService().getAllStoreMsg();
+    }
+
+    @Override
+    public Observable<Result<Business>> modifyStore(String shop_doorhead, String start_time, String end_time, int shop_type, String telephone, String introduction, TreeMap<String,Object> picture) {
+        return getService().modifyStore(shop_doorhead, start_time, end_time, shop_type, telephone, introduction, picture);
     }
 
 }

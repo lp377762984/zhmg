@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mvp.ui.activity.StorePhoneActivity">
+
+    <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
+        app:textTitle="客服电话编辑"
+        android:id="@+id/mb"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/money_bar_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText2
+        android:maxLines="1"
+        android:id="@+id/et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/money_bar_height"
+        android:layout_marginEnd="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/merchant_in_head_bg"
+        android:hint="请输入客服电话"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="#333"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mb" />
+
+    <Button
+        android:textSize="16sp"
+        android:textColor="#f9f9f9"
+        android:background="@drawable/det_btn_bg"
+        android:id="@+id/btn_apply"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="200dp"
+        android:text="提交"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+</android.support.constraint.ConstraintLayout>

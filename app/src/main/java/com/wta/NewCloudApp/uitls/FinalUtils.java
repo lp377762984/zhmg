@@ -13,4 +13,6 @@ public class FinalUtils {
     public static final int REQUEST_BAUTH = 2024;
     public static final int REQUEST_TAG = 2025;
     public static final int REQUEST_BINFO = 2026;
+    public static final int REQUEST_PHONE = 2027;
+    public static final int REQUEST_DESC = 2028;
 }

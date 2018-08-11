@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.di.component.DaggerBServiceComponent;
 import com.wta.NewCloudApp.di.module.BServiceModule;
 import com.wta.NewCloudApp.R;
@@ -65,6 +66,7 @@ public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> imp
             case R.id.lat_bs_benefit:
                 break;
             case R.id.lat_bs_details:
+                ArmsUtils.startActivity(StoreInfoActivity.class);
                 break;
             case R.id.im_btm:
                 break;

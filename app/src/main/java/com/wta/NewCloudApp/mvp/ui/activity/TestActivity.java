@@ -44,13 +44,13 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         btn = ((Button) findViewById(R.id.btn));
-        task.execute();
+        //task.execute();
     }
 
     public void showDiloge(View view) {
         //show1();
         //show2();
-        showLocation();
+        //showLocation();
     }
 
     private void showLocation() {

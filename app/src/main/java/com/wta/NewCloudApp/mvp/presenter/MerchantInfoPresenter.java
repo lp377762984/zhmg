@@ -32,7 +32,7 @@ public class MerchantInfoPresenter extends BBasePresenter<IBusinessModel, Mercha
     }
 
     public void getErrorStore(){
-        doRequest(buildRequest(mModel.getStoreMsg()),3);
+        doRequest(buildRequest((mModel.getStoreMsg())),3);
     }
 
     @Override

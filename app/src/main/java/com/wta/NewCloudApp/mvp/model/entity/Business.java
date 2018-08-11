@@ -27,4 +27,26 @@ public class Business {
     public String address;
     public int create_time;
 
+
+    /**
+     * telephone : 400000
+     * introduction : two
+     * picture : {"image1":"http://zhmg.com/public/uploads/condition/56/20180809123513_667356.png","image2":"http://zhmg.com/public/uploads/condition/56/20180809145832_394456.png","image3":"http://zhmg.com/public/uploads/condition/56/20180809150206_937556.png"}
+     */
+
+    public String telephone;
+    public String introduction;
+    public PictureBean picture;
+
+    public static class PictureBean {
+        /**
+         * image1 : http://zhmg.com/public/uploads/condition/56/20180809123513_667356.png
+         * image2 : http://zhmg.com/public/uploads/condition/56/20180809145832_394456.png
+         * image3 : http://zhmg.com/public/uploads/condition/56/20180809150206_937556.png
+         */
+
+        public String image1;
+        public String image2;
+        public String image3;
+    }
 }

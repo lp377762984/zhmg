@@ -73,7 +73,7 @@
                     android:layout_marginLeft="53dp"
                     android:layout_marginStart="53dp"
                     android:drawableLeft="@mipmap/bs_qr"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="8dp"
                     android:text="收款码"
                     android:textColor="@color/style_color"
                     android:textSize="16sp"
@@ -88,7 +88,7 @@
                     android:layout_marginEnd="53dp"
                     android:layout_marginRight="53dp"
                     android:drawableLeft="@mipmap/bs_record"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="8dp"
                     android:text="记录"
                     android:textColor="@color/style_color"
                     android:textSize="16sp"
@@ -119,7 +119,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_centerVertical="true"
                     android:id="@+id/im_01"
-                    android:src="@mipmap/user_default"
+                    android:src="@mipmap/bs_power"
                     android:layout_width="40dp"
                     android:layout_height="40dp" />
 
@@ -158,7 +158,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_centerVertical="true"
                     android:id="@+id/im_02"
-                    android:src="@mipmap/user_default"
+                    android:src="@mipmap/bs_store"
                     android:layout_width="40dp"
                     android:layout_height="40dp" />
 
@@ -169,7 +169,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="商家权益"
+                    android:text="我的店铺"
                     android:textColor="@color/text_color2"
                     android:textSize="16sp" />
 
@@ -179,7 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="边经营边赚钱"
+                    android:text="一账户一店铺"
                     android:textColor="@color/text_color_gray2"
                     android:textSize="14sp" />
             </RelativeLayout>

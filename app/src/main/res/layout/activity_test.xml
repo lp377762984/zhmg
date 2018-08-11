@@ -6,9 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".mvp.ui.activity.TestActivity">
     <Button
+        android:visibility="gone"
         android:text="帅气"
         android:id="@+id/btn"
         android:onClick="showDiloge"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText2
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </android.support.constraint.ConstraintLayout>

@@ -18,13 +18,16 @@ import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
@@ -146,4 +149,11 @@ public interface HttpServices {
 
     @GET("/errorStore ")
     Observable<Result<ErrorBusiness>> getStoreErrorMsg();
+    @GET("/myStore")
+    Observable<Result<Business>> getAllStoreMsg();
+    @FormUrlEncoded
+    @POST("/setMyStore")
+    Observable<Result<Business>> modifyStore(@Field("shop_doorhead")String shop_doorhead, @Field("start_time")String start_time, @Field("end_time")String end_time,
+                                             @Field("shop_type")int shop_type, @Field("telephone")String telephone
+            , @Field("introduction")String introduction, @FieldMap TreeMap<String, Object> map);
 }

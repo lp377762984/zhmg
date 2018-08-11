@@ -198,8 +198,16 @@
         <activity
             android:name=".mvp.ui.activity.MerchantInfoActivity"
             android:exported="true" />
-        <activity android:name=".mvp.ui.activity.MerchantTypeActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".mvp.ui.activity.MerchantTypeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".mvp.ui.activity.StoreInfoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".mvp.ui.activity.StorePhoneActivity"
+            android:exported="true" />
+        <activity android:name=".mvp.ui.activity.StoreDescActivity"></activity>
     </application>
 
 </manifest>
