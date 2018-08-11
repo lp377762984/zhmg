@@ -104,6 +104,7 @@ public class LocationManager {
                 }
             } else {
                 Log.e(TAG, "locate error");
+                stopLocation();
             }
         }
     };

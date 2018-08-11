@@ -16,7 +16,7 @@ public class BenifitAdapter extends BaseQuickAdapter<Benifit, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Benifit item) {
-        helper.setText(R.id.tv_title, item.title);
+        helper.setText(R.id.tv_name, item.title);
         helper.setText(R.id.tv_content, item.content);
     }
 }

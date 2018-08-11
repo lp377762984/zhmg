@@ -15,7 +15,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText2
+    <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
+        android:drawableRight="@mipmap/clearbutton"
         android:maxLines="1"
         android:id="@+id/et_phone"
         android:layout_width="match_parent"

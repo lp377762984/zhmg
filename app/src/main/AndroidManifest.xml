@@ -37,6 +37,7 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="66e8559c8e8a3ec03f6bb1e028721bcc" />
+        <!--<service android:name="com.amap.api.location.APSService"/>--><!--会持续定位-->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5b5ad513b27b0a11d10002b1" />
@@ -207,7 +208,7 @@
         <activity
             android:name=".mvp.ui.activity.StorePhoneActivity"
             android:exported="true" />
-        <activity android:name=".mvp.ui.activity.StoreDescActivity"></activity>
+        <activity android:name=".mvp.ui.activity.StoreDescActivity"/>
     </application>
 
 </manifest>

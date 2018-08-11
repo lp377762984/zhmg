@@ -11,7 +11,7 @@ import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.R;
-import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText2;
+import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import butterknife.BindView;
@@ -22,7 +22,7 @@ public class StorePhoneActivity extends BaseActivity {
 
 
     @BindView(R.id.et_phone)
-    ClearEditText2 etPhone;
+    ClearEditText etPhone;
     private String phone;
 
     @Override

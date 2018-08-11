@@ -5,36 +5,44 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
-        android:id="@+id/mb"
-        app:textTail="入驻商家"
-        app:textTitle="周边"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/money_bar_height"/>
     <FrameLayout
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:background="@color/style_color"
         android:layout_width="match_parent"
-        android:layout_height="59dp">
+        android:layout_height="48dp">
         <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="center"
+            android:id="@+id/et_content"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_gravity="center_vertical"
             android:textColor="@color/text_color2"
-            android:textSize="16sp"
-            android:paddingLeft="8dp"
-            android:drawablePadding="9dp"
+            android:textSize="14sp"
+            android:drawablePadding="10dp"
             android:drawableLeft="@mipmap/side_search"
+            android:drawableRight="@mipmap/side_clear"
             android:background="@drawable/side_search_bg"
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            android:layout_width="247dp"
+            android:layout_height="28dp" />
+        <TextView
+            android:id="@+id/tv_go_in"
+            android:layout_gravity="right"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:text="商城入驻"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
     </FrameLayout>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

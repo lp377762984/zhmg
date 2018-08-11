@@ -16,7 +16,7 @@ public class ClassAdapter extends BaseQuickAdapter<BClass, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, BClass item) {
-        helper.setText(R.id.tv_title, item.level_name);
+        helper.setText(R.id.tv_name, item.level_name);
         helper.setText(R.id.tv_content, item.level_content);
     }
 }

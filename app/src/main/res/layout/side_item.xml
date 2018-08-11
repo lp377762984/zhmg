@@ -1,124 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/im_icon"
-        android:layout_width="78dp"
-        android:layout_height="53dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="26.5dp"
+        android:paddingBottom="15dp"
+        android:background="@drawable/merchant_in_head_bg"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="128dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="128dp"
+            android:layout_marginTop="20dp"
+            android:text="hahhah"
+            android:textColor="#333"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="TextView"
+            android:textColor="#808080"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tv_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+        <TextView
+            android:textSize="12sp"
+            android:textColor="#808080"
+            android:id="@+id/tv_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="25dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_location" />
+
+        <TextView
+            android:drawablePadding="2dp"
+            android:drawableLeft="@mipmap/side_type"
+            android:textSize="12sp"
+            android:textColor="#808080"
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginStart="70dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_class"
+            app:layout_constraintStart_toEndOf="@+id/tv_class"
+            app:layout_constraintTop_toTopOf="@+id/tv_class" />
+
+        <TextView
+            android:drawablePadding="2dp"
+            android:drawableLeft="@mipmap/side_location"
+            android:id="@+id/tv_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:text="TextView"
+            android:textColor="#808080"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_type" />
+    </android.support.constraint.ConstraintLayout>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:elevation="6dp"
+        android:id="@+id/im_head"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="13dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/home_bussiness" />
-
-    <TextView
-        android:textSize="16sp"
-        android:textColor="#323232"
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_marginStart="6dp"
-        android:text="真功夫"
-        app:layout_constraintStart_toEndOf="@+id/im_icon"
-        app:layout_constraintTop_toTopOf="@+id/im_icon" />
-
-    <TextView
-        android:textSize="14sp"
-        android:textColor="@color/text_color_gray2"
-        android:id="@+id/tv_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="餐饮"
-        app:layout_constraintBottom_toBottomOf="@+id/im_icon"
-        app:layout_constraintStart_toStartOf="@+id/tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
-
-    <View
-        android:id="@+id/divider9"
-        android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginStart="8dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_type"
-        app:layout_constraintTop_toBottomOf="@+id/im_icon" />
-
-    <TextView
-        android:drawablePadding="9dp"
-        android:drawableLeft="@mipmap/side_money"
-        android:textSize="14sp"
-        android:textColor="@color/text_color2"
-        android:id="@+id/tv_score_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="73dp"
-        android:layout_marginStart="73dp"
-        android:layout_marginTop="23dp"
-        android:text="得消费金额8%积分"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/im_icon" />
-
-    <TextView
-        android:drawablePadding="9dp"
-        android:drawableLeft="@mipmap/side_time"
-        android:textSize="14sp"
-        android:textColor="@color/text_color2"
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:text="营业时间：早9：00~晚22：00"
-        app:layout_constraintStart_toStartOf="@+id/tv_score_type"
-        app:layout_constraintTop_toBottomOf="@+id/tv_score_type" />
-
-    <TextView
-        android:drawablePadding="9dp"
-        android:drawableLeft="@mipmap/side_location"
-        android:textSize="14sp"
-        android:textColor="@color/text_color2"
-        android:id="@+id/tv_location"
-        android:layout_width="126dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:text="地址：九条八桶地址：九条八桶地址：九条八桶"
-        app:layout_constraintStart_toStartOf="@+id/tv_time"
-        app:layout_constraintTop_toBottomOf="@+id/tv_time" />
-
-    <TextView
-        android:textSize="15sp"
-        android:textColor="@color/style_color"
-        android:id="@+id/tv_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="9dp"
-        android:text="10.5KM"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_location"
-        app:layout_constraintTop_toBottomOf="@+id/tv_time" />
-
-    <View
-        android:id="@+id/divider10"
-        android:layout_width="0dp"
-        android:layout_height="10dp"
-        android:layout_marginTop="23dp"
-        android:background="@color/line_wider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_location" />
+        app:riv_corner_radius="5dp" />
 </android.support.constraint.ConstraintLayout>

@@ -44,7 +44,7 @@ public class BaseListFragment<P extends IPresenter> extends BaseLoadingFragment<
             @Override
             public void onLoadMoreRequested() {
                 isRefresh = false;
-                loadData(isRefresh);
+                loadData(false);
             }
         }, recyclerView);
         refreshLayout.setEnableRefresh(true);
@@ -61,7 +61,7 @@ public class BaseListFragment<P extends IPresenter> extends BaseLoadingFragment<
             public void onRefresh(RefreshLayout refreshlayout) {
                 isRefresh = true;
                 isComplete = false;
-                loadData(isRefresh);
+                loadData(true);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

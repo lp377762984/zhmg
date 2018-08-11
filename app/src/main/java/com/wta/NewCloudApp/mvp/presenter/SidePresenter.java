@@ -2,13 +2,10 @@ package com.wta.NewCloudApp.mvp.presenter;
 
 import com.amap.api.location.AMapLocation;
 import com.jess.arms.di.scope.FragmentScope;
-import com.jess.arms.utils.ArmsUtils;
-import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.manager.LocationManager;
 import com.wta.NewCloudApp.mvp.contract.SideContract;
 import com.wta.NewCloudApp.mvp.model.BusinessModel;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
-import com.wta.NewCloudApp.mvp.view.BaseDataView;
 
 import java.util.List;
 
@@ -27,20 +24,30 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
     }
 
     public void getData(boolean isRefresh) {
-        if (isRefresh) startLocation();
-        else
-        doRequest(buildListRequest(mModel.getBusiness(isRefresh, lat, lng)), 1);
+        if (isRefresh) {
+            if (lat == 0) {
+                startLocation();
+            } else {
+                doRequest(buildListRequest(mModel.getBusiness(isRefresh, lat, lng)), 1);
+            }
+
+        } else
+            doRequest(buildListRequest(mModel.getBusiness(isRefresh, lat, lng)), 1);
     }
 
     @Override
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
         if (what == 1) {
-            if (mRootView instanceof BaseDataView) {
-                ((BaseDataView) mRootView).getData(what, (List) result.data);
-            } else {
-                ArmsUtils.makeText(App.getInstance(), "view is not implements baseDataView");
-            }
+            mRootView.getData(what, (List) result.data);
+        }
+    }
+
+    @Override
+    public <T> void handle404(int what, Result<T> result) {
+        super.handle404(what, result);
+        if (what == 1) {
+            mRootView.complete();
         }
     }
 
@@ -51,9 +58,11 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
                 @Override
                 public void onLocateSuccess(AMapLocation location) {
                     mRootView.hideLoading();
+                    if (lat == 0) {
+                        doRequest(buildListRequest(mModel.getBusiness(true, location.getLatitude(), location.getLongitude())), 1);
+                    }
                     SidePresenter.this.lat = location.getLatitude();
                     SidePresenter.this.lng = location.getLongitude();
-                    doRequest(buildListRequest(mModel.getBusiness(true, lat, lng)), 1);
                 }
 
                 @Override

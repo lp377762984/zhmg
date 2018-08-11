@@ -11,7 +11,7 @@ import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.R;
-import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText2;
+import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import butterknife.BindView;
@@ -21,7 +21,7 @@ import butterknife.OnClick;
 public class StoreDescActivity extends BaseActivity {
 
     @BindView(R.id.et_desc)
-    ClearEditText2 etDesc;
+    ClearEditText etDesc;
     private String desc;
 
     @Override

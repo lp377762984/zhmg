@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerSideComponent;
@@ -40,6 +42,12 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     @Override
     protected void getAdapter() {
         adapter = new SideAdapter(R.layout.side_item, data);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
     }
 
     @Override
@@ -50,5 +58,10 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     @Override
     public Activity getFragmentContext() {
         return getActivity();
+    }
+
+    @Override
+    public void complete() {
+        isComplete = true;
     }
 }
