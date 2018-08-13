@@ -2,6 +2,7 @@ package com.wta.NewCloudApp.mvp.model;
 
 import com.jess.arms.mvp.IModel;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
+import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
@@ -41,4 +42,7 @@ public interface IUserModel extends IModel {
     Observable<Result<Address>> editAddress(int id,String consignee,String mobile,int province,int city,int district,String address,int type);//编辑地址
     Observable<Result<Address>> setDefaultAddress(int id);//设置默认地址
     Observable<Result<Address>> delAddress(int id);//删除地址
+
+    Observable<Result<AliInfo>> bindAlipay(String openID,String type);
+    Observable<Result<AliInfo>> getAlipayAuthInfo() ;
 }

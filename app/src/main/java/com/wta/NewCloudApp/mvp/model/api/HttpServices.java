@@ -10,7 +10,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
-import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
+import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
@@ -163,11 +163,11 @@ public interface HttpServices {
     Observable<Result<Business>> getStoreDet(@Field("store_id") int storeID);
 
     @GET("/set/getSign")
-    Observable<Result<PayInfo>> getAlipayAuthInfo();
+    Observable<Result<AliInfo>> getAlipayAuthInfo();
 
     @FormUrlEncoded
     @POST("/set/setAlipay")
-    Observable<Result<PayInfo>> bindAlipay(@Field("openid") String openID, @Field("type") String type);
+    Observable<Result<AliInfo>> bindAlipay(@Field("openid") String openID, @Field("type") String type);
 
     @GET("/set/isBindAlipay")
     Observable<Result<User>> checkBindAlipay();

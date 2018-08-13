@@ -8,7 +8,7 @@ import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
-import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
+import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
@@ -91,12 +91,12 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
         return getService().getStoreDet(storeID);
     }
 
-    public Observable<Result<PayInfo>> getAlipayAuthInfo() {
+    public Observable<Result<AliInfo>> getAlipayAuthInfo() {
         return  getService().getAlipayAuthInfo();
     }
 
     @Override
-    public Observable<Result<PayInfo>> uploadAlipayId(String id) {
+    public Observable<Result<AliInfo>> uploadAlipayId(String id) {
         return getService().bindAlipay(id,"alipay");
     }
 

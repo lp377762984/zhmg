@@ -5,6 +5,7 @@ import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
+import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
@@ -168,5 +169,12 @@ public class UserModel extends BaseModel implements IUserModel {
         return getService().delAddress(id);
     }
 
+    @Override
+    public Observable<Result<AliInfo>> bindAlipay(String openID,String type) {
+        return getService().bindAlipay(openID,type);
+    }
+    public Observable<Result<AliInfo>> getAlipayAuthInfo() {
+        return  getService().getAlipayAuthInfo();
+    }
 
 }

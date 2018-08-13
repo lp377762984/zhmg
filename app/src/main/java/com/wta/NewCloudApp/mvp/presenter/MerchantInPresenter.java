@@ -4,7 +4,7 @@ import com.alipay.sdk.app.AuthTask;
 import com.jess.arms.di.scope.ActivityScope;
 import com.wta.NewCloudApp.mvp.contract.MerchantInContract;
 import com.wta.NewCloudApp.mvp.model.BusinessModel;
-import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
+import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 
@@ -17,7 +17,6 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 
 @ActivityScope
@@ -64,7 +63,7 @@ public class MerchantInPresenter extends BBasePresenter<BusinessModel, MerchantI
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
         if (what == 1) {
-            getAlipayClient(((PayInfo) result.data).info);
+            getAlipayClient(((AliInfo) result.data).info);
         } else if (what == 3) {
             showToast("支付宝授权成功");
         } else if (what == 4) {

@@ -1,5 +1,7 @@
 package com.wta.NewCloudApp.mvp.contract;
 
+import android.app.Activity;
+
 import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
@@ -15,5 +17,9 @@ public interface SettingContract {
         void showUpdate(Update update);
         void showProgress();
         void updateProgress(int progress);
+
+        Activity getActivityCet();
+
+        void bindAliSuccess();
     }
 }

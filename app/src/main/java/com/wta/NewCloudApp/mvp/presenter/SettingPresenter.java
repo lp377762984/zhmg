@@ -4,6 +4,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.alipay.sdk.app.AuthTask;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.utils.RxLifecycleUtils;
 import com.wta.NewCloudApp.config.App;
@@ -11,6 +12,7 @@ import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.config.DefaultHandleSubscriber;
 import com.wta.NewCloudApp.mvp.contract.SettingContract;
 import com.wta.NewCloudApp.mvp.model.UserModel;
+import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
@@ -27,6 +29,8 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -88,6 +92,30 @@ public class SettingPresenter extends BBasePresenter<UserModel, SettingContract.
                 .subscribe(new DefaultHandleSubscriber<>(mErrorHandler));
     }
 
+    public void bindAli() {
+        doRequest(buildRequest(mModel.getAlipayAuthInfo()), 3);
+    }
+
+    public void getAlipayClient(String payInfo) {
+        Observable<Map<String, String>> mapObservable = Observable.create(new ObservableOnSubscribe<Map<String, String>>() {
+            @Override
+            public void subscribe(ObservableEmitter<Map<String, String>> emitter) throws Exception {
+                emitter.onNext(requestAlipayClient(payInfo));
+                emitter.onComplete();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        doRequest(mapObservable, 4);
+    }
+
+    private Map<String, String> requestAlipayClient(String payInfo) {
+        AuthTask authTask = new AuthTask(mRootView.getActivityCet());
+        return authTask.authV2(payInfo, true);
+    }
+
+    private void uploadOpenId(String openID) {
+        doRequest(buildRequest(mModel.bindAlipay(openID,"alipay")), 5);
+    }
+
     @Override
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
@@ -96,6 +124,33 @@ public class SettingPresenter extends BBasePresenter<UserModel, SettingContract.
             mRootView.showData((User) result.data);
         } else if (what == 2) {
             mRootView.showUpdate((Update) result.data);
+        } else if (what == 3) {
+            getAlipayClient(((AliInfo) result.data).info);
+        } else if (what==5){
+            mRootView.bindAliSuccess();
+        }
+    }
+
+    @Override
+    public <K> void handleOther(int what, K k) {
+        super.handleOther(what, k);
+        Map<String, String> k1 = (Map<String, String>) k;
+        String resultStatus = k1.get("resultStatus");
+        if ("9000".equals(resultStatus)) {
+            String result = k1.get("result");
+            handleResults(result);
+        } else {
+            showToast("支付宝授权失败，code:" + resultStatus);
+        }
+    }
+
+    private void handleResults(String result) {
+        String[] split = result.split("&");
+        for (String ss : split) {
+            if (ss.contains("alipay_open_id")) {
+                String[] split1 = ss.split("=");
+                uploadOpenId(split1[1]);
+            }
         }
     }
 

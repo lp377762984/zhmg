@@ -2,6 +2,7 @@ package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -119,7 +120,7 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
 
     }
 
-    @OnClick({R.id.lat_phone, R.id.lat_wx, R.id.lat_clear, R.id.lat_update, R.id.btn_exit})
+    @OnClick({R.id.lat_phone, R.id.lat_wx, R.id.lat_clear, R.id.lat_update, R.id.btn_exit,R.id.lat_ali})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_phone:
@@ -158,6 +159,9 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
                         finish();
                     }
                 }).show();
+                break;
+            case R.id.lat_ali:
+                mPresenter.bindAli();
                 break;
         }
     }
@@ -255,6 +259,18 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
             progressDialog.dismiss();
             installApp(new File(Environment.getExternalStorageDirectory() + "/temp/zhmg.apk"));
         }
+    }
+
+    @Override
+    public Activity getActivityCet() {
+        return this;
+    }
+
+    @Override
+    public void bindAliSuccess() {
+        AppConfig.getInstance().putInt(ConfigTag.IS_ALIPAY,1);
+        tvAliState.setText("已绑定");
+        latAli.setEnabled(false);
     }
 
 }
