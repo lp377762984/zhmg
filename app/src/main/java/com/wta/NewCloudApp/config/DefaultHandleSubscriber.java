@@ -62,6 +62,8 @@ public class DefaultHandleSubscriber<K> extends ErrorHandleSubscriber<K> {
                     ArmsUtils.snackbarText("没有和客户端约定的响应码");
                     break;
             }
+        } else {
+            if (handler != null) handler.handleOther(what, k);
         }
     }
 

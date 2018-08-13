@@ -58,12 +58,26 @@
         <meta-data
             android:name="com.taobao.android.hotfix.RSASECRET"
             android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCJNXr8iEECs5V7hcWouIo00TMFe07szXls4nTzK7Gzh/8HHz3qDPkIwvG5iM3knBWwzyynV0GuI0Y1P7ZIql05j6jvufhhflI1oZu0uHfI4epxWLDQqHUrz8eU2tUfyL1aqYtdR9Xv7BUdrcNWMkr7jzTaiamLeBWuraJFqsY5h0T6jUXxHRzPp95ne+K/nvkehPQH9mFsYtHxHCXVh/eHbnoB+NcAxtskTE1jiL6eUAr/eAthwujX0naEOoZUs2fdbsGgZuPNRy3PxbWWCv5Ni1Zg08exHzdwGsCIJyHpOvNVAyJ0wc2XEfjvbME9JYn9JNao1Q8wBa6VMyoVfZK1AgMBAAECggEAGwDdfYnLUZ7KUo8XQYdgG9j4M6H6/HvL4/QFlD4LMQwY0uwBIWkAMgs7y4nzC4T0d+GuJhj0IjNrA9vQIij1Q/jUBKoTCgz0XP27SSvs1yovG7OayNX+iWrRGqievSyip48qkGcs4ZUS6s5h3Tr0quGaQ1BIf9xYWBJwF0nuzS9Y/KK04AAPZjuLThJmB31udIQGtXVfYCBav/efQ7N7ZfIiYlw3ipRZPB9PgLzt3zUijMSIEVBv5sCVFKs/ezLLue4ek7Nd7iaqwDdbOyhkCaaBt4Wkd5gBC9sYtEzQ/kEeHrVRafdB2b4D/bcEwgM3JMOqNpWIUFA68LHQ06VugQKBgQDiRIFQmrnSdpxbhBaNc3MXMSYr+sHb6BreBlJ2PLfYbUMXmuNfjrbdACvFgtzabWmU/ASnXkbisHV3R0AhAyHgLmTIFVg/DZLVnfaGxz2yWwPtgNrKwpUEYr8756IwFt/PXO+zsgIua0LnvGv9RqwnBLzGxDOuGWquus3ppltIUQKBgQCbPRlOUnB7P2HwVoU1Bt9t0TdWxOq/62q1jFfupdGHWwCgCnYCZ9zeLSq9d2ONkktfjCR/fIH+eAQe7jbt52ppOPI5+TcFk7/CUwhlVwvfp9mNrC6T82nBSTdiLsywgBqCAzO0AUGrdQLWDrNjcO/laXwMrDow+s6y0wlni6FvJQKBgQCMc6u1xiW84AWUxTxel6CEb+za9e/qOnya/1+mp3ATd1djSrEDOwqFyrphAydmqu4UHhAheGMWCiUQYnkLRO99Qi8rCBzcHufblA9YgErq8JZSkl695+UqcMV2QQWrRjetd2oPqFq0R76jLJH4CSuJmOY5l8bgtkRDrA9vjuUw0QKBgFpS7op3xSKw+ldQwCjeWtoWxVAjO0N3wprnkbI1oPhUpsR30boMnKJZPWkIMlCJMnnhnMrgsvJQ+nTUvfkmkO+wRqActTr1gLmcfmIYh7wWearI6EEFfB8Obr8d49M+di33lvnBUWhlqMTLwOy3JZ4iBh+JhkJBbEr4J5yrzb5RAoGAAqn7A6jsmpiz/ZXV2aE06QgNuC4Cjwhkhop+lwEeBCo4FmqJJlUYrP+Pl/MGWkabTlDJY1D7IZ0xkjiB6H7d/eWPgZFsdhWJpcdPzbRRP3gYFkkBd24bFDIIZBqOLeOnmykPPcvq++IuSzzmNS/2zmMlsqEzFlmpqI2uTN9AHyk=" />
-
+        <!--alipay start-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <!--alipay end-->
         <activity
             android:name=".mvp.ui.activity.MainActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            android:launchMode="singleTask" />
         <activity android:name=".mvp.ui.activity.BaseListActivity" />
         <activity
             android:name=".mvp.ui.activity.LoginActivity"

@@ -81,6 +81,7 @@ public class AppConfig {
                 .remove("wx_name")
                 .remove("group_name")
                 .remove("share_url")
+                .remove("is_alipay")
                 .apply();
     }
 
@@ -96,5 +97,6 @@ public class AppConfig {
         AppConfig.getInstance().putString("wx_name", user.wx_name);
         AppConfig.getInstance().putString("share_url", user.share_url);
         AppConfig.getInstance().putString("group_name", user.group_name);
+        AppConfig.getInstance().putInt("is_alipay", user.is_alipay);
     }
 }

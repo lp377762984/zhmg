@@ -1,5 +1,7 @@
 package com.wta.NewCloudApp.mvp.contract;
 
+import android.app.Activity;
+
 import com.jess.arms.mvp.IView;
 import com.jess.arms.mvp.IModel;
 
@@ -8,5 +10,8 @@ public interface MerchantInContract {
 
     interface View extends IView {
 
+        Activity getActivityCet();
+
+        void getIsBindAlipay(int is_alipay);
     }
 }

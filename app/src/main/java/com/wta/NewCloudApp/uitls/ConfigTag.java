@@ -9,6 +9,7 @@ public class ConfigTag {
     public static final String NUMBER= "number";
     public static final String MOBILE= "mobile";
     public static final String IS_WEIXIN= "is_weixin";
+    public static final String IS_ALIPAY= "is_alipay";
     public static final String IS_MOBILE= "is_mobile";
     public static final String WX_NAME= "wx_name";
     public static final String GROUP_NAME= "group_name";

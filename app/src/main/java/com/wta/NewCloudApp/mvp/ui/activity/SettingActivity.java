@@ -2,10 +2,8 @@ package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -19,19 +17,18 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jess.arms.base.delegate.IFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.wta.NewCloudApp.BuildConfig;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerSettingComponent;
 import com.wta.NewCloudApp.di.module.SettingModule;
-import com.wta.NewCloudApp.BuildConfig;
-import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.SettingContract;
 import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
@@ -47,13 +44,12 @@ import com.wta.NewCloudApp.uitls.PackageUtils;
 import org.simple.eventbus.EventBus;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
-import timber.log.Timber;
 
 
 public class SettingActivity extends BaseLoadingActivity<SettingPresenter> implements SettingContract.View, UMAuthListener {
@@ -76,6 +72,10 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
     TextView tvPhoneState;
     @BindView(R.id.tv_wx_state)
     TextView tvWxState;
+    @BindView(R.id.tv_ali_state)
+    TextView tvAliState;
+    @BindView(R.id.lat_ali)
+    RelativeLayout latAli;
     private ProgressDialog progressDialog;
     private Dialog updateDialog;
 
@@ -110,6 +110,12 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
             tvWxState.setText(AppConfig.getInstance().getString(ConfigTag.WX_NAME, null));
             latWx.setEnabled(false);
         }
+        if (AppConfig.getInstance().getInt(ConfigTag.IS_ALIPAY, 0) == 0) {
+            tvAliState.setText("未绑定");
+        } else {
+            tvAliState.setText("已绑定");
+            latAli.setEnabled(false);
+        }
 
     }
 
@@ -129,7 +135,7 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
                     ArmsUtils.makeText(App.getInstance(), "无缓存");
                     return;
                 }
-                DialogUtils.showAlertDialog(this,"是否清除缓存？",new DetDialogCallback(){
+                DialogUtils.showAlertDialog(this, "是否清除缓存？", new DetDialogCallback() {
                     @Override
                     public void handleRight(Dialog dialog) {
                         dialog.dismiss();
@@ -142,7 +148,7 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
                 mPresenter.checkUpdate();
                 break;
             case R.id.btn_exit:
-                DialogUtils.showAlertDialog(this,"确定要退出登陆吗？",new DetDialogCallback(){
+                DialogUtils.showAlertDialog(this, "确定要退出登陆吗？", new DetDialogCallback() {
                     @Override
                     public void handleRight(Dialog dialog) {
                         dialog.dismiss();
@@ -192,7 +198,7 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
     @SuppressLint("CheckResult")
     @Override
     public void showUpdate(Update update) {
-        if (updateDialog==null){
+        if (updateDialog == null) {
             updateDialog = DialogUtils.createUpdateDialog(this, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

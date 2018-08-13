@@ -1,5 +1,6 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -46,29 +47,29 @@ public class MerchantInActivity extends BaseLoadingActivity<MerchantInPresenter>
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this){
+        recyclerView.setLayoutManager(new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         });
-        List<Benifit> data=new ArrayList<>();
-        data.add(new Benifit("功能权益","1.入驻成功后，将有商家家二维码。\n2.拥有商家所有服务功能"));
-        data.add(new Benifit("积分权益","1.入驻成功后，将有商家家二维码。\n2.拥有商家所有服务功能"));
-        data.add(new Benifit("现金权益","1.入驻成功后，将有商家家二维码。\n2.拥有商家所有服务功能"));
-        BenifitAdapter adapter=new BenifitAdapter(R.layout.benifit_item,data);
+        List<Benifit> data = new ArrayList<>();
+        data.add(new Benifit("功能权益", "1.入驻成功后，将有商家家二维码。\n2.拥有商家所有服务功能"));
+        data.add(new Benifit("积分权益", "1.入驻成功后，将有商家家二维码。\n2.拥有商家所有服务功能"));
+        data.add(new Benifit("现金权益", "1.入驻成功后，将有商家家二维码。\n2.拥有商家所有服务功能"));
+        BenifitAdapter adapter = new BenifitAdapter(R.layout.benifit_item, data);
         recyclerView.setAdapter(adapter);
     }
 
     @OnClick(R.id.btn_apply)
     public void onViewClicked() {
-        MerchantAuthActivity.startAuth(this,6);
+        mPresenter.checkBindAlipay();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK && requestCode== FinalUtils.REQUEST_BAUTH){
+        if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_BAUTH) {
             finish();
         }
     }
@@ -76,5 +77,19 @@ public class MerchantInActivity extends BaseLoadingActivity<MerchantInPresenter>
     @Override
     public int setUIMode() {
         return UIMODE_TRANSPARENT_NOTALL;
+    }
+
+    @Override
+    public Activity getActivityCet() {
+        return this;
+    }
+
+    @Override
+    public void getIsBindAlipay(int is_alipay) {
+        if (is_alipay == 1) {
+            MerchantAuthActivity.startAuth(this, 6);
+        } else if (is_alipay == 0) {
+            mPresenter.getAuthInfo();
+        }
     }
 }

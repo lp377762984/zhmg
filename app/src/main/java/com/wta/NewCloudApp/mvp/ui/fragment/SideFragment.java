@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,18 @@ import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.presenter.SidePresenter;
 import com.wta.NewCloudApp.mvp.ui.activity.SideDetActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.SideAdapter;
+import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public class SideFragment extends BaseListFragment<SidePresenter> implements SideContract.View {
+    @BindView(R.id.et_content)
+    ClearEditText etContent;
+    Unbinder unbinder;
+
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
         DaggerSideComponent //如找不到该类,请编译一下项目
@@ -39,6 +49,15 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
+        etContent.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode==KeyEvent.KEYCODE_ENTER){
+
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -65,5 +84,18 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     @Override
     public void complete() {
         isComplete = true;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

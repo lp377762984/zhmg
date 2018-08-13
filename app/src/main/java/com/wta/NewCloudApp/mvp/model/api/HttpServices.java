@@ -10,6 +10,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
+import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
@@ -22,12 +23,10 @@ import java.util.TreeMap;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
@@ -131,32 +130,45 @@ public interface HttpServices {
     Observable<Result<List<BClass>>> getBClassList();
 
     @GET("/getRegion")
-    Observable<Result<List<Street>>> getStreetInfo(@Query("town")int townId);
+    Observable<Result<List<Street>>> getStreetInfo(@Query("town") int townId);
 
     @FormUrlEncoded
     @POST("/qualification")
-    Observable<Result<AuthInfo>> uploadBAuth(@Field("shop_business") String a1,@Field("shop_handheld_idcard") String a2,
-                                             @Field("shop_facade_idcard") String a3,@Field("shop_reverse_idcard") String a4);
+    Observable<Result<AuthInfo>> uploadBAuth(@Field("shop_business") String a1, @Field("shop_handheld_idcard") String a2,
+                                             @Field("shop_facade_idcard") String a3, @Field("shop_reverse_idcard") String a4);
 
     @FormUrlEncoded
     @POST("/shopDetails")
-    Observable<Result<Business>> addStoreInfo(@Field("shop_name") String shop_name,@Field("shop_type") int shop_type,@Field("shop_level") int shop_level,@Field("shop_address_x") double shop_address_x,@Field("shop_address_y") double shop_address_y,@Field("start_time") String start_time,@Field("end_time") String end_time,
-                                              @Field("shop_doorhead")String shop_door_head,@Field("province") int province,@Field("city") int city,@Field("district") int district,@Field("twon") int town,@Field("location_address") String location_address,@Field("address") String address);
+    Observable<Result<Business>> addStoreInfo(@Field("shop_name") String shop_name, @Field("shop_type") int shop_type, @Field("shop_level") int shop_level, @Field("shop_address_x") double shop_address_x, @Field("shop_address_y") double shop_address_y, @Field("start_time") String start_time, @Field("end_time") String end_time,
+                                              @Field("shop_doorhead") String shop_door_head, @Field("province") int province, @Field("city") int city, @Field("district") int district, @Field("twon") int town, @Field("location_address") String location_address, @Field("address") String address);
 
     @FormUrlEncoded
     @POST("/nearbyList")
-    Observable<Result<List<Business>>> getBusinessList(@Field("lat") double lat,@Field("lng") double lng,@Field("page") int page);
+    Observable<Result<List<Business>>> getBusinessList(@Field("lat") double lat, @Field("lng") double lng, @Field("page") int page);
 
     @GET("/errorStore")
     Observable<Result<ErrorBusiness>> getStoreErrorMsg();
+
     @GET("/myStore")
     Observable<Result<Business>> getAllStoreMsg();
+
     @FormUrlEncoded
     @POST("/setMyStore")
-    Observable<Result<Business>> modifyStore(@Field("shop_doorhead")String shop_doorhead, @Field("start_time")String start_time, @Field("end_time")String end_time,
-                                             @Field("shop_type")int shop_type, @Field("telephone")String telephone
-            , @Field("introduction")String introduction, @FieldMap TreeMap<String, Object> map);
+    Observable<Result<Business>> modifyStore(@Field("shop_doorhead") String shop_doorhead, @Field("start_time") String start_time, @Field("end_time") String end_time,
+                                             @Field("shop_type") int shop_type, @Field("telephone") String telephone
+            , @Field("introduction") String introduction, @FieldMap TreeMap<String, Object> map);
+
     @FormUrlEncoded
     @POST("/nearbyDetails")
     Observable<Result<Business>> getStoreDet(@Field("store_id") int storeID);
+
+    @GET("/set/getSign")
+    Observable<Result<PayInfo>> getAlipayAuthInfo();
+
+    @FormUrlEncoded
+    @POST("/set/setAlipay")
+    Observable<Result<PayInfo>> bindAlipay(@Field("openid") String openID, @Field("type") String type);
+
+    @GET("/set/isBindAlipay")
+    Observable<Result<User>> checkBindAlipay();
 }

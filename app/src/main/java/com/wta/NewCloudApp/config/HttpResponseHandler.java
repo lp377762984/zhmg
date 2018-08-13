@@ -9,4 +9,6 @@ public interface HttpResponseHandler {
     void handle20(int what, Result result);
     <T> void  handle200(int what, Result<T> result);
     <T>  void handle404(int what, Result<T> result);
+
+    <K> void handleOther(int what, K k);
 }

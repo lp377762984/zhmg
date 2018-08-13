@@ -81,6 +81,11 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
         }
     }
 
+    @Override
+    public <K> void handleOther(int what, K k) {
+
+    }
+
     //执行网络请求
     protected <T> void doRequest(Observable<T> observable, RxErrorHandler errorHandler, int what, HttpResponseHandler handler) {
         resend = new Resend((observable), what);

@@ -79,6 +79,7 @@ dependencies {
     implementation rootProject.ext.dependencies["gaode"]
     implementation rootProject.ext.dependencies["refreshLayout"]
     implementation rootProject.ext.dependencies["FlowLayout"]
+    //implementation rootProject.ext.dependencies["pickerview"]
     //test
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["runner"]
@@ -98,4 +99,5 @@ dependencies {
     implementation files('libs/umeng-analytics-7.5.3.jar')
     implementation project(':pickerview')
     implementation project(path: ':wheelview')
+    implementation files('libs/alipaySdk-20180601.jar')
 }

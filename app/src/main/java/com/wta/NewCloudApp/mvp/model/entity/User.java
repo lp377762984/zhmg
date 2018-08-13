@@ -24,6 +24,7 @@ public class User {
     public String mobile;
     public int is_weixin;
     public int is_mobile;
+    public int is_alipay;
     public String wx_name;
     public String group_name;
 
