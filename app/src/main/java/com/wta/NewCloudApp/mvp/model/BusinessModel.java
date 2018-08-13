@@ -22,6 +22,7 @@ import io.reactivex.Observable;
 
 public class BusinessModel extends BaseModel implements IBusinessModel {
     private int index = 0;
+    private int indexSearch=0;
 
     @Inject
     public BusinessModel(IRepositoryManager repositoryManager) {
@@ -102,5 +103,17 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
     @Override
     public Observable<Result<User>> checkBindAlipay() {
         return getService().checkBindAlipay();
+    }
+
+    @Override
+    public Observable<Result<User>> getBPower() {
+        return getService().getBPower();
+    }
+
+    @Override
+    public Observable<Result<List<Business>>> getSearchResult(boolean isRefresh,String keywords) {
+        if (isRefresh) index = 1;
+        else index++;
+        return getService().getSearchResult(keywords,index);
     }
 }

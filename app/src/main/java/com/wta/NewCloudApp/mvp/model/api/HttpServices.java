@@ -171,4 +171,11 @@ public interface HttpServices {
 
     @GET("/set/isBindAlipay")
     Observable<Result<User>> checkBindAlipay();
+
+    @GET("/storeCondition")
+    Observable<Result<User>> getBPower();
+
+    @FormUrlEncoded
+    @POST("/searchStore")
+    Observable<Result<List<Business>>> getSearchResult(@Field("search_name") String keywords, @Field("page")int index);
 }

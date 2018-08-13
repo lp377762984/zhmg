@@ -38,4 +38,8 @@ public interface IBusinessModel extends IModel {
     Observable<Result<PayInfo>> uploadAlipayId(String id);
 
     Observable<Result<User>> checkBindAlipay();
+
+    Observable<Result<User>> getBPower();
+
+    Observable<Result<List<Business>>> getSearchResult(boolean isRefresh,String keywords);
 }

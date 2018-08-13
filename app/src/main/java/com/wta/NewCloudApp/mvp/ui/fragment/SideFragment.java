@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerSideComponent;
 import com.wta.NewCloudApp.di.module.SideModule;
@@ -18,6 +19,7 @@ import com.wta.NewCloudApp.mvp.contract.SideContract;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.presenter.SidePresenter;
 import com.wta.NewCloudApp.mvp.ui.activity.SideDetActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.SideSearchActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.SideAdapter;
 import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
 
@@ -28,7 +30,7 @@ import butterknife.Unbinder;
 
 public class SideFragment extends BaseListFragment<SidePresenter> implements SideContract.View {
     @BindView(R.id.et_content)
-    ClearEditText etContent;
+    TextView etContent;
     Unbinder unbinder;
 
     @Override
@@ -49,13 +51,10 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
-        etContent.setOnKeyListener(new View.OnKeyListener() {
+        etContent.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode==KeyEvent.KEYCODE_ENTER){
-
-                }
-                return false;
+            public void onClick(View v) {
+                ArmsUtils.startActivity(SideSearchActivity.class);
             }
         });
     }
@@ -79,11 +78,6 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     @Override
     public Activity getFragmentContext() {
         return getActivity();
-    }
-
-    @Override
-    public void complete() {
-        isComplete = true;
     }
 
     @Override

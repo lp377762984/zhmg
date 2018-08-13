@@ -7,13 +7,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.http.imageloader.glide.GlideArms;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerMerchantInComponent;
 import com.wta.NewCloudApp.di.module.MerchantInModule;
 import com.wta.NewCloudApp.mvp.contract.MerchantInContract;
 import com.wta.NewCloudApp.mvp.model.entity.Benifit;
+import com.wta.NewCloudApp.mvp.model.entity.Power;
+import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.MerchantInPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.BenifitAdapter;
 import com.wta.NewCloudApp.uitls.FinalUtils;
@@ -22,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -29,6 +35,12 @@ public class MerchantInActivity extends BaseLoadingActivity<MerchantInPresenter>
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_phone)
+    TextView tvPhone;
+    @BindView(R.id.im_head)
+    RoundedImageView imHead;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -47,18 +59,7 @@ public class MerchantInActivity extends BaseLoadingActivity<MerchantInPresenter>
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-        List<Benifit> data = new ArrayList<>();
-        data.add(new Benifit("功能权益", "1.入驻成功后，将有商家家二维码。\n2.拥有商家所有服务功能"));
-        data.add(new Benifit("积分权益", "1.入驻成功后，将有商家家二维码。\n2.拥有商家所有服务功能"));
-        data.add(new Benifit("现金权益", "1.入驻成功后，将有商家家二维码。\n2.拥有商家所有服务功能"));
-        BenifitAdapter adapter = new BenifitAdapter(R.layout.benifit_item, data);
-        recyclerView.setAdapter(adapter);
+        mPresenter.getBPower();
     }
 
     @OnClick(R.id.btn_apply)
@@ -92,4 +93,21 @@ public class MerchantInActivity extends BaseLoadingActivity<MerchantInPresenter>
             mPresenter.getAuthInfo();
         }
     }
+
+    @Override
+    public void showPower(User user) {
+        tvName.setText(user.nickname);
+        tvPhone.setText(user.mobile);
+        GlideArms.with(this).load(user.avatar).into(imHead);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
+        List<Power> data = user.condition;
+        BenifitAdapter adapter = new BenifitAdapter(R.layout.benifit_item, data);
+        recyclerView.setAdapter(adapter);
+    }
+
 }

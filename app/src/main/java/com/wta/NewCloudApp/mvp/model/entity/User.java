@@ -1,5 +1,7 @@
 package com.wta.NewCloudApp.mvp.model.entity;
 
+import java.util.List;
+
 public class User {
 
     public int expiring_in;
@@ -40,4 +42,5 @@ public class User {
     public String referee;
     public int people;
     public String share_url;
+    public List<Power> condition;
 }

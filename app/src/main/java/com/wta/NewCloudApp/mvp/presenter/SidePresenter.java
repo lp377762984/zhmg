@@ -43,14 +43,6 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
         }
     }
 
-    @Override
-    public <T> void handle404(int what, Result<T> result) {
-        super.handle404(what, result);
-        if (what == 1) {
-            mRootView.complete();
-        }
-    }
-
     private void startLocation() {
         mRootView.showLoading();
         if (locationManager == null) {
@@ -74,4 +66,5 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
         }
         locationManager.start();
     }
+
 }

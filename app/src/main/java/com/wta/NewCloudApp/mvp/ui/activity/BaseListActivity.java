@@ -36,7 +36,7 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
     public void initData(@Nullable Bundle savedInstanceState) {
         getAdapter();
         if (adapter == null) throw new NullPointerException("adapter is null");
-        if (needLoadmore()){
+        if (needLoadmore()) {
             adapter.setEnableLoadMore(true);
             adapter.setLoadMoreView(new CustomLoadMoreView());
             adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -50,7 +50,7 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadmore(false);
         ClassicsHeader ch = new ClassicsHeader(this);
-        ch.setTextSizeTitle(COMPLEX_UNIT_SP,14);
+        ch.setTextSizeTitle(COMPLEX_UNIT_SP, 14);
         ch.setDrawableArrowSize(15);
         ch.setDrawableProgressSize(15);
         ch.setEnableLastTime(false);
@@ -65,7 +65,8 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-        loadData(isRefresh);
+        if (autoRequest())
+            loadData(isRefresh);
     }
 
     protected void getAdapter() {
@@ -74,7 +75,7 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
 
     @Override
     public void getData(int what, List msgs) {
-        if (!isRefresh && msgs.size() == 0)
+        if (!isRefresh && (msgs == null || msgs.size() == 0))
             isComplete = true;
         if (isRefresh) {
             data.clear();
@@ -90,6 +91,7 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
             }
         }
     }
+
     @Override
     public void showListLoading() {
         if (isRefresh) ;//下拉刷新初次不显示
@@ -112,7 +114,11 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
 
     }
 
-    public boolean needLoadmore(){
+    public boolean needLoadmore() {
+        return true;
+    }
+
+    public boolean autoRequest() {
         return true;
     }
 }

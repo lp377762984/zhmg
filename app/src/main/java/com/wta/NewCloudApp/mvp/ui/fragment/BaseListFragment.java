@@ -50,7 +50,7 @@ public class BaseListFragment<P extends IPresenter> extends BaseLoadingFragment<
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadmore(false);
         ClassicsHeader ch = new ClassicsHeader(getContext());
-        ch.setTextSizeTitle(COMPLEX_UNIT_SP,14);
+        ch.setTextSizeTitle(COMPLEX_UNIT_SP, 14);
         ch.setDrawableArrowSize(15);
         ch.setDrawableProgressSize(15);
         ch.setEnableLastTime(false);
@@ -75,7 +75,7 @@ public class BaseListFragment<P extends IPresenter> extends BaseLoadingFragment<
 
     @Override
     public void getData(int what, List msgs) {
-        if (!isRefresh && msgs.size() == 0)
+        if (!isRefresh && (msgs == null || msgs.size() == 0))
             isComplete = true;
         Timber.d("getData: " + isComplete);
         if (isRefresh) {

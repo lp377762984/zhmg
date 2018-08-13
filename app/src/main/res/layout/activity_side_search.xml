@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <FrameLayout
+    <LinearLayout
         android:paddingLeft="15dp"
-        android:paddingRight="15dp"
         android:background="@color/style_color"
         android:layout_width="match_parent"
         android:layout_height="48dp">
-        <TextView
+        <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
             android:id="@+id/et_content"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -22,18 +21,20 @@
             android:drawableLeft="@mipmap/side_search"
             android:drawableRight="@mipmap/side_clear"
             android:background="@drawable/side_search_bg"
-            android:layout_width="247dp"
+            android:layout_weight="3.8"
+            android:layout_width="0dp"
             android:layout_height="28dp" />
         <TextView
             android:id="@+id/tv_go_in"
             android:layout_gravity="right"
             android:textColor="#fff"
             android:textSize="14sp"
-            android:gravity="center_vertical"
-            android:text="商城入驻"
-            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:text="搜索"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="match_parent" />
-    </FrameLayout>
+    </LinearLayout>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
