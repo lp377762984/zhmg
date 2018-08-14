@@ -111,7 +111,7 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
     private TimePickerView endTimePicker;
     private List<BClass> classes = new ArrayList<>();
     private BType type;
-    private int iType;//6未入住店铺 1店铺详情错误 3店铺资质和详情错误
+    private int iType;//6未入住店铺 1店铺详情错误 3店铺资质和详情错误 5店铺详情未填写
     private BClass bClass;
     private ErrorBusiness errorBusiness;
 
@@ -133,7 +133,7 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         iType = getIntent().getIntExtra("type", 6);
-        if (iType == 6) {
+        if (iType == 6 || iType == 5) {
             startLocation();
         } else if (iType == 1 || iType == 3) {
             mPresenter.getErrorStore();
@@ -232,16 +232,17 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
                     return;
                 }
                 //6未入住店铺 1店铺详情错误 3店铺资质和详情错误
-                mPresenter.addStoreInfo(etName.getText().toString(), iType == 6 ? type.cate_id : errorBusiness.store.shop_type
-                        , iType == 6 ? bClass.level_id : errorBusiness.store.shop_level
-                        , iType == 6 ? latitude : errorBusiness.store.shop_address_x
-                        , iType == 6 ? longitude : errorBusiness.store.shop_address_y
+                mPresenter.addStoreInfo(etName.getText().toString()
+                        , (iType == 6 || iType == 5) ? type.cate_id : errorBusiness.store.shop_type
+                        , (iType == 6 || iType == 5) ? bClass.level_id : errorBusiness.store.shop_level
+                        , (iType == 6 || iType == 5) ? latitude : errorBusiness.store.shop_address_x
+                        , (iType == 6 || iType == 5) ? longitude : errorBusiness.store.shop_address_y
                         , tvStartTime.getText().toString(), tvEndTime.getText().toString()
-                        , iType == 6 || errorBusiness == null || errorBusiness.store.shop_doorhead.status == 0 ? imgHeadStr : errorBusiness.store.shop_doorhead.info
-                        , iType == 6 ? provinceID : errorBusiness.store.province
-                        , iType == 6 ? cityID : errorBusiness.store.city
-                        , iType == 6 ? districitID : errorBusiness.store.district
-                        , iType == 6 ? townID : errorBusiness.store.twon
+                        , (iType == 6 || iType == 5) || errorBusiness == null || errorBusiness.store.shop_doorhead.status == 0 ? imgHeadStr : errorBusiness.store.shop_doorhead.info
+                        , (iType == 6 || iType == 5) ? provinceID : errorBusiness.store.province
+                        , (iType == 6 || iType == 5) ? cityID : errorBusiness.store.city
+                        , (iType == 6 || iType == 5) ? districitID : errorBusiness.store.district
+                        , (iType == 6 || iType == 5) ? townID : errorBusiness.store.twon
                         , tvLocation.getText().toString()
                         , tvLoc4.getText().toString());
                 break;
@@ -384,8 +385,7 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
 
     @Override
     public void addSuccess() {
-        btnApply.setText("审核中");
-        btnApply.setEnabled(false);
+        showToast("资料已经在审核中");
         setResult(RESULT_OK);
         finish();
     }
@@ -422,6 +422,7 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
         this.errorBusiness = errorBusiness;
         ErrorBusiness.StoreBean store = errorBusiness.store;
         etName.setText(store.shop_name.info);
+        etName.setSelection(etName.length());
         if (store.shop_name.status == 0)
             tvNameStr.setTextColor(getResources().getColor(R.color.style_color));
         tvStartTime.setText(store.start_time);
@@ -433,7 +434,9 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
         GlideArms.with(this).load(store.shop_doorhead.info).placeholder(R.mipmap.b_head_placeholder).into(imHead);
         if (store.shop_doorhead.status == 0)
             tvHeadStr.setTextColor(getResources().getColor(R.color.style_color));
-
-
+        else {
+            imgHeadStr = store.shop_doorhead.info;
+            imHead.setEnabled(false);
+        }
     }
 }

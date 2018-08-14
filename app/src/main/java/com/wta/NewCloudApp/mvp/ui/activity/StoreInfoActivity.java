@@ -328,6 +328,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
             startTimePicker = DialogUtils.showTimePicker(this, new OnTimeSelectListener() {
                 @Override
                 public void onTimeSelect(Date date, View v) {
+                    isChanged = true;
                     tvStartTime.setText(getTime(date));
                 }
             });
@@ -340,6 +341,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
             endTimePicker = DialogUtils.showTimePicker(this, new OnTimeSelectListener() {
                 @Override
                 public void onTimeSelect(Date date, View v) {
+                    isChanged = true;
                     tvEndTime.setText(getTime(date));
                 }
             });

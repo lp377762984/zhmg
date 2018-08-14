@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +22,8 @@ import com.wta.NewCloudApp.mvp.model.entity.Power;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.MerchantInPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.BenifitAdapter;
+import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
+import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import java.util.ArrayList;
@@ -90,7 +93,12 @@ public class MerchantInActivity extends BaseLoadingActivity<MerchantInPresenter>
         if (is_alipay == 1) {
             MerchantAuthActivity.startAuth(this, 6);
         } else if (is_alipay == 0) {
-            mPresenter.getAuthInfo();
+            DialogUtils.showAlertDialog(this,"需要绑定支付宝才可以继续，是否绑定支付宝？",new DetDialogCallback(){
+                @Override
+                public void handleRight(Dialog dialog) {
+                    mPresenter.getAuthInfo();
+                }
+            });
         }
     }
 

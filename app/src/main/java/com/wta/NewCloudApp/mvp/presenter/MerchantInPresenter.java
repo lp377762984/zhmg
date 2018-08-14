@@ -81,6 +81,8 @@ public class MerchantInPresenter extends BBasePresenter<BusinessModel, MerchantI
             if ("9000".equals(resultStatus)) {
                 String result = k1.get("result");
                 handleResults(result);
+            } else if ("6001".equals(resultStatus)){
+                showToast("支付宝绑定已取消");
             } else {
                 showToast("支付宝授权失败，code:" + resultStatus);
             }

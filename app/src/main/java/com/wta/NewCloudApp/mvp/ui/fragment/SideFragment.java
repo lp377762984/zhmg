@@ -109,12 +109,10 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
                 MerchantAuthActivity.startAuth(getActivity(), 3);
                 break;
             case 4://审核通过
-                //ArmsUtils.startActivity(BServiceActivity.class);
                 showToast("您已入驻商城");
                 break;
             case 5://店铺详情未填写
-                //ArmsUtils.startActivity(BServiceActivity.class);
-                showToast("您已入驻商家");
+                MerchantInfoActivity.startInfo(getActivity(),5);
                 break;
             case 6://未入驻店铺
                 ArmsUtils.startActivity(MerchantInActivity.class);

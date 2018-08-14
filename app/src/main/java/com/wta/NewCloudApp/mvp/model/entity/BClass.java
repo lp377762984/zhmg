@@ -10,5 +10,5 @@ public class BClass {
     public int level_id;
     public String level_name;
     public String level_content;
-
+    public String level_img;
 }

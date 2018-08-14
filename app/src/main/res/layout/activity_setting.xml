@@ -77,7 +77,7 @@
         <TextView
             android:gravity="center"
             android:drawablePadding="10dp"
-            android:drawableLeft="@mipmap/setting_wx"
+            android:drawableLeft="@mipmap/alipay"
             android:textSize="16sp"
             android:textColor="@color/text_color2"
             android:layout_centerVertical="true"

@@ -112,7 +112,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 ArmsUtils.startActivity(BServiceActivity.class);
                 break;
             case 5://店铺详情未填写
-                ArmsUtils.startActivity(BServiceActivity.class);
+                MerchantInfoActivity.startInfo(getActivity(),5);
                 break;
             case 6://未入驻店铺
                 ArmsUtils.startActivity(MerchantInActivity.class);

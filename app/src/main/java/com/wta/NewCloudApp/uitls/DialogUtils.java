@@ -89,7 +89,7 @@ public class DialogUtils {
         WindowManager.LayoutParams wlp;
         if (window != null) {
             wlp = window.getAttributes();
-            wlp.width = (int) ScreenDpiUtils.dp2px(context, 250);
+            wlp.width = (int) ScreenDpiUtils.dp2px(context, 275);
             window.setAttributes(wlp);
         }
         dialogAlterSure.show();
@@ -107,9 +107,12 @@ public class DialogUtils {
                     public void onTimeSelectChanged(Date date) {
                     }
                 })
+
                 .setCancelColor(cotext.getResources().getColor(R.color.style_color))
                 .setSubmitColor(cotext.getResources().getColor(R.color.style_color))
-                .setContentTextSize(16)
+                .setContentTextSize(18)
+                .setSubCalSize(16)
+                .setLineSpacingMultiplier(1.7f)
                 .setType(new boolean[]{false, false, false, true, true, false})
                 .isDialog(true)
                 .build();

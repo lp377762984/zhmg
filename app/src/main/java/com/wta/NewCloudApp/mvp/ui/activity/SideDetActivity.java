@@ -2,6 +2,7 @@ package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.presenter.SideDetPresenter;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> implements SideDetContract.View {
@@ -51,6 +53,7 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     TextView tvDesc;
     @BindView(R.id.lat_pics)
     RelativeLayout latPics;
+    private Business business;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -82,9 +85,15 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         intent.putExtra("store_id", storeID);
         activity.startActivity(intent);
     }
+    @OnClick(R.id.im_phone)
+    public void startPhone() {
+        Intent intent=new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+business.telephone));
+        startActivity(intent);
+    }
 
     @Override
     public void showStoreDet(Business business) {
+        this.business = business;
         GlideArms.with(this).load(business.shop_doorhead).into(imHead);
         tvName.setText(business.shop_name);
         GlideArms.with(this).load(business.level_img).into(imClass);
@@ -126,7 +135,11 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         }
         tvTime.setText(String.format("%s-%s", business.start_time, business.end_time));
         tvType.setText(business.type_name);
-        tvDesc.setText(business.introduction);
+        if (TextUtils.isEmpty(business.introduction)){
+            tvDesc.setText("暂无介绍");
+        }else {
+            tvDesc.setText(business.introduction);
+        }
     }
 
 }
