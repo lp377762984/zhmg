@@ -107,6 +107,9 @@ public class DialogUtils {
                     public void onTimeSelectChanged(Date date) {
                     }
                 })
+                .setCancelColor(cotext.getResources().getColor(R.color.style_color))
+                .setSubmitColor(cotext.getResources().getColor(R.color.style_color))
+                .setContentTextSize(16)
                 .setType(new boolean[]{false, false, false, true, true, false})
                 .isDialog(true)
                 .build();

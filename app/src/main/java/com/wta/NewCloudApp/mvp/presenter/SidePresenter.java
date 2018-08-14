@@ -5,6 +5,7 @@ import com.jess.arms.di.scope.FragmentScope;
 import com.wta.NewCloudApp.manager.LocationManager;
 import com.wta.NewCloudApp.mvp.contract.SideContract;
 import com.wta.NewCloudApp.mvp.model.BusinessModel;
+import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 
 import java.util.List;
@@ -35,11 +36,17 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
             doRequest(buildListRequest(mModel.getBusiness(isRefresh, lat, lng)), 1);
     }
 
+    public void getBState(){
+        doRequest(buildRequest(mModel.getStoreState()),2);
+    }
+
     @Override
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
         if (what == 1) {
             mRootView.getData(what, (List) result.data);
+        }else if (what==2){
+            mRootView.handleBState((Result<Business>) result);
         }
     }
 

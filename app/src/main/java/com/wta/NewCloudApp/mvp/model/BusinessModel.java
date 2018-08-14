@@ -116,4 +116,9 @@ public class BusinessModel extends BaseModel implements IBusinessModel {
         else index++;
         return getService().getSearchResult(keywords,index);
     }
+
+    @Override
+    public Observable<Result<Business>> getStoreState() {
+        return getService().getBState();
+    }
 }

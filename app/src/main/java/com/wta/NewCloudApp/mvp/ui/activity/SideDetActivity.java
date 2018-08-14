@@ -51,7 +51,6 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     TextView tvDesc;
     @BindView(R.id.lat_pics)
     RelativeLayout latPics;
-    private Business business;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -86,34 +85,43 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
 
     @Override
     public void showStoreDet(Business business) {
-        this.business = business;
         GlideArms.with(this).load(business.shop_doorhead).into(imHead);
         tvName.setText(business.shop_name);
         GlideArms.with(this).load(business.level_img).into(imClass);
         tvLocation.setText(business.location_address);
         Business.PictureBean picture = business.picture;
-        if (picture == null) {
+        boolean a1 = false;
+        boolean a2 = false;
+        boolean a3 = false;
+        if (picture != null && !TextUtils.isEmpty(picture.image1)) {//第一张有图片
+            GlideArms.with(this).load(picture.image1).into(imStore01);
+            a1 = true;
+        }
+        if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第二张有图片
+            GlideArms.with(this).load(picture.image2).into(imStore02);
+            a2 = true;
+        }
+        if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第三张有图片
+            GlideArms.with(this).load(picture.image3).into(imStore03);
+            a3 = true;
+        }
+        if (!a1) {//没有一张图片
             latPics.setVisibility(View.GONE);
         } else {
-            latPics.setVisibility(View.VISIBLE);
-            if (TextUtils.isEmpty(picture.image1)) {
-                imStore01.setVisibility(View.GONE);
-                latPics.setVisibility(View.GONE);
-            } else {
+            if (!a2) {//只有一张图片
                 imStore01.setVisibility(View.VISIBLE);
-                GlideArms.with(this).load(picture.image1).into(imStore01);
-            }
-            if (TextUtils.isEmpty(picture.image2)) {
-                imStore02.setVisibility(View.GONE);
+                imStore02.setVisibility(View.INVISIBLE);
+                imStore03.setVisibility(View.INVISIBLE);
             } else {
-                imStore03.setVisibility(View.VISIBLE);
-                GlideArms.with(this).load(picture.image2).into(imStore02);
-            }
-            if (TextUtils.isEmpty(picture.image3)) {
-                imStore03.setVisibility(View.GONE);
-            } else {
-                imStore03.setVisibility(View.VISIBLE);
-                GlideArms.with(this).load(picture.image3).into(imStore03);
+                if (!a3) {//只有2张图片
+                    imStore01.setVisibility(View.VISIBLE);
+                    imStore02.setVisibility(View.VISIBLE);
+                    imStore03.setVisibility(View.INVISIBLE);
+                } else {//有3张图片
+                    imStore01.setVisibility(View.VISIBLE);
+                    imStore02.setVisibility(View.VISIBLE);
+                    imStore03.setVisibility(View.VISIBLE);
+                }
             }
         }
         tvTime.setText(String.format("%s-%s", business.start_time, business.end_time));

@@ -17,14 +17,22 @@ import com.wta.NewCloudApp.di.component.DaggerSideComponent;
 import com.wta.NewCloudApp.di.module.SideModule;
 import com.wta.NewCloudApp.mvp.contract.SideContract;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
+import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.presenter.SidePresenter;
+import com.wta.NewCloudApp.mvp.ui.activity.BServiceActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.MerchantAuthActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.MerchantInActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.MerchantInfoActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SideDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SideSearchActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.SideAdapter;
+import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
+import com.wta.NewCloudApp.uitls.DialogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -79,6 +87,41 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     public Activity getFragmentContext() {
         return getActivity();
     }
+
+    @OnClick(R.id.tv_go_in)
+    public void click(){
+        mPresenter.getBState();
+    }
+    @Override
+    public void handleBState(Result<Business> businessResult) {
+        String msg = businessResult.data.msg;
+        switch (businessResult.data.code_type) {
+            case 0://审核中
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback());
+                break;
+            case 1://店铺详情错误
+                MerchantInfoActivity.startInfo(getActivity(),1);
+                break;
+            case 2://资质错误
+                MerchantAuthActivity.startAuth(getActivity(), 2);
+                break;
+            case 3://都错误
+                MerchantAuthActivity.startAuth(getActivity(), 3);
+                break;
+            case 4://审核通过
+                //ArmsUtils.startActivity(BServiceActivity.class);
+                showToast("您已入驻商城");
+                break;
+            case 5://店铺详情未填写
+                //ArmsUtils.startActivity(BServiceActivity.class);
+                showToast("您已入驻商家");
+                break;
+            case 6://未入驻店铺
+                ArmsUtils.startActivity(MerchantInActivity.class);
+                break;
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -60,7 +60,7 @@ dependencies {
         exclude module: 'support-annotations'
     }
     //tools
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    //implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     implementation rootProject.ext.dependencies["progressmanager"]
     implementation rootProject.ext.dependencies["retrofit-url-manager"]
@@ -79,7 +79,9 @@ dependencies {
     implementation rootProject.ext.dependencies["gaode"]
     implementation rootProject.ext.dependencies["refreshLayout"]
     implementation rootProject.ext.dependencies["FlowLayout"]
-    //implementation rootProject.ext.dependencies["pickerview"]
+    implementation rootProject.ext.dependencies["pickerview"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    implementation rootProject.ext.dependencies["adapter"]
     //test
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["runner"]
@@ -88,8 +90,7 @@ dependencies {
     debugImplementation rootProject.ext.dependencies["canary-debug"]
     releaseImplementation rootProject.ext.dependencies["canary-release"]
     testImplementation rootProject.ext.dependencies["canary-release"]
-    implementation rootProject.ext.dependencies["constraint-layout"]
-    implementation rootProject.ext.dependencies["adapter"]
+
     implementation files('libs/umeng-common-1.5.3.jar')
     implementation files('libs/umeng-share-core-6.9.2.jar')
     implementation files('libs/umeng-share-QQ-simplify-6.9.2.jar')
@@ -97,7 +98,7 @@ dependencies {
     implementation files('libs/umeng-sharetool-6.9.2.jar')
     implementation files('libs/zxing.jar')
     implementation files('libs/umeng-analytics-7.5.3.jar')
-    implementation project(':pickerview')
-    implementation project(path: ':wheelview')
+    //implementation project(':pickerview')
+    //implementation project(path: ':wheelview')
     implementation files('libs/alipaySdk-20180601.jar')
 }

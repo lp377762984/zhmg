@@ -96,7 +96,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     public void showBState(Result<Business> businessResult) {
         String msg = businessResult.data.msg;
         switch (businessResult.data.code_type) {
-            case 0:
+            case 0://审核中
                 DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback());
                 break;
             case 1://店铺详情错误
@@ -108,13 +108,13 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
             case 3://都错误
                 MerchantAuthActivity.startAuth(getActivity(), 3);
                 break;
-            case 4:
+            case 4://审核通过
                 ArmsUtils.startActivity(BServiceActivity.class);
                 break;
-            case 5:
+            case 5://店铺详情未填写
                 ArmsUtils.startActivity(BServiceActivity.class);
                 break;
-            case 6:
+            case 6://未入驻店铺
                 ArmsUtils.startActivity(MerchantInActivity.class);
                 break;
         }

@@ -10,9 +10,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
-import com.bigkoo.pickerview.view.four.OnOptionsSelectListener4;
-import com.bigkoo.pickerview.view.four.OptionsPickerBuilder4;
-import com.bigkoo.pickerview.view.four.OptionsPickerView4;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.manager.LocationManager;
@@ -102,20 +99,6 @@ public class TestActivity extends AppCompatActivity {
             Toast.makeText(this, "数据正在初始化", Toast.LENGTH_SHORT).show();
             return;
         }
-        OptionsPickerView4 pvOptions = new OptionsPickerBuilder4(this, new OnOptionsSelectListener4() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, int options4, View v) {
-
-            }
-        })
-                .setTitleText("城市选择")
-                .setDividerColor(Color.BLACK)
-                .setTextColorCenter(Color.BLACK)
-                .setContentTextSize(20)
-                .build();
-
-        pvOptions.setPicker(options1Items, options2Items, options3Items, options4Items);
-        pvOptions.show();
     }
 
     @SuppressLint("StaticFieldLeak")

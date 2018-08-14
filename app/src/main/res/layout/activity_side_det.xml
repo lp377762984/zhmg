@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="254dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/home_bussiness" />
+                />
 
             <RelativeLayout
                 android:id="@+id/lat_head"
@@ -108,20 +108,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="67dp">
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:visibility="gone"
+                        app:riv_corner_radius="5dp"
+                        android:scaleType="centerCrop"
+                        android:visibility="visible"
                         android:id="@+id/im_store_01"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="match_parent" />
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:visibility="gone"
+                        app:riv_corner_radius="5dp"
+                        android:scaleType="centerCrop"
+                        android:visibility="visible"
                         android:id="@+id/im_store_02"
                         android:layout_marginLeft="15dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="match_parent" />
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:visibility="gone"
+                        app:riv_corner_radius="5dp"
+                        android:scaleType="centerCrop"
+                        android:visibility="visible"
                         android:id="@+id/im_store_03"
                         android:layout_marginLeft="15dp"
                         android:layout_width="0dp"

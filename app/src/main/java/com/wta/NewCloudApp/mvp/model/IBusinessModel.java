@@ -42,4 +42,6 @@ public interface IBusinessModel extends IModel {
     Observable<Result<User>> getBPower();
 
     Observable<Result<List<Business>>> getSearchResult(boolean isRefresh,String keywords);
+
+    Observable<Result<Business>> getStoreState();
 }

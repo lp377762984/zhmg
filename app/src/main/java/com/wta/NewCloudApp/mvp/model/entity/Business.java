@@ -39,6 +39,7 @@ public class Business {
     public PictureBean picture;
     public int store_id;
     public String level_img;
+    public int type_id;
 
     public static class PictureBean {
         /**

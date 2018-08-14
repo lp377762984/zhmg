@@ -156,7 +156,7 @@ public interface HttpServices {
     @POST("/setMyStore")
     Observable<Result<Business>> modifyStore(@Field("shop_doorhead") String shop_doorhead, @Field("start_time") String start_time, @Field("end_time") String end_time,
                                              @Field("shop_type") int shop_type, @Field("telephone") String telephone
-            , @Field("introduction") String introduction, @FieldMap TreeMap<String, Object> map);
+            , @Field("introduction") String introduction, @FieldMap() TreeMap<String, Object> map);
 
     @FormUrlEncoded
     @POST("/nearbyDetails")

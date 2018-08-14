@@ -1,5 +1,6 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.presenter.StoreInfoPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.ClassAdapter;
+import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
 import com.wta.NewCloudApp.uitls.BitmapUtils;
 import com.wta.NewCloudApp.uitls.DialogUtils;
@@ -109,6 +111,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     private int position;//当前点击的哪张图片 0 head 1 店内实景照片1 2 店内实景照片2 3 店内实景照片3
     private TimePickerView startTimePicker;
     private TimePickerView endTimePicker;
+    private boolean isBack;//用户是否想要退出界面
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -131,14 +134,27 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         mb.setCallBack(mb.new CallbackImp() {
             @Override
             public void clickTail() {
-                mPresenter.modifyStore(business.shop_doorhead, tvStartTime.getText().toString()
-                        , tvEndTime.getText().toString()
-                        , business.code_type
-                        , tvPhone.getText().toString()
-                        , tvDesc.getText().toString()
-                        , buildPictureStr());
+                if (isChanged) {
+                    saveChange();
+                } else {
+                    showToast("内容没有更改");
+                }
+            }
+
+            @Override
+            public void clickBack(View back) {
+                backAndSave();
             }
         });
+    }
+
+    public void saveChange() {
+        mPresenter.modifyStore(business.shop_doorhead, tvStartTime.getText().toString()
+                , tvEndTime.getText().toString()
+                , business.type_id
+                , tvPhone.getText().toString()
+                , tvDesc.getText().toString()
+                , buildPictureStr());
     }
 
     private TreeMap<String, Object> buildPictureStr() {
@@ -207,30 +223,58 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         tvPhone.setText(data.telephone);
         tvDesc.setText(data.introduction);
         Business.PictureBean picture = data.picture;
+        boolean a1 = false;
+        boolean a2 = false;
+        boolean a3 = false;
         if (picture != null && !TextUtils.isEmpty(picture.image1)) {//第一张有图片
             GlideArms.with(this).load(picture.image1).into(imStore01);
-            imAdd01.setVisibility(View.GONE);
-        } else {
-            imAdd01.setVisibility(View.VISIBLE);
+            a1 = true;
         }
         if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第二张有图片
             GlideArms.with(this).load(picture.image2).into(imStore02);
-            imAdd02.setVisibility(View.GONE);
-        } else {
-            imAdd02.setVisibility(View.VISIBLE);
+            a2 = true;
         }
         if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第三张有图片
             GlideArms.with(this).load(picture.image3).into(imStore03);
+            a3 = true;
+        }
+        if (!a1) {//没有一张图片
+            imAdd01.setVisibility(View.VISIBLE);
+            imAdd02.setVisibility(View.GONE);
             imAdd03.setVisibility(View.GONE);
+            imStore01.setEnabled(true);
+            imStore02.setEnabled(false);
+            imStore03.setEnabled(false);
         } else {
-            imAdd03.setVisibility(View.VISIBLE);
+            if (!a2) {//只有一张图片
+                imAdd01.setVisibility(View.GONE);
+                imAdd02.setVisibility(View.VISIBLE);
+                imAdd03.setVisibility(View.GONE);
+                imStore01.setEnabled(true);
+                imStore02.setEnabled(true);
+                imStore03.setEnabled(false);
+            } else {
+                if (!a3) {//只有2张图片
+                    imAdd01.setVisibility(View.GONE);
+                    imAdd02.setVisibility(View.GONE);
+                    imAdd03.setVisibility(View.VISIBLE);
+                } else {//有3张图片
+                    imAdd01.setVisibility(View.GONE);
+                    imAdd02.setVisibility(View.GONE);
+                    imAdd03.setVisibility(View.GONE);
+                }
+                imStore01.setEnabled(true);
+                imStore02.setEnabled(true);
+                imStore03.setEnabled(true);
+            }
         }
     }
 
     @Override
     public void saveSuccess(Business data) {
         showToast("修改成功");
-        mPresenter.getAllStoreInfo();
+        isChanged = false;
+        if (isBack) finish();
     }
 
     @Override
@@ -247,16 +291,30 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
                         break;
                     case 1:
                         imStore01.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 270, 134));
+                        imAdd01.setVisibility(View.GONE);
+                        imAdd02.setVisibility(View.VISIBLE);
+                        imStore01.setEnabled(true);
+                        imStore02.setEnabled(true);
+                        imStore03.setEnabled(false);
                         business.picture.image1 = EncodeUtils.fileToBase64(new File(compressPath));
                         isChanged = true;
                         break;
                     case 2:
                         imStore02.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 270, 134));
+                        imAdd02.setVisibility(View.GONE);
+                        imAdd03.setVisibility(View.VISIBLE);
+                        imStore01.setEnabled(true);
+                        imStore02.setEnabled(true);
+                        imStore03.setEnabled(true);
                         business.picture.image2 = EncodeUtils.fileToBase64(new File(compressPath));
                         isChanged = true;
                         break;
                     case 3:
                         imStore03.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 270, 134));
+                        imAdd03.setVisibility(View.GONE);
+                        imStore01.setEnabled(true);
+                        imStore02.setEnabled(true);
+                        imStore03.setEnabled(true);
                         business.picture.image3 = EncodeUtils.fileToBase64(new File(compressPath));
                         isChanged = true;
                         break;
@@ -373,4 +431,27 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         return new CropOptions.Builder().setWithOwnCrop(false).create();
     }
 
+    @Override
+    public void onBackPressed() {
+        backAndSave();
+    }
+
+    private void backAndSave() {
+        isBack = true;
+        if (isChanged) {
+            DialogUtils.showAlertDialog(this, "您的修改没有保存，是否要保存？", new DetDialogCallback() {
+                @Override
+                public void handleRight(Dialog dialog) {
+                    saveChange();
+                }
+
+                @Override
+                public void handleLeft(Dialog dialog) {
+                    finish();
+                }
+            });
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
