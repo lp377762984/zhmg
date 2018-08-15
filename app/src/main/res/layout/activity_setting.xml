@@ -174,7 +174,7 @@
         android:id="@+id/btn_exit"
         android:textSize="14sp"
         android:textColor="@color/white"
-        android:background="@drawable/login_btn_bg"
+        android:background="@drawable/det_btn_bg"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="83dp"

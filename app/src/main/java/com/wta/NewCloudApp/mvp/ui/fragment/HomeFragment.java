@@ -1,5 +1,6 @@
 package com.wta.NewCloudApp.mvp.ui.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -55,6 +56,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     ImageView imScoreShop;
     HomeListAdapter adapter;
     private List<Bill> billData;
+    private int position;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -100,22 +102,50 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback());
                 break;
             case 1://店铺详情错误
-                MerchantInfoActivity.startInfo(getActivity(),1);
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback() {
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        MerchantInfoActivity.startInfo(getActivity(), 1);
+                    }
+                });
                 break;
             case 2://资质错误
-                MerchantAuthActivity.startAuth(getActivity(), 2);
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback() {
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        MerchantAuthActivity.startAuth(getActivity(), 2);
+                    }
+                });
                 break;
             case 3://都错误
-                MerchantAuthActivity.startAuth(getActivity(), 3);
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback() {
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        MerchantAuthActivity.startAuth(getActivity(), 3);
+                    }
+                });
                 break;
             case 4://审核通过
-                ArmsUtils.startActivity(BServiceActivity.class);
+                if (position == 1)
+                    showToast("显示商家二维码");
+                else
+                    ArmsUtils.startActivity(BServiceActivity.class);
                 break;
             case 5://店铺详情未填写
-                MerchantInfoActivity.startInfo(getActivity(),5);
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback() {
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        MerchantInfoActivity.startInfo(getActivity(), 5);
+                    }
+                });
                 break;
             case 6://未入驻店铺
-                ArmsUtils.startActivity(MerchantInActivity.class);
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback() {
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        ArmsUtils.startActivity(MerchantInActivity.class);
+                    }
+                });
                 break;
         }
     }
@@ -127,9 +157,11 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 //ArmsUtils.startActivity(SweepActivity.class);
                 break;
             case R.id.im_bus_code:
+                position = 1;
                 mPresenter.getStoreState();
                 break;
             case R.id.im_business:
+                position = 0;
                 mPresenter.getStoreState();
                 break;
         }

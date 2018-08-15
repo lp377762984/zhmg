@@ -141,7 +141,6 @@
             android:name=".mvp.ui.activity.BServiceActivity"
             android:exported="true" />
         <activity android:name=".mvp.ui.activity.NameSetActivity" />
-        <activity android:name=".mvp.ui.activity.ShopInActivity" />
         <activity
             android:name=".mvp.ui.activity.SplashActivity"
             android:theme="@style/AppTheme_FULLSCREEN">

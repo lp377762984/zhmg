@@ -46,7 +46,7 @@
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="13dp"
+        android:layout_height="9dp"
         android:background="@color/line_wider" />
 
     <android.support.v4.widget.NestedScrollView

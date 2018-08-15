@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.ui.fragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -100,22 +101,47 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
                 DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback());
                 break;
             case 1://店铺详情错误
-                MerchantInfoActivity.startInfo(getActivity(),1);
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback() {
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        MerchantInfoActivity.startInfo(getActivity(), 1);
+                    }
+                });
                 break;
             case 2://资质错误
-                MerchantAuthActivity.startAuth(getActivity(), 2);
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback() {
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        MerchantAuthActivity.startAuth(getActivity(), 2);
+                    }
+                });
                 break;
             case 3://都错误
-                MerchantAuthActivity.startAuth(getActivity(), 3);
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback() {
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        MerchantAuthActivity.startAuth(getActivity(), 3);
+                    }
+                });
                 break;
             case 4://审核通过
-                showToast("您已入驻商城");
+                showToast("您已入驻商家");
                 break;
             case 5://店铺详情未填写
-                MerchantInfoActivity.startInfo(getActivity(),5);
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback() {
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        MerchantInfoActivity.startInfo(getActivity(), 5);
+                    }
+                });
                 break;
             case 6://未入驻店铺
-                ArmsUtils.startActivity(MerchantInActivity.class);
+                DialogUtils.showAlertDialog(getActivity(), msg, new DetDialogCallback() {
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        ArmsUtils.startActivity(MerchantInActivity.class);
+                    }
+                });
                 break;
         }
     }
