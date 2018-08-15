@@ -69,11 +69,11 @@ public final class QrCodeFinderView extends RelativeLayout {
         Resources resources = getResources();
         mMaskColor = resources.getColor(R.color.qr_code_finder_mask);
         mFrameColor = resources.getColor(R.color.qr_code_finder_frame);
-        mLaserColor = resources.getColor(R.color.blue_btn);
-        mTextColor = resources.getColor(R.color.white);
+        mLaserColor = resources.getColor(R.color.style_color);
+        mTextColor = resources.getColor(R.color.b3);
 
         mFocusThick = 1;
-        mAngleThick = (int) ScreenDpiUtils.dp2px(context, 4);
+        mAngleThick = (int) ScreenDpiUtils.dp2px(context, 2);
         mAngleLength = (int) ScreenDpiUtils.dp2px(context, 20);
         mStepHeight = (int) ScreenDpiUtils.dp2px(context, 2);
         textToTop = (int) ScreenDpiUtils.dp2px(context, 25);
@@ -96,9 +96,9 @@ public final class QrCodeFinderView extends RelativeLayout {
         mFrameRect.right = mFrameRect.left + layoutParams.width;
         mFrameRect.bottom = mFrameRect.top + layoutParams.height;
         Resources res = context.getResources();
-        BitmapFactory.Options options=new BitmapFactory.Options();
-        options.inPreferredConfig= Bitmap.Config.RGB_565;
-        mGridBitmap = BitmapFactory.decodeResource(res, R.drawable.custom_grid_scan_line,options);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        mGridBitmap = BitmapFactory.decodeResource(res, R.mipmap.scan_line, options);
         mSrcRect = new Rect(0, 0, mGridBitmap.getWidth(), mGridBitmap.getHeight());
         mCurrentY = mFrameRect.top;
         mDstRect = new Rect(mFrameRect.left, mFrameRect.top, mFrameRect.left + mFrameRect.width(), mCurrentY);
@@ -125,7 +125,7 @@ public final class QrCodeFinderView extends RelativeLayout {
 
         drawFocusRect(canvas, frame);
         drawAngle(canvas, frame);
-        drawText(canvas, frame);
+        //drawText(canvas, frame);
         drawGridBitmap(canvas);
         moveGridBitmap(frame);
     }
@@ -201,7 +201,7 @@ public final class QrCodeFinderView extends RelativeLayout {
         if (mCurrentY == frame.bottom) {
             mCurrentY = frame.top;
         }
-        mDstRect.set(frame.left, frame.top, frame.left + frame.width(), mCurrentY);
+        mDstRect.set(frame.left, mCurrentY, frame.left + frame.width(), mCurrentY + mGridBitmap.getHeight());
         postInvalidate();
     }
 }

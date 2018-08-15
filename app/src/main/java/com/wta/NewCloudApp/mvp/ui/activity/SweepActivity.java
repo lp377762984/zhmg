@@ -1,5 +1,7 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.camera.CameraManager;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.decode.CaptureActivityHandler;
@@ -22,8 +25,10 @@ import com.wta.NewCloudApp.mvp.ui.widget.qr.decode.InactivityTimer;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.view.QrCodeFinderView;
 
 import java.io.IOException;
+import java.security.Permission;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 import timber.log.Timber;
 
 
@@ -62,8 +67,18 @@ public class SweepActivity extends BaseActivity implements SurfaceHolder.Callbac
         mInactivityTimer = new InactivityTimer(this);
     }
 
+    @SuppressLint("CheckResult")
     private void requestPermissionInitCamera() {
-        initCamera();
+        new RxPermissions(this).request(Manifest.permission.CAMERA).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                if (aBoolean){
+                    initCamera();
+                }else {
+                    finish();
+                }
+            }
+        });
     }
 
     /**

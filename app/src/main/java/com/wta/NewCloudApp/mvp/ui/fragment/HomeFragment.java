@@ -25,6 +25,7 @@ import com.wta.NewCloudApp.mvp.ui.activity.BServiceActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantAuthActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInfoActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.SweepActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.HomeListAdapter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.uitls.DialogUtils;
@@ -154,7 +155,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_sweep:
-                //ArmsUtils.startActivity(SweepActivity.class);
+                ArmsUtils.startActivity(SweepActivity.class);
                 break;
             case R.id.im_bus_code:
                 position = 1;

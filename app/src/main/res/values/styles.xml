@@ -6,7 +6,7 @@
         <item name="colorAccent">@color/style_color</item>
     </style>
 
-    <style name="AppTheme_NOACTIONBAR" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme_NOACTIONBAR" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/style_color</item>
         <item name="colorPrimaryDark">@color/style_color</item>
         <item name="colorAccent">@color/style_color</item>
@@ -17,6 +17,12 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+    </style>
+    <style name="AppTheme_BLACK" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="android:windowBackground">@color/app_bg</item>
     </style>
 
     <style name="SelectBackgroundWhile">
