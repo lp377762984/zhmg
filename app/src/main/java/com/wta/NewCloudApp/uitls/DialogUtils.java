@@ -101,6 +101,18 @@ public class DialogUtils {
     }
 
     public static TimePickerView showTimePicker(Context cotext, OnTimeSelectListener listener) {
+        return showTimePicker(cotext,listener,false, false, false, true, true, false);
+    }
+
+    public static TimePickerView showMonthTimePicker(Context cotext, OnTimeSelectListener listener) {
+        return showTimePicker(cotext,listener,true, true, false, false, false, false);
+    }
+
+    public static TimePickerView showDayTimePicker(Context cotext, OnTimeSelectListener listener) {
+        return showTimePicker(cotext,listener,true, true, true, false, false, false);
+    }
+
+    public static TimePickerView showTimePicker(Context cotext, OnTimeSelectListener listener,boolean year,boolean month,boolean day,boolean hour,boolean minute,boolean seconds) {
         TimePickerView pvTime = new TimePickerBuilder(cotext, listener)
                 .setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
                     @Override
@@ -113,7 +125,7 @@ public class DialogUtils {
                 .setContentTextSize(18)
                 .setSubCalSize(16)
                 .setLineSpacingMultiplier(1.7f)
-                .setType(new boolean[]{false, false, false, true, true, false})
+                .setType(new boolean[]{year, month, day, hour, minute, seconds})
                 .isDialog(true)
                 .build();
         Dialog mDialog = pvTime.getDialog();
