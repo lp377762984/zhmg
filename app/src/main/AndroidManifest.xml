@@ -164,43 +164,36 @@
         <activity android:name=".mvp.ui.activity.CardListActivity" />
         <activity android:name=".mvp.ui.activity.AddCardActivity" />
         <activity
-            android:name=".mvp.ui.activity.AddressListActivity"
-            android:exported="true" />
+            android:name=".mvp.ui.activity.AddressListActivity" />
         <activity
-            android:name=".mvp.ui.activity.AddAddressActivity"
-            android:exported="true" />
+            android:name=".mvp.ui.activity.AddAddressActivity" />
         <activity android:name=".mvp.ui.activity.TestActivity" />
         <activity
-            android:name=".mvp.ui.activity.MerchantInActivity"
-            android:exported="true" />
+            android:name=".mvp.ui.activity.MerchantInActivity" />
         <activity
-            android:name=".mvp.ui.activity.MerchantAuthActivity"
-            android:exported="true" />
+            android:name=".mvp.ui.activity.MerchantAuthActivity" />
         <activity
-            android:name=".mvp.ui.activity.MerchantInfoActivity"
-            android:exported="true" />
+            android:name=".mvp.ui.activity.MerchantInfoActivity" />
         <activity
-            android:name=".mvp.ui.activity.MerchantTypeActivity"
-            android:exported="true" />
+            android:name=".mvp.ui.activity.MerchantTypeActivity" />
         <activity
-            android:name=".mvp.ui.activity.StoreInfoActivity"
-            android:exported="true" />
+            android:name=".mvp.ui.activity.StoreInfoActivity" />
         <activity
-            android:name=".mvp.ui.activity.StorePhoneActivity"
-            android:exported="true" />
+            android:name=".mvp.ui.activity.StorePhoneActivity" />
         <activity android:name=".mvp.ui.activity.StoreDescActivity" />
         <activity
-            android:name=".mvp.ui.activity.SideDetActivity"
-            android:exported="true" />
+            android:name=".mvp.ui.activity.SideDetActivity" />
         <activity android:name=".mvp.ui.activity.SideSearchActivity" />
         <activity
-            android:name=".mvp.ui.activity.BQRActivity"
-            android:exported="true" />
+            android:name=".mvp.ui.activity.BQRActivity" />
         <activity
-            android:name=".mvp.ui.activity.ScoreListActivity"
+            android:name=".mvp.ui.activity.ScoreListActivity" />
+        <activity
+            android:name=".mvp.ui.activity.BGroupListActivity" />
+        <activity
+            android:name=".mvp.ui.activity.PayActivity" />
+        <activity android:name=".mvp.ui.activity.CashGetMActivity"
             android:exported="true" />
-        <activity android:name=".mvp.ui.activity.BGroupListActivity"
-            android:exported="true"/>
     </application>
 
 </manifest>
