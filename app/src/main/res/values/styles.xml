@@ -116,4 +116,9 @@
         <item name="android:layout_height">0.5dp</item>
         <item name="android:background">@color/line</item>
     </style>
+    <style name="MoneyBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/money_bar_height</item>
+        <item name="android:id">@+id/mb</item>
+    </style>
 </resources>

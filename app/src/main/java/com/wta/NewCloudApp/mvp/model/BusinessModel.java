@@ -20,9 +20,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
-public class BusinessModel extends BaseModel implements IBusinessModel {
+public class BusinessModel extends UserModel implements IBusinessModel {
     private int index = 0;
-    private int indexSearch=0;
 
     @Inject
     public BusinessModel(IRepositoryManager repositoryManager) {

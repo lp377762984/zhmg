@@ -40,7 +40,7 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "false"
             buildConfigField "boolean", "CRASH", "false"
-            resValue "string", "app_name", "中和铭阁"
+            resValue "string", "app_name", "乐范儿"
             minifyEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

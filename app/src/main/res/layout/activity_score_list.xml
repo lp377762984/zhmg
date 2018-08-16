@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
+        android:id="@+id/mb"
+        app:textTail="积分获取"
+        app:textTitle="积分收益明细"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/money_bar_height"/>
+    <com.wta.NewCloudApp.mvp.ui.widget.tabLayout.CommonTabLayout2
+        android:background="@color/white"
+        app:tl_textSelectColor="@color/style_color"
+        app:tl_textUnselectColor="#333"
+        app:tl_indicator_color="@color/style_color"
+        app:tl_indicator_height="1dp"
+        app:tl_indicator_margin_left="6.5dp"
+        app:tl_indicator_margin_right="6.5dp"
+        app:tl_iconVisible="false"
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"/>
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

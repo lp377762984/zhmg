@@ -64,13 +64,13 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <!-- alipay end -->
         <activity
             android:name=".mvp.ui.activity.MainActivity"
@@ -134,8 +134,9 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".mvp.ui.activity.SweepActivity"
-            android:theme="@style/AppTheme_BLACK"/>
+        <activity
+            android:name=".mvp.ui.activity.SweepActivity"
+            android:theme="@style/AppTheme_BLACK" />
         <activity android:name=".mvp.ui.activity.UserMsgActivity" />
         <activity android:name=".mvp.ui.activity.UserQRActivity" />
         <activity
@@ -191,7 +192,15 @@
         <activity
             android:name=".mvp.ui.activity.SideDetActivity"
             android:exported="true" />
-        <activity android:name=".mvp.ui.activity.SideSearchActivity"></activity>
+        <activity android:name=".mvp.ui.activity.SideSearchActivity" />
+        <activity
+            android:name=".mvp.ui.activity.BQRActivity"
+            android:exported="true" />
+        <activity
+            android:name=".mvp.ui.activity.ScoreListActivity"
+            android:exported="true" />
+        <activity android:name=".mvp.ui.activity.BGroupListActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

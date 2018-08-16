@@ -142,7 +142,7 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
     }
 
     private void saveBitmap() {
-        File file = new File(Environment.getExternalStorageDirectory() + "/temp", "qlqw_seller_code_20180627.png");
+        File file = new File(Environment.getExternalStorageDirectory() + "/temp", "zhmg_user_code_20180627.png");
         if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
