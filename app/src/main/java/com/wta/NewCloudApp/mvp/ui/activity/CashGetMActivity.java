@@ -85,6 +85,7 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
                 return false;
             }
         });
+        adapter.setEmptyView(R.layout.cash_get_empty);
         for (int i = 0; i < 5; i++) {
             data.add(new Score("", "墙头草", "08.25 21:35", "2500"));
         }
