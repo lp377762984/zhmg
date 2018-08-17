@@ -29,8 +29,11 @@ import com.wta.NewCloudApp.mvp.ui.activity.MerchantInfoActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SweepActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.HomeListAdapter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
+import com.wta.NewCloudApp.mvp.ui.widget.PJImageLoader;
+import com.wta.NewCloudApp.mvp.ui.widget.RoundImageLoader;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +62,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     HomeListAdapter adapter;
     private List<Bill> billData;
     private int position;
+    private List<String> imgs = new ArrayList<>();
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -78,6 +82,13 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mPresenter.getMsgList();
+        banner.setIndicatorGravity(BannerConfig.RIGHT);
+        banner.setImageLoader(new RoundImageLoader());
+        imgs.add("https://inews.gtimg.com/newsapp_match/0/4865237967/0");
+        imgs.add("https://inews.gtimg.com/newsapp_match/0/4865237967/0");
+        imgs.add("https://inews.gtimg.com/newsapp_match/0/4865237967/0");
+        banner.setImages(imgs);
+        banner.start();
     }
 
     @Override

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    android:elevation="5dp"
+    android:background="@drawable/merchant_in_head_bg"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginBottom="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,26 +14,52 @@
         android:id="@+id/im"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:text="现金收益"
-        android:textColor="@color/text_color_gray"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#333"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/im_icon"
+        app:layout_constraintTop_toTopOf="@+id/im_icon" />
 
     <TextView
-        android:textColor="@color/text_color_gray"
-        android:textSize="14sp"
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="17dp"
+        android:layout_marginTop="5dp"
         android:text="06-11 10:00"
+        android:textColor="#ccc"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/im_icon"
+        app:layout_constraintStart_toStartOf="@+id/im"
+        app:layout_constraintTop_toBottomOf="@+id/im" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="15dp"
+        android:text="+88088"
+        android:textColor="#f24965"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_time"
+        app:layout_constraintTop_toBottomOf="@+id/tv_time" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="5dp"
+        android:text="收款"
+        android:textColor="#b3b3b3"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/im"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -37,58 +67,47 @@
         app:layout_constraintTop_toTopOf="@+id/im" />
 
     <TextView
-        android:textSize="17sp"
-        android:textColor="@color/text_color"
-        android:id="@+id/tv_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="9dp"
-        android:text="￥88088"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/im"
-        app:layout_constraintTop_toBottomOf="@+id/im" />
-
-    <TextView
-        android:textColor="@color/text_color_gray"
-        android:textSize="14sp"
-        android:id="@+id/tv_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="9dp"
-        android:text="收款"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_content"
-        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
-
-    <TextView
-        android:textColor="@color/text_color_gray"
-        android:textSize="14sp"
-        android:id="@+id/textView6"
+        android:id="@+id/tv_more"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"
         android:text="查看更多>>"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_type"
-        app:layout_constraintTop_toBottomOf="@+id/tv_type" />
-
-    <View
-
-        android:id="@+id/divider2"
-        android:layout_width="0dp"
-        android:layout_height="10dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/line_wider"
+        android:textColor="@color/text_color_gray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/line" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/im_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="17dp"
+        android:src="@mipmap/login_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_oval="true" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="314dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+
 </android.support.constraint.ConstraintLayout>

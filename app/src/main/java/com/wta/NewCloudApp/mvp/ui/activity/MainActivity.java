@@ -30,7 +30,7 @@ import butterknife.Unbinder;
 import timber.log.Timber;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseLoadingActivity {
 
     @BindView(R.id.tab_layout)
     CommonTabLayout2 tabLayout;
@@ -148,6 +148,11 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public int setUIMode() {
+        return UIMODE_TRANSPARENT_NOTALL;
     }
 }
