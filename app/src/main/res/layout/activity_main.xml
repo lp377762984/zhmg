@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.wta.NewCloudApp.mvp.ui.widget.tabLayout.CommonTabLayout2
         app:tl_textsize="12sp"
-        app:tl_textSelectColor="@color/style_color"
+        app:tl_textSelectColor="#f24965"
         app:tl_textUnselectColor="#666666"
         android:background="@android:color/background_light"
         android:id="@+id/tab_layout"

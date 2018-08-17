@@ -4,8 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <View
+        android:id="@+id/head"
+        android:background="@color/style_color"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar"/>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:layout_below="@id/head"
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
