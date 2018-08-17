@@ -182,7 +182,9 @@
         <activity
             android:name=".mvp.ui.activity.CashGetMActivity"
             android:exported="true" />
-        <activity android:name=".mvp.ui.activity.CashDetActivity"></activity>
+        <activity android:name=".mvp.ui.activity.CashDetActivity" />
+        <activity android:name=".mvp.ui.activity.PhotoViewActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

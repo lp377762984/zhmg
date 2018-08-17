@@ -97,7 +97,7 @@ public class BQRActivity extends BaseLoadingActivity<BQRPresenter> implements BQ
             btmDialog.findViewById(R.id.tv_record).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showToast("暂未开放");
+                    CashGetMActivity.startCashList(BQRActivity.this,0);
                 }
             });
             btmDialog.findViewById(R.id.tv_use).setOnClickListener(new View.OnClickListener() {
@@ -133,7 +133,7 @@ public class BQRActivity extends BaseLoadingActivity<BQRPresenter> implements BQ
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_record:
-                showToast("暂未开放");
+                CashGetMActivity.startCashList(BQRActivity.this,0);
                 break;
             case R.id.btn_save:
                 saveBitmap();

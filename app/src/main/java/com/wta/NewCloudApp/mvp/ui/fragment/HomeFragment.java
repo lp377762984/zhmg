@@ -21,6 +21,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.presenter.HomePresenter;
+import com.wta.NewCloudApp.mvp.ui.activity.BQRActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.BServiceActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantAuthActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInActivity;
@@ -128,7 +129,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 break;
             case 4://审核通过
                 if (position == 1)
-                    showToast("显示商家二维码");
+                    ArmsUtils.startActivity(BQRActivity.class);
                 else
                     ArmsUtils.startActivity(BServiceActivity.class);
                 break;

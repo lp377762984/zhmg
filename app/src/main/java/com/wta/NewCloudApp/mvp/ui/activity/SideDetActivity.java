@@ -22,6 +22,8 @@ import com.wta.NewCloudApp.mvp.contract.SideDetContract;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.presenter.SideDetPresenter;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -54,6 +56,7 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     @BindView(R.id.lat_pics)
     RelativeLayout latPics;
     private Business business;
+    ArrayList<String> urls=new ArrayList<>();
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -85,10 +88,19 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         intent.putExtra("store_id", storeID);
         activity.startActivity(intent);
     }
-    @OnClick(R.id.im_phone)
-    public void startPhone() {
-        Intent intent=new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+business.telephone));
-        startActivity(intent);
+
+    @OnClick({R.id.im_phone, R.id.lat_imgs})
+    public void startPhone(View view) {
+        switch (view.getId()) {
+            case R.id.im_phone:
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + business.telephone));
+                startActivity(intent);
+                break;
+            case R.id.lat_imgs:
+                PhotoViewActivity.startViewPhoto(this,urls);
+                break;
+        }
+
     }
 
     @Override
@@ -104,14 +116,17 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         boolean a3 = false;
         if (picture != null && !TextUtils.isEmpty(picture.image1)) {//第一张有图片
             GlideArms.with(this).load(picture.image1).into(imStore01);
+            urls.add(picture.image1);
             a1 = true;
         }
         if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第二张有图片
             GlideArms.with(this).load(picture.image2).into(imStore02);
+            urls.add(picture.image2);
             a2 = true;
         }
-        if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第三张有图片
+        if (picture != null && !TextUtils.isEmpty(picture.image3)) {//第三张有图片
             GlideArms.with(this).load(picture.image3).into(imStore03);
+            urls.add(picture.image3);
             a3 = true;
         }
         if (!a1) {//没有一张图片
@@ -135,9 +150,9 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         }
         tvTime.setText(String.format("%s-%s", business.start_time, business.end_time));
         tvType.setText(business.type_name);
-        if (TextUtils.isEmpty(business.introduction)){
+        if (TextUtils.isEmpty(business.introduction)) {
             tvDesc.setText("暂无介绍");
-        }else {
+        } else {
             tvDesc.setText(business.introduction);
         }
     }
