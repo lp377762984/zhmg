@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerCashGetComponent;
@@ -94,6 +95,12 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
     @Override
     protected void getAdapter() {
         adapter = new CashGetAdapter(R.layout.score_item, data);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CashDetActivity.startCashDet(CashGetMActivity.this,1111);
+            }
+        });
     }
 
     @OnClick({R.id.tv_month, R.id.tv_switch})
