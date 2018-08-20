@@ -143,8 +143,8 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
         tvScore.setText(String.valueOf(AppConfig.getInstance().getInt("white_score", 0)));
     }
 
-    @OnClick({R.id.im_head, R.id.im_setting, R.id.lat_record, R.id.lat_card,
-            R.id.lat_group, R.id.lat_share, R.id.lat_location, R.id.lat_about_us, R.id.im_msg})
+    @OnClick({R.id.im_head, R.id.im_setting, R.id.lat_record, R.id.lat_card,R.id.lat_bill,
+            R.id.lat_group, R.id.lat_share, R.id.lat_location, R.id.lat_about_us, R.id.lat_msg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_head:
@@ -153,10 +153,11 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
             case R.id.im_setting:
                 ArmsUtils.startActivity(SettingActivity.class);
                 break;
-            case R.id.im_msg:
+            case R.id.lat_msg:
                 ArmsUtils.startActivity(MsgActivity.class);
                 break;
             case R.id.lat_record:
+                showToast("未开放");
                 break;
             case R.id.lat_card:
                 ArmsUtils.startActivity(CardListActivity.class);
@@ -168,9 +169,13 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
                 mPresenter.startShare();
                 break;
             case R.id.lat_location:
+                showToast("未开放");
                 break;
             case R.id.lat_about_us:
                 WebViewActivity.start(getActivity(), "关于我们", FinalUtils.ABOUT_US);
+                break;
+            case R.id.lat_bill:
+                showToast("未开放");
                 break;
         }
     }

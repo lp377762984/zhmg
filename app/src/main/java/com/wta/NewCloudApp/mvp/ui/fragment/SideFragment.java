@@ -60,6 +60,7 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
+        adapter.setEmptyView(R.layout.empty_side);
         etContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

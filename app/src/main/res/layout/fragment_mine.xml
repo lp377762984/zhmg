@@ -4,13 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <View
-        android:id="@+id/head"
-        android:background="@color/style_color"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/status_bar"/>
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:layout_below="@id/head"
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -19,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -27,74 +22,68 @@
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/head_lat"
                     android:layout_width="match_parent"
-                    android:layout_height="173dp"
-                    android:background="@mipmap/mine_head_bg">
+                    android:layout_height="149dp"
+                    android:background="@drawable/merchant_in_bg">
 
                     <ImageView
                         android:id="@+id/im_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="10dp"
-                        android:paddingTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="22dp"
+                        android:padding="15dp"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@mipmap/mine_setting" />
 
-                    <ImageView
-                        android:id="@+id/im_msg"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/im_setting"
-                        android:layout_toLeftOf="@id/im_setting"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="5dp"
-                        android:paddingTop="10dp"
-                        app:layout_constraintEnd_toStartOf="@+id/im_setting"
-                        app:layout_constraintTop_toTopOf="@+id/im_setting"
-                        app:srcCompat="@mipmap/mine_msg" />
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/im_head"
-                        android:layout_width="67dp"
-                        android:layout_height="67dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginStart="8dp"
-                        android:src="@mipmap/user_default"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/im_msg"
-                        app:riv_border_color="#bfbfbf"
-                        app:riv_border_width="3dp"
-                        app:riv_corner_radius="15dp" />
-
-                    <TextView
-                        android:id="@+id/tv_nick_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
-                        android:textColor="@color/white"
-                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/im_head" />
+                        app:layout_constraintTop_toTopOf="parent">
 
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            app:riv_oval="true"
+                            android:id="@+id/im_head"
+                            android:layout_width="67dp"
+                            android:layout_height="67dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="8dp"
+                            android:src="@mipmap/user_default" />
+
+                        <TextView
+                            android:id="@+id/tv_nick_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="8dp"
+                            android:maxLines="1"
+                            android:text="一只可爱的小狗"
+                            android:textColor="@color/white"
+                            android:textSize="17sp" />
+                    </LinearLayout>
 
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
+                    android:elevation="5dp"
+                    android:layout_marginTop="115dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:id="@+id/lat_msg_main"
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
-                    android:background="@color/white">
+                    android:background="@drawable/merchant_in_head_bg">
 
                     <TextView
                         android:id="@+id/tv_class_str"
@@ -145,24 +134,24 @@
                         app:layout_constraintStart_toStartOf="@+id/tv_score_str" />
                 </android.support.constraint.ConstraintLayout>
 
-                <View
-                    android:id="@+id/divider5"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@color/line_wider" />
                 <!--兑换记录-->
                 <RelativeLayout
+                    android:elevation="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/lat_msg_main"
                     android:id="@+id/lat_record"
                     android:layout_width="match_parent"
-                    android:layout_height="61dp"
-                    android:background="@color/white"
+                    android:layout_height="48dp"
+                    android:background="@drawable/merchant_in_head_bg"
                     android:paddingLeft="17dp"
                     android:paddingRight="17dp">
 
                     <ImageView
                         android:id="@+id/im_01"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:src="@mipmap/mine_order" />
 
@@ -184,197 +173,270 @@
                         android:src="@mipmap/go" />
                 </RelativeLayout>
 
-                <View
-                    android:id="@+id/divider6"
+                <LinearLayout
+                    android:elevation="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/merchant_in_head_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@color/line_wider" />
-                <!--我的卡包-->
-                <RelativeLayout
-                    android:id="@+id/lat_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="61dp"
-                    android:background="@color/white"
-                    android:paddingLeft="17dp"
-                    android:paddingRight="17dp">
-
-                    <ImageView
-                        android:id="@+id/im_02"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/mine_card" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/im_02"
-                        android:text="我的卡包"
-                        android:textColor="@color/text_color2"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/go" />
-
-                    <View
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lat_record"
+                    android:orientation="vertical">
+                    <!--我的账单-->
+                    <RelativeLayout
+                        android:id="@+id/lat_bill"
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/line_wider" />
-                </RelativeLayout>
+                        android:layout_height="48dp"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="17dp">
 
-                <!--我的团队-->
-                <RelativeLayout
-                    android:id="@+id/lat_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="61dp"
-                    android:background="@color/white"
-                    android:paddingLeft="17dp"
-                    android:paddingRight="17dp">
+                        <ImageView
+                            android:id="@+id/im_10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_record" />
 
-                    <ImageView
-                        android:id="@+id/im_06"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/mine_group" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@id/im_10"
+                            android:text="我的账单"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/im_06"
-                        android:text="我的团队"
-                        android:textColor="@color/text_color2"
-                        android:textSize="16sp" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/go" />
-
-                    <View
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/line_wider" />
+                    </RelativeLayout>
+                    <!--我的卡包-->
+                    <RelativeLayout
+                        android:id="@+id/lat_card"
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/line_wider" />
-                </RelativeLayout>
-                <!--我的分享-->
-                <RelativeLayout
-                    android:id="@+id/lat_share"
-                    android:layout_width="match_parent"
-                    android:layout_height="61dp"
-                    android:background="@color/white"
-                    android:paddingLeft="17dp"
-                    android:paddingRight="17dp">
+                        android:layout_height="48dp"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="17dp">
 
-                    <ImageView
-                        android:id="@+id/im_03"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/mine_share" />
+                        <ImageView
+                            android:id="@+id/im_02"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_card" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/im_03"
-                        android:text="我的分享"
-                        android:textColor="@color/text_color2"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@id/im_02"
+                            android:text="我的卡包"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/go" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
 
-                    <View
+                    </RelativeLayout>
+
+                    <!--我的团队-->
+                    <RelativeLayout
+                        android:id="@+id/lat_group"
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/line_wider" />
-                </RelativeLayout>
-                <!--收货地址-->
-                <RelativeLayout
-                    android:id="@+id/lat_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="61dp"
-                    android:background="@color/white"
-                    android:paddingLeft="17dp"
-                    android:paddingRight="17dp">
+                        android:layout_height="48dp"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="17dp">
 
-                    <ImageView
-                        android:id="@+id/im_04"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/mine_location" />
+                        <ImageView
+                            android:id="@+id/im_06"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_group" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/im_04"
-                        android:text="收货地址"
-                        android:textColor="@color/text_color2"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@id/im_06"
+                            android:text="我的团队"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/go" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
 
-                </RelativeLayout>
-                <!--关于我们-->
-                <RelativeLayout
-                    android:id="@+id/lat_about_us"
-                    android:layout_width="match_parent"
-                    android:layout_height="61dp"
-                    android:background="@color/white"
-                    android:paddingLeft="17dp"
-                    android:paddingRight="17dp">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/line_wider" />
+                    </RelativeLayout>
+                    <!--我的消息-->
+                    <RelativeLayout
+                        android:id="@+id/lat_msg"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="17dp">
 
-                    <ImageView
-                        android:id="@+id/im_05"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/mine_about_us" />
+                        <ImageView
+                            android:id="@+id/im_11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_msg" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/im_05"
-                        android:text="关于我们"
-                        android:textColor="@color/text_color2"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@id/im_11"
+                            android:text="我的消息"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/go" />
-                </RelativeLayout>
-            </LinearLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
+
+                    </RelativeLayout>
+                    <!--我的分享-->
+                    <RelativeLayout
+                        android:id="@+id/lat_share"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="17dp">
+
+                        <ImageView
+                            android:id="@+id/im_03"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_share" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@id/im_03"
+                            android:text="我的分享"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/line_wider" />
+                    </RelativeLayout>
+                    <!--收货地址-->
+                    <RelativeLayout
+                        android:id="@+id/lat_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="17dp">
+
+                        <ImageView
+                            android:id="@+id/im_04"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_location" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@id/im_04"
+                            android:text="收货地址"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/line_wider" />
+                    </RelativeLayout>
+                    <!--关于我们-->
+                    <RelativeLayout
+                        android:id="@+id/lat_about_us"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="17dp">
+
+                        <ImageView
+                            android:id="@+id/im_05"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_about_us" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@id/im_05"
+                            android:text="关于我们"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
