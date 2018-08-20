@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +36,8 @@ import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.presenter.MerchantInfoPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.ClassAdapter;
+import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
+import com.wta.NewCloudApp.mvp.ui.listener.DialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.City;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.County;
@@ -67,7 +71,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-
+/**
+ * 店铺详情
+ */
 public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresenter> implements MerchantInfoContract.View,
         TakePhoto.TakeResultListener, InvokeListener {
 
@@ -165,7 +171,8 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
         locationManager.start();
     }
 
-    @OnClick({R.id.lat_name, R.id.lat_start_time, R.id.lat_end_time, R.id.lat_type, R.id.lat_class, R.id.lat_location, R.id.lat_loc_4, R.id.btn_apply, R.id.im_head})
+    @OnClick({R.id.lat_name, R.id.lat_start_time, R.id.lat_end_time, R.id.lat_type, R.id.lat_class, R.id.lat_location
+            , R.id.lat_loc_4, R.id.btn_apply, R.id.im_head, R.id.tv_protocol})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_name:
@@ -231,9 +238,9 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
                     showToast("请阅读商户协议");
                     return;
                 }
-                //6未入住店铺 1店铺详情错误 3店铺资质和详情错误
+                //6未入住店铺 1店铺详情错误 3店铺资质和详情错误 5店铺详情未填写
                 mPresenter.addStoreInfo(etName.getText().toString()
-                        , (iType == 6 || iType == 5) ? type.cate_id : errorBusiness.store.shop_type
+                        , (iType == 6 || iType == 5) ? type.type_id : errorBusiness.store.shop_type
                         , (iType == 6 || iType == 5) ? bClass.level_id : errorBusiness.store.shop_level
                         , (iType == 6 || iType == 5) ? latitude : errorBusiness.store.shop_address_x
                         , (iType == 6 || iType == 5) ? longitude : errorBusiness.store.shop_address_y
@@ -251,6 +258,9 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
                     iconSelector = new IconSelector(this, takePhoto, "zhmg_head.jpg", getCompressConfig(), getCropConfig());
                 }
                 iconSelector.showIconSelector();
+                break;
+            case R.id.tv_protocol:
+                WebViewActivity.start(this, "入驻协议", FinalUtils.BUSINESS_PROTOCOL);
                 break;
         }
     }
@@ -385,9 +395,13 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
 
     @Override
     public void addSuccess() {
-        showToast("资料已经在审核中");
-        setResult(RESULT_OK);
-        finish();
+        DialogUtils.showAlertDialogWithOne(this, "资料审核中", new DetDialogCallback() {
+            @Override
+            public void handleLeft(Dialog dialog) {
+                setResult(RESULT_OK);
+                finish();
+            }
+        });
     }
 
     @Override

@@ -27,7 +27,9 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-
+/**
+ * 周边商家详情
+ */
 public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> implements SideDetContract.View {
 
 
@@ -93,6 +95,10 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     public void startPhone(View view) {
         switch (view.getId()) {
             case R.id.im_phone:
+                if (TextUtils.isEmpty(business.telephone)){
+                    showToast("该店铺未填写电话。");
+                    return;
+                }
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + business.telephone));
                 startActivity(intent);
                 break;
@@ -151,7 +157,7 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         tvTime.setText(String.format("%s-%s", business.start_time, business.end_time));
         tvType.setText(business.type_name);
         if (TextUtils.isEmpty(business.introduction)) {
-            tvDesc.setText("暂无介绍");
+            tvDesc.setText("暂未填写店铺详情");
         } else {
             tvDesc.setText(business.introduction);
         }

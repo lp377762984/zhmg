@@ -24,6 +24,8 @@ import java.util.Date;
 public class DialogUtils {
     public static Dialog createWaitDialog(Context context) {
         Dialog dialog = new Dialog(context);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(true);
         dialog.setContentView(R.layout.wait_dialog);
         return dialog;
     }
@@ -98,6 +100,38 @@ public class DialogUtils {
 
     public static Dialog showAlertDialog(Context context, String message, DialogCallback dialogClick) {
         return showAlertDialog(context, message, null, null, dialogClick);
+    }
+
+    public static Dialog showAlertDialogWithOne(Context context, String message, DialogCallback dialogClick) {
+        return showAlertDialog(context, message, "确定", dialogClick);
+    }
+
+    public static Dialog showAlertDialog(Context context, String message, String btnStr, final DialogCallback dialogClick) {
+        final Dialog dialogAlter = new Dialog(context, R.style.dialog);
+        View alertView = LayoutInflater.from(context).inflate(R.layout.alert_view, null);
+        dialogAlter.setContentView(alertView);
+        TextView tvMsg = (TextView) alertView.findViewById(R.id.tv_alert_msg);//提示信息
+        tvMsg.setText(message);
+        TextView btSure = (TextView) alertView.findViewById(R.id.tv_alert_sure);//确定按钮
+        btSure.setText(btnStr == null ? "确定" : btnStr);
+        btSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialogClick != null) {
+                    dialogClick.handleLeft(dialogAlter);
+                }
+                dialogAlter.dismiss();
+            }
+        });
+        Window window = dialogAlter.getWindow();
+        WindowManager.LayoutParams wlp;
+        if (window != null) {
+            wlp = window.getAttributes();
+            wlp.width = (int) ScreenDpiUtils.dp2px(context, 275);
+            window.setAttributes(wlp);
+        }
+        dialogAlter.show();
+        return dialogAlter;
     }
 
     public static TimePickerView showTimePicker(Context cotext, OnTimeSelectListener listener) {

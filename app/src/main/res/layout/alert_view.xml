@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/alert_bg"
+    android:gravity="center_horizontal"
+    android:minHeight="102dp"
+    android:layout_width="275dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:visibility="gone"
+        android:textColor="@color/grey_black_tv"
+        android:lineSpacingExtra="7dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="21dp"
+        android:text="address"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:id="@+id/tv_alert_title"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="#333"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:lineSpacingExtra="7dp"
+        android:text="我家住在黄土高坡"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:id="@+id/tv_alert_msg"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line" />
+
+    <TextView
+        android:id="@+id/tv_alert_sure"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@drawable/alert_text_bg"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/style_color"
+        android:textSize="16sp" />
+</LinearLayout>

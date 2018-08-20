@@ -9,6 +9,7 @@ public class FinalUtils {
     public static final String REGISTER_PROTOCOL = "http://zhmg.jjzbest.com/htmlProtocol";
 
     public static final String ABOUT_US = "http://zhmg.jjzbest.com/about";
+    public static final String BUSINESS_PROTOCOL = "http://zhmg.jjzbest.com/htmlAdmission";
     public static final int REQUEST_ADDRESS = 2023;
     public static final int REQUEST_BAUTH = 2024;
     public static final int REQUEST_TAG = 2025;

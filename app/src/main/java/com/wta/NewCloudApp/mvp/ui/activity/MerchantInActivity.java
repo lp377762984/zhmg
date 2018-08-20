@@ -106,7 +106,7 @@ public class MerchantInActivity extends BaseLoadingActivity<MerchantInPresenter>
     public void showPower(User user) {
         tvName.setText(user.nickname);
         tvPhone.setText(user.mobile);
-        GlideArms.with(this).load(user.avatar).into(imHead);
+        GlideArms.with(this).load(user.avatar).placeholder(R.mipmap.user_default).into(imHead);
         recyclerView.setLayoutManager(new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
