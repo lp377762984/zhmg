@@ -14,4 +14,5 @@ public class PayPresenter extends BBasePresenter<IBusinessModel, PayContract.Vie
     public PayPresenter(IBusinessModel model, PayContract.View rootView) {
         super(model, rootView);
     }
+
 }

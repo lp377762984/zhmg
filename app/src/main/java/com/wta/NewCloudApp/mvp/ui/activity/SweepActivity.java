@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.camera.CameraManager;
@@ -89,6 +90,7 @@ public class SweepActivity extends BaseActivity implements SurfaceHolder.Callbac
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         assert vibrator != null;
         vibrator.vibrate(200);
+        ArmsUtils.startActivity(PayActivity.class);
     }
 
     private void initCamera() {
