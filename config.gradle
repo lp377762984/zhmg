@@ -101,7 +101,7 @@ ext {
             "progressmanager"            : "me.jessyan:progressmanager:1.5.0",
             "retrofit-url-manager"       : "me.jessyan:retrofit-url-manager:1.1.0",
             "lifecyclemodel"             : "me.jessyan:lifecyclemodel:1.0.1",
-
+            "wxpay"                      : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.4",
             //test
             "junit"                      : "junit:junit:4.12",
             "androidJUnitRunner"         : "android.support.test.runner.AndroidJUnitRunner",
