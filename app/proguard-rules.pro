@@ -447,3 +447,9 @@ public static final int *;
     public <init>();
 }
 -keep class android.support.multidex.**{*;}
+# wx
+-keep class com.tencent.mm.opensdk.** {*;}
+
+-keep class com.tencent.wxop.** {*;}
+
+-keep class com.tencent.mm.sdk.** {*;}

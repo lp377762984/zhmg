@@ -11,6 +11,7 @@ import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
+import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
@@ -181,4 +182,11 @@ public interface HttpServices {
 
     @GET("/getUrl")
     Observable<Result<Business>> getBQRData();
+
+    @FormUrlEncoded
+    @POST("/getPaySign")
+    Observable<Result<PayInfo>> pay(@Field("pay_type")int pay_type, @Field("number")String sellerId, @Field("total_amount")String total, @Field("body")String body);
+    @FormUrlEncoded
+    @POST("/storeInfo")
+    Observable<Result<Business>> getBusinessInfo(@Field("number") String sellerID);
 }

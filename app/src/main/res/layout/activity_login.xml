@@ -3,157 +3,155 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.wta.NewCloudApp.mvp.ui.activity.LoginActivity"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/im_icon"
-        android:layout_width="102dp"
-        android:layout_height="117dp"
-        android:layout_marginTop="65dp"
+    <LinearLayout
+        android:id="@+id/lat_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/login_logo" />
+        app:layout_constraintTop_toTopOf="parent">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/im_icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@mipmap/app_logo"
+            app:riv_oval="true" />
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:textSize="28sp"
+            android:textColor="#333"
+            android:text="@string/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_mobile_str"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:text="手机号"
+        android:textColor="#333"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lat_head" />
     <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
-        android:textColor="@color/text_color2"
+        android:paddingLeft="12dp"
         android:id="@+id/et_phone"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginEnd="46dp"
-        android:layout_marginLeft="46dp"
         android:layout_marginRight="46dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="8dp"
-        android:background="@null"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/login_gray_corner_bg"
         android:hint="请输入手机号"
         android:inputType="number"
         android:maxLength="11"
         android:maxLines="1"
-        android:paddingTop="20dp"
-        android:paddingBottom="4dp"
+        android:textColor="@color/text_color2"
         android:textColorHint="#a0987a"
         app:hintSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/im_icon" />
+        app:layout_constraintStart_toStartOf="@+id/tv_mobile_str"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mobile_str" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:background="#e2dccb"
-        app:layout_constraintBottom_toBottomOf="@+id/et_phone"
-        app:layout_constraintEnd_toEndOf="@+id/et_phone"
-        app:layout_constraintStart_toStartOf="@+id/et_phone" />
-
-    <com.wta.NewCloudApp.mvp.ui.widget.EditTextHint
-        android:id="@+id/et_code"
-        android:layout_width="150dp"
+    <TextView
+        android:id="@+id/tv_code_str"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:hint="请输入验证码"
-        android:inputType="number"
-        android:maxLength="8"
-        android:maxLines="1"
-        android:paddingTop="20dp"
-        android:paddingBottom="4dp"
-        android:textColor="@color/text_color2"
-        android:textColorHint="#a0987a"
-        app:hintSize="16sp"
+        android:layout_marginTop="30dp"
+        android:text="验证码"
+        android:textColor="#333"
         app:layout_constraintStart_toStartOf="@+id/et_phone"
         app:layout_constraintTop_toBottomOf="@+id/et_phone" />
 
-    <View
-        android:id="@+id/view2"
+    <RelativeLayout
+        android:id="@+id/lat_code"
         android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="#e2dccb"
-        app:layout_constraintEnd_toStartOf="@+id/tv_get_code"
-        app:layout_constraintStart_toStartOf="@+id/et_code"
-        app:layout_constraintTop_toBottomOf="@+id/et_code" />
-
-    <TextView
-        android:id="@+id/tv_get_code"
-        android:layout_width="wrap_content"
-        android:minWidth="90dp"
-        android:layout_height="30dp"
-        android:background="@drawable/login_code_bg"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:maxLines="1"
-        android:text="获取验证码"
-        android:textColor="@android:color/background_light"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/et_code"
-        app:layout_constraintEnd_toEndOf="@+id/et_phone" />
-
-    <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
-        android:visibility="gone"
-        android:textColor="@color/text_color2"
-        app:hintSize="16sp"
-        android:maxLines="1"
-        android:textColorHint="#a0987a"
-        android:id="@+id/et_recommend_code"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:hint="请输入推荐码"
-        android:paddingTop="20dp"
-        android:paddingBottom="4dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/login_gray_corner_bg"
         app:layout_constraintEnd_toEndOf="@+id/et_phone"
-        app:layout_constraintStart_toStartOf="@+id/et_code"
-        app:layout_constraintTop_toBottomOf="@+id/et_code" />
+        app:layout_constraintStart_toStartOf="@+id/et_phone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_code_str">
 
-    <View
-        android:id="@+id/rec_line"
-        android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:background="#e2dccb"
-        app:layout_constraintEnd_toEndOf="@+id/et_recommend_code"
-        app:layout_constraintStart_toStartOf="@+id/et_recommend_code"
-        app:layout_constraintTop_toBottomOf="@+id/et_recommend_code" />
+        <TextView
+            android:id="@+id/tv_get_code"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/login_code_bg"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:minWidth="90dp"
+            android:text="获取验证码"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp" />
+        <com.wta.NewCloudApp.mvp.ui.widget.EditTextHint
+            android:layout_toLeftOf="@id/tv_get_code"
+            android:paddingLeft="12dp"
+            android:id="@+id/et_code"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLength="8"
+            android:maxLines="1"
+            android:textColor="@color/text_color2"
+            android:textColorHint="#a0987a"
+            app:hintSize="16sp" />
+
+    </RelativeLayout>
+
 
     <CheckBox
-        android:visibility="gone"
-        android:checked="true"
-        android:layout_marginLeft="51dp"
-        android:button="@drawable/login_cb_bg"
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="10dp"
+        android:button="@drawable/login_cb_bg"
+        android:checked="true"
         android:textColor="#333333"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_agree"
         app:layout_constraintTop_toBottomOf="@+id/et_recommend_code" />
 
     <TextView
-        android:visibility="gone"
-        android:textColor="@color/text_color2"
-        android:textSize="14sp"
         android:id="@+id/tv_agree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
         android:text="阅读并同意协议"
+        android:textColor="@color/text_color2"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/checkBox"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintEnd_toEndOf="@+id/et_recommend_code"
         app:layout_constraintTop_toTopOf="@+id/checkBox" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="0dp"
-        android:layout_height="38dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="45dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginStart="45dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/login_btn_bg"
         android:enabled="false"
         android:text="登录"
@@ -171,7 +169,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="45dp"
         android:drawableEnd="@drawable/other_login_line"
         android:drawableLeft="@drawable/other_login_line"
         android:drawableRight="@drawable/other_login_line"
@@ -207,5 +205,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/login_back" />
+
+
+    <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
+        android:paddingLeft="14dp"
+        android:id="@+id/et_recommend_code"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:hint="请输入推荐码"
+        android:maxLines="1"
+        android:textColor="@color/text_color2"
+        android:textColorHint="#a0987a"
+        app:hintSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/lat_code"
+        app:layout_constraintStart_toStartOf="@+id/lat_code"
+        app:layout_constraintTop_toBottomOf="@+id/lat_code" />
+
+    <View
+        android:id="@+id/rec_line"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="#e2dccb"
+        app:layout_constraintEnd_toEndOf="@+id/et_recommend_code"
+        app:layout_constraintStart_toStartOf="@+id/et_recommend_code"
+        app:layout_constraintTop_toBottomOf="@+id/et_recommend_code" />
+
+
 
 </android.support.constraint.ConstraintLayout>

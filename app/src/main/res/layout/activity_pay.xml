@@ -67,7 +67,6 @@
                         android:textColor="#f50"
                         android:textSize="28sp"
                         android:layout_gravity="center_vertical"
-                        android:text="200.00"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>

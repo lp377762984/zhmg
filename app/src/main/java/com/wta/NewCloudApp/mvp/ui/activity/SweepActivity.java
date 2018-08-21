@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -26,7 +27,6 @@ import com.wta.NewCloudApp.mvp.ui.widget.qr.decode.InactivityTimer;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.view.QrCodeFinderView;
 
 import java.io.IOException;
-import java.security.Permission;
 
 import butterknife.BindView;
 import io.reactivex.functions.Consumer;
@@ -73,9 +73,9 @@ public class SweepActivity extends BaseActivity implements SurfaceHolder.Callbac
         new RxPermissions(this).request(Manifest.permission.CAMERA).subscribe(new Consumer<Boolean>() {
             @Override
             public void accept(Boolean aBoolean) throws Exception {
-                if (aBoolean){
+                if (aBoolean) {
                     initCamera();
-                }else {
+                } else {
                     finish();
                 }
             }
@@ -87,10 +87,38 @@ public class SweepActivity extends BaseActivity implements SurfaceHolder.Callbac
      */
     public void handleDecode(Result result) {
         mInactivityTimer.onActivity();
+        vibrate();
+        String text = result.getText();
+        if (TextUtils.isEmpty(text)) {
+            ArmsUtils.makeText(this, getString(R.string.warn_not_business_qr_code));
+        } else {
+            if (text.contains("?number=")) {
+                String[] split = text.split("\\?");
+                if (split.length == 2) {
+                    String number = split[1];
+                    String[] split1 = number.split("=");
+                    if (split1.length == 2) {
+                        if ("number".equals(split1[0])) {
+                            PayActivity.startPay(this, split1[1]);
+                        } else {
+                            ArmsUtils.makeText(this, getString(R.string.warn_not_business_qr_code));
+                        }
+                    } else {
+                        ArmsUtils.makeText(this, getString(R.string.warn_not_business_qr_code));
+                    }
+                } else {
+                    ArmsUtils.makeText(this, getString(R.string.warn_not_business_qr_code));
+                }
+            } else {
+                ArmsUtils.makeText(this, getString(R.string.warn_not_business_qr_code));
+            }
+        }
+    }
+
+    private void vibrate() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         assert vibrator != null;
         vibrator.vibrate(200);
-        ArmsUtils.startActivity(PayActivity.class);
     }
 
     private void initCamera() {

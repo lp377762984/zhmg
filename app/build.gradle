@@ -83,6 +83,7 @@ dependencies {
     implementation rootProject.ext.dependencies["constraint-layout"]
     implementation rootProject.ext.dependencies["adapter"]
     implementation rootProject.ext.dependencies["photoview"]
+    implementation rootProject.ext.dependencies["wxpay"]
     //test
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["runner"]
