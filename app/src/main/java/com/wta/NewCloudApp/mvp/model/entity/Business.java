@@ -26,7 +26,7 @@ public class Business {
     public String location_address;
     public String address;
     public int create_time;
-
+    public String url;
 
     /**
      * telephone : 400000

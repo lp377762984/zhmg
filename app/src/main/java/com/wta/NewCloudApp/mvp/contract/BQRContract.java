@@ -8,6 +8,7 @@ public interface BQRContract {
 
     interface View extends IView {
 
+        void showQRCode(String url);
     }
 
 }

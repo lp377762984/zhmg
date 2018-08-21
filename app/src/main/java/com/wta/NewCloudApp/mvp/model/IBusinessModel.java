@@ -44,4 +44,5 @@ public interface IBusinessModel extends IModel {
     Observable<Result<List<Business>>> getSearchResult(boolean isRefresh,String keywords);
 
     Observable<Result<Business>> getStoreState();
+    Observable<Result<Business>> getBQRData();
 }

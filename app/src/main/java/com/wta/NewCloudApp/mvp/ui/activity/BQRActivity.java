@@ -70,24 +70,13 @@ public class BQRActivity extends BaseLoadingActivity<BQRPresenter> implements BQ
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        Glide.with(this).load(AppConfig.getInstance().getString(ConfigTag.AVATAR, null)).into(new SimpleTarget<Drawable>() {
-            @Override
-            public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                setImQr(null);
-            }
-
-            @Override
-            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                setImQr(resource);
-            }
-
-        });
         mb.setCallBack(mb.new CallbackImp(){
             @Override
             public void clickTail() {
                 showBtmDialog();
             }
         });
+        mPresenter.getBQRData();
     }
 
     private void showBtmDialog() {
@@ -116,7 +105,7 @@ public class BQRActivity extends BaseLoadingActivity<BQRPresenter> implements BQ
         btmDialog.show();
     }
 
-    private void setImQr(Drawable drawable) {
+    private void setImQr(Drawable drawable,String msg) {
         Bitmap bitmap = null;
         if (drawable != null) {
             RoundedImageView centerIm = (RoundedImageView) getLayoutInflater().inflate(R.layout.center_im, null);
@@ -124,8 +113,7 @@ public class BQRActivity extends BaseLoadingActivity<BQRPresenter> implements BQ
             bitmap = BitmapUtils.convertViewToBitmap(centerIm);
         }
         int wah = (int) ScreenDpiUtils.dp2px(BQRActivity.this, 250);
-        qrCode = QRCodeEncoder.syncEncodeQRCode(AppConfig.getInstance().getString(ConfigTag.SHARE_URL,null),
-                wah, Color.BLACK, bitmap);
+        qrCode = QRCodeEncoder.syncEncodeQRCode(msg, wah, Color.BLACK, bitmap);
         imQr.setImageBitmap(qrCode);
     }
 
@@ -171,4 +159,19 @@ public class BQRActivity extends BaseLoadingActivity<BQRPresenter> implements BQ
                 });
     }
 
+    @Override
+    public void showQRCode(String url) {
+        Glide.with(this).load(AppConfig.getInstance().getString(ConfigTag.AVATAR, null)).into(new SimpleTarget<Drawable>() {
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                setImQr(null,url);
+            }
+
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                setImQr(resource,url);
+            }
+
+        });
+    }
 }

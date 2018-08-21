@@ -43,10 +43,10 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_marginTop="155dp"
-        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="155dp"
+        android:scrollbars="none">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -55,25 +55,25 @@
             android:focusableInTouchMode="true">
 
             <com.youth.banner.Banner
-                app:indicator_drawable_selected="@drawable/pink_point"
-                app:indicator_drawable_unselected="@drawable/gray_point"
-                app:image_scale_type="center_crop"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="163dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                app:image_scale_type="center_crop"
+                app:indicator_drawable_selected="@drawable/pink_point"
+                app:indicator_drawable_unselected="@drawable/gray_point"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:layout_marginLeft="11dp"
-                android:layout_marginRight="11dp"
-                android:layout_marginTop="10dp"
                 android:id="@+id/linearLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -84,15 +84,14 @@
                     android:id="@+id/im_business"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     app:srcCompat="@mipmap/home_bussiness" />
-
                 <ImageView
                     android:id="@+id/im_score_shop"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@mipmap/home_score_shop" />
+
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView

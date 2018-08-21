@@ -120,4 +120,9 @@ public class BusinessModel extends UserModel implements IBusinessModel {
     public Observable<Result<Business>> getStoreState() {
         return getService().getBState();
     }
+
+    @Override
+    public Observable<Result<Business>> getBQRData() {
+        return getService().getBQRData();
+    }
 }

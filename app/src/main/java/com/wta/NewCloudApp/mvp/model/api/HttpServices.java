@@ -178,4 +178,7 @@ public interface HttpServices {
     @FormUrlEncoded
     @POST("/searchStore")
     Observable<Result<List<Business>>> getSearchResult(@Field("search_name") String keywords, @Field("page")int index);
+
+    @GET("/getUrl")
+    Observable<Result<Business>> getBQRData();
 }
