@@ -103,4 +103,9 @@ public class ScoreListActivity extends BaseLoadingActivity<ScoreListPresenter> i
         });
         return customTabEntities;
     }
+
+    @Override
+    public boolean useFragment() {
+        return true;
+    }
 }

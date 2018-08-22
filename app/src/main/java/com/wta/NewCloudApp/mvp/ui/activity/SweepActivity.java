@@ -21,6 +21,13 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wta.NewCloudApp.R;
+import com.wta.NewCloudApp.di.component.DaggerPayComponent;
+import com.wta.NewCloudApp.di.component.DaggerSweepComponent;
+import com.wta.NewCloudApp.di.module.PayModule;
+import com.wta.NewCloudApp.di.module.SweepModule;
+import com.wta.NewCloudApp.mvp.contract.PayContract;
+import com.wta.NewCloudApp.mvp.contract.SweepContract;
+import com.wta.NewCloudApp.mvp.presenter.SweepPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.camera.CameraManager;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.decode.CaptureActivityHandler;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.decode.InactivityTimer;
@@ -38,7 +45,7 @@ import timber.log.Timber;
  * Describe: 扫一扫界面
  */
 
-public class SweepActivity extends BaseActivity implements SurfaceHolder.Callback, View.OnClickListener {
+public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implements SurfaceHolder.Callback, View.OnClickListener, SweepContract.View {
 
     @BindView(R.id.rb_switch_light)
     CheckBox switchLight;
@@ -52,7 +59,12 @@ public class SweepActivity extends BaseActivity implements SurfaceHolder.Callbac
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-
+        DaggerSweepComponent
+                .builder()
+                .appComponent(appComponent)
+                .sweepModule(new SweepModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
