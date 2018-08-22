@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -92,14 +93,16 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
 
     @OnClick({R.id.lat_alipay, R.id.lat_wxpay})
     public void onViewClicked(View view) {
+        String money = etMoney.getText().toString();
+        if (TextUtils.isEmpty(money) || 0 == Double.parseDouble(money)){
+            showToast("请输入有效金额");
+            return;
+        }
         switch (view.getId()) {
             case R.id.lat_alipay:
+                mPresenter.pay(1, sellerID, etMoney.getText().toString());
                 break;
             case R.id.lat_wxpay:
-                if (!App.getInstance().getWXAPI().isWXAppInstalled()) {
-                    showToast("您没有安装微信客户端。无法使用微信支付");
-                    return;
-                }
                 mPresenter.pay(2, sellerID, etMoney.getText().toString());
                 break;
         }
@@ -107,15 +110,6 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
 
     @Override
     public void pay(PayInfo data) {
-        /*PayReq req = new PayReq();
-        req.appId = data.appid;
-        req.nonceStr = data.noncestr;
-        req.packageValue = data.packageX;
-        req.partnerId = data.partnerid;
-        req.prepayId = data.prepayid;
-        req.timeStamp = data.timestamp + "";
-        req.sign = data.sign;
-        App.getInstance().getWXAPI().sendReq(req);*/
         PayManager.getInstance().requestPay(this, data, this);
     }
 

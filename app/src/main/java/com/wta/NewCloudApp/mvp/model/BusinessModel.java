@@ -82,7 +82,7 @@ public class BusinessModel extends UserModel implements IBusinessModel {
     }
 
     @Override
-    public Observable<Result<Business>> modifyStore(String shop_doorhead, String start_time, String end_time, int shop_type, String telephone, String introduction, TreeMap<String,Object> picture) {
+    public Observable<Result<Business>> modifyStore(String shop_doorhead, String start_time, String end_time, int shop_type, String telephone, String introduction, TreeMap<String, Object> picture) {
         return getService().modifyStore(shop_doorhead, start_time, end_time, shop_type, telephone, introduction, picture);
     }
 
@@ -92,12 +92,12 @@ public class BusinessModel extends UserModel implements IBusinessModel {
     }
 
     public Observable<Result<AliInfo>> getAlipayAuthInfo() {
-        return  getService().getAlipayAuthInfo();
+        return getService().getAlipayAuthInfo();
     }
 
     @Override
     public Observable<Result<AliInfo>> uploadAlipayId(String id) {
-        return getService().bindAlipay(id,"alipay");
+        return getService().bindAlipay(id, "alipay");
     }
 
     @Override
@@ -111,10 +111,10 @@ public class BusinessModel extends UserModel implements IBusinessModel {
     }
 
     @Override
-    public Observable<Result<List<Business>>> getSearchResult(boolean isRefresh,String keywords) {
+    public Observable<Result<List<Business>>> getSearchResult(boolean isRefresh, String keywords) {
         if (isRefresh) index = 1;
         else index++;
-        return getService().getSearchResult(keywords,index);
+        return getService().getSearchResult(keywords, index);
     }
 
     @Override
@@ -129,7 +129,8 @@ public class BusinessModel extends UserModel implements IBusinessModel {
 
     @Override
     public Observable<Result<PayInfo>> pay(int pay_type, String sellerId, String total) {
-        return getService().pay(pay_type,sellerId,total,"瞎传一个，不行啊");
+        if (pay_type == 1) return getService().pay(pay_type, sellerId, total, "瞎传一个，不行啊","标题");
+        else return getService().pay(pay_type, sellerId, total, "瞎传一个，不行啊",null);
     }
 
     @Override

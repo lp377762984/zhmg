@@ -185,7 +185,8 @@ public interface HttpServices {
 
     @FormUrlEncoded
     @POST("/getPaySign")
-    Observable<Result<PayInfo>> pay(@Field("pay_type")int pay_type, @Field("number")String sellerId, @Field("total_amount")String total, @Field("body")String body);
+    Observable<Result<PayInfo>> pay(@Field("pay_type")int pay_type, @Field("number")String sellerId
+            , @Field("total_amount")String total, @Field("body")String body, @Field("subject")String subject);
     @FormUrlEncoded
     @POST("/storeInfo")
     Observable<Result<Business>> getBusinessInfo(@Field("number") String sellerID);
