@@ -51,12 +51,10 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
     }
 
     private void startLocation() {
-        mRootView.showLoading();
         if (locationManager == null) {
             locationManager = new LocationManager(mRootView.getFragmentContext(), new LocationManager.LocateListener() {
                 @Override
                 public void onLocateSuccess(AMapLocation location) {
-                    mRootView.hideLoading();
                     if (lat == 0) {
                         doRequest(buildListRequest(mModel.getBusiness(true, location.getLatitude(), location.getLongitude())), 1);
                     }
@@ -66,7 +64,6 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
 
                 @Override
                 public boolean onLocateFailed(AMapLocation location) {
-                    mRootView.hideLoading();
                     return false;
                 }
             });

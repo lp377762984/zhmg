@@ -150,12 +150,6 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     }
 
     @Override
-    public void destroyLocation(LocationManager manager) {
-        manager.destroyLocation();
-    }
-
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);

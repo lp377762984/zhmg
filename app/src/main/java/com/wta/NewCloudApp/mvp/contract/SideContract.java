@@ -14,6 +14,5 @@ public interface SideContract {
         Activity getFragmentContext();
 
         void handleBState(Result<Business> businessResult);
-        void destroyLocation(LocationManager manager);
     }
 }
