@@ -90,8 +90,8 @@ public class UserMsgActivity extends BaseLoadingActivity<UserMsgPresenter> imple
         tvName.setText(AppConfig.getInstance().getString(ConfigTag.NICKNAME, null));
         tvState.setText(AppConfig.getInstance().getInt(ConfigTag.CARD_STATUS, 0) == 0 ? "待认证" : "已认证");
         imBack.setVisibility(AppConfig.getInstance().getInt(ConfigTag.CARD_STATUS, 0) == 0 ? View.VISIBLE : View.INVISIBLE);
-        imCode.setImageBitmap(QRCodeEncoder.syncEncodeQRCode(AppConfig.getInstance().getString(ConfigTag.SHARE_URL,null),
-                (int) ScreenDpiUtils.dp2px(this,51), Color.BLACK, null));
+        /*imCode.setImageBitmap(QRCodeEncoder.syncEncodeQRCode(AppConfig.getInstance().getString(ConfigTag.SHARE_URL,null),
+                (int) ScreenDpiUtils.dp2px(this,51), Color.BLACK, null));*/
     }
 
     @OnClick({R.id.lat_head, R.id.lat_name, R.id.lat_code, R.id.lat_real})

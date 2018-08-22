@@ -94,7 +94,7 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
     @OnClick({R.id.lat_alipay, R.id.lat_wxpay})
     public void onViewClicked(View view) {
         String money = etMoney.getText().toString();
-        if (TextUtils.isEmpty(money) || 0 == Double.parseDouble(money)){
+        if (TextUtils.isEmpty(money) || 0 == Double.parseDouble(money)) {
             showToast("请输入有效金额");
             return;
         }
@@ -133,5 +133,11 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
         } else if (errorCode == -4) {
             showToast("支付失败");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PayManager.getInstance().destoryListener();
     }
 }

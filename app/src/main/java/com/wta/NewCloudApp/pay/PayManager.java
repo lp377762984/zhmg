@@ -25,7 +25,10 @@ import io.reactivex.schedulers.Schedulers;
 public class PayManager {
     private PayListener payListener;
     private static PayManager payManager;
-    private PayManager(){}
+
+    private PayManager() {
+    }
+
     public static PayManager getInstance() {
         if (payManager == null)
             synchronized (PayManager.class) {
@@ -62,7 +65,7 @@ public class PayManager {
 
                     @Override
                     public void onError(Throwable e) {
-                        if (payListener!=null) payListener.payComplete(1,-4);
+                        if (payListener != null) payListener.payComplete(1, -4);
                     }
                 });
     }
@@ -75,16 +78,16 @@ public class PayManager {
                 JSONObject jObj = new JSONObject(resultInfo);
                 JSONObject trObj = jObj.optJSONObject("alipay_trade_app_pay_response");
                 String total_amount = trObj.optString("total_amount");
-                if (payListener!=null) payListener.payComplete(1,0);
+                if (payListener != null) payListener.payComplete(1, 0);
             } catch (JSONException e) {//一般不会遇到此问题
-                if (payListener!=null) payListener.payComplete(1,-1);
+                if (payListener != null) payListener.payComplete(1, -1);
             }
         } else if (TextUtils.equals(resultStatus, "6002")) {//网络问题
-            if (payListener!=null) payListener.payComplete(1,-3);
+            if (payListener != null) payListener.payComplete(1, -3);
         } else if (TextUtils.equals(resultStatus, "6001")) {//支付取消
-            if (payListener!=null) payListener.payComplete(1,-2);
+            if (payListener != null) payListener.payComplete(1, -2);
         } else {//支付失败
-            if (payListener!=null) payListener.payComplete(1,-1);
+            if (payListener != null) payListener.payComplete(1, -1);
         }
     }
 
@@ -115,5 +118,9 @@ public class PayManager {
 
     public void setPayListener(PayListener payListener) {
         this.payListener = payListener;
+    }
+
+    public void destoryListener() {
+        if (payListener != null) payListener = null;
     }
 }
