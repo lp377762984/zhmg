@@ -85,6 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/line" />
 
     <com.makeramen.roundedimageview.RoundedImageView
+        android:src="@color/style_color"
         android:id="@+id/im_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"

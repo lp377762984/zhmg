@@ -163,7 +163,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         }
     }
 
-    @OnClick({R.id.im_sweep, R.id.im_bus_code, R.id.im_business})
+    @OnClick({R.id.im_sweep, R.id.im_bus_code, R.id.im_business,R.id.im_score_shop})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_sweep:
@@ -176,6 +176,9 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
             case R.id.im_business:
                 position = 0;
                 mPresenter.getStoreState();
+                break;
+            case R.id.im_score_shop:
+                showToast("暂未开放");
                 break;
         }
     }

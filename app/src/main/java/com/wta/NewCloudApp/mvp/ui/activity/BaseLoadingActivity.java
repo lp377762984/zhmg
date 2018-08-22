@@ -122,4 +122,9 @@ public class BaseLoadingActivity<P extends IPresenter> extends BaseActivity<P> i
             }
         }
     }
+
+    @Override
+    public boolean useFragment() {
+        return false;
+    }
 }

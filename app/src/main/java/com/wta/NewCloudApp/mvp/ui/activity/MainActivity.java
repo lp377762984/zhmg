@@ -155,4 +155,9 @@ public class MainActivity extends BaseLoadingActivity {
     public int setUIMode() {
         return UIMODE_TRANSPARENT_NOTALL;
     }
+
+    @Override
+    public boolean useFragment() {
+        return true;
+    }
 }

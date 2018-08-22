@@ -21,24 +21,32 @@
         app:textTitle="扫描二维码"
         android:layout_width="match_parent"
         android:layout_height="@dimen/money_bar_height"/>
-
-    <CheckBox
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:id="@+id/lat_switch"
         android:layout_marginTop="335dp"
-        android:id="@+id/rb_switch_light"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:button="@drawable/light_selector" />
-    <TextView
-        android:text="轻触打开手电筒"
-        android:textSize="12sp"
-        android:textColor="@color/white"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/rb_switch_light"
-        android:id="@+id/tv_light_state"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/rb_switch_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:button="@drawable/light_selector" />
+        <TextView
+            android:text="轻触打开手电筒"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/rb_switch_light"
+            android:id="@+id/tv_light_state"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/tv_auto_str"
@@ -46,7 +54,7 @@
         android:textColor="#b3b3b3"
         android:textSize="12sp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/tv_light_state"
+        android:layout_below="@id/lat_switch"
         android:text="将二维码放入框内，即可自动扫描"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

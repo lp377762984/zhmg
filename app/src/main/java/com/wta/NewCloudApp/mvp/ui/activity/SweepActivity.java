@@ -89,6 +89,7 @@ public class SweepActivity extends BaseActivity implements SurfaceHolder.Callbac
         mInactivityTimer.onActivity();
         vibrate();
         String text = result.getText();
+        boolean needReSweep = true;
         if (TextUtils.isEmpty(text)) {
             ArmsUtils.makeText(this, getString(R.string.warn_not_business_qr_code));
         } else {
@@ -99,6 +100,7 @@ public class SweepActivity extends BaseActivity implements SurfaceHolder.Callbac
                     String[] split1 = number.split("=");
                     if (split1.length == 2) {
                         if ("number".equals(split1[0])) {
+                            needReSweep = false;
                             PayActivity.startPay(this, split1[1]);
                         } else {
                             ArmsUtils.makeText(this, getString(R.string.warn_not_business_qr_code));
@@ -113,6 +115,8 @@ public class SweepActivity extends BaseActivity implements SurfaceHolder.Callbac
                 ArmsUtils.makeText(this, getString(R.string.warn_not_business_qr_code));
             }
         }
+        if (needReSweep) restartPreview();
+        else finish();
     }
 
     private void vibrate() {

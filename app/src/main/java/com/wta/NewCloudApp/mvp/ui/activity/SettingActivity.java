@@ -189,7 +189,7 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
 
     @Override
     public void onCancel(SHARE_MEDIA share_media, int i) {
-        ArmsUtils.makeText(this, "微信绑定已取消");
+        ArmsUtils.makeText(App.getInstance(), "微信绑定已取消");
     }
 
     @Override
