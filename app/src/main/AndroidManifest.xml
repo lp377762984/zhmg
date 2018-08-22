@@ -198,6 +198,7 @@
         <activity
             android:name=".mvp.ui.activity.PhotoViewActivity"
             android:exported="true" />
+        <activity android:name=".mvp.ui.activity.PayOverActivity"></activity>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@ import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerSideComponent;
 import com.wta.NewCloudApp.di.module.SideModule;
+import com.wta.NewCloudApp.manager.LocationManager;
 import com.wta.NewCloudApp.mvp.contract.SideContract;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
@@ -35,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 
 public class SideFragment extends BaseListFragment<SidePresenter> implements SideContract.View {
@@ -147,6 +149,11 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
         }
     }
 
+    @Override
+    public void destroyLocation(LocationManager manager) {
+        manager.destroyLocation();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -159,5 +166,13 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocationManager locationManager = mPresenter.getLocationManager();
+        if (locationManager!=null)
+            locationManager.destroyLocation();
     }
 }

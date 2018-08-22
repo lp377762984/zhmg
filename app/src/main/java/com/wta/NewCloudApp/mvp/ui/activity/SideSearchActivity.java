@@ -46,6 +46,7 @@ public class SideSearchActivity extends BaseListActivity<SideSearchPresenter> im
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
+        adapter.setEmptyView(R.layout.empty_side);
     }
 
     @OnClick(R.id.tv_go_in)

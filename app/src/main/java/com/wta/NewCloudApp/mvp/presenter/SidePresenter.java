@@ -74,4 +74,7 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
         locationManager.start();
     }
 
+    public LocationManager getLocationManager() {
+        return locationManager;
+    }
 }

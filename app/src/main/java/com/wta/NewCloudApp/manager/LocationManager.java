@@ -23,7 +23,6 @@ public class LocationManager {
     private LocateListener locateListener;
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
-    private String[] locatePer = new String[]{};
     private String TAG = "LocationManager";
 
     public LocationManager(Activity activity, LocateListener locateListener) {
