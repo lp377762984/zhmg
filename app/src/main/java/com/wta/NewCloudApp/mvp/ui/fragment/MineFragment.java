@@ -116,8 +116,8 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
         ch.setDrawableArrowSize(15);
         ch.setDrawableProgressSize(15);
         ch.setEnableLastTime(false);
-        ch.setAccentColorId(R.color.white);
-        ch.setPrimaryColorId(R.color.style_color);
+        //ch.setAccentColorId(R.color.white);
+        //ch.setPrimaryColorId(R.color.style_color);
         refreshLayout.setHeaderHeight(48);
         refreshLayout.setRefreshHeader(ch);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {

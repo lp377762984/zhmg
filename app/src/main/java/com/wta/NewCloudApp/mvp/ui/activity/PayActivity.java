@@ -25,12 +25,14 @@ import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.presenter.PayPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
+import com.wta.NewCloudApp.pay.PayListener;
+import com.wta.NewCloudApp.pay.PayManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class PayActivity extends BaseLoadingActivity<PayPresenter> implements PayContract.View {
+public class PayActivity extends BaseLoadingActivity<PayPresenter> implements PayContract.View, PayListener {
 
     @BindView(R.id.tv_name)
     TextView tvName;
@@ -105,7 +107,7 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
 
     @Override
     public void pay(PayInfo data) {
-        PayReq req = new PayReq();
+        /*PayReq req = new PayReq();
         req.appId = data.appid;
         req.nonceStr = data.noncestr;
         req.packageValue = data.packageX;
@@ -113,12 +115,29 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
         req.prepayId = data.prepayid;
         req.timeStamp = data.timestamp + "";
         req.sign = data.sign;
-        App.getInstance().getWXAPI().sendReq(req);
+        App.getInstance().getWXAPI().sendReq(req);*/
+        PayManager.getInstance().requestPay(this, data, this);
     }
 
     @Override
     public void showBusinessMsg(Business data) {
         tvName.setText(data.shop_name);
         GlideArms.with(this).load(data.shop_doorhead).placeholder(R.mipmap.user_default).into(imHead);
+    }
+
+    //错误码（以微信为准）0成功 -1错误 -2取消 -3网络错误 -4其他错误
+    @Override
+    public void payComplete(int payType, int errorCode) {
+        if (errorCode == 0) {
+            showToast("支付成功");
+        } else if (errorCode == -1) {
+            showToast("支付失败");
+        } else if (errorCode == -2) {
+            showToast("支付取消");
+        } else if (errorCode == -3) {
+            showToast("网络错误");
+        } else if (errorCode == -4) {
+            showToast("支付失败");
+        }
     }
 }

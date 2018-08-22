@@ -38,7 +38,7 @@
     <TextView
         android:id="@+id/tv_mobile_str"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="15dp"
         android:layout_marginLeft="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
@@ -52,8 +52,8 @@
         android:id="@+id/et_phone"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginRight="46dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/login_gray_corner_bg"
         android:hint="请输入手机号"
@@ -62,7 +62,8 @@
         android:maxLines="1"
         android:textColor="@color/text_color2"
         android:textColorHint="#a0987a"
-        app:hintSize="16sp"
+        android:textSize="14sp"
+        app:hintSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_mobile_str"
         app:layout_constraintTop_toBottomOf="@+id/tv_mobile_str" />
@@ -113,13 +114,40 @@
             android:maxLength="8"
             android:maxLines="1"
             android:textColor="@color/text_color2"
-            android:textColorHint="#a0987a"
-            app:hintSize="16sp" />
-
+            android:textSize="14sp"
+            app:hintSize="14sp"
+            android:textColorHint="#a0987a" />
     </RelativeLayout>
+    <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
+        android:visibility="gone"
+        android:paddingLeft="14dp"
+        android:id="@+id/et_recommend_code"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:hint="请输入推荐码"
+        android:maxLines="1"
+        android:textColor="@color/text_color2"
+        android:textColorHint="#a0987a"
+        android:textSize="14sp"
+        app:hintSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/lat_code"
+        app:layout_constraintStart_toStartOf="@+id/lat_code"
+        app:layout_constraintTop_toBottomOf="@+id/lat_code" />
 
+    <View
+        android:visibility="gone"
+        android:id="@+id/rec_line"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="#e2dccb"
+        app:layout_constraintEnd_toEndOf="@+id/et_recommend_code"
+        app:layout_constraintStart_toStartOf="@+id/et_recommend_code"
+        app:layout_constraintTop_toBottomOf="@+id/et_recommend_code" />
 
     <CheckBox
+        android:visibility="gone"
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -133,6 +161,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_recommend_code" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_agree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -147,11 +176,11 @@
         android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="45dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/login_btn_bg"
         android:enabled="false"
         android:text="登录"
@@ -175,8 +204,8 @@
         android:drawableRight="@drawable/other_login_line"
         android:drawableStart="@drawable/other_login_line"
         android:text="其他登陆方式"
-        android:textColor="#a0987a"
-        android:textSize="14sp"
+        android:textColor="#999"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
@@ -205,33 +234,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/login_back" />
-
-
-    <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
-        android:paddingLeft="14dp"
-        android:id="@+id/et_recommend_code"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:background="@null"
-        android:hint="请输入推荐码"
-        android:maxLines="1"
-        android:textColor="@color/text_color2"
-        android:textColorHint="#a0987a"
-        app:hintSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/lat_code"
-        app:layout_constraintStart_toStartOf="@+id/lat_code"
-        app:layout_constraintTop_toBottomOf="@+id/lat_code" />
-
-    <View
-        android:id="@+id/rec_line"
-        android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:background="#e2dccb"
-        app:layout_constraintEnd_toEndOf="@+id/et_recommend_code"
-        app:layout_constraintStart_toStartOf="@+id/et_recommend_code"
-        app:layout_constraintTop_toBottomOf="@+id/et_recommend_code" />
-
 
 
 </android.support.constraint.ConstraintLayout>

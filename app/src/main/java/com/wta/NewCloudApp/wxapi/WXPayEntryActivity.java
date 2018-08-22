@@ -11,6 +11,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
+import com.wta.NewCloudApp.pay.PayListener;
+import com.wta.NewCloudApp.pay.PayManager;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
@@ -37,14 +39,22 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp resp) {
+        PayListener payListener = PayManager.getInstance().getPayListener();
         int errCode = resp.errCode;
         if (errCode == 0) {//成功
-            ArmsUtils.makeText(this, "微信支付成功");
+            if (payListener != null)
+                payListener.payComplete(2,0);
         } else if (errCode == -1) {//错误
-            ArmsUtils.makeText(this, getString(R.string.failed_pay));
+            if (payListener != null)
+                payListener.payComplete(2,-1);
         } else if (errCode == -2) {//用户取消
-            ArmsUtils.makeText(this, getString(R.string.cancel_pay));
+            if (payListener != null)
+                payListener.payComplete(2,-2);
+        } else {
+            if (payListener != null)
+                payListener.payComplete(2,-4);
         }
+        finish();
     }
 
 }

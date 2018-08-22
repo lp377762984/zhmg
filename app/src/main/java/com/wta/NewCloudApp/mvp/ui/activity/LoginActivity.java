@@ -184,7 +184,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
             ArmsUtils.makeText(this.getApplicationContext(), "请输入验证码");
             return false;
         }
-        if (checkBox.isEnabled() && !checkBox.isChecked()) {
+        if (checkBox.getVisibility()==View.VISIBLE && !checkBox.isChecked()) {
             ArmsUtils.makeText(this.getApplicationContext(), "请阅读并同意协议");
             return false;
         }

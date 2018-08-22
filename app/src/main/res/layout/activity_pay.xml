@@ -168,7 +168,6 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:elevation="6dp"
                 app:riv_oval="true"
-                android:src="@color/blue_btn"
                 android:layout_marginTop="82dp"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/im_head"
