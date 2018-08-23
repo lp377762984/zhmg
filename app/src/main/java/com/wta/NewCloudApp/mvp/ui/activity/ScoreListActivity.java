@@ -26,7 +26,6 @@ import butterknife.BindView;
 public class ScoreListActivity extends BaseLoadingActivity<ScoreListPresenter> implements ScoreListContract.View {
     @BindView(R.id.tabLayout)
     CommonTabLayout2 tabLayout;
-
     @BindView(R.id.mb)
     MoneyBar moneyBar;
     @Override

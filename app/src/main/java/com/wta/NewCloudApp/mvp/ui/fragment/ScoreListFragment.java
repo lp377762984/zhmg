@@ -3,6 +3,7 @@ package com.wta.NewCloudApp.mvp.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,11 +49,15 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         type = getArguments().getInt("type", 0);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
         for (int i = 0; i < 5; i++) {
             data.add(new Score("","墙头草","08.25 21:35","2500"));
         }
-        View headView = getLayoutInflater().inflate(R.layout.score_item_head, recyclerView, false);
-        adapter.addHeaderView(headView);
     }
 
     @Override
