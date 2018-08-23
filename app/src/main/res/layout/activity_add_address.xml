@@ -6,9 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
-        app:needLine="true"
-        app:titleColor="#000"
-        app:barBg="@color/white"
         app:textTitle="收货地址"
         android:id="@+id/mb"
         android:layout_width="match_parent"

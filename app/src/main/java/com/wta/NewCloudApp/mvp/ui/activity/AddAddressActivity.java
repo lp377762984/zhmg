@@ -129,7 +129,8 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
                                 options2Items.get(options1).get(options2).getPickerViewText() +
                                 options3Items.get(options1).get(options2).get(options3).getPickerViewText();
 
-                        Toast.makeText(AddAddressActivity.this, tx, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(AddAddressActivity.this, tx, Toast.LENGTH_SHORT).show();
+                        tvRegion.setText(tx);
                     }
                 })
 

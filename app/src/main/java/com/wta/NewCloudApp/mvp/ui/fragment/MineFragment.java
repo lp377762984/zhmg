@@ -35,6 +35,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.MinePresenter;
+import com.wta.NewCloudApp.mvp.ui.activity.AddressListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.CardListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.GroupActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MsgActivity;
@@ -169,7 +170,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
                 mPresenter.startShare();
                 break;
             case R.id.lat_location:
-                showToast("未开放");
+                ArmsUtils.startActivity(AddressListActivity.class);
                 break;
             case R.id.lat_about_us:
                 WebViewActivity.start(getActivity(), "关于我们", FinalUtils.ABOUT_US);
