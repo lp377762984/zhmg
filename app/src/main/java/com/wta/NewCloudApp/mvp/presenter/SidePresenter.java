@@ -50,6 +50,12 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
         }
     }
 
+    @Override
+    public void handleException(int what, Throwable t) {
+        super.handleException(what, t);
+        if (what==1) mRootView.loadFailed();
+    }
+
     private void startLocation() {
         if (locationManager == null) {
             locationManager = new LocationManager(mRootView.getFragmentContext(), new LocationManager.LocateListener() {

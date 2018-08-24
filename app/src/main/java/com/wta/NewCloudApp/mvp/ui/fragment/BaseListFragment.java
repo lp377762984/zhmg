@@ -77,7 +77,6 @@ public class BaseListFragment<P extends IPresenter> extends BaseLoadingFragment<
     public void getData(int what, List msgs) {
         if (!isRefresh && (msgs == null || msgs.size() == 0))
             isComplete = true;
-        Timber.d("getData: " + isComplete);
         if (isRefresh) {
             data.clear();
             if (msgs != null) {
@@ -95,20 +94,24 @@ public class BaseListFragment<P extends IPresenter> extends BaseLoadingFragment<
 
     @Override
     public void showListLoading() {
-
+        if (isRefresh) showLoading();
     }
 
     @Override
     public void hideListLoading() {
-        Timber.d("hideListLoading: isRefresh " + isRefresh + " isComplete " + isComplete);
         if (isRefresh) {
+            hideLoading();
             refreshLayout.finishRefresh();
-            if (isComplete) adapter.loadMoreEnd();
-            else adapter.loadMoreComplete();
         } else {
             if (isComplete) adapter.loadMoreEnd();
             else adapter.loadMoreComplete();
         }
+    }
+
+    @Override
+    public void loadFailed() {
+        if (adapter != null)
+            adapter.loadMoreFail();
     }
 
     public void loadData(boolean isRefresh) {

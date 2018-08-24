@@ -273,6 +273,11 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
         refreshLayout.finishRefresh();
     }
 
+    @Override
+    public void loadFailed() {
+
+    }
+
     public static class ShareListener implements UMShareListener {
 
         @Override

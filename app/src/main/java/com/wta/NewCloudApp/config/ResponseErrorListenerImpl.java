@@ -54,10 +54,10 @@ public class ResponseErrorListenerImpl implements ResponseErrorListener {
         } else if (t instanceof HttpException) {
             HttpException httpException = (HttpException) t;
             msg = convertStatusCode(httpException);
-        } else if (t instanceof JsonParseException || t instanceof ParseException || t instanceof JSONException || t instanceof JsonIOException) {
+        } else if (t instanceof JsonIOException || t instanceof JsonParseException || t instanceof ParseException || t instanceof JSONException) {
             msg = "数据解析错误";
         }
-        ArmsUtils.snackbarText(t.toString());
+        ArmsUtils.snackbarText(msg);
     }
 
     private String convertStatusCode(HttpException httpException) {

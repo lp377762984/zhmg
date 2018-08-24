@@ -12,4 +12,5 @@ public interface BaseDataView extends IView {
     void getData(int what,List data);
     void showListLoading();
     void hideListLoading();
+    void loadFailed();
 }

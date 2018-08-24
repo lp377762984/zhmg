@@ -84,6 +84,11 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
 
     }
 
+    @Override
+    public void handleException(int what, Throwable t) {
+
+    }
+
     //执行网络请求
     protected <T> void doRequest(Observable<T> observable, RxErrorHandler errorHandler, int what, HttpResponseHandler handler) {
         resend = new Resend((observable), what);
@@ -107,7 +112,7 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
                 .doOnSubscribe(disposable -> {
                     if (!isList && needLoading) mRootView.showLoading();
                     else if (isList) {
-                        if (mRootView instanceof BaseDataView)
+                        if (mRootView instanceof BaseDataView )
                             ((BaseDataView) mRootView).showListLoading();
                     }
                 })

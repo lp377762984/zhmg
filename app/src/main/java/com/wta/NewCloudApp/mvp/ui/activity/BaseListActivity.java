@@ -94,24 +94,28 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
 
     @Override
     public void showListLoading() {
-        if (isRefresh) ;//下拉刷新初次不显示
-        else {
+        if (isRefresh) showLoading();
+    }
+
+    @Override
+    public void hideListLoading() {
+        if (isRefresh) {
+            hideLoading();
+            refreshLayout.finishRefresh();
+        } else {
             if (isComplete) adapter.loadMoreEnd();
             else adapter.loadMoreComplete();
         }
     }
 
     @Override
-    public void hideListLoading() {
-        if (isRefresh) refreshLayout.finishRefresh();
-        else {
-            if (isComplete) adapter.loadMoreEnd();
-            else adapter.loadMoreComplete();
-        }
+    public void loadFailed() {
+        adapter.loadMoreFail();
     }
 
     public void loadData(boolean isRefresh) {
-
+        if (adapter != null)
+            adapter.loadMoreFail();
     }
 
     public boolean needLoadmore() {
