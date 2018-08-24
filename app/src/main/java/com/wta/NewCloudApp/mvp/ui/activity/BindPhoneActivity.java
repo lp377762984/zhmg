@@ -14,24 +14,17 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.integration.lifecycle.Lifecycleable;
 import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.RxLifecycleUtils;
-import com.wta.NewCloudApp.config.AppConfig;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerBindPhoneComponent;
 import com.wta.NewCloudApp.di.module.BindPhoneModule;
-import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.BindPhoneContract;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
-import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.BindPhonePresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
-import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
-import org.simple.eventbus.EventBus;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;

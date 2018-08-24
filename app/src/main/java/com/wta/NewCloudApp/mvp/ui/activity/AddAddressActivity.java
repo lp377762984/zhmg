@@ -129,7 +129,6 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
                                 options2Items.get(options1).get(options2).getPickerViewText() +
                                 options3Items.get(options1).get(options2).get(options3).getPickerViewText();
 
-                        //Toast.makeText(AddAddressActivity.this, tx, Toast.LENGTH_SHORT).show();
                         tvRegion.setText(tx);
                     }
                 })
@@ -139,7 +138,6 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
                         .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
                         .setContentTextSize(20)
                         .build();
-
                 pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
                 pvOptions.show();
                 break;

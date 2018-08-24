@@ -127,4 +127,9 @@ public class BaseLoadingActivity<P extends IPresenter> extends BaseActivity<P> i
     public boolean useFragment() {
         return false;
     }
+
+    @Override
+    public boolean useEventBus() {
+        return false;
+    }
 }

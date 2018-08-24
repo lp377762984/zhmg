@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -95,6 +96,12 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
         return R.layout.activity_login; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
+    }
+
+    public static void startLogin(Activity activity,String className){
+        Intent intent=new Intent(activity,LoginActivity.class);
+        intent.putExtra("class",className);
+        activity.startActivity(intent);
     }
 
     @Override
@@ -279,7 +286,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
             if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
                 EventBus.getDefault().post(new TabWhat(2));
             else
-                EventBus.getDefault().post(1);
+                EventBus.getDefault().post(getIntent().getStringExtra("class"));
             //用于判断是否显示注册协议,点击主页面第三个tab的判断
             AppConfig.getInstance().putBoolean(ConfigTag.IS_LOGIN, true);
             //save user
@@ -299,4 +306,5 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
             mPresenter.bindPhoneLogin(data.getStringExtra("mobile"), data.getStringExtra("code"), map);
         }
     }
+
 }

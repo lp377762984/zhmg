@@ -3,8 +3,6 @@ package com.wta.NewCloudApp.mvp.presenter;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
-import android.text.TextUtils;
 
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IModel;
@@ -37,6 +35,7 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
     @Inject
     RxErrorHandler mErrorHandler;
     protected Resend resend;
+    private long currentTime;
 
     public BBasePresenter(M model, V rootView) {
         super(model, rootView);
@@ -55,18 +54,17 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
     @Override
     public void handle20(int what, Result result) {
         Activity topActivity = App.getInstance().getAppComponent().appManager().getTopActivity();
-        DialogUtils.showAlertDialog(topActivity,result.msg,new DetDialogCallback(){
+        DialogUtils.showAlertDialog(topActivity, result.msg, new DetDialogCallback() {
             @Override
             public void handleRight(Dialog dialog) {
-                Intent intent = new Intent(topActivity, LoginActivity.class);
-                topActivity.startActivity(intent);
+                LoginActivity.startLogin(topActivity, BBasePresenter.this.getClass().getSimpleName());
             }
         });
     }
 
     @Override
     public <T> void handle200(int what, Result<T> result) {
-        if (result.login_access!=null){
+        if (result.login_access != null) {
             String sessionId = result.login_access.sessionId;
             AppConfig.getInstance().putString("sessionId", sessionId);
         }
@@ -75,7 +73,7 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
     @Override
     public <T> void handle404(int what, Result<T> result) {
         showToast(result.msg);
-        if (result.login_access!=null){
+        if (result.login_access != null) {
             String sessionId = result.login_access.sessionId;
             AppConfig.getInstance().putString("sessionId", sessionId);
         }
@@ -108,7 +106,7 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(disposable -> {
                     if (!isList && needLoading) mRootView.showLoading();
-                    else if(isList){
+                    else if (isList) {
                         if (mRootView instanceof BaseDataView)
                             ((BaseDataView) mRootView).showListLoading();
                     }
@@ -138,13 +136,12 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
 
     /**
      * 登陆之后自动重新请求
-     *
-     * @param what 没有实际意义
      */
     @Subscriber
-    private void reDoRequest(int what) {
-        if (resend != null) {
-            doRequest(resend.observable, mErrorHandler, resend.what);
+    public void reDoRequest(String className) {
+        if (resend != null && className.equals(this.getClass().getSimpleName())) {
+            Observable observable = resend.observable;
+            doRequest(observable, mErrorHandler, resend.what);
         }
     }
 

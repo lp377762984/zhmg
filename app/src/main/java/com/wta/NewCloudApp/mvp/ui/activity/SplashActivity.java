@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
@@ -11,6 +12,8 @@ import com.jess.arms.utils.ArmsUtils;
 import com.taobao.sophix.SophixManager;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.R;
+
+import timber.log.Timber;
 
 public class SplashActivity extends BaseActivity {
 
