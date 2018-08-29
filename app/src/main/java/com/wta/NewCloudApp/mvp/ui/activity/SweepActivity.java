@@ -12,20 +12,16 @@ import android.text.TextUtils;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
-import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wta.NewCloudApp.R;
-import com.wta.NewCloudApp.di.component.DaggerPayComponent;
 import com.wta.NewCloudApp.di.component.DaggerSweepComponent;
-import com.wta.NewCloudApp.di.module.PayModule;
 import com.wta.NewCloudApp.di.module.SweepModule;
-import com.wta.NewCloudApp.mvp.contract.PayContract;
 import com.wta.NewCloudApp.mvp.contract.SweepContract;
 import com.wta.NewCloudApp.mvp.presenter.SweepPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.camera.CameraManager;
@@ -36,6 +32,7 @@ import com.wta.NewCloudApp.mvp.ui.widget.qr.view.QrCodeFinderView;
 import java.io.IOException;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 import timber.log.Timber;
 
@@ -45,10 +42,10 @@ import timber.log.Timber;
  * Describe: 扫一扫界面
  */
 
-public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implements SurfaceHolder.Callback, View.OnClickListener, SweepContract.View {
+public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implements SurfaceHolder.Callback, SweepContract.View {
 
-    @BindView(R.id.rb_switch_light)
-    CheckBox switchLight;
+    @BindView(R.id.im_switch_light)
+    ImageView switchLight;
     private CaptureActivityHandler mCaptureActivityHandler;
     private boolean mHasSurface;
     private InactivityTimer mInactivityTimer;
@@ -74,10 +71,22 @@ public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implement
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        switchLight.setOnClickListener(this);
+        switchLight.setEnabled(false);
         mHasSurface = false;
         CameraManager.init();
         mInactivityTimer = new InactivityTimer(this);
+    }
+
+
+    @OnClick(R.id.lat_switch)
+    public void clickView(View v) {
+        if (switchLight.isEnabled()) {
+            turnFlashLightOff();
+            switchLight.setEnabled(false);
+        } else {
+            turnFlashlightOn();
+            switchLight.setEnabled(true);
+        }
     }
 
     @SuppressLint("CheckResult")
@@ -261,13 +270,4 @@ public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implement
         mHasSurface = false;
     }
 
-
-    @Override
-    public void onClick(View v) {
-        if (switchLight.isChecked()) {
-            turnFlashlightOn();
-        } else {
-            turnFlashLightOff();
-        }
-    }
 }

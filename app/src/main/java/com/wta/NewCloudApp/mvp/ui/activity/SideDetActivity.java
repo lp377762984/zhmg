@@ -138,6 +138,7 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         if (!a1) {//没有一张图片
             latPics.setVisibility(View.GONE);
         } else {
+            latPics.setVisibility(View.VISIBLE);
             if (!a2) {//只有一张图片
                 imStore01.setVisibility(View.VISIBLE);
                 imStore02.setVisibility(View.INVISIBLE);
