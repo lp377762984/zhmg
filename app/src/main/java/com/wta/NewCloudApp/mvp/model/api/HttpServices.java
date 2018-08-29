@@ -12,6 +12,7 @@ import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
+import com.wta.NewCloudApp.mvp.model.entity.Payback;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
@@ -23,6 +24,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -190,4 +192,8 @@ public interface HttpServices {
     @FormUrlEncoded
     @POST("/storeInfo")
     Observable<Result<Business>> getBusinessInfo(@Field("number") String sellerID);
+
+    @FormUrlEncoded
+    @POST("/backAppWx")
+    Observable<Result<Payback>> getPayback(@Field("out_trade_no")String orderId, @Field("type")String type);
 }

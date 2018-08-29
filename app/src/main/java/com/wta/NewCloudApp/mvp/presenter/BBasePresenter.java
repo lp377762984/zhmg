@@ -35,7 +35,6 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
     @Inject
     RxErrorHandler mErrorHandler;
     protected Resend resend;
-    private long currentTime;
 
     public BBasePresenter(M model, V rootView) {
         super(model, rootView);

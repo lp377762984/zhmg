@@ -1,8 +1,7 @@
-package com.wta.NewCloudApp.pay;
+package com.wta.NewCloudApp.wxapi.pay;
 
 import android.app.Activity;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
 import com.jess.arms.utils.ArmsUtils;
@@ -40,10 +39,11 @@ public class PayManager {
 
     public void requestPay(Activity activity, PayInfo payInfo, PayListener payListener) {
         this.payListener = payListener;
-        if (payInfo.sign != null)
+        if (payInfo.sign != null) {
             payWithWX(payInfo);
-        else
+        } else {
             payWithAli(activity, payInfo);
+        }
     }
 
     private void payWithAli(Activity activity, PayInfo payInfo) {

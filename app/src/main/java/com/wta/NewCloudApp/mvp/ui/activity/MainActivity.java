@@ -160,4 +160,9 @@ public class MainActivity extends BaseLoadingActivity {
     public boolean useFragment() {
         return true;
     }
+
+    @Override
+    public boolean useEventBus() {
+        return true;
+    }
 }

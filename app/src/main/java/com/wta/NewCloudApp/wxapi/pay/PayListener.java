@@ -1,4 +1,4 @@
-package com.wta.NewCloudApp.pay;
+package com.wta.NewCloudApp.wxapi.pay;
 
 public interface PayListener {
     /**

@@ -9,6 +9,7 @@ import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
+import com.wta.NewCloudApp.mvp.model.entity.Payback;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
@@ -22,6 +23,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import okhttp3.ResponseBody;
 
 @ActivityScope
@@ -175,6 +177,11 @@ public class UserModel extends BaseModel implements IUserModel {
     }
     public Observable<Result<AliInfo>> getAlipayAuthInfo() {
         return  getService().getAlipayAuthInfo();
+    }
+
+    @Override
+    public Observable<Result<Payback>> getPayback(String orderId, String type) {
+        return getService().getPayback(orderId,type);
     }
 
 }

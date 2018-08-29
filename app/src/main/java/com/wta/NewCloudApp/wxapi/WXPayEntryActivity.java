@@ -4,15 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.jess.arms.utils.ArmsUtils;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
-import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
-import com.wta.NewCloudApp.pay.PayListener;
-import com.wta.NewCloudApp.pay.PayManager;
+import com.wta.NewCloudApp.wxapi.pay.PayListener;
+import com.wta.NewCloudApp.wxapi.pay.PayManager;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 

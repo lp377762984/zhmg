@@ -14,11 +14,7 @@ import android.widget.TextView;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wta.NewCloudApp.R;
-import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.di.component.DaggerPayComponent;
 import com.wta.NewCloudApp.di.module.PayModule;
 import com.wta.NewCloudApp.mvp.contract.PayContract;
@@ -26,8 +22,8 @@ import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.presenter.PayPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
-import com.wta.NewCloudApp.pay.PayListener;
-import com.wta.NewCloudApp.pay.PayManager;
+import com.wta.NewCloudApp.wxapi.pay.PayListener;
+import com.wta.NewCloudApp.wxapi.pay.PayManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -42,6 +38,8 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
     @BindView(R.id.im_head)
     RoundedImageView imHead;
     private String sellerID;
+    private String orderID;
+    private String type;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -100,9 +98,11 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
         }
         switch (view.getId()) {
             case R.id.lat_alipay:
+                type = "alipay";
                 mPresenter.pay(1, sellerID, etMoney.getText().toString());
                 break;
             case R.id.lat_wxpay:
+                type = "weixin";
                 mPresenter.pay(2, sellerID, etMoney.getText().toString());
                 break;
         }
@@ -110,6 +110,7 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
 
     @Override
     public void pay(PayInfo data) {
+        orderID = data.out_trade_no;
         PayManager.getInstance().requestPay(this, data, this);
     }
 
@@ -124,6 +125,7 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
     public void payComplete(int payType, int errorCode) {
         if (errorCode == 0) {
             showToast("支付成功");
+            PayOverActivity.startPayStatus(this, type, orderID);
         } else if (errorCode == -1) {
             showToast("支付失败");
         } else if (errorCode == -2) {

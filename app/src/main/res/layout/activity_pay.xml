@@ -9,11 +9,6 @@
         android:background="@drawable/merchant_in_bg"
         android:layout_width="match_parent"
         android:layout_height="199dp"/>
-    <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
-        app:textTitle="向商户付款"
-        app:barBg="@color/transparent"
-        android:layout_marginTop="@dimen/status_bar"
-        style="@style/MoneyBar"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -167,6 +162,7 @@
             </LinearLayout>
             <com.makeramen.roundedimageview.RoundedImageView
                 android:elevation="6dp"
+                android:src="@color/style_color"
                 app:riv_oval="true"
                 android:layout_marginTop="82dp"
                 android:layout_centerHorizontal="true"
@@ -175,4 +171,9 @@
                 android:layout_height="90dp" />
         </RelativeLayout>
     </ScrollView>
+    <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
+        app:textTitle="向商户付款"
+        app:barBg="@color/transparent"
+        android:layout_marginTop="@dimen/status_bar"
+        style="@style/MoneyBar"/>
 </RelativeLayout>

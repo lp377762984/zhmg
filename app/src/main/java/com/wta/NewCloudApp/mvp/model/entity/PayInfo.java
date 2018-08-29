@@ -23,4 +23,5 @@ public class PayInfo {
     public int timestamp;
     public String sign;
     public String info;
+    public String out_trade_no;
 }
