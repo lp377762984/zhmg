@@ -17,6 +17,7 @@ import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.uitls.EncodeUtils;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -82,29 +83,24 @@ public class UserModel extends BaseModel implements IUserModel {
     }
 
     @Override
-    public Observable<Result<LoginEntity>> bindPhone(String mobile, String verify, Map<String, String> map) {
-        String name = map.get("name");
-        String uid = map.get("uid");
-        //String gender = map.get("gender");
-        String iconurl = map.get("iconurl");
-        map.put("nickname", name);
-        map.put("type", "weixin");
-        map.put("openid", uid);
-        map.put("headimg", iconurl);
-        return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindPhone(mobile, verify, map);
+    public Observable<Result<LoginEntity>> bindPhone(String mobile, String verify, WXUserInfo info) {
+        Map<String,String> userMap=new HashMap<>();
+        userMap.put("nickname", info.nickname);
+        userMap.put("type", "weixin");
+        userMap.put("openid", info.openid);
+        userMap.put("unionid", info.unionid);
+        userMap.put("headimg", info.headimgurl);
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindPhone(mobile, verify, userMap);
     }
 
     @Override
-    public Observable<Result<User>> bindWX(Map<String, String> map) {
-        String uid = map.get("uid");
-        String name = map.get("name");
-        //String gender = map.get("gender");
-        String iconurl = map.get("iconurl");
-        map.put("openid", uid);
-        map.put("nickname", name);
-        map.put("type", "weixin");
-        map.put("headimg", iconurl);
-        return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindWX(map);
+    public Observable<Result<User>> bindWX(WXUserInfo info) {
+        Map<String,String> userMap=new HashMap<>();
+        userMap.put("openid", info.openid);
+        userMap.put("unionid", info.unionid);
+        userMap.put("nickname", info.nickname);
+        userMap.put("type", "weixin");
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindWX(userMap);
     }
 
     @Override

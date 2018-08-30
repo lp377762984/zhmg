@@ -29,8 +29,8 @@ public interface IUserModel extends IModel {
     Observable<Result<List<Msg>>> getMsgList(boolean refresh);//获取消息列表
     Observable<Result<User>> auth(String nickname,String cardno);//实名认证
     Observable<Result<User>> bindSendCode(String phone);//绑定手机号-获取验证码
-    Observable<Result<LoginEntity>> bindPhone(String mobile,String verify,Map<String,String> map);//设置手机号
-    Observable<Result<User>> bindWX(Map<String, String> map);//微信绑定
+    Observable<Result<LoginEntity>> bindPhone(String mobile,String verify,WXUserInfo info);//设置手机号
+    Observable<Result<User>> bindWX(WXUserInfo info);//微信绑定
     Observable<Result<User>> getTeam();//我的团队
     Observable<Result<User>> setRecCode(String code);//添加推荐人
     Observable<Result<List<BankCard>>> getCardList();//银行卡列表

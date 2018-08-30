@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.model.api;
 
 
+import com.wta.NewCloudApp.mvp.model.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
@@ -17,7 +18,9 @@ import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.mvp.model.entity.WXAccessToken;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
+import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -180,20 +183,27 @@ public interface HttpServices {
 
     @FormUrlEncoded
     @POST("/searchStore")
-    Observable<Result<List<Business>>> getSearchResult(@Field("search_name") String keywords, @Field("page")int index);
+    Observable<Result<List<Business>>> getSearchResult(@Field("search_name") String keywords, @Field("page") int index);
 
     @GET("/getUrl")
     Observable<Result<Business>> getBQRData();
 
     @FormUrlEncoded
     @POST("/getPaySign")
-    Observable<Result<PayInfo>> pay(@Field("pay_type")int pay_type, @Field("number")String sellerId
-            , @Field("total_amount")String total, @Field("body")String body, @Field("subject")String subject);
+    Observable<Result<PayInfo>> pay(@Field("pay_type") int pay_type, @Field("number") String sellerId
+            , @Field("total_amount") String total, @Field("body") String body, @Field("subject") String subject);
+
     @FormUrlEncoded
     @POST("/storeInfo")
     Observable<Result<Business>> getBusinessInfo(@Field("number") String sellerID);
 
     @FormUrlEncoded
     @POST("/backAppWx")
-    Observable<Result<Payback>> getPayback(@Field("out_trade_no")String orderId, @Field("type")String type);
+    Observable<Result<Payback>> getPayback(@Field("out_trade_no") String orderId, @Field("type") String type);
+
+    @GET(FinalUtils.WX_ACCESS_TOKEN)
+    Observable<WXAccessToken> getAccessToken(@Query("appid") String wxAppId, @Query("secret") String wxAppSecret
+            , @Query("code") String code, @Query("grant_type") String authorization_code);
+    @GET(FinalUtils.WX_USER_INFO)
+    Observable<WXUserInfo> getWXUserInfo(@Query("access_token")String accessToken, @Query("openid")String openid);
 }

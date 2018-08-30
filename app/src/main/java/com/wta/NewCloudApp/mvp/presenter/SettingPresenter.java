@@ -12,6 +12,7 @@ import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.config.DefaultHandleSubscriber;
 import com.wta.NewCloudApp.mvp.contract.SettingContract;
 import com.wta.NewCloudApp.mvp.model.UserModel;
+import com.wta.NewCloudApp.mvp.model.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
@@ -58,8 +59,8 @@ public class SettingPresenter extends BBasePresenter<UserModel, SettingContract.
         super(model, rootView);
     }
 
-    public void bindWX(Map<String, String> map) {
-        doRequest(buildRequest(mModel.bindWX(map)), 1);
+    public void bindWX(WXUserInfo into) {
+        doRequest(buildRequest(mModel.bindWX(into)), 1);
     }
 
     public void checkUpdate() {

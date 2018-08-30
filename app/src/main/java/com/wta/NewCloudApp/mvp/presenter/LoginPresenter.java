@@ -3,6 +3,7 @@ package com.wta.NewCloudApp.mvp.presenter;
 import com.jess.arms.di.scope.ActivityScope;
 import com.wta.NewCloudApp.mvp.contract.LoginContract;
 import com.wta.NewCloudApp.mvp.model.IUserModel;
+import com.wta.NewCloudApp.mvp.model.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
@@ -28,12 +29,12 @@ public class LoginPresenter extends BBasePresenter<IUserModel, LoginContract.Vie
         doRequest(buildRequest(mModel.login(phone, code, recCode)), 3);
     }
 
-    public void wxLogin(Map<String, String> map) {
-        doRequest(buildRequest(mModel.wxLogin(map.get("uid"))), 2);
+    public void wxLogin(String openID) {
+        doRequest(buildRequest(mModel.wxLogin(openID)), 2);
     }
 
-    public void bindPhoneLogin(String mobile, String verify, Map<String,String> map){
-        doRequest(buildRequest(mModel.bindPhone(mobile,verify,map)),4);
+    public void bindPhoneLogin(String mobile, String verify, WXUserInfo info){
+        doRequest(buildRequest(mModel.bindPhone(mobile,verify,info)),4);
     }
 
     @Override

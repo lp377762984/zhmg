@@ -21,9 +21,6 @@ import android.widget.TextView;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.umeng.socialize.UMAuthListener;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.wta.NewCloudApp.BuildConfig;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
@@ -31,9 +28,11 @@ import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerSettingComponent;
 import com.wta.NewCloudApp.di.module.SettingModule;
 import com.wta.NewCloudApp.mvp.contract.SettingContract;
+import com.wta.NewCloudApp.mvp.model.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.mvp.model.entity.WXAccessToken;
 import com.wta.NewCloudApp.mvp.presenter.SettingPresenter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.uitls.ConfigTag;
@@ -41,19 +40,20 @@ import com.wta.NewCloudApp.uitls.DataCleanUtils;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.PackageUtils;
+import com.wta.NewCloudApp.wxapi.login_share.ThirdAuthManager;
+import com.wta.NewCloudApp.wxapi.login_share.WXOpenIdListener;
+import com.wta.NewCloudApp.wxapi.login_share.WXUserListener;
 
 import org.simple.eventbus.EventBus;
 
 import java.io.File;
-import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
 
-public class SettingActivity extends BaseLoadingActivity<SettingPresenter> implements SettingContract.View, UMAuthListener {
+public class SettingActivity extends BaseLoadingActivity<SettingPresenter> implements SettingContract.View {
 
     @BindView(R.id.lat_phone)
     RelativeLayout latPhone;
@@ -127,9 +127,21 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
                 BindPhoneActivity.startBind(this);
                 break;
             case R.id.lat_wx:
-                if (UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN))
-                    UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.WEIXIN, this);
-                else ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
+                if (!App.getInstance().getWXAPI().isWXAppInstalled()) {
+                    ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
+                } else {
+                    ThirdAuthManager.getInstance().requestAuth(this, new WXOpenIdListener() {
+                        @Override
+                        public void showWXOpenId(WXAccessToken wxAccessToken) {
+                            ThirdAuthManager.getInstance().requestWXUserInfo(wxAccessToken.access_token, wxAccessToken.openid, new WXUserListener() {
+                                @Override
+                                public void showWXUser(WXUserInfo info) {
+                                    mPresenter.bindWX(info);
+                                }
+                            });
+                        }
+                    });
+                }
                 break;
             case R.id.lat_clear:
                 if (tvMemory.getText().equals("0K")) {
@@ -172,24 +184,6 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_BIND) {
             tvPhoneState.setText(AppConfig.getInstance().getString(ConfigTag.MOBILE, null));
         }
-    }
-
-    @Override
-    public void onStart(SHARE_MEDIA share_media) {
-    }
-
-    @Override
-    public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-        mPresenter.bindWX(map);
-    }
-
-    @Override
-    public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-    }
-
-    @Override
-    public void onCancel(SHARE_MEDIA share_media, int i) {
-        ArmsUtils.makeText(App.getInstance(), "微信绑定已取消");
     }
 
     @Override

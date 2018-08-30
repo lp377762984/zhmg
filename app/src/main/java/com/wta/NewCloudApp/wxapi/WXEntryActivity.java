@@ -41,25 +41,7 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
         if (type == 1) {
             ThirdAuthManager.getInstance().authListener.authBack(baseResp);
         }
-       /* WXUtils.getInstance().loginCode = errCode;
-        if (errCode == BaseResp.ErrCode.ERR_OK && type == 1) {
-            WXUtils.getInstance().setCode((SendAuth.Resp) baseResp);
-        } else if (errCode == BaseResp.ErrCode.ERR_USER_CANCEL) {
-            ToastManager.show(type == 1 ? "取消微信登录" : "取消微信分享");
-        } else if (errCode == BaseResp.ErrCode.ERR_SENT_FAILED) {
-            ToastManager.show(type == 1 ? "微信登录失败" : "微信分享失败");
-        } else if (errCode == BaseResp.ErrCode.ERR_AUTH_DENIED) {
-            ToastManager.show("拒绝授权");
-        } else if (errCode == BaseResp.ErrCode.ERR_UNSUPPORT) {
-            Log.e("wx", "onResp: 不支持！");
-        } else if (errCode == BaseResp.ErrCode.ERR_BAN) {
-            Log.e("wx", "onResp: 签名不匹配！");
-        }
-        finish();*/
-    }
-
-    private void showToast(String content) {
-        ArmsUtils.makeText(App.getInstance(), content);
+        finish();
     }
 
 }

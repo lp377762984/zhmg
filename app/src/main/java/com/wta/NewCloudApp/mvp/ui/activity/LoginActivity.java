@@ -19,7 +19,6 @@ import com.jess.arms.integration.lifecycle.Lifecycleable;
 import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.RxLifecycleUtils;
 import com.umeng.socialize.UMAuthListener;
-import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
@@ -27,35 +26,37 @@ import com.wta.NewCloudApp.di.component.DaggerLoginComponent;
 import com.wta.NewCloudApp.di.module.LoginModule;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.LoginContract;
+import com.wta.NewCloudApp.mvp.model.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.mvp.model.entity.WXAccessToken;
 import com.wta.NewCloudApp.mvp.presenter.LoginPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
 import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.RegexUtils;
+import com.wta.NewCloudApp.wxapi.login_share.ThirdAuthManager;
+import com.wta.NewCloudApp.wxapi.login_share.WXOpenIdListener;
+import com.wta.NewCloudApp.wxapi.login_share.WXUserListener;
 
 import org.simple.eventbus.EventBus;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 
-public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implements LoginContract.View, UMAuthListener {
+public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implements LoginContract.View {
 
     @BindView(R.id.im_icon)
     ImageView imIcon;
@@ -78,10 +79,10 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     private static int CODE_TIME = 30;
     @BindView(R.id.rec_line)
     View recLine;
-
     @BindView(R.id.im_back)
     View back;
-    private Map<String, String> map;
+    private WXUserInfo wxUserInfo;
+    private WXAccessToken wxAccessToken;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -98,9 +99,9 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
         return R.layout.activity_login; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
-    public static void startLogin(Activity activity,String className){
-        Intent intent=new Intent(activity,LoginActivity.class);
-        intent.putExtra("class",className);
+    public static void startLogin(Activity activity, String className) {
+        Intent intent = new Intent(activity, LoginActivity.class);
+        intent.putExtra("class", className);
         activity.startActivity(intent);
     }
 
@@ -172,9 +173,17 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
                 WebViewActivity.start(this, "用户协议", FinalUtils.REGISTER_PROTOCOL);
                 break;
             case R.id.im_wx_login:
-                if (UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN))
-                    UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.WEIXIN, this);
-                else ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
+                if (!App.getInstance().getWXAPI().isWXAppInstalled()) {
+                    ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
+                } else {
+                    ThirdAuthManager.getInstance().requestAuth(this, new WXOpenIdListener() {
+                        @Override
+                        public void showWXOpenId(WXAccessToken wxAccessToken) {
+                            LoginActivity.this.wxAccessToken = wxAccessToken;
+                            mPresenter.wxLogin(wxAccessToken.openid);
+                        }
+                    });
+                }
                 break;
             case R.id.im_back:
                 finish();
@@ -191,7 +200,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
             ArmsUtils.makeText(this.getApplicationContext(), "请输入验证码");
             return false;
         }
-        if (checkBox.getVisibility()==View.VISIBLE && !checkBox.isChecked()) {
+        if (checkBox.getVisibility() == View.VISIBLE && !checkBox.isChecked()) {
             ArmsUtils.makeText(this.getApplicationContext(), "请阅读并同意协议");
             return false;
         }
@@ -259,28 +268,15 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     }
 
     @Override
-    public void onStart(SHARE_MEDIA share_media) {
-    }
-
-    @Override
-    public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-        this.map = map;
-        mPresenter.wxLogin(map);
-    }
-
-    @Override
-    public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-    }
-
-    @Override
-    public void onCancel(SHARE_MEDIA share_media, int i) {
-        ArmsUtils.makeText(this, "微信登陆已取消");
-    }
-
-    @Override
     public void loginSuccess(Result<LoginEntity> results) {
         if (results.data.code_type == 0) {//微信登陆需要绑定手机号
-            BindPhoneActivity.startBind(this);
+            ThirdAuthManager.getInstance().requestWXUserInfo(wxAccessToken.access_token, wxAccessToken.openid, new WXUserListener() {
+                @Override
+                public void showWXUser(WXUserInfo info) {
+                    BindPhoneActivity.startBind(LoginActivity.this);
+                }
+            });
+
         } else {
             ArmsUtils.makeText(getApplicationContext(), results.msg);
             if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
@@ -303,7 +299,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_BIND) {
-            mPresenter.bindPhoneLogin(data.getStringExtra("mobile"), data.getStringExtra("code"), map);
+            mPresenter.bindPhoneLogin(data.getStringExtra("mobile"), data.getStringExtra("code"), wxUserInfo);
         }
     }
 
