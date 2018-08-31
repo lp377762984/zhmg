@@ -31,7 +31,7 @@ public class MsgPresenter extends BBasePresenter<UserModel, MsgContract.View> {
         super.handle200(what, result);
         if (what==1) {
             if (mRootView instanceof BaseDataView){
-                ((BaseDataView) mRootView).getData(what, (List) result.data);
+                ((BaseDataView) mRootView).getData(what, (Result<List>) result);
             }else {
                 ArmsUtils.makeText(App.getInstance(),"view is not implements baseDataView");
             }

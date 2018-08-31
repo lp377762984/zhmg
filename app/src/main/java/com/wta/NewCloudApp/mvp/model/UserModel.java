@@ -7,6 +7,8 @@ import com.wta.NewCloudApp.mvp.model.api.HttpServices;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
+import com.wta.NewCloudApp.mvp.model.entity.Bill;
+import com.wta.NewCloudApp.mvp.model.entity.BillType;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.Payback;
@@ -178,6 +180,23 @@ public class UserModel extends BaseModel implements IUserModel {
     @Override
     public Observable<Result<Payback>> getPayback(String orderId, String type) {
         return getService().getPayback(orderId,type);
+    }
+
+    @Override
+    public Observable<Result<List<BillType>>> getBillsType() {
+        return getService().getBillsType();
+    }
+
+    @Override
+    public Observable<Result<List<Bill>>> getBillsList(boolean isRefresh, String status) {
+        if (isRefresh) index = 1;
+        else index++;
+        return  getService().getBillsList(status,1,index);
+    }
+
+    @Override
+    public Observable<Result<Bill>> billDet(long billId) {
+        return getService().billDet(billId);
     }
 
 }

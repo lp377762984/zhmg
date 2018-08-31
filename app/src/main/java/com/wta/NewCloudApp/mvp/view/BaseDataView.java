@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.view;
 
 import com.jess.arms.mvp.IView;
+import com.wta.NewCloudApp.mvp.model.entity.Result;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  */
 
 public interface BaseDataView extends IView {
-    void getData(int what,List data);
+    void getData(int what, Result<List> result);
     void showListLoading();
     void hideListLoading();
     void loadFailed();

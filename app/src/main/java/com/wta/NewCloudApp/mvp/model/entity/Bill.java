@@ -1,17 +1,34 @@
 package com.wta.NewCloudApp.mvp.model.entity;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Bill {
-    @SerializedName(value = "money",alternate = "score")
-    private String money;
-    private String remark;
-    private String type;
-    private String time;
-    private String title;
-    private String icon;
-    private String billType;
-    private String billMore;
+    /**
+     * bill_id : 5
+     * score : 99
+     */
+
+    public int bill_id;
+    public int score;
+    public String money;
+    public String remark;
+    public String type;
+    public String time;
+    public String title;
+    public String icon;
+    public String billType;
+    public String billMore;
+    /**
+     * platform_money : ¥ 0.76
+     * business_money : - 0.24
+     * business_white_score : + 1000
+     * ordersn : 201808281011155199985b84af43cb65
+     * pay_type : 微信
+     */
+
+    public String platform_money;
+    public String business_money;
+    public String business_white_score;
+    public String ordersn;
+    public String pay_type;
 
 
     public String getMoney() {
@@ -89,4 +106,5 @@ public class Bill {
         this.billType = billType;
         this.billMore = billMore;
     }
+
 }

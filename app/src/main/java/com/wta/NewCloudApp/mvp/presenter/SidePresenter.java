@@ -7,6 +7,7 @@ import com.wta.NewCloudApp.mvp.contract.SideContract;
 import com.wta.NewCloudApp.mvp.model.BusinessModel;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.view.BaseDataView;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
         if (what == 1) {
-            mRootView.getData(what, (List) result.data);
+            ((BaseDataView) mRootView).getData(what, (Result<List>) result);
         }else if (what==2){
             mRootView.handleBState((Result<Business>) result);
         }

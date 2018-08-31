@@ -12,6 +12,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wta.NewCloudApp.R;
+import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.ui.widget.CustomLoadMoreView;
 import com.wta.NewCloudApp.mvp.view.BaseDataView;
 
@@ -65,6 +66,7 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        adapter.setEmptyView(R.layout.empty_side);
         if (autoRequest())
             loadData(isRefresh);
     }
@@ -74,7 +76,8 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
     }
 
     @Override
-    public void getData(int what, List msgs) {
+    public void getData(int what, Result<List> result) {
+        List msgs = result.data;
         if (!isRefresh && (msgs == null || msgs.size() == 0))
             isComplete = true;
         if (isRefresh) {

@@ -39,6 +39,7 @@ import com.wta.NewCloudApp.mvp.ui.activity.AddressListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.CardListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.GroupActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MsgActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.ScoreListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SettingActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UserMsgActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity;
@@ -176,7 +177,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
                 WebViewActivity.start(getActivity(), "关于我们", FinalUtils.ABOUT_US);
                 break;
             case R.id.lat_bill:
-                showToast("未开放");
+                ArmsUtils.startActivity(ScoreListActivity.class);
                 break;
         }
     }
@@ -259,7 +260,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
     }
 
     @Override
-    public void getData(int what, List data) {
+    public void getData(int what, Result<List> result) {
 
     }
 

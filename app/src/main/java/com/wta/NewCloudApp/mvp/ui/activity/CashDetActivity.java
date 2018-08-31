@@ -12,6 +12,7 @@ import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerCashDetComponent;
 import com.wta.NewCloudApp.di.module.CashDetModule;
 import com.wta.NewCloudApp.mvp.contract.CashDetContract;
+import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.presenter.CashDetPresenter;
 
 import butterknife.BindView;
@@ -34,6 +35,7 @@ public class CashDetActivity extends BaseLoadingActivity<CashDetPresenter> imple
     TextView tvTime;
     @BindView(R.id.tv_trade_no)
     TextView tvTradeNo;
+    private long billId;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -52,12 +54,24 @@ public class CashDetActivity extends BaseLoadingActivity<CashDetPresenter> imple
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        billId = getIntent().getLongExtra("bill_id", -1);
+        mPresenter.billDet(billId);
     }
 
-    public static void startCashDet(Activity activity, int billID) {
+    public static void startCashDet(Activity activity, long billID) {
         Intent intent = new Intent(activity, CashDetActivity.class);
         intent.putExtra("bill_id", billID);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void showBillDet(Bill bill) {
+        tvClear.setText(bill.platform_money);
+        tvTotalPrice.setText(bill.money);
+        tvServiceFee.setText(bill.business_money);
+        tvScore.setText(bill.business_white_score);
+        tvTradeNo.setText(bill.ordersn);
+        tvPayType.setText(bill.pay_type);
+        tvTime.setText(bill.time);
     }
 }

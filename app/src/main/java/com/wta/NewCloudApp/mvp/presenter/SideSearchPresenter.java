@@ -4,6 +4,7 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.wta.NewCloudApp.mvp.contract.SideSearchContract;
 import com.wta.NewCloudApp.mvp.model.IBusinessModel;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.view.BaseDataView;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class SideSearchPresenter extends BBasePresenter<IBusinessModel, SideSear
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
         if (what==1){
-            mRootView.getData(what, (List) result.data);
+            ((BaseDataView) mRootView).getData(what, (Result<List>) result);
         }
     }
 }

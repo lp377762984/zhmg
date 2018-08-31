@@ -36,7 +36,7 @@ public class AddressListPresenter extends BBasePresenter<UserModel, AddressListC
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
         if (what == 1) {
-            ((BaseDataView) mRootView).getData(what, (List) result.data);
+            ((BaseDataView) mRootView).getData(what, (Result<List>) result);
         } else if (what == 2) {
             mRootView.setDefault();
         } else if (what == 3) {

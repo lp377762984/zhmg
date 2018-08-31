@@ -8,10 +8,10 @@
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
         android:id="@+id/mb"
         app:textTail="积分获取"
-        app:textTitle="积分收益明细"
+        app:textTitle="积分明细"
         android:layout_width="match_parent"
         android:layout_height="@dimen/money_bar_height"/>
-    <com.wta.NewCloudApp.mvp.ui.widget.tabLayout.CommonTabLayout2
+    <com.flyco.tablayout.SlidingTabLayout
         android:background="@color/white"
         app:tl_textSelectColor="@color/style_color"
         app:tl_textUnselectColor="#333"
@@ -23,8 +23,8 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="48dp"/>
-    <FrameLayout
-        android:id="@+id/frameLayout"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

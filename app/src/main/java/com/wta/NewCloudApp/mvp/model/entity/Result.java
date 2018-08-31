@@ -6,6 +6,7 @@ public class Result<T> {
     public int code;
     public String msg;
     public T data;
+    public long white_score;
     @SerializedName("version_upgrade")
     public AppUpdate update;
 

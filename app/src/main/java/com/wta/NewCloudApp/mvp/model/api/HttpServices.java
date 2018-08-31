@@ -7,6 +7,8 @@ import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
+import com.wta.NewCloudApp.mvp.model.entity.Bill;
+import com.wta.NewCloudApp.mvp.model.entity.BillType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
@@ -206,4 +208,11 @@ public interface HttpServices {
             , @Query("code") String code, @Query("grant_type") String authorization_code);
     @GET(FinalUtils.WX_USER_INFO)
     Observable<WXUserInfo> getWXUserInfo(@Query("access_token")String accessToken, @Query("openid")String openid);
+    @GET("/bill/billType")
+    Observable<Result<List<BillType>>> getBillsType();
+
+    @GET("/bill/billList")
+    Observable<Result<List<Bill>>> getBillsList(@Query("status")String status, @Query("type")int type, @Query("page")int page);
+    @GET("/bill/profitDetail")
+    Observable<Result<Bill>> billDet(@Query("billId")long billId);
 }
