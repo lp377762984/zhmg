@@ -11,23 +11,13 @@
         android:background="@drawable/merchant_in_bg" />
 
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
+        app:tailImg="@mipmap/bs_code"
         android:id="@+id/mb"
         android:layout_width="match_parent"
         android:layout_height="@dimen/money_bar_height"
         android:layout_marginTop="@dimen/status_bar"
         app:barBg="@android:color/transparent"
         app:textTitle="商家服务" />
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@id/mb"
-        app:tabIndicatorColor="@color/tab_yellow"
-        app:tabIndicatorHeight="2dp"
-        app:tabSelectedTextColor="@color/tab_yellow"
-        app:tabTextAppearance="@style/tab_appearance"
-        app:tabTextColor="@color/white" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -66,34 +56,21 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_code"
+                    android:id="@+id/tv_11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="53dp"
-                    android:layout_marginStart="53dp"
-                    android:drawableLeft="@mipmap/bs_qr"
-                    android:drawablePadding="8dp"
-                    android:text="收款码"
-                    android:textColor="@color/style_color"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:text="今日收益"
+                    android:textColor="#666"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_benefit" />
 
-                <TextView
-                    android:id="@+id/tv_record"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginEnd="53dp"
-                    android:layout_marginRight="53dp"
-                    android:drawableLeft="@mipmap/bs_record"
-                    android:drawablePadding="8dp"
-                    android:text="记录"
-                    android:textColor="@color/style_color"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
             <TextView
@@ -130,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="商家权益"
+                    android:text="收益明细"
                     android:textColor="@color/text_color2"
                     android:textSize="16sp" />
 
@@ -187,15 +164,13 @@
 
 
             <ImageView
-                android:visibility="gone"
-                android:elevation="5dp"
                 android:id="@+id/im_btm"
                 android:layout_width="match_parent"
                 android:layout_height="85dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:src="@color/style_color" />
         </LinearLayout>
 

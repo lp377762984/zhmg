@@ -43,7 +43,6 @@ public class CardListActivity extends BaseListActivity<CardListPresenter> implem
     @Override
     protected void getAdapter() {
         adapter = new BankCardAdapter(R.layout.card_item, data);
-
     }
 
     @Override
@@ -52,6 +51,7 @@ public class CardListActivity extends BaseListActivity<CardListPresenter> implem
         View footView = getLayoutInflater().inflate(R.layout.card_foot, recyclerView, false);
         footView.setOnClickListener(this);
         adapter.addFooterView(footView);
+        adapter.setHeaderFooterEmpty(true,true);
         recyclerView.addOnItemTouchListener(new OnItemLongClickListener() {
             @Override
             public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {

@@ -3,19 +3,18 @@ package com.wta.NewCloudApp.mvp.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerBServiceComponent;
 import com.wta.NewCloudApp.di.module.BServiceModule;
-import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.BServiceContract;
 import com.wta.NewCloudApp.mvp.presenter.BServicePresenter;
-import com.wta.NewCloudApp.uitls.TablayoutUtils;
+import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -23,16 +22,12 @@ import butterknife.OnClick;
 
 public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> implements BServiceContract.View {
 
-    @BindView(R.id.tabLayout)
-    TabLayout tabLayout;
     @BindView(R.id.tv_benefit)
     TextView tvBenefit;
-    @BindView(R.id.tv_code)
-    TextView tvCode;
-    @BindView(R.id.tv_record)
-    TextView tvRecord;
     @BindView(R.id.im_btm)
     ImageView imBtm;
+    @BindView(R.id.mb)
+    MoneyBar mb;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -51,19 +46,19 @@ public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> imp
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        tabLayout.addTab(tabLayout.newTab().setText("今日收益"));
-        tabLayout.addTab(tabLayout.newTab().setText("推荐收益"));
-        tabLayout.post(() -> TablayoutUtils.setIndicator(tabLayout, 45, 45));
+        mb.setCallBack(mb.new CallbackImp(){
+            @Override
+            public void clickTail() {
+                ArmsUtils.startActivity(BQRActivity.class);
+            }
+        });
     }
 
-    @OnClick({R.id.tv_code, R.id.tv_record, R.id.lat_bs_benefit, R.id.lat_bs_details, R.id.im_btm})
+    @OnClick({R.id.lat_bs_benefit, R.id.lat_bs_details, R.id.im_btm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_code:
-                break;
-            case R.id.tv_record:
-                break;
-            case R.id.lat_bs_benefit:
+            case R.id.lat_bs_benefit://收款明细
+                ArmsUtils.startActivity(BRecordActivity.class);
                 break;
             case R.id.lat_bs_details:
                 ArmsUtils.startActivity(StoreInfoActivity.class);

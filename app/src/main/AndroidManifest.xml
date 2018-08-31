@@ -188,8 +188,9 @@
         <activity android:name=".mvp.ui.activity.SideDetActivity" />
         <activity android:name=".mvp.ui.activity.SideSearchActivity" />
         <activity android:name=".mvp.ui.activity.BQRActivity" />
-        <activity android:name=".mvp.ui.activity.ScoreListActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".mvp.ui.activity.ScoreListActivity"
+            android:exported="true" />
         <activity android:name=".mvp.ui.activity.BGroupListActivity" />
         <activity android:name=".mvp.ui.activity.PayActivity" />
         <activity
@@ -199,7 +200,8 @@
         <activity
             android:name=".mvp.ui.activity.PhotoViewActivity"
             android:exported="true" />
-        <activity android:name=".mvp.ui.activity.PayOverActivity"></activity>
+        <activity android:name=".mvp.ui.activity.PayOverActivity" />
+        <activity android:name=".mvp.ui.activity.BRecordActivity"></activity>
     </application>
 
 </manifest>

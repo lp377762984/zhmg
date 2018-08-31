@@ -48,8 +48,6 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
 
     @BindView(R.id.mb)
     MoneyBar mb;
-    @BindView(R.id.im_head)
-    RoundedImageView imHead;
     @BindView(R.id.tv_code)
     TextView tvCode;
     @BindView(R.id.im_qr)
@@ -87,7 +85,6 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
             }
 
         });
-        GlideArms.with(this).load(AppConfig.getInstance().getString(ConfigTag.AVATAR, null)).placeholder(R.mipmap.user_default).into(imHead);
         tvCode.setText(AppConfig.getInstance().getString(ConfigTag.NUMBER, null));
 
     }

@@ -9,153 +9,169 @@
         app:textTitle="个人信息"
         android:layout_width="match_parent"
         android:layout_height="@dimen/money_bar_height"/>
-    <!--头像-->
-    <RelativeLayout
-        android:id="@+id/lat_head"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:background="@color/white"
+    <LinearLayout
+        android:elevation="5dp"
+        android:background="@drawable/merchant_in_head_bg"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="65dp">
-        <TextView
-            android:text="头像"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
-            android:textColor="@color/text_color2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/im_back"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:src="@mipmap/user_default"
-            android:id="@+id/im_head"
-            android:layout_marginRight="21dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/im_back"
-            app:riv_border_color="#bfbfbf"
-            app:riv_border_width="3dp"
-            app:riv_corner_radius="15dp"
-            android:layout_width="51dp"
-            android:layout_height="51dp" />
-        <View
-            android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--头像-->
+        <RelativeLayout
+            android:id="@+id/lat_head"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/line"/>
-    </RelativeLayout>
+            android:layout_height="48dp">
+            <TextView
+                android:text="头像"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="@color/text_color2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/im_back"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/go"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                app:riv_oval="true"
+                android:src="@mipmap/user_default"
+                android:id="@+id/im_head"
+                android:layout_marginRight="7dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/im_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line"/>
+        </RelativeLayout>
 
-    <!--昵称-->
-    <RelativeLayout
-        android:id="@+id/lat_name"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="65dp">
-        <TextView
-            android:text="昵称"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
-            android:textColor="@color/text_color2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/im_back1"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_name"
-            android:textSize="14sp"
-            android:textColor="@color/text_color_gray2"
-            android:text="15071206163"
-            android:layout_marginRight="21dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/im_back1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </RelativeLayout>
-
-    <!--二维码-->
-    <RelativeLayout
-        android:id="@+id/lat_code"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="65dp">
-        <TextView
-            android:text="二维码"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
-            android:textColor="@color/text_color2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/im_back2"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/im_code"
-            android:layout_marginRight="21dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/im_back2"
-            android:layout_width="51dp"
-            android:layout_height="51dp" />
-        <View
-            android:layout_alignParentBottom="true"
+        <!--昵称-->
+        <RelativeLayout
+            android:id="@+id/lat_name"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/line"/>
-    </RelativeLayout>
+            android:layout_height="48dp">
+            <TextView
+                android:text="昵称"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="@color/text_color2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/im_back1"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/go"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_name"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_gray2"
+                android:text="15071206163"
+                android:layout_marginRight="7dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/im_back1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    <!--实名认证-->
-    <RelativeLayout
-        android:id="@+id/lat_real"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="65dp">
-        <TextView
-            android:id="@+id/tv"
-            android:text="实名认证"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
-            android:textColor="@color/text_color2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/im_back3"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_state"
-            android:textSize="14sp"
-            android:textColor="@color/text_color_gray2"
-            android:text="未认证"
-            android:layout_marginRight="21dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/im_back3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line"/>
+
+        </RelativeLayout>
+
+        <!--二维码-->
+        <RelativeLayout
+            android:id="@+id/lat_code"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <TextView
+                android:text="二维码"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="@color/text_color2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/im_back2"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/go"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:src="@mipmap/user_qr"
+                android:id="@+id/im_code"
+                android:layout_marginRight="7dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/im_back2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line"/>
+        </RelativeLayout>
+
+        <!--实名认证-->
+        <RelativeLayout
+            android:id="@+id/lat_real"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <TextView
+                android:id="@+id/tv"
+                android:text="实名认证"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="@color/text_color2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/im_back3"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/go"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_state"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_gray2"
+                android:text="未认证"
+                android:layout_marginRight="7dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/im_back3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line"/>
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

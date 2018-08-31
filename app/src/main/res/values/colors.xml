@@ -42,9 +42,9 @@
     <color name="line">#e6e6e6</color>
     <color name="style_color">#ff4c6a</color>
     <color name="text_color_gray">#999999</color>
-    <color name="text_color_gray2">#909090</color>
+    <color name="text_color_gray2">#999999</color>
     <color name="text_color">#666666</color>
-    <color name="text_color2">#646464</color>
+    <color name="text_color2">#333</color>
     <color name="hint_color">#999999</color>
     <color name="app_bg">#FFF2F2F2</color>
     <color name="tab_yellow">#ffe14c</color>

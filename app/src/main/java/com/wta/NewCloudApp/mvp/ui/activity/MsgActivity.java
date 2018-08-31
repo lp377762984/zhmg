@@ -15,7 +15,9 @@ import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.presenter.MsgPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.MsgAdapter;
 
-
+/**
+ * 消息
+ */
 public class MsgActivity extends BaseListActivity<MsgPresenter> implements MsgContract.View {
 
     @Override
