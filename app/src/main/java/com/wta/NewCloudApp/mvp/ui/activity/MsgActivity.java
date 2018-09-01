@@ -51,4 +51,9 @@ public class MsgActivity extends BaseListActivity<MsgPresenter> implements MsgCo
     public void loadData(boolean isRefresh) {
         mPresenter.getData(isRefresh);
     }
+
+    @Override
+    public boolean needLoadmore() {
+        return true;
+    }
 }

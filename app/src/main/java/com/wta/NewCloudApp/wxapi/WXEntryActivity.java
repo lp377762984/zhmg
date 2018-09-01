@@ -1,21 +1,18 @@
 package com.wta.NewCloudApp.wxapi;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
-import com.jess.arms.utils.ArmsUtils;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
-import com.umeng.socialize.weixin.view.WXCallbackActivity;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.wxapi.login_share.ThirdAuthManager;
 
 
-public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHandler {
+public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
