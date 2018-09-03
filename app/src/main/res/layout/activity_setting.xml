@@ -16,11 +16,14 @@
         android:paddingLeft="19dp"
         android:paddingRight="9dp"
         android:layout_below="@id/mb"
-        android:background="@color/white"
+        android:elevation="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/merchant_in_head_bg"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
+        android:layout_height="48dp">
         <TextView
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@color/text_color2"
             android:layout_centerVertical="true"
             android:text="手机号"
@@ -29,147 +32,166 @@
         <TextView
             android:id="@+id/tv_phone_state"
             android:layout_alignParentRight="true"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textColor="@color/text_color_gray2"
             android:layout_centerVertical="true"
             android:text="未绑定"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/lat_wx"
+    <LinearLayout
+        android:elevation="5dp"
+        android:background="@drawable/merchant_in_head_bg"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:paddingLeft="19dp"
-        android:paddingRight="9dp"
         android:layout_below="@id/lat_phone"
-        android:background="@color/white"
+        android:id="@+id/lat_pay_type"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
-        <TextView
-            android:gravity="center"
-            android:drawablePadding="10dp"
-            android:drawableLeft="@mipmap/setting_wx"
-            android:textSize="16sp"
-            android:textColor="@color/text_color2"
-            android:layout_centerVertical="true"
-            android:text="微信"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_wx_state"
-            android:layout_alignParentRight="true"
-            android:textSize="16sp"
-            android:textColor="@color/text_color_gray2"
-            android:layout_centerVertical="true"
-            android:text="未绑定"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/lat_ali"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="19dp"
-        android:paddingRight="9dp"
-        android:layout_below="@id/lat_wx"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="55dp">
-        <TextView
-            android:gravity="center"
-            android:drawablePadding="10dp"
-            android:drawableLeft="@mipmap/alipay"
-            android:textSize="16sp"
-            android:textColor="@color/text_color2"
-            android:layout_centerVertical="true"
-            android:text="支付宝"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_ali_state"
-            android:layout_alignParentRight="true"
-            android:textSize="16sp"
-            android:textColor="@color/text_color_gray2"
-            android:layout_centerVertical="true"
-            android:text="未绑定"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/lat_clear"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="19dp"
-        android:paddingRight="9dp"
-        android:layout_below="@id/lat_ali"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="55dp">
-        <TextView
-            android:gravity="center"
-            android:drawablePadding="10dp"
-            android:textSize="16sp"
-            android:textColor="@color/text_color2"
-            android:layout_centerVertical="true"
-            android:text="清理缓存"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/im_go"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/go"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_memory"
-            android:layout_marginRight="7dp"
-            android:layout_toLeftOf="@id/im_go"
-            android:textSize="16sp"
-            android:textColor="@color/text_color_gray2"
-            android:layout_centerVertical="true"
-            android:text="2.5M"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <View
-            android:layout_alignParentBottom="true"
-            android:background="@color/line"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/lat_wx"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="19dp"
+            android:paddingRight="9dp"
+            android:layout_below="@id/lat_phone"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/lat_update"
-        android:paddingLeft="19dp"
-        android:paddingRight="9dp"
-        android:layout_below="@id/lat_clear"
-        android:background="@color/white"
+            android:layout_height="48dp">
+            <TextView
+                android:gravity="center"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@mipmap/setting_wx"
+                android:textSize="14sp"
+                android:textColor="@color/text_color2"
+                android:layout_centerVertical="true"
+                android:text="微信"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_wx_state"
+                android:layout_alignParentRight="true"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_gray2"
+                android:layout_centerVertical="true"
+                android:text="未绑定"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/lat_ali"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="19dp"
+            android:paddingRight="9dp"
+            android:layout_below="@id/lat_wx"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <TextView
+                android:gravity="center"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@mipmap/alipay"
+                android:textSize="14sp"
+                android:textColor="@color/text_color2"
+                android:layout_centerVertical="true"
+                android:text="支付宝"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_ali_state"
+                android:layout_alignParentRight="true"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_gray2"
+                android:layout_centerVertical="true"
+                android:text="未绑定"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@id/lat_pay_type"
+        android:elevation="5dp"
+        android:background="@drawable/merchant_in_head_bg"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
-        <TextView
-            android:gravity="center"
-            android:drawablePadding="10dp"
-            android:textSize="16sp"
-            android:textColor="@color/text_color2"
-            android:layout_centerVertical="true"
-            android:text="版本更新"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/im_go2"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/go"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_version"
-            android:layout_marginRight="7dp"
-            android:layout_toLeftOf="@id/im_go2"
-            android:textSize="16sp"
-            android:textColor="@color/text_color_gray2"
-            android:layout_centerVertical="true"
-            android:text="1.0.0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/lat_clear"
+            android:paddingLeft="19dp"
+            android:paddingRight="9dp"
+            android:layout_below="@id/lat_pay_type"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <TextView
+                android:gravity="center"
+                android:drawablePadding="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/text_color2"
+                android:layout_centerVertical="true"
+                android:text="清理缓存"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/im_go"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/go"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_memory"
+                android:layout_marginRight="7dp"
+                android:layout_toLeftOf="@id/im_go"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_gray2"
+                android:layout_centerVertical="true"
+                android:text="2.5M"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/lat_update"
+            android:paddingLeft="19dp"
+            android:paddingRight="9dp"
+            android:layout_below="@id/lat_clear"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <TextView
+                android:gravity="center"
+                android:drawablePadding="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/text_color2"
+                android:layout_centerVertical="true"
+                android:text="版本更新"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/im_go2"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/go"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_version"
+                android:layout_marginRight="7dp"
+                android:layout_toLeftOf="@id/im_go2"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_gray2"
+                android:layout_centerVertical="true"
+                android:text="1.0.0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_exit"
         android:textSize="14sp"

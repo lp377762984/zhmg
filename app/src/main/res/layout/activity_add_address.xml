@@ -162,7 +162,7 @@
         android:textSize="18sp"
         android:textColor="@color/white"
         android:text="保存"
-        android:background="@drawable/add_card_save_bg"
+        android:background="@drawable/det_btn_bg"
         android:layout_width="match_parent"
         android:layout_height="36dp" />
 </LinearLayout>

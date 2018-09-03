@@ -10,7 +10,7 @@
         android:paddingLeft="100dp"
         android:paddingRight="100dp"
         android:drawableLeft="@mipmap/address_add"
-        android:background="@drawable/add_card_save_bg"
+        android:background="@drawable/det_btn_bg"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_marginBottom="59dp"

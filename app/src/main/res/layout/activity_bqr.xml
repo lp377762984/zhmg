@@ -36,7 +36,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="推荐码"
+                    android:text="扫二维码 向我付款"
                     android:textColor="#333"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"

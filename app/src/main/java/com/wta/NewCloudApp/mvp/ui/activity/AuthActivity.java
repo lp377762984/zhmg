@@ -75,6 +75,7 @@ public class AuthActivity extends BaseLoadingActivity<AuthPresenter> implements 
 
     @Override
     public void authSuccess(Result<User> result) {
+        showToast("实名认证成功");
         AppConfig.getInstance().putInt(ConfigTag.CARD_STATUS,result.data.card_status);
         setResult(RESULT_OK);
         finish();

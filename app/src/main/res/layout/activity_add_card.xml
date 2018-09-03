@@ -14,9 +14,9 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:gravity="center_vertical"
-        android:textColor="#bf656565"
+        android:textColor="#999"
         android:text="请填写实名认证身份证号绑定的银行卡"
-        android:textSize="16sp"
+        android:textSize="13sp"
         android:background="#f5f5f5"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
@@ -27,8 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <TextView
-            android:textSize="18sp"
-            android:textColor="#323232"
+            android:textSize="14sp"
+            android:textColor="#333"
             android:text="银行卡号"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -38,11 +38,11 @@
             android:inputType="number"
             android:hint="请填写银行卡号"
             android:paddingLeft="9dp"
-            app:hintSize="18sp"
+            app:hintSize="14sp"
             android:textColorHint="@color/hint_color"
             android:background="@null"
             android:textColor="@color/text_color2"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
@@ -56,9 +56,9 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="182dp"
-        android:background="@drawable/add_card_save_bg"
+        android:background="@drawable/det_btn_bg"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:layout_width="match_parent"
         android:layout_height="36dp" />
 </LinearLayout>

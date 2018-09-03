@@ -134,57 +134,19 @@
                         app:layout_constraintStart_toStartOf="@+id/tv_score_str" />
                 </android.support.constraint.ConstraintLayout>
 
-                <!--兑换记录-->
-                <RelativeLayout
-                    android:elevation="5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@id/lat_msg_main"
-                    android:id="@+id/lat_record"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/merchant_in_head_bg"
-                    android:paddingLeft="17dp"
-                    android:paddingRight="17dp">
-
-                    <ImageView
-                        android:id="@+id/im_01"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/mine_order" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/im_01"
-                        android:text="兑换记录"
-                        android:textColor="@color/text_color2"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/go" />
-                </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/lat_01"
                     android:elevation="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginBottom="15dp"
                     android:background="@drawable/merchant_in_head_bg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/lat_record"
+                    android:layout_below="@id/lat_msg_main"
                     android:orientation="vertical">
-                    <!--我的账单-->
+                    <!--积分明细-->
                     <RelativeLayout
                         android:id="@+id/lat_bill"
                         android:layout_width="match_parent"
@@ -197,7 +159,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:src="@mipmap/mine_record" />
+                            android:src="@mipmap/mine_score" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -205,7 +167,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="20dp"
                             android:layout_toRightOf="@id/im_10"
-                            android:text="我的账单"
+                            android:text="积分明细"
                             android:textColor="@color/text_color2"
                             android:textSize="16sp" />
 
@@ -220,30 +182,30 @@
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_alignParentBottom="true"
-                            android:background="@color/line_wider" />
+                            android:background="@color/line" />
                     </RelativeLayout>
-                    <!--我的卡包-->
+                    <!--兑换记录-->
                     <RelativeLayout
-                        android:id="@+id/lat_card"
+                        android:id="@+id/lat_record"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:paddingLeft="17dp"
                         android:paddingRight="17dp">
 
                         <ImageView
-                            android:id="@+id/im_02"
+                            android:id="@+id/im_01"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:src="@mipmap/mine_card" />
+                            android:src="@mipmap/mine_order" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="20dp"
-                            android:layout_toRightOf="@id/im_02"
-                            android:text="我的卡包"
+                            android:layout_toRightOf="@id/im_01"
+                            android:text="兑换记录"
                             android:textColor="@color/text_color2"
                             android:textSize="16sp" />
 
@@ -253,9 +215,20 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:src="@mipmap/go" />
-
                     </RelativeLayout>
+                </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/lat_02"
+                    android:elevation="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/merchant_in_head_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lat_01"
+                    android:orientation="vertical">
                     <!--我的团队-->
                     <RelativeLayout
                         android:id="@+id/lat_group"
@@ -325,7 +298,93 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:src="@mipmap/go" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/line" />
+                    </RelativeLayout>
+                    <!--我的卡包-->
+                    <RelativeLayout
+                        android:id="@+id/lat_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="17dp">
 
+                        <ImageView
+                            android:id="@+id/im_02"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_card" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@id/im_02"
+                            android:text="我的卡包"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:elevation="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/merchant_in_head_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lat_02"
+                    android:orientation="vertical">
+                    <!--收货地址-->
+                    <RelativeLayout
+                        android:id="@+id/lat_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="17dp">
+
+                        <ImageView
+                            android:id="@+id/im_04"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_location" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@id/im_04"
+                            android:text="收货地址"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/line_wider" />
                     </RelativeLayout>
                     <!--我的分享-->
                     <RelativeLayout
@@ -359,43 +418,6 @@
                             android:layout_centerVertical="true"
                             android:src="@mipmap/go" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_alignParentBottom="true"
-                            android:background="@color/line_wider" />
-                    </RelativeLayout>
-                    <!--收货地址-->
-                    <RelativeLayout
-                        android:id="@+id/lat_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:paddingLeft="17dp"
-                        android:paddingRight="17dp">
-
-                        <ImageView
-                            android:id="@+id/im_04"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:src="@mipmap/mine_location" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="20dp"
-                            android:layout_toRightOf="@id/im_04"
-                            android:text="收货地址"
-                            android:textColor="@color/text_color2"
-                            android:textSize="16sp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:src="@mipmap/go" />
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
