@@ -66,7 +66,11 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-        adapter.setEmptyView(R.layout.empty_side);
+        try {
+            adapter.setEmptyView(R.layout.empty_side);
+        } catch (Exception e) {
+            adapter.bindToRecyclerView(recyclerView);
+        }
         if (autoRequest())
             loadData(isRefresh);
     }
