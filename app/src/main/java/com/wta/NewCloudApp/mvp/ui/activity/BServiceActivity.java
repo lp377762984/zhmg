@@ -52,6 +52,7 @@ public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> imp
                 ArmsUtils.startActivity(BQRActivity.class);
             }
         });
+        mPresenter.getBMoney();
     }
 
     @OnClick({R.id.lat_bs_benefit, R.id.lat_bs_details, R.id.im_btm})
@@ -71,5 +72,10 @@ public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> imp
     @Override
     public int setUIMode() {
         return UIMODE_TRANSPARENT_NOTALL;
+    }
+
+    @Override
+    public void showBMoney(String money) {
+        tvBenefit.setText(money);
     }
 }

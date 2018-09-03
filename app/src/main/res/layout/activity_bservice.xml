@@ -7,7 +7,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="177dp"
+        android:layout_height="128dp"
         android:background="@drawable/merchant_in_bg" />
 
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
@@ -22,7 +22,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="114dp">
+        android:layout_marginTop="72dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,7 +35,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="12dp"
                 android:background="@drawable/bs_head_bg"
                 android:elevation="5dp">
 
@@ -48,7 +47,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="30dp"
-                    android:text="00.00元"
+                    android:text="0元"
                     android:textColor="@color/style_color"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -165,13 +164,13 @@
 
             <ImageView
                 android:id="@+id/im_btm"
-                android:layout_width="match_parent"
-                android:layout_height="85dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="10dp"
-                android:src="@color/style_color" />
+                android:src="@mipmap/bs_banner" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

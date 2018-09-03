@@ -5,6 +5,7 @@ import com.wta.NewCloudApp.mvp.model.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
+import com.wta.NewCloudApp.mvp.model.entity.BEntity;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.model.entity.Bill;
@@ -220,4 +221,6 @@ public interface HttpServices {
     Observable<Result<Bill>> billDet(@Query("billId") long billId);
     @GET("/bill/totalProfitList")
     Observable<Result<List<Bill>>> getBReceiveList(@Query("billId")int index, @Query("type")int type, @Query("searchType")String searchType, @Query("date")String date);
+    @GET("/bill/dayProfit")
+    Observable<BEntity> getBMoney();
 }

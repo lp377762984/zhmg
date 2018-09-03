@@ -1,24 +1,19 @@
 package com.wta.NewCloudApp.mvp.model;
 
-import android.app.Application;
-
-import com.google.gson.Gson;
+import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
-
-import com.jess.arms.di.scope.ActivityScope;
+import com.wta.NewCloudApp.mvp.contract.BServiceContract;
+import com.wta.NewCloudApp.mvp.model.api.HttpServices;
+import com.wta.NewCloudApp.mvp.model.entity.BEntity;
 
 import javax.inject.Inject;
 
-import com.wta.NewCloudApp.mvp.contract.BServiceContract;
+import io.reactivex.Observable;
 
 
 @ActivityScope
 public class BServiceModel extends BaseModel implements BServiceContract.Model {
-    @Inject
-    Gson mGson;
-    @Inject
-    Application mApplication;
 
     @Inject
     public BServiceModel(IRepositoryManager repositoryManager) {
@@ -26,9 +21,7 @@ public class BServiceModel extends BaseModel implements BServiceContract.Model {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        this.mGson = null;
-        this.mApplication = null;
+    public Observable<BEntity> getBMoney() {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getBMoney();
     }
 }
