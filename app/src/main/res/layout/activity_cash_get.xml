@@ -6,27 +6,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
-        app:textTitle="现金收益"
+        app:textTitle="收款记录"
         style="@style/MoneyBar"/>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <LinearLayout
                 android:focusableInTouchMode="true"
                 android:focusable="true"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
                 <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/lat_head"
                     android:elevation="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
                     android:background="@drawable/merchant_in_head_bg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -86,13 +87,12 @@
                             android:textSize="30sp"
                             android:layout_alignBottom="@id/tv_yang"
                             android:layout_centerHorizontal="true"
-                            android:text="88.88"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </RelativeLayout>
                     <LinearLayout
-                        android:layout_marginTop="42dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="20dp"
                         android:layout_below="@id/lat_money"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -105,29 +105,8 @@
                             <TextView
                                 android:textColor="#666"
                                 android:textSize="18sp"
-                                android:id="@+id/tv_total_person"
-                                android:text="20"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:textColor="#666"
-                                android:layout_marginTop="8dp"
-                                android:text="顾客人数"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:textColor="#666"
-                                android:textSize="18sp"
                                 android:id="@+id/tv_total_count"
-                                android:text="20"
+                                android:text="0"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
@@ -147,15 +126,15 @@
                             <TextView
                                 android:textColor="#666"
                                 android:textSize="18sp"
-                                android:id="@+id/tv_total_fee"
-                                android:text="20"
+                                android:id="@+id/tv_total_score"
+                                android:text="0"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
                                 android:textSize="12sp"
                                 android:textColor="#666"
                                 android:layout_marginTop="8dp"
-                                android:text="服务费"
+                                android:text="积分收益"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
@@ -167,10 +146,11 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="15dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/merchant_in_head_bg"
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"/>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

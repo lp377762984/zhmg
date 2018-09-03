@@ -9,6 +9,11 @@ public class Result<T> {
     public long white_score;
     @SerializedName("version_upgrade")
     public AppUpdate update;
+    /**
+     * sumNumber : {"sumProfit":2000,"receivablesNumber":7,"integralIncome":13}
+     */
+
+    public SumNumberBean sumNumber;
 
     public static class AppUpdate{
         public int android_type;
@@ -24,5 +29,17 @@ public class Result<T> {
     public LoginAccessBean login_access;
     public static class LoginAccessBean {
         public String sessionId;
+    }
+
+    public static class SumNumberBean {
+        /**
+         * sumProfit : 2000
+         * receivablesNumber : 7
+         * integralIncome : 13
+         */
+
+        public int sumProfit;
+        public int receivablesNumber;
+        public int integralIncome;
     }
 }

@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_marginTop="75dp"
-    android:layout_marginBottom="136dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="568dp"
+    android:orientation="vertical">
     <LinearLayout
-        android:gravity="center_horizontal"
-        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="160dp"
+        android:layout_marginBottom="230dp"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@mipmap/cash_empty"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@mipmap/cash_empty" />
+
         <TextView
-            android:textSize="12sp"
-            android:textColor="#999"
-            android:layout_marginTop="20dp"
-            android:text="您今日还没有受益喔！"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="您今日还没有收益喔！"
+            android:textColor="#999"
+            android:textSize="12sp" />
     </LinearLayout>
-</RelativeLayout>
+
+</FrameLayout>

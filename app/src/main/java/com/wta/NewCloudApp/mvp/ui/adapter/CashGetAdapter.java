@@ -21,6 +21,7 @@ public class CashGetAdapter extends BaseQuickAdapter<Score,BaseViewHolder> {
         helper.setText(R.id.tv_name, item.name);
         helper.setText(R.id.tv_time, item.time);
         helper.setText(R.id.tv_score, item.score);
-        GlideArms.with(mContext).load(item.icon).into((ImageView) helper.getView(R.id.im_head));
+        GlideArms.with(mContext).load(item.icon)
+                .placeholder(R.mipmap.user_default).into((ImageView) helper.getView(R.id.im_head));
     }
 }

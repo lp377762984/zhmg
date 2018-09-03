@@ -121,8 +121,7 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
     }
 
     public void loadData(boolean isRefresh) {
-        if (adapter != null)
-            adapter.loadMoreFail();
+
     }
 
     public boolean needLoadmore() {

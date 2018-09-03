@@ -199,4 +199,11 @@ public class UserModel extends BaseModel implements IUserModel {
         return getService().billDet(billId);
     }
 
+    @Override
+    public Observable<Result<List<Bill>>> getBReceiveList(boolean isRefresh, int type, String searchType, String date) {
+        if (isRefresh) index = 1;
+        else index++;
+        return  getService().getBReceiveList(index,type,searchType,date);
+    }
+
 }

@@ -80,4 +80,6 @@ public interface IUserModel extends IModel {
     Observable<Result<List<Bill>>> getBillsList(boolean isRefresh, String status);
 
     Observable<Result<Bill>> billDet(long billId);
+
+    Observable<Result<List<Bill>>> getBReceiveList(boolean isRefresh, int type, String searchType, String date);
 }

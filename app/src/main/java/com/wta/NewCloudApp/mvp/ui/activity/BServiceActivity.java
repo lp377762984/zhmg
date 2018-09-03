@@ -58,7 +58,7 @@ public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> imp
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_bs_benefit://收款明细
-                ArmsUtils.startActivity(BRecordActivity.class);
+                CashGetMActivity.startCashList(this, 1);
                 break;
             case R.id.lat_bs_details:
                 ArmsUtils.startActivity(StoreInfoActivity.class);

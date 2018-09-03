@@ -13,8 +13,8 @@
     <RelativeLayout
         android:id="@+id/lat_phone"
         android:layout_marginTop="10dp"
-        android:paddingLeft="19dp"
-        android:paddingRight="9dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:layout_below="@id/mb"
         android:elevation="5dp"
         android:layout_marginLeft="15dp"
@@ -32,7 +32,7 @@
         <TextView
             android:id="@+id/tv_phone_state"
             android:layout_alignParentRight="true"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:textColor="@color/text_color_gray2"
             android:layout_centerVertical="true"
             android:text="未绑定"
@@ -53,8 +53,8 @@
         <RelativeLayout
             android:id="@+id/lat_wx"
             android:layout_marginTop="10dp"
-            android:paddingLeft="19dp"
-            android:paddingRight="9dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:layout_below="@id/lat_phone"
             android:layout_width="match_parent"
             android:layout_height="48dp">
@@ -71,18 +71,24 @@
             <TextView
                 android:id="@+id/tv_wx_state"
                 android:layout_alignParentRight="true"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="@color/text_color_gray2"
                 android:layout_centerVertical="true"
                 android:text="未绑定"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/lat_ali"
             android:layout_marginTop="10dp"
-            android:paddingLeft="19dp"
-            android:paddingRight="9dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:layout_below="@id/lat_wx"
             android:layout_width="match_parent"
             android:layout_height="48dp">
@@ -99,7 +105,7 @@
             <TextView
                 android:id="@+id/tv_ali_state"
                 android:layout_alignParentRight="true"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="@color/text_color_gray2"
                 android:layout_centerVertical="true"
                 android:text="未绑定"
@@ -119,8 +125,8 @@
         android:orientation="vertical">
         <RelativeLayout
             android:id="@+id/lat_clear"
-            android:paddingLeft="19dp"
-            android:paddingRight="9dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:layout_below="@id/lat_pay_type"
             android:layout_width="match_parent"
             android:layout_height="48dp">
@@ -144,7 +150,7 @@
                 android:id="@+id/tv_memory"
                 android:layout_marginRight="7dp"
                 android:layout_toLeftOf="@id/im_go"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="@color/text_color_gray2"
                 android:layout_centerVertical="true"
                 android:text="2.5M"
@@ -158,8 +164,8 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/lat_update"
-            android:paddingLeft="19dp"
-            android:paddingRight="9dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:layout_below="@id/lat_clear"
             android:layout_width="match_parent"
             android:layout_height="48dp">
@@ -183,7 +189,7 @@
                 android:id="@+id/tv_version"
                 android:layout_marginRight="7dp"
                 android:layout_toLeftOf="@id/im_go2"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="@color/text_color_gray2"
                 android:layout_centerVertical="true"
                 android:text="1.0.0"

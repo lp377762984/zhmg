@@ -28,7 +28,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
-
+/**
+ * 积分账单
+ */
 public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> implements ScoreListContract.View {
 
     private BillType billType;

@@ -18,18 +18,21 @@ import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerCashGetComponent;
 import com.wta.NewCloudApp.di.module.CashGetModule;
 import com.wta.NewCloudApp.mvp.contract.CashGetContract;
+import com.wta.NewCloudApp.mvp.model.entity.Bill;
+import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Score;
 import com.wta.NewCloudApp.mvp.presenter.CashGetPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.CashGetAdapter;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 现金收益界面
+ * 收款记录界面
  */
 public class CashGetMActivity extends BaseListActivity<CashGetPresenter> implements CashGetContract.View {
 
@@ -41,13 +44,14 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
     TextView tvYang;
     @BindView(R.id.tv_total_money)
     TextView tvTotalMoney;
-    @BindView(R.id.tv_total_person)
-    TextView tvTotalPerson;
     @BindView(R.id.tv_total_count)
     TextView tvTotalCount;
-    @BindView(R.id.tv_total_fee)
-    TextView tvTotalFee;
+    @BindView(R.id.tv_total_score)
+    TextView tvTotalScore;
+    @BindView(R.id.lat_head)
+    View latHead;
     private int type;//0月账单 1日账单
+    private String date;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -87,18 +91,15 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
             }
         });
         adapter.setEmptyView(R.layout.cash_get_empty);
-        for (int i = 0; i < 5; i++) {
-            data.add(new Score("", "墙头草", "08.25 21:35", "2500"));
-        }
     }
 
     @Override
     protected void getAdapter() {
-        adapter = new CashGetAdapter(R.layout.score_item, data);
+        adapter = new CashGetAdapter(R.layout.b_cash_item, data);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CashDetActivity.startCashDet(CashGetMActivity.this,1111);
+                CashDetActivity.startCashDet(CashGetMActivity.this, ((Bill) data.get(position)).bill_id);
             }
         });
     }
@@ -130,6 +131,37 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
                     CashGetMActivity.startCashList(this, 1);
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void loadData(boolean isRefresh) {
+        mPresenter.getBReceiveList(isRefresh, 1, type == 0 ? "month" : "day", date);
+    }
+
+    @Override
+    public void getData(int what, Result<List> result) {
+        List msgs = result.data;
+        if (!isRefresh && (msgs == null || msgs.size() == 0))
+            isComplete = true;
+        if (isRefresh) {
+            data.clear();
+            if (msgs != null && msgs.size() > 0) {
+                data.addAll(msgs);
+                latHead.setVisibility(View.VISIBLE);
+                tvTotalMoney.setText(result.sumNumber.integralIncome + "");
+                tvTotalCount.setText(result.sumNumber.receivablesNumber + "");
+                tvTotalScore.setText(result.sumNumber.sumProfit + "");
+                adapter.notifyDataSetChanged();
+            } else {
+                latHead.setVisibility(View.GONE);
+            }
+        } else {
+            int beforeSize = data.size();
+            if (msgs != null) {
+                data.addAll(msgs);
+                adapter.notifyItemRangeInserted(beforeSize, msgs.size());
+            }
         }
     }
 }

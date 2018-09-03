@@ -206,13 +206,18 @@ public interface HttpServices {
     @GET(FinalUtils.WX_ACCESS_TOKEN)
     Observable<WXAccessToken> getAccessToken(@Query("appid") String wxAppId, @Query("secret") String wxAppSecret
             , @Query("code") String code, @Query("grant_type") String authorization_code);
+
     @GET(FinalUtils.WX_USER_INFO)
-    Observable<WXUserInfo> getWXUserInfo(@Query("access_token")String accessToken, @Query("openid")String openid);
+    Observable<WXUserInfo> getWXUserInfo(@Query("access_token") String accessToken, @Query("openid") String openid);
+
     @GET("/bill/billType")
     Observable<Result<List<BillType>>> getBillsType();
 
     @GET("/bill/billList")
-    Observable<Result<List<Bill>>> getBillsList(@Query("status")String status, @Query("type")int type, @Query("page")int page);
+    Observable<Result<List<Bill>>> getBillsList(@Query("status") String status, @Query("type") int type, @Query("page") int page);
+
     @GET("/bill/profitDetail")
-    Observable<Result<Bill>> billDet(@Query("billId")long billId);
+    Observable<Result<Bill>> billDet(@Query("billId") long billId);
+    @GET("/bill/totalProfitList")
+    Observable<Result<List<Bill>>> getBReceiveList(@Query("billId")int index, @Query("type")int type, @Query("searchType")String searchType, @Query("date")String date);
 }
