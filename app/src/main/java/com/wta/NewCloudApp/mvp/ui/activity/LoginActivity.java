@@ -273,6 +273,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
             ThirdAuthManager.getInstance().requestWXUserInfo(wxAccessToken.access_token, wxAccessToken.openid, new WXUserListener() {
                 @Override
                 public void showWXUser(WXUserInfo info) {
+                    LoginActivity.this.wxUserInfo = info;
                     BindPhoneActivity.startBind(LoginActivity.this);
                 }
             });
