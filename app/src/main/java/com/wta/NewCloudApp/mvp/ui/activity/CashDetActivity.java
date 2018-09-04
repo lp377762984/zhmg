@@ -18,7 +18,9 @@ import com.wta.NewCloudApp.mvp.presenter.CashDetPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * 收款明细
+ */
 public class CashDetActivity extends BaseLoadingActivity<CashDetPresenter> implements CashDetContract.View {
 
     @BindView(R.id.tv_clear)

@@ -19,7 +19,9 @@ import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-
+/**
+ * 商家服务
+ */
 public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> implements BServiceContract.View {
 
     @BindView(R.id.tv_benefit)
@@ -59,7 +61,7 @@ public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> imp
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_bs_benefit://收款明细
-                CashGetMActivity.startCashList(this, 1);
+                CashGetMActivity.startCashList(this, 0);
                 break;
             case R.id.lat_bs_details:
                 ArmsUtils.startActivity(StoreInfoActivity.class);

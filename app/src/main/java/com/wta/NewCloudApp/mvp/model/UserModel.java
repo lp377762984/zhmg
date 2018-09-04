@@ -188,10 +188,10 @@ public class UserModel extends BaseModel implements IUserModel {
     }
 
     @Override
-    public Observable<Result<List<Bill>>> getBillsList(boolean isRefresh, String status) {
+    public Observable<Result<List<Bill>>> getBillsList(boolean isRefresh, String status,String type,String searchType,String date) {
         if (isRefresh) index = 1;
         else index++;
-        return  getService().getBillsList(status,1,index);
+        return  getService().getBillsList(index,status,type,searchType,date);
     }
 
     @Override

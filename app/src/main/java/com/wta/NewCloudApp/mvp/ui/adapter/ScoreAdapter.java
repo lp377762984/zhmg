@@ -21,7 +21,6 @@ public class ScoreAdapter extends BaseQuickAdapter<Bill, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Bill item) {
         helper.setText(R.id.tv_name, item.type);
         helper.setText(R.id.tv_time, item.time);
-        helper.setText(R.id.tv_score, item.score+"");
-        GlideArms.with(mContext).load(item.icon).into((ImageView) helper.getView(R.id.im_head));
+        helper.setText(R.id.tv_score, item.score);
     }
 }

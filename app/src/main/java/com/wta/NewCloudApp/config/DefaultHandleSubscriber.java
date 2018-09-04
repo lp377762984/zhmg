@@ -7,6 +7,7 @@ import com.google.gson.JsonParseException;
 import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 
+import org.devio.takephoto.model.TImage;
 import org.json.JSONException;
 
 import java.net.SocketTimeoutException;
@@ -15,6 +16,7 @@ import java.net.UnknownHostException;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 import retrofit2.HttpException;
+import timber.log.Timber;
 
 public class DefaultHandleSubscriber<K> extends ErrorHandleSubscriber<K> {
     private HttpResponseHandler handler;
@@ -80,6 +82,7 @@ public class DefaultHandleSubscriber<K> extends ErrorHandleSubscriber<K> {
     @Override
     public void onError(Throwable t) {
         //super.onError(t);
+        Timber.i("onError: "+t.toString());
         String msg;
         if (t instanceof UnknownHostException) {
             msg = "网络不可用";

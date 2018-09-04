@@ -214,12 +214,14 @@ public interface HttpServices {
     Observable<Result<List<BillType>>> getBillsType();
 
     @GET("/bill/billList")
-    Observable<Result<List<Bill>>> getBillsList(@Query("status") String status, @Query("type") int type, @Query("page") int page);
+    Observable<Result<List<Bill>>> getBillsList(@Query("page") int page, @Query("status") String status, @Query("type") String type, @Query("searchType") String searchType, @Query("date") String date);
 
     @GET("/bill/profitDetail")
     Observable<Result<Bill>> billDet(@Query("billId") long billId);
+
     @GET("/bill/totalProfitList")
-    Observable<Result<List<Bill>>> getBReceiveList(@Query("billId")int index, @Query("type")int type, @Query("searchType")String searchType, @Query("date")String date);
+    Observable<Result<List<Bill>>> getBReceiveList(@Query("page") int index, @Query("type") int type, @Query("searchType") String searchType, @Query("date") String date);
+
     @GET("/bill/dayProfit")
     Observable<BEntity> getBMoney();
 }

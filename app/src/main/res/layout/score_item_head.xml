@@ -3,41 +3,68 @@
     android:id="@+id/lat_head"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    android:layout_marginTop="10dp"
-    android:background="@drawable/merchant_in_head_bg"
-    android:elevation="5dp"
     android:gravity="center_horizontal"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="15dp">
+        <TextView
+            android:text="2018.08"
+            android:id="@+id/tv_date"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/im_calendar"
+            android:padding="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/calendar_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingBottom="30dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/merchant_in_head_bg"
+        android:elevation="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_total_score_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="总积分"
+            android:textColor="#666"
+            android:textSize="12sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="总积分"
-        android:textColor="#666"
-        android:textSize="12sp" />
+        <TextView
+            android:layout_below="@id/tv_total_score_str"
+            android:id="@+id/tv_total_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="总积分"
+            android:textColor="#f66"
+            android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/tv_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="总积分"
-        android:textColor="#f66"
-        android:textSize="30sp" />
+        <TextView
+            android:id="@+id/tv_exchange"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv_total_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/red_corner_bg"
+            android:text="去兑换"
+            android:textColor="#ff667f"
+            android:textSize="12sp" />
+    </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="38dp"
-        android:background="@drawable/red_corner_bg"
-        android:text="去兑换"
-        android:textColor="#ff667f"
-        android:textSize="12sp" />
-
-    <View style="@style/Line" />
 </LinearLayout>

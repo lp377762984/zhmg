@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.R;
@@ -23,10 +24,15 @@ import com.wta.NewCloudApp.mvp.model.entity.Score;
 import com.wta.NewCloudApp.mvp.presenter.ScoreListPresenter;
 import com.wta.NewCloudApp.mvp.ui.activity.CashDetActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.ScoreAdapter;
+import com.wta.NewCloudApp.uitls.DialogUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 积分账单
@@ -36,8 +42,11 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
     private BillType billType;
     @BindView(R.id.lat_head)
     View latHead;
-    @BindView(R.id.tv_score)
+    @BindView(R.id.tv_total_score)
     TextView tvScore;
+    @BindView(R.id.tv_date)
+    TextView tvDate;
+    private String date;
 
     public static ScoreListFragment getInstance(BillType billType) {
         ScoreListFragment fragment = new ScoreListFragment();
@@ -64,9 +73,11 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        date = formateTime(new Date(), "yyyy-MM");
+        tvDate.setText(date);
         billType = (BillType) getArguments().getSerializable("billType");//放到super之前
         super.initData(savedInstanceState);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()){
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -88,7 +99,24 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
 
     @Override
     public void loadData(boolean isRefresh) {
-        mPresenter.getBillsList(isRefresh,billType.status);
+        getData(isRefresh);
+    }
+
+    private void getData(boolean isRefresh) {
+        mPresenter.getBillsList(isRefresh, billType.status, "1", "month", date);
+    }
+
+    @OnClick(R.id.im_calendar)
+    public void onClickView(View view) {
+        DialogUtils.showMonthTimePicker(getActivity(), new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                isRefresh = true;
+                ScoreListFragment.this.date = formateTime(date, "yyyy-MM");
+                tvDate.setText(ScoreListFragment.this.date);
+                getData(isRefresh);
+            }
+        }).show();
     }
 
     @Override
@@ -100,11 +128,11 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
             data.clear();
             if (msgs != null) {
                 data.addAll(msgs);
-                latHead.setVisibility(View.VISIBLE);
-                tvScore.setText(result.white_score+"");
+                //latHead.setVisibility(View.VISIBLE);
+                tvScore.setText(result.white_score + "");
                 adapter.notifyDataSetChanged();
-            }else {
-                latHead.setVisibility(View.GONE);
+            } else {
+                //latHead.setVisibility(View.GONE);
             }
         } else {
             int beforeSize = data.size();
@@ -123,5 +151,9 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
     @Override
     public Activity getMContext() {
         return null;
+    }
+
+    private String formateTime(Date date, String format) {
+        return new SimpleDateFormat(format, Locale.getDefault()).format(date);
     }
 }

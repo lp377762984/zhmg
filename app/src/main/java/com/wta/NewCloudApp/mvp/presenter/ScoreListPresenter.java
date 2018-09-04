@@ -25,8 +25,8 @@ public class ScoreListPresenter extends BBasePresenter<IUserModel, ScoreListCont
         doRequest(buildRequest(mModel.getBillsType()), 1);
     }
 
-    public void getBillsList(boolean isRefresh,String status) {
-        doRequest(buildListRequest(mModel.getBillsList(isRefresh,status)), 2);
+    public void getBillsList(boolean isRefresh,String status,String type,String searchType,String date) {
+        doRequest(buildListRequest(mModel.getBillsList(isRefresh,status,type,searchType,date)), 2);
     }
 
     @Override

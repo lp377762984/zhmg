@@ -5,9 +5,10 @@ public class Bill {
      * bill_id : 5
      * score : 99
      */
-
+    public String avatar;
+    public String mobile;
     public int bill_id;
-    public int score;
+    public String score;
     public String money;
     public String remark;
     public String type;
@@ -29,39 +30,11 @@ public class Bill {
     public String business_white_score;
     public String ordersn;
     public String pay_type;
+    public String status;
 
 
     public String getMoney() {
         return money;
-    }
-
-    public void setMoney(String money) {
-        this.money = money;
-    }
-
-    public String getBillType() {
-        return billType;
-    }
-
-    public void setBillType(String billType) {
-        this.billType = billType;
-    }
-
-    public String getBillMore() {
-        return billMore;
-    }
-
-    public void setBillMore(String billMore) {
-        this.billMore = billMore;
-    }
-
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
     }
 
     public String getType() {
@@ -106,5 +79,6 @@ public class Bill {
         this.billType = billType;
         this.billMore = billMore;
     }
+
 
 }

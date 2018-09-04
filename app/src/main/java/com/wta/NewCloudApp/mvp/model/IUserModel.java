@@ -76,7 +76,7 @@ public interface IUserModel extends IModel {
 
     Observable<Result<List<BillType>>> getBillsType();
 
-    Observable<Result<List<Bill>>> getBillsList(boolean isRefresh, String status);
+    Observable<Result<List<Bill>>> getBillsList(boolean isRefresh, String status,String type,String searchType,String date);
 
     Observable<Result<Bill>> billDet(long billId);
 

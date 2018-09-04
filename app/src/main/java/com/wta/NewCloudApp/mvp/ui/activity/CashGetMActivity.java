@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jess.arms.base.delegate.IFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerCashGetComponent;
@@ -25,11 +26,14 @@ import com.wta.NewCloudApp.mvp.presenter.CashGetPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.CashGetAdapter;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * 收款记录界面
@@ -50,7 +54,7 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
     TextView tvTotalScore;
     @BindView(R.id.lat_head)
     View latHead;
-    private int type;//0月账单 1日账单
+    private int monthOrDay;//0日账单 1月账单
     private String date;
 
     @Override
@@ -76,9 +80,15 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        monthOrDay = getIntent().getIntExtra("type", 0);//记住了
+        if (monthOrDay == 0) {
+            date = formateTime(new Date(), "yyyy-MM-dd");
+        } else if (monthOrDay == 1) {
+            date = formateTime(new Date(), "yyyy-MM");
+        }
+        tvMonth.setText(date);
         super.initData(savedInstanceState);
-        type = getIntent().getIntExtra("type", 0);
-        if (type == 1) {
+        if (monthOrDay == 0) {
             Drawable drawable = getResources().getDrawable(R.mipmap.calendar_day);
             drawable.setBounds(new Rect(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()));
             tvMonth.setCompoundDrawables(drawable, null, null, null);
@@ -90,6 +100,7 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
                 return false;
             }
         });
+        adapter.setHeaderAndEmpty(true);
         adapter.setEmptyView(R.layout.cash_get_empty);
     }
 
@@ -108,26 +119,30 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_month:
-                if (type == 0) {
-                    DialogUtils.showMonthTimePicker(this, new OnTimeSelectListener() {
-                        @Override
-                        public void onTimeSelect(Date date, View v) {
-
-                        }
-                    }).show();
-                } else if (type == 1) {
+                if (monthOrDay == 0) {
                     DialogUtils.showDayTimePicker(this, new OnTimeSelectListener() {
                         @Override
                         public void onTimeSelect(Date date, View v) {
-
+                            isRefresh = true;
+                            CashGetMActivity.this.date = formateTime(date, "yyyy-MM-dd");
+                            getData(isRefresh);
+                        }
+                    }).show();
+                } else if (monthOrDay == 1) {
+                    DialogUtils.showMonthTimePicker(this, new OnTimeSelectListener() {
+                        @Override
+                        public void onTimeSelect(Date date, View v) {
+                            isRefresh = true;
+                            CashGetMActivity.this.date = formateTime(date, "yyyy-MM");
+                            getData(isRefresh);
                         }
                     }).show();
                 }
                 break;
             case R.id.tv_switch:
-                if (type == 1) {
+                if (monthOrDay == 1) {
                     finish();
-                } else if (type == 0) {
+                } else if (monthOrDay == 0) {
                     CashGetMActivity.startCashList(this, 1);
                 }
                 break;
@@ -136,7 +151,11 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
 
     @Override
     public void loadData(boolean isRefresh) {
-        mPresenter.getBReceiveList(isRefresh, 1, type == 0 ? "month" : "day", date);
+        getData(isRefresh);
+    }
+
+    private void getData(boolean isRefresh) {
+        mPresenter.getBReceiveList(isRefresh, 1, monthOrDay == 0 ? "day" : "month", date);
     }
 
     @Override
@@ -148,13 +167,13 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
             data.clear();
             if (msgs != null && msgs.size() > 0) {
                 data.addAll(msgs);
-                latHead.setVisibility(View.VISIBLE);
+                //latHead.setVisibility(View.VISIBLE);
                 tvTotalMoney.setText(result.sumNumber.integralIncome + "");
                 tvTotalCount.setText(result.sumNumber.receivablesNumber + "");
                 tvTotalScore.setText(result.sumNumber.sumProfit + "");
                 adapter.notifyDataSetChanged();
             } else {
-                latHead.setVisibility(View.GONE);
+                //latHead.setVisibility(View.GONE);
             }
         } else {
             int beforeSize = data.size();
@@ -163,5 +182,9 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
                 adapter.notifyItemRangeInserted(beforeSize, msgs.size());
             }
         }
+    }
+
+    private String formateTime(Date date, String format) {
+        return new SimpleDateFormat(format, Locale.getDefault()).format(date);
     }
 }
