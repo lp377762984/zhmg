@@ -64,6 +64,11 @@ public class BScoreDetActivity extends BaseLoadingActivity<BScorePresenter> impl
 
     @Override
     public void showBScore(Bill bill) {
-
+        tvTopScore.setText(bill.score);
+        tvDetType.setText(bill.title);
+        tvMoney.setText(bill.money);
+        tvTime.setText(bill.title);
+        tvTradeNo.setText(bill.ordersn);
+        tvRecScore.setText(bill.recommend_score);
     }
 }

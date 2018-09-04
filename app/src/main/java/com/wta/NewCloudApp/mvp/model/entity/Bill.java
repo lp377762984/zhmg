@@ -31,6 +31,14 @@ public class Bill {
     public String ordersn;
     public String pay_type;
     public String status;
+    /**
+     * shop_name : 饭饭
+     * level_name : 8级店铺
+     */
+
+    public String shop_name;
+    public String level_name;
+    public String recommend_score;
 
 
     public String getMoney() {

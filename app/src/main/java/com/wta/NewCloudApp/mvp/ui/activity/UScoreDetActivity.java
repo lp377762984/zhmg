@@ -68,6 +68,13 @@ public class UScoreDetActivity extends BaseLoadingActivity<UScoreDetPresenter> i
 
     @Override
     public void showUScore(Bill bill) {
-
+        tvTopScore.setText(bill.score);
+        tvDetType.setText(bill.title);
+        tvMoney.setText(bill.money);
+        tvPayType.setText(bill.pay_type);
+        tvStoreName.setText(bill.shop_name);
+        tvStoreType.setText(bill.level_name);
+        tvTime.setText(bill.title);
+        tvTradeNo.setText(bill.ordersn);
     }
 }

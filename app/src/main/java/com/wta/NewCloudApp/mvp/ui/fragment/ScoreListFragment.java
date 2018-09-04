@@ -22,7 +22,10 @@ import com.wta.NewCloudApp.mvp.model.entity.BillType;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Score;
 import com.wta.NewCloudApp.mvp.presenter.ScoreListPresenter;
+import com.wta.NewCloudApp.mvp.ui.activity.BScoreDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.CashDetActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.RScoreDetActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.UScoreDetActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.ScoreAdapter;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 
@@ -92,7 +95,19 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CashDetActivity.startCashDet(getActivity(), ((Bill) data.get(position)).bill_id);
+                Bill bill = (Bill) data.get(position);
+                String status = bill.status;
+                switch (status) {
+                    case "saleStatus":
+                        BScoreDetActivity.startDet(getActivity(), bill.bill_id);
+                        break;
+                    case "consumeStatus":
+                        UScoreDetActivity.startDet(getActivity(), bill.bill_id);
+                        break;
+                    case "recommendStatus":
+                        RScoreDetActivity.startDet(getActivity(), bill.bill_id);
+                        break;
+                }
             }
         });
     }

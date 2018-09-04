@@ -61,6 +61,9 @@ public class RScoreDetActivity extends BaseLoadingActivity<RScorePresenter> impl
 
     @Override
     public void showRScore(Bill bill) {
-
+        tvTopScore.setText(bill.score);
+        tvDetType.setText(bill.title);
+        tvMoney.setText(bill.money);
+        tvTime.setText(bill.title);
     }
 }
