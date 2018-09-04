@@ -3,12 +3,10 @@ package com.wta.NewCloudApp.mvp.presenter;
 import com.jess.arms.di.scope.ActivityScope;
 import com.wta.NewCloudApp.mvp.contract.LoginContract;
 import com.wta.NewCloudApp.mvp.model.IUserModel;
-import com.wta.NewCloudApp.mvp.model.WXUserInfo;
+import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
-
-import java.util.Map;
 
 import javax.inject.Inject;
 

@@ -10,7 +10,7 @@ import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.DetSubscriber;
-import com.wta.NewCloudApp.mvp.model.WXUserInfo;
+import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
 import com.wta.NewCloudApp.mvp.model.entity.WXAccessToken;
 import com.wta.NewCloudApp.uitls.FinalUtils;

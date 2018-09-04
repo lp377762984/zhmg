@@ -27,6 +27,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.wta.NewCloudApp.BuildConfig;
+import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -60,7 +61,7 @@ public class AppLifecyclesImpl implements AppLifecycles {
         ArmsUtils.obtainAppComponentFromContext(application).extras()
                 .put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
         UMConfigure.init(application,"5b5ad513b27b0a11d10002b1","umeng", UMConfigure.DEVICE_TYPE_PHONE,"");
-        PlatformConfig.setWeixin("wx2a1f186b101a5e06","fa8346fdf7923eebb9d82ad5d1329d58");
+        PlatformConfig.setWeixin(FinalUtils.WX_APP_ID,FinalUtils.WX_APP_SECRET);
         PlatformConfig.setQQZone("1107234154","l1lPLxXmLuMS6AyK");
         CrashReport.initCrashReport(application, "77f70c3b36", BuildConfig.CRASH);
 

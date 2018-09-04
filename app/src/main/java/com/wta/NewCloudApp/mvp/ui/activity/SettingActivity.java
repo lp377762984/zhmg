@@ -28,7 +28,7 @@ import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerSettingComponent;
 import com.wta.NewCloudApp.di.module.SettingModule;
 import com.wta.NewCloudApp.mvp.contract.SettingContract;
-import com.wta.NewCloudApp.mvp.model.WXUserInfo;
+import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;

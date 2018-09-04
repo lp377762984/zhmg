@@ -1,7 +1,7 @@
 package com.wta.NewCloudApp.mvp.model.api;
 
 
-import com.wta.NewCloudApp.mvp.model.WXUserInfo;
+import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;

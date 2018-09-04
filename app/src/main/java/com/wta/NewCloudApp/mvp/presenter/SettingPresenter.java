@@ -2,28 +2,22 @@ package com.wta.NewCloudApp.mvp.presenter;
 
 import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.alipay.sdk.app.AuthTask;
 import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.utils.RxLifecycleUtils;
 import com.wta.NewCloudApp.config.App;
-import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.config.DefaultHandleSubscriber;
 import com.wta.NewCloudApp.mvp.contract.SettingContract;
 import com.wta.NewCloudApp.mvp.model.UserModel;
-import com.wta.NewCloudApp.mvp.model.WXUserInfo;
+import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
-import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.FileUtils;
-import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.PackageUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
@@ -32,9 +26,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -43,9 +35,6 @@ import me.jessyan.progressmanager.ProgressManager;
 import me.jessyan.progressmanager.body.ProgressInfo;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import okhttp3.ResponseBody;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import timber.log.Timber;
 
 
 @ActivityScope

@@ -13,13 +13,12 @@ import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 
 import java.io.File;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import okhttp3.ResponseBody;
 
 public interface IUserModel extends IModel {

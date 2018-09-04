@@ -18,15 +18,13 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.integration.lifecycle.Lifecycleable;
 import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.RxLifecycleUtils;
-import com.umeng.socialize.UMAuthListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerLoginComponent;
 import com.wta.NewCloudApp.di.module.LoginModule;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.LoginContract;
-import com.wta.NewCloudApp.mvp.model.WXUserInfo;
+import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
@@ -44,7 +42,6 @@ import com.wta.NewCloudApp.wxapi.login_share.WXUserListener;
 
 import org.simple.eventbus.EventBus;
 
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;

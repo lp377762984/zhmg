@@ -32,7 +32,7 @@ android {
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
-            buildConfigField "boolean", "USE_CANARY", "true"
+            buildConfigField "boolean", "USE_CANARY", "false"
             buildConfigField "boolean", "CRASH", "true"
             resValue "string", "app_name", "测试版"
             minifyEnabled false

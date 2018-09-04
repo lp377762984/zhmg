@@ -72,7 +72,6 @@ public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implement
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         switchLight.setEnabled(false);
-        mHasSurface = false;
         CameraManager.init();
         mInactivityTimer = new InactivityTimer(this);
     }
@@ -97,6 +96,7 @@ public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implement
                 if (aBoolean) {
                     initCamera();
                 } else {
+                    showToast("请手动打开相机权限");
                     finish();
                 }
             }
