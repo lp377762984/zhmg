@@ -81,4 +81,9 @@ public interface IUserModel extends IModel {
     Observable<Result<Bill>> billDet(long billId);
 
     Observable<Result<List<Bill>>> getBReceiveList(boolean isRefresh, int type, String searchType, String date);
+
+    Observable<Result<Bill>> getUScore(int billId);
+
+    Observable<Result<Bill>> getBScore(int billId);
+    Observable<Result<Bill>> getRScore(int billId);
 }

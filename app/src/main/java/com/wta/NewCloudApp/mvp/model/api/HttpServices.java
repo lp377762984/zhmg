@@ -224,4 +224,12 @@ public interface HttpServices {
 
     @GET("/bill/dayProfit")
     Observable<BEntity> getBMoney();
+    @GET("bill/billDetail")
+    Observable<Result<Bill>> getUScore(@Query("billId") int billId,@Query("status") String status);
+
+    @GET("bill/billDetail")
+    Observable<Result<Bill>> getBScore(@Query("billId") int billId,@Query("status") String status);
+
+    @GET("bill/billDetail")
+    Observable<Result<Bill>> getRScore(@Query("billId") int billId,@Query("status") String status);
 }

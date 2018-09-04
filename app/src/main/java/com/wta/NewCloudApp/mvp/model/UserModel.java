@@ -206,4 +206,18 @@ public class UserModel extends BaseModel implements IUserModel {
         return  getService().getBReceiveList(index,type,searchType,date);
     }
 
+    @Override
+    public Observable<Result<Bill>> getUScore(int billId) {
+        return getService().getUScore(billId,"consumeStatus");
+    }
+    @Override
+    public Observable<Result<Bill>> getBScore(int billId) {
+        return getService().getUScore(billId,"saleStatus");
+    }
+    @Override
+    public Observable<Result<Bill>> getRScore(int billId) {
+        return getService().getUScore(billId,"recommendStatus");
+    }
+
+
 }
