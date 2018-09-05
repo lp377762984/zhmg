@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jess.arms.base.delegate.IFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.R;
@@ -19,27 +21,34 @@ import com.wta.NewCloudApp.di.module.HomeModule;
 import com.wta.NewCloudApp.mvp.contract.HomeContract;
 import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
+import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.presenter.HomePresenter;
 import com.wta.NewCloudApp.mvp.ui.activity.BQRActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.BScoreDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.BServiceActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.CashDetActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.CashGetMActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantAuthActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInfoActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.RScoreDetActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.ScoreListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SweepActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.UScoreDetActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.HomeListAdapter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.PJImageLoader;
-import com.wta.NewCloudApp.mvp.ui.widget.RoundImageLoader;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -62,7 +71,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     HomeListAdapter adapter;
     private List<Bill> billData;
     private int position;
-    private List<String> imgs = new ArrayList<>();
+    private List<HomeBanner> imgs = new ArrayList<>();
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -81,22 +90,54 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        mPresenter.getHomeBanner();
         mPresenter.getMsgList();
-        banner.setIndicatorGravity(BannerConfig.RIGHT);
-        banner.setImageLoader(new RoundImageLoader());
-        imgs.add("https://inews.gtimg.com/newsapp_match/0/4865237967/0");
-        imgs.add("https://inews.gtimg.com/newsapp_match/0/4865237967/0");
-        imgs.add("https://inews.gtimg.com/newsapp_match/0/4865237967/0");
-        banner.setImages(imgs);
-        banner.start();
     }
 
     @Override
     public void showList(Result<List<Bill>> result) {
         if (adapter == null) {
             billData = new ArrayList<>();
-            billData.addAll(result.data);
+            for (int i = 0; i < result.data.size(); i++) {
+                if (result.data.get(i)!=null){
+                    billData.add(result.data.get(i));
+                }
+            }
             adapter = new HomeListAdapter(R.layout.home_bill_item, billData);
+            adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    Bill bill = billData.get(position);
+                    String totalType = bill.totalType;
+                    if (totalType.equals("moneyProfit")){
+                        CashGetMActivity.startCashList(getActivity(),0);
+                    }else if (totalType.equals("integralProfit")){
+                        ArmsUtils.startActivity(ScoreListActivity.class);
+                    }
+                }
+            });
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    Bill bill = billData.get(position);
+                    if (bill.totalType.equals("integralProfit")){
+                        String status = bill.status;
+                        switch (status) {
+                            case "saleStatus":
+                                BScoreDetActivity.startDet(getActivity(), bill.bill_id);
+                                break;
+                            case "consumeStatus":
+                                UScoreDetActivity.startDet(getActivity(), bill.bill_id);
+                                break;
+                            case "recommendStatus":
+                                RScoreDetActivity.startDet(getActivity(), bill.bill_id);
+                                break;
+                        }
+                    }else if (bill.totalType.equals("moneyProfit")){
+                        CashDetActivity.startCashDet(getActivity(),bill.bill_id);
+                    }
+                }
+            });
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setNestedScrollingEnabled(false);
             recyclerView.setAdapter(adapter);
@@ -105,6 +146,30 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
             billData.addAll(result.data);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void showHomeBanner(List<HomeBanner> homeBanners) {
+        imgs.clear();
+        imgs.addAll(homeBanners);
+        banner.setIndicatorGravity(BannerConfig.RIGHT);
+        banner.setImageLoader(new PJImageLoader());
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                HomeBanner homeBanner = imgs.get(position);
+                if (homeBanner.type == 1) {
+                    WebViewActivity.start(getActivity(), "活动详情", homeBanner.jump_url);
+                }
+            }
+        });
+//        int margin = (int) ScreenDpiUtils.dp2px(getContext(), 15);
+//        ConstraintLayout.LayoutParams lp2 = (ConstraintLayout.LayoutParams) banner.getLayoutParams();
+//        lp2.height = (getContext().getResources().getDisplayMetrics().widthPixels - 2 * margin) * 537 / 1038;
+//        lp2.width = getContext().getResources().getDisplayMetrics().widthPixels - 2 * margin;
+//        banner.setLayoutParams(lp2);
+        banner.setImages(imgs);
+        banner.start();
     }
 
     @Override
@@ -163,7 +228,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         }
     }
 
-    @OnClick({R.id.im_sweep, R.id.im_bus_code, R.id.im_business,R.id.im_score_shop})
+    @OnClick({R.id.im_sweep, R.id.im_bus_code, R.id.im_business, R.id.im_score_shop})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_sweep:
@@ -181,18 +246,5 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 showToast("暂未开放");
                 break;
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }

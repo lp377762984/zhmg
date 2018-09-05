@@ -8,7 +8,7 @@
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
         android:id="@+id/mb"
         app:tailImg="@mipmap/qr_more"
-        app:textTitle="我的二维码"
+        app:textTitle="商家收款码"
         android:layout_width="match_parent"
         android:layout_height="@dimen/money_bar_height"/>
     <ScrollView

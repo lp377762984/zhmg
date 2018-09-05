@@ -1,8 +1,6 @@
 package com.wta.NewCloudApp.mvp.ui.adapter;
 
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -26,7 +24,8 @@ public class SideAdapter extends BaseQuickAdapter<Business, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Business item) {
-        GlideArms.with(mContext).load(item.shop_doorhead).placeholder(new ColorDrawable(Color.GRAY)).into((ImageView) helper.getView(R.id.im_head));
+        GlideArms.with(mContext).load(item.shop_doorhead)
+                .placeholder(R.mipmap.side_b_placeholder).into((ImageView) helper.getView(R.id.im_head));
         helper.setText(R.id.tv_name, item.shop_name);
         helper.setText(R.id.tv_type, item.type_name);
         TextView tvClass = helper.getView(R.id.tv_class);

@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.model.api;
 
 
+import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
@@ -224,12 +225,18 @@ public interface HttpServices {
 
     @GET("/bill/dayProfit")
     Observable<BEntity> getBMoney();
-    @GET("bill/billDetail")
+    @GET("/bill/billDetail")
     Observable<Result<Bill>> getUScore(@Query("billId") int billId,@Query("status") String status);
 
-    @GET("bill/billDetail")
+    @GET("/bill/billDetail")
     Observable<Result<Bill>> getBScore(@Query("billId") int billId,@Query("status") String status);
 
-    @GET("bill/billDetail")
+    @GET("/bill/billDetail")
     Observable<Result<Bill>> getRScore(@Query("billId") int billId,@Query("status") String status);
+    @GET("/banner")
+    Observable<Result<List<HomeBanner>>> getHomeBanner();
+    @GET("bill/indexBill")
+    Observable<Result<List<Bill>>> getHomeBillList();
+    @GET("bill/billList")
+    Observable<Result<List<Bill>>> getGBillsList(@Query("page")int index, @Query("type")int type, @Query("searchType")String month, @Query("date")String date);
 }

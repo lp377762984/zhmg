@@ -212,11 +212,18 @@ public class UserModel extends BaseModel implements IUserModel {
     }
     @Override
     public Observable<Result<Bill>> getBScore(int billId) {
-        return getService().getUScore(billId,"saleStatus");
+        return getService().getBScore(billId,"saleStatus");
     }
     @Override
     public Observable<Result<Bill>> getRScore(int billId) {
-        return getService().getUScore(billId,"recommendStatus");
+        return getService().getRScore(billId,"recommendStatus");
+    }
+
+    @Override
+    public Observable<Result<List<Bill>>> getGBillsList(boolean isRefresh, int type, String month, String date) {
+        if (isRefresh) index = 1;
+        else index++;
+        return  getService().getGBillsList(index,type,month,date);
     }
 
 

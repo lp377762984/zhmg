@@ -6,11 +6,10 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
     <RelativeLayout
-        android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="15dp">
+        android:layout_height="48dp">
         <TextView
+            android:layout_marginLeft="15dp"
             android:text="2018.08"
             android:id="@+id/tv_date"
             android:layout_centerVertical="true"

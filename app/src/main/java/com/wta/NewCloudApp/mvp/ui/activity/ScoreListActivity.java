@@ -17,6 +17,7 @@ import com.wta.NewCloudApp.mvp.model.entity.BillType;
 import com.wta.NewCloudApp.mvp.presenter.ScoreListPresenter;
 import com.wta.NewCloudApp.mvp.ui.fragment.ScoreListFragment;
 import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
+import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +50,10 @@ public class ScoreListActivity extends BaseLoadingActivity<ScoreListPresenter> i
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
         moneyBar.setCallBack(moneyBar.new CallbackImp() {
             @Override
             public void clickTail() {
-                showToast("暂未开放");
+                WebViewActivity.start(ScoreListActivity.this, "积分说明", FinalUtils.SCORE_DESC);
             }
         });
         mPresenter.getBillsType();

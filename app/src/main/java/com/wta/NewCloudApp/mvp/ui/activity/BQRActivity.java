@@ -30,6 +30,7 @@ import com.wta.NewCloudApp.mvp.presenter.BQRPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
 import com.wta.NewCloudApp.uitls.BitmapUtils;
 import com.wta.NewCloudApp.uitls.ConfigTag;
+import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.QRCodeEncoder;
 import com.wta.NewCloudApp.uitls.ScreenDpiUtils;
 
@@ -87,12 +88,14 @@ public class BQRActivity extends BaseLoadingActivity<BQRPresenter> implements BQ
                 @Override
                 public void onClick(View v) {
                     CashGetMActivity.startCashList(BQRActivity.this,0);
+                    btmDialog.dismiss();
                 }
             });
             btmDialog.findViewById(R.id.tv_use).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showToast("暂未开放");
+                    WebViewActivity.start(BQRActivity.this,"积分说明", FinalUtils.SELLER_QR_DESC);
+                    btmDialog.dismiss();
                 }
             });
             btmDialog.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {

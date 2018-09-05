@@ -112,7 +112,7 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     @Override
     public void showStoreDet(Business business) {
         this.business = business;
-        GlideArms.with(this).load(business.shop_doorhead).into(imHead);
+        GlideArms.with(this).load(business.shop_doorhead).placeholder(R.mipmap.side_b_placeholder).into(imHead);
         tvName.setText(business.shop_name);
         GlideArms.with(this).load(business.level_img).into(imClass);
         tvLocation.setText(business.location_address);
@@ -121,17 +121,17 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         boolean a2 = false;
         boolean a3 = false;
         if (picture != null && !TextUtils.isEmpty(picture.image1)) {//第一张有图片
-            GlideArms.with(this).load(picture.image1).into(imStore01);
+            GlideArms.with(this).load(picture.image1).placeholder(R.mipmap.side_b_placeholder).into(imStore01);
             urls.add(picture.image1);
             a1 = true;
         }
         if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第二张有图片
-            GlideArms.with(this).load(picture.image2).into(imStore02);
+            GlideArms.with(this).load(picture.image2).placeholder(R.mipmap.side_b_placeholder).into(imStore02);
             urls.add(picture.image2);
             a2 = true;
         }
         if (picture != null && !TextUtils.isEmpty(picture.image3)) {//第三张有图片
-            GlideArms.with(this).load(picture.image3).into(imStore03);
+            GlideArms.with(this).load(picture.image3).placeholder(R.mipmap.side_b_placeholder).into(imStore03);
             urls.add(picture.image3);
             a3 = true;
         }

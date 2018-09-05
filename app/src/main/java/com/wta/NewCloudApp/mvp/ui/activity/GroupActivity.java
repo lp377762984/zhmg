@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.di.component.DaggerGroupComponent;
 import com.wta.NewCloudApp.di.module.GroupModule;
 import com.wta.NewCloudApp.R;
@@ -61,7 +62,7 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
                 AddRecActivity.start(this);
                 break;
             case R.id.tv_details:
-                showToast("尽请期待");
+                ArmsUtils.startActivity(BGroupListActivity.class);
                 break;
         }
     }

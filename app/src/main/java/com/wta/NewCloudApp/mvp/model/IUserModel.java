@@ -86,4 +86,6 @@ public interface IUserModel extends IModel {
 
     Observable<Result<Bill>> getBScore(int billId);
     Observable<Result<Bill>> getRScore(int billId);
+
+    Observable<Result<List<Bill>>> getGBillsList(boolean isRefresh, int type, String month, String date);
 }

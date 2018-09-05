@@ -39,6 +39,17 @@ public class Bill {
     public String shop_name;
     public String level_name;
     public String recommend_score;
+    /**
+     * totalType : moneyProfit
+     * maxTitle : 现金收益
+     * minTtile : 收款
+     * createTime : 2018-09-05 09:02:50
+     */
+
+    public String totalType;
+    public String maxTitle;
+    public String minTtile;
+    public String createTime;
 
 
     public String getMoney() {

@@ -21,4 +21,6 @@ public class FinalUtils {
     public static final String WX_APP_ID = "wx2a1f186b101a5e06";
     public static final String WX_APP_SECRET="fa8346fdf7923eebb9d82ad5d1329d58";
     public static final String WX_USER_INFO = "https://api.weixin.qq.com/sns/userinfo";
+    public static final String SELLER_QR_DESC = "http://zhmg.jjzbest.com/receiptCode";
+    public static final String SCORE_DESC = "http://zhmg.jjzbest.com/integralExplain ";
 }
