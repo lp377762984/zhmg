@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'channel'
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
@@ -54,6 +55,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
+    channel{
+        //多渠道包的输出目录，默认为new File(project.buildDir,"channel")
+        baseOutputDir = new File(project.buildDir,"great")
+        //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}
+        apkNameFormat ='${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}'
+    }
 }
 
 dependencies {
@@ -72,6 +79,7 @@ dependencies {
     implementation rootProject.ext.dependencies["multidex"]
     implementation 'com.tencent.bugly:crashreport:2.6.6.1'
     implementation 'com.aliyun.ams:alicloud-android-hotfix:3.2.4'
+    api rootProject.ext.dependencies["multi-channal"]
     //view
     annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'
