@@ -167,6 +167,8 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
                         dialog.dismiss();
                         AppConfig.getInstance().clearUser();
                         AppConfig.getInstance().removeValue(ConfigTag.IS_LOGIN);
+                        AppConfig.getInstance().removeValue(ConfigTag.ACCESS_TOKEN);
+                        AppConfig.getInstance().removeValue(ConfigTag.SESSIONID);
                         EventBus.getDefault().post(new TabWhat(0));
                         finish();
                     }

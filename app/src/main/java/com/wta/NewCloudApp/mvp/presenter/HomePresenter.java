@@ -48,31 +48,44 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
 
     @Override
     public <T> void handle404(int what, Result<T> result) {
-        super.handle404(what, result);
+        if (what != 1)
+            super.handle404(what, result);
+        else
+            mRootView.showListFailed();
         stopRefresh(what);
     }
 
     @Override
     public void handle20(int what, Result result) {
-        super.handle20(what, result);
+        if (what != 1)
+            super.handle20(what, result);
+        else
+            mRootView.showListFailed();
         stopRefresh(what);
     }
 
     @Override
     public void handle10(int what, Result result) {
-        super.handle10(what, result);
+        if (what != 1)
+            super.handle10(what, result);
+        else
+            mRootView.showListFailed();
         stopRefresh(what);
     }
 
     @Override
     public void handle11(int what, Result result) {
-        super.handle11(what, result);
+        if (what != 1)
+            super.handle11(what, result);
+        else
+            mRootView.showListFailed();
         stopRefresh(what);
     }
 
     @Override
     public void handleException(int what, Throwable t) {
         super.handleException(what, t);
+        if (what==1) mRootView.showListFailed();
         stopRefresh(what);
     }
 

@@ -20,6 +20,8 @@ public interface HomeContract {
         void showHomeBanner(List<HomeBanner> homeBanners);
 
         void stopRefresh();
+
+        void showListFailed();
     }
 
     interface Model extends IModel {

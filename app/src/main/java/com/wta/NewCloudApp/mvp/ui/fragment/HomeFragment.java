@@ -69,13 +69,12 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     Banner banner;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    Unbinder unbinder;
     @BindView(R.id.im_business)
     ImageView imBusiness;
     @BindView(R.id.im_score_shop)
     ImageView imScoreShop;
     HomeListAdapter adapter;
-    private List<Bill> billData;
+    private List<Bill> billData = new ArrayList<>();
     private int position;
     private List<HomeBanner> imgs = new ArrayList<>();
     @BindView(R.id.refresh_layout)
@@ -112,68 +111,59 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 mPresenter.getMsgList();
             }
         });
+        adapter = new HomeListAdapter(R.layout.home_bill_item, billData);
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Bill bill = billData.get(position);
+                String totalType = bill.totalType;
+                if (totalType.equals("moneyProfit")) {
+                    CashGetMActivity.startCashList(getActivity(), 0);
+                } else if (totalType.equals("integralProfit")) {
+                    ArmsUtils.startActivity(ScoreListActivity.class);
+                }
+            }
+        });
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Bill bill = billData.get(position);
+                if (bill.totalType.equals("integralProfit")) {
+                    String status = bill.status;
+                    switch (status) {
+                        case "saleStatus":
+                            BScoreDetActivity.startDet(getActivity(), bill.bill_id);
+                            break;
+                        case "consumeStatus":
+                            UScoreDetActivity.startDet(getActivity(), bill.bill_id);
+                            break;
+                        case "recommendStatus":
+                            RScoreDetActivity.startDet(getActivity(), bill.bill_id);
+                            break;
+                    }
+                } else if (bill.totalType.equals("moneyProfit")) {
+                    CashDetActivity.startCashDet(getActivity(), bill.bill_id);
+                }
+            }
+        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setAdapter(adapter);
+        adapter.bindToRecyclerView(recyclerView);
+        adapter.setEmptyView(R.layout.home_empty);
         mPresenter.getHomeBanner();
         mPresenter.getMsgList();
     }
 
     @Override
     public void showList(Result<List<Bill>> result) {
-        if (adapter == null) {
-            billData = new ArrayList<>();
-            for (int i = 0; i < result.data.size(); i++) {
-                if (result.data.get(i) != null) {
-                    billData.add(result.data.get(i));
-                }
+        billData.clear();
+        for (int i = 0; i < result.data.size(); i++) {
+            if (result.data.get(i) != null) {
+                billData.add(result.data.get(i));
             }
-            adapter = new HomeListAdapter(R.layout.home_bill_item, billData);
-            adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                @Override
-                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                    Bill bill = billData.get(position);
-                    String totalType = bill.totalType;
-                    if (totalType.equals("moneyProfit")) {
-                        CashGetMActivity.startCashList(getActivity(), 0);
-                    } else if (totalType.equals("integralProfit")) {
-                        ArmsUtils.startActivity(ScoreListActivity.class);
-                    }
-                }
-            });
-            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    Bill bill = billData.get(position);
-                    if (bill.totalType.equals("integralProfit")) {
-                        String status = bill.status;
-                        switch (status) {
-                            case "saleStatus":
-                                BScoreDetActivity.startDet(getActivity(), bill.bill_id);
-                                break;
-                            case "consumeStatus":
-                                UScoreDetActivity.startDet(getActivity(), bill.bill_id);
-                                break;
-                            case "recommendStatus":
-                                RScoreDetActivity.startDet(getActivity(), bill.bill_id);
-                                break;
-                        }
-                    } else if (bill.totalType.equals("moneyProfit")) {
-                        CashDetActivity.startCashDet(getActivity(), bill.bill_id);
-                    }
-                }
-            });
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setNestedScrollingEnabled(false);
-            recyclerView.setAdapter(adapter);
-            adapter.bindToRecyclerView(recyclerView);
-            adapter.setEmptyView(R.layout.home_empty);
-        } else {
-            billData.clear();
-            for (int i = 0; i < result.data.size(); i++) {
-                if (result.data.get(i) != null) {
-                    billData.add(result.data.get(i));
-                }
-            }
-            adapter.notifyDataSetChanged();
         }
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -204,6 +194,14 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     public void stopRefresh() {
         if (refreshLayout.isRefreshing())
             refreshLayout.finishRefresh();
+    }
+
+    @Override
+    public void showListFailed() {
+        if (billData != null && billData.size() > 0) {
+            billData.clear();
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
