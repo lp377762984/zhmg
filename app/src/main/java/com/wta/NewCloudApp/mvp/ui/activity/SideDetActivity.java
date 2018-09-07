@@ -21,6 +21,7 @@ import com.wta.NewCloudApp.di.module.SideDetModule;
 import com.wta.NewCloudApp.mvp.contract.SideDetContract;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.presenter.SideDetPresenter;
+import com.wta.NewCloudApp.uitls.PackageUtils;
 
 import java.util.ArrayList;
 
@@ -58,7 +59,7 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     @BindView(R.id.lat_pics)
     RelativeLayout latPics;
     private Business business;
-    ArrayList<String> urls=new ArrayList<>();
+    ArrayList<String> urls = new ArrayList<>();
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -91,11 +92,11 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         activity.startActivity(intent);
     }
 
-    @OnClick({R.id.im_phone, R.id.lat_imgs})
+    @OnClick({R.id.im_phone, R.id.lat_imgs, R.id.tv_location})
     public void startPhone(View view) {
         switch (view.getId()) {
             case R.id.im_phone:
-                if (TextUtils.isEmpty(business.telephone)){
+                if (TextUtils.isEmpty(business.telephone)) {
                     showToast("该店铺未填写电话。");
                     return;
                 }
@@ -103,8 +104,30 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
                 startActivity(intent);
                 break;
             case R.id.lat_imgs:
-                PhotoViewActivity.startViewPhoto(this,urls);
+                PhotoViewActivity.startViewPhoto(this, urls);
                 break;
+            case R.id.tv_location:
+//                Intent intentMap = new Intent("android.intent.action.VIEW",
+//                        android.net.Uri.parse("androidamap://navi?sourceApplication=lefaner&lat=" + business.shop_address_x + "&lon=" + business.shop_address_y + "&dev=1&style=0"));
+//                intentMap.setPackage("com.autonavi.minimap");
+//                intentMap.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intentMap);
+                if (PackageUtils.appIsInstalled(this, "com.autonavi.minimap")) {
+                    Intent intentMap = new Intent();
+                    intentMap.setAction(Intent.ACTION_VIEW);
+                    intentMap.addCategory(Intent.CATEGORY_DEFAULT);
+                    String url = "androidamap://route?sourceApplication=lefaner" +
+                            "&dlat=" + business.shop_address_x +
+                            "&dlon=" + business.shop_address_y +
+                            "&dname=" + business.shop_name +
+                            "&dev=0&t=1";
+                    Uri uri = Uri.parse(url);
+                    intentMap.setData(uri);
+                    startActivity(intentMap);
+                } else{
+                    showToast("请先安装高德地图！");
+                }
+
         }
 
     }

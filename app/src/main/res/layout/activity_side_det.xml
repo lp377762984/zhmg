@@ -58,33 +58,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/im_phone"
-                    android:layout_marginRight="33dp"
-                    android:layout_alignTop="@id/tv_location"
-                    android:layout_alignBottom="@id/tv_location"
-                    android:layout_alignParentRight="true"
-                    android:src="@mipmap/side_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_toLeftOf="@id/im_phone"
-                    android:layout_alignParentLeft="true"
-                    android:maxLines="1"
+                <RelativeLayout
                     android:layout_below="@id/lat_class"
-                    android:layout_marginTop="20dp"
-                    android:drawablePadding="5dp"
-                    android:drawableLeft="@mipmap/side_location"
-                    android:id="@+id/tv_location"
-                    android:ellipsize="end"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginRight="10dp"
-                    android:textSize="12sp"
-                    android:textColor="#808080"
-                    android:layout_marginLeft="31dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_alignParentRight="true"
+                        android:padding="15dp"
+                        android:id="@+id/im_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/side_phone" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:lineSpacingExtra="5dp"
+                        android:text="我家住在黄土高坡我家住在黄土"
+                        android:layout_marginTop="10dp"
+                        android:layout_toLeftOf="@id/im_phone"
+                        android:layout_alignParentLeft="true"
+                        android:drawablePadding="7dp"
+                        android:drawableLeft="@mipmap/side_location"
+                        android:id="@+id/tv_location"
+                        android:ellipsize="end"
+                        android:textSize="12sp"
+                        android:textColor="#808080"
+                        android:layout_marginLeft="31dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
             </RelativeLayout>
             <RelativeLayout
                 android:visibility="gone"

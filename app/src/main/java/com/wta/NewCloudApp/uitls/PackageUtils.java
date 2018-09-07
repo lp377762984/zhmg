@@ -12,6 +12,7 @@ import android.provider.Settings;
 import com.wta.NewCloudApp.config.App;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -71,6 +72,26 @@ public class PackageUtils {
             return (info.flags&ApplicationInfo.FLAG_DEBUGGABLE)!=0;
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 判断系统是否安装某app
+     *
+     * @param packageName 包名
+     * @return
+     */
+    public static boolean appIsInstalled(Context context, String packageName) {
+        PackageManager manager = context.getPackageManager();
+        List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
+        if (packageInfoList != null) {
+            for (int i = 0; i < packageInfoList.size(); i++) {
+                String package_name = packageInfoList.get(i).packageName;
+                if (package_name.equals(packageName)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
