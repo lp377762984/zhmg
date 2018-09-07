@@ -38,7 +38,7 @@ public class Result<T> {
          * integralIncome : 13
          */
 
-        public int sumProfit;
+        public String sumProfit;
         public int receivablesNumber;
         public int integralIncome;
     }

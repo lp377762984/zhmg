@@ -76,7 +76,7 @@ public class BGroupListActivity extends BaseListActivity<BGroupListPresenter> im
 
     @Override
     protected void getAdapter() {
-        adapter = new ScoreAdapter(R.layout.group_get_item, data);
+        adapter = new ScoreAdapter(R.layout.score_item, data);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

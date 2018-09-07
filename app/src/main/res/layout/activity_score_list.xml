@@ -7,7 +7,7 @@
     android:orientation="vertical">
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
         android:id="@+id/mb"
-        app:textTail="积分获取"
+        app:textTail="说明"
         app:textTitle="积分明细"
         android:layout_width="match_parent"
         android:layout_height="@dimen/money_bar_height"/>

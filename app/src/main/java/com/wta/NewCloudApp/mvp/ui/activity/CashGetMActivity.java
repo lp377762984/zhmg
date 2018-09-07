@@ -54,8 +54,8 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
     TextView tvTotalScore;
     @BindView(R.id.lat_head)
     View latHead;
-    private int monthOrDay;//0日账单 1月账单
-    private String date;
+    private Date date;
+    private boolean isDay;//默认日账单
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -72,28 +72,16 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
         return R.layout.activity_cash_get;
     }
 
-    public static void startCashList(Activity activity, int type) {
+    public static void startCashList(Activity activity) {
         Intent intent = new Intent(activity, CashGetMActivity.class);
-        intent.putExtra("type", type);
         activity.startActivity(intent);
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        monthOrDay = getIntent().getIntExtra("type", 0);//记住了
-        if (monthOrDay == 0) {
-            date = formateTime(new Date(), "yyyy-MM-dd");
-        } else if (monthOrDay == 1) {
-            date = formateTime(new Date(), "yyyy-MM");
-        }
-        tvMonth.setText(date);
+        date = new Date();
+        switchMonthOrDay(true);
         super.initData(savedInstanceState);
-        if (monthOrDay == 0) {
-            Drawable drawable = getResources().getDrawable(R.mipmap.calendar_day);
-            drawable.setBounds(new Rect(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()));
-            tvMonth.setCompoundDrawables(drawable, null, null, null);
-            tvSwitch.setText("月收益");
-        }
         recyclerView.setLayoutManager(new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
@@ -102,6 +90,24 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
         });
         adapter.setHeaderAndEmpty(true);
         adapter.setEmptyView(R.layout.cash_get_empty);
+    }
+
+    private void switchMonthOrDay(boolean isDay) {
+        if (isDay) {//切换为日账单
+            Drawable drawable = getResources().getDrawable(R.mipmap.calendar_day);
+            drawable.setBounds(new Rect(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()));
+            tvMonth.setCompoundDrawables(drawable, null, null, null);
+            tvSwitch.setText("日收益>");
+            tvMonth.setText(formateTime(date, "yyyy-MM-dd"));
+        } else {//切换为月账单
+            Drawable drawable = getResources().getDrawable(R.mipmap.calendar_month);
+            drawable.setBounds(new Rect(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()));
+            tvMonth.setCompoundDrawables(drawable, null, null, null);
+            tvSwitch.setText("月收益>");
+            tvMonth.setText(formateTime(date, "yyyy-MM"));
+        }
+        this.isDay = isDay;
+        isRefresh = true;
     }
 
     @Override
@@ -119,32 +125,31 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_month:
-                if (monthOrDay == 0) {
+                if (isDay) {
                     DialogUtils.showDayTimePicker(this, new OnTimeSelectListener() {
                         @Override
                         public void onTimeSelect(Date date, View v) {
                             isRefresh = true;
-                            CashGetMActivity.this.date = formateTime(date, "yyyy-MM-dd");
+                            CashGetMActivity.this.date = date;
+                            tvMonth.setText(formateTime(date, "yyyy-MM-dd"));
                             getData(isRefresh);
                         }
                     }).show();
-                } else if (monthOrDay == 1) {
+                } else {
                     DialogUtils.showMonthTimePicker(this, new OnTimeSelectListener() {
                         @Override
                         public void onTimeSelect(Date date, View v) {
                             isRefresh = true;
-                            CashGetMActivity.this.date = formateTime(date, "yyyy-MM");
+                            CashGetMActivity.this.date = date;
+                            tvMonth.setText(formateTime(date, "yyyy-MM"));
                             getData(isRefresh);
                         }
                     }).show();
                 }
                 break;
             case R.id.tv_switch:
-                if (monthOrDay == 1) {
-                    finish();
-                } else if (monthOrDay == 0) {
-                    CashGetMActivity.startCashList(this, 1);
-                }
+                switchMonthOrDay(!isDay);
+                getData(isRefresh);
                 break;
         }
     }
@@ -155,7 +160,7 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
     }
 
     private void getData(boolean isRefresh) {
-        mPresenter.getBReceiveList(isRefresh, 1, monthOrDay == 0 ? "day" : "month", date);
+        mPresenter.getBReceiveList(isRefresh, 1, isDay ? "day" : "month", tvMonth.getText().toString());
     }
 
     @Override
@@ -167,14 +172,11 @@ public class CashGetMActivity extends BaseListActivity<CashGetPresenter> impleme
             data.clear();
             if (msgs != null && msgs.size() > 0) {
                 data.addAll(msgs);
-                //latHead.setVisibility(View.VISIBLE);
-                tvTotalMoney.setText(result.sumNumber.integralIncome + "");
-                tvTotalCount.setText(result.sumNumber.receivablesNumber + "");
-                tvTotalScore.setText(result.sumNumber.sumProfit + "");
-                adapter.notifyDataSetChanged();
-            } else {
-                //latHead.setVisibility(View.GONE);
             }
+            tvTotalMoney.setText(result.sumNumber.sumProfit);
+            tvTotalCount.setText(result.sumNumber.receivablesNumber + "");
+            tvTotalScore.setText(result.sumNumber.integralIncome + "");
+            adapter.notifyDataSetChanged();
         } else {
             int beforeSize = data.size();
             if (msgs != null) {

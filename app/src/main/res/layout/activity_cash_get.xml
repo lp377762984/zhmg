@@ -39,7 +39,6 @@
                         android:paddingBottom="15dp"
                         android:drawablePadding="5dp"
                         android:drawableLeft="@mipmap/calendar_month"
-                        android:text="2018.08"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -80,13 +79,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
+                            android:layout_marginTop="4dp"
                             android:text="0.00"
                             android:id="@+id/tv_total_money"
                             android:layout_toRightOf="@id/tv_yang"
                             android:textColor="#f66"
                             android:textSize="30sp"
-                            android:layout_alignBottom="@id/tv_yang"
-                            android:layout_centerHorizontal="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </RelativeLayout>

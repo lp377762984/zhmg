@@ -129,8 +129,8 @@ public class BusinessModel extends UserModel implements IBusinessModel {
 
     @Override
     public Observable<Result<PayInfo>> pay(int pay_type, String sellerId, String total) {
-        if (pay_type == 1) return getService().pay(pay_type, sellerId, total, "瞎传一个，不行啊","标题");
-        else return getService().pay(pay_type, sellerId, total, "瞎传一个，不行啊",null);
+        if (pay_type == 1) return getService().pay(pay_type, sellerId, total, "乐范儿专属订单","乐范儿专属订单");
+        else return getService().pay(pay_type, sellerId, total, "乐范儿专属订单",null);
     }
 
     @Override

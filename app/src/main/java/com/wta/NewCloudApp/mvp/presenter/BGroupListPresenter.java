@@ -21,7 +21,7 @@ public class BGroupListPresenter extends BBasePresenter<IUserModel, BGroupListCo
     }
 
     public void getGBillsList(boolean isRefresh, int type, String month, String date) {
-        doRequest(buildRequest(mModel.getGBillsList(isRefresh, type, month, date)), 1);
+        doRequest(buildListRequest(mModel.getGBillsList(isRefresh, type, month, date)), 1);
     }
 
     @Override

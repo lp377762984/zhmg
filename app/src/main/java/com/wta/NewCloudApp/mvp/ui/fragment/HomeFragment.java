@@ -118,7 +118,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 Bill bill = billData.get(position);
                 String totalType = bill.totalType;
                 if (totalType.equals("moneyProfit")) {
-                    CashGetMActivity.startCashList(getActivity(), 0);
+                    CashGetMActivity.startCashList(getActivity());
                 } else if (totalType.equals("integralProfit")) {
                     ArmsUtils.startActivity(ScoreListActivity.class);
                 }
