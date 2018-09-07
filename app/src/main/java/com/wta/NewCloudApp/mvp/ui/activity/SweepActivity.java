@@ -23,6 +23,7 @@ import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerSweepComponent;
 import com.wta.NewCloudApp.di.module.SweepModule;
 import com.wta.NewCloudApp.mvp.contract.SweepContract;
+import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.presenter.SweepPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.camera.CameraManager;
 import com.wta.NewCloudApp.mvp.ui.widget.qr.decode.CaptureActivityHandler;
@@ -53,6 +54,7 @@ public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implement
     QrCodeFinderView mQrCodeFinderView;
     @BindView(R.id.qr_code_view_stub)
     SurfaceView mSurfaceView;
+    private String sellerID;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -122,7 +124,8 @@ public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implement
                     if (split1.length == 2) {
                         if ("number".equals(split1[0])) {
                             needReSweep = false;
-                            PayActivity.startPay(this, split1[1]);
+                            sellerID = split1[1];
+                            mPresenter.getBusinessInfo(sellerID);
                         } else {
                             ArmsUtils.makeText(this, getString(R.string.warn_not_business_qr_code));
                         }
@@ -137,7 +140,12 @@ public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implement
             }
         }
         if (needReSweep) restartPreview();
-        else finish();
+    }
+
+    @Override
+    public void showBusinessMsg(Business business) {
+        PayActivity.startPay(this, business,sellerID);
+        finish();
     }
 
     private void vibrate() {

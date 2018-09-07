@@ -2,7 +2,9 @@ package com.wta.NewCloudApp.mvp.model.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Business {
+import java.io.Serializable;
+
+public class Business implements Serializable {
     public String distance;
     public int code_type;
     public String msg;

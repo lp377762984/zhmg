@@ -37,6 +37,7 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
     EditTextHint etMoney;
     @BindView(R.id.im_head)
     RoundedImageView imHead;
+    private Business business;
     private String sellerID;
     private String orderID;
     private String type;
@@ -58,8 +59,10 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        business = (Business) getIntent().getSerializableExtra("business");
         sellerID = getIntent().getStringExtra("sellerID");
-        mPresenter.getBusinessInfo(sellerID);
+        tvName.setText(business.shop_name);
+        GlideArms.with(this).load(business.shop_doorhead).placeholder(R.mipmap.user_default).into(imHead);
         etMoney.setFilters(new InputFilter[]{new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
@@ -78,8 +81,9 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
         }});
     }
 
-    public static void startPay(Activity activity, String sellerID) {
+    public static void startPay(Activity activity, Business business, String sellerID) {
         Intent intent = new Intent(activity, PayActivity.class);
+        intent.putExtra("business", business);
         intent.putExtra("sellerID", sellerID);
         activity.startActivity(intent);
     }
@@ -112,12 +116,6 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
     public void pay(PayInfo data) {
         orderID = data.out_trade_no;
         PayManager.getInstance().requestPay(this, data, this);
-    }
-
-    @Override
-    public void showBusinessMsg(Business data) {
-        tvName.setText(data.shop_name);
-        GlideArms.with(this).load(data.shop_doorhead).placeholder(R.mipmap.user_default).into(imHead);
     }
 
     //错误码（以微信为准）0成功 -1错误 -2取消 -3网络错误 -4其他错误

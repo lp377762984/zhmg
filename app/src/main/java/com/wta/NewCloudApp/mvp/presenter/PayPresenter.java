@@ -22,17 +22,11 @@ public class PayPresenter extends BBasePresenter<IBusinessModel, PayContract.Vie
         doRequest(buildRequest(mModel.pay(pay_type, sellerId, total)), 1);
     }
 
-    public void getBusinessInfo(String sellerID) {
-        doRequest(buildRequest(mModel.getBusinessInfo(sellerID)), 2);
-    }
-
     @Override
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
         if (what == 1) {
             mRootView.pay(((PayInfo) result.data));
-        } else if (what == 2) {
-            mRootView.showBusinessMsg(((Business) result.data));
         }
     }
 

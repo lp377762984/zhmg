@@ -11,8 +11,6 @@ public interface PayContract {
     interface View extends IView {
 
         void pay(PayInfo data);
-
-        void showBusinessMsg(Business data);
     }
 
 }
