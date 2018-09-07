@@ -25,11 +25,11 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerMineComponent;
 import com.wta.NewCloudApp.di.module.MineModule;
-import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.MineContract;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
@@ -38,19 +38,19 @@ import com.wta.NewCloudApp.mvp.presenter.MinePresenter;
 import com.wta.NewCloudApp.mvp.ui.activity.AddressListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.CardListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.GroupActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.LoginActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MsgActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.ScoreListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SettingActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UserMsgActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity;
+import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import timber.log.Timber;
 
 import static android.util.TypedValue.COMPLEX_UNIT_SP;
@@ -60,7 +60,6 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
 
     @BindView(R.id.im_head)
     RoundedImageView imHead;
-    Unbinder unbinder;
     @BindView(R.id.im_setting)
     ImageView imSetting;
     @BindView(R.id.tv_nick_name)
@@ -102,24 +101,15 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadmore(false);
         ClassicsHeader ch = new ClassicsHeader(getActivity());
-        ch.setTextSizeTitle(COMPLEX_UNIT_SP,14);
+        ch.setTextSizeTitle(COMPLEX_UNIT_SP, 14);
         ch.setDrawableArrowSize(15);
         ch.setDrawableProgressSize(15);
         ch.setEnableLastTime(false);
-        //ch.setAccentColorId(R.color.white);
-        //ch.setPrimaryColorId(R.color.style_color);
         refreshLayout.setHeaderHeight(48);
         refreshLayout.setRefreshHeader(ch);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -135,22 +125,28 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
         super.onResume();
         showUserMsg();
     }
-    private void showUserMsg(){
+
+    private void showUserMsg() {
         GlideArms.with(this)
                 .load(AppConfig.getInstance().getString("avatar", null))
                 .placeholder(R.mipmap.user_default)
                 .into(imHead);
-        tvNickName.setText(AppConfig.getInstance().getString("nickname", null));
-        tvClass.setText(AppConfig.getInstance().getString("group_name", null));
+        if (AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
+            tvNickName.setText(AppConfig.getInstance().getString("nickname", null));
+        else tvNickName.setText("登陆/注册");
+            tvClass.setText(AppConfig.getInstance().getString("group_name", null));
         tvScore.setText(String.valueOf(AppConfig.getInstance().getInt("white_score", 0)));
     }
 
-    @OnClick({R.id.im_head, R.id.im_setting, R.id.lat_record, R.id.lat_card,R.id.lat_bill,
+    @OnClick({R.id.lat_user, R.id.im_setting, R.id.lat_record, R.id.lat_card, R.id.lat_bill,
             R.id.lat_group, R.id.lat_share, R.id.lat_location, R.id.lat_about_us, R.id.lat_msg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.im_head:
-                ArmsUtils.startActivity(UserMsgActivity.class);
+            case R.id.lat_user:
+                if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
+                    ArmsUtils.startActivity(LoginActivity.class);
+                else
+                    ArmsUtils.startActivity(UserMsgActivity.class);
                 break;
             case R.id.im_setting:
                 ArmsUtils.startActivity(SettingActivity.class);
@@ -184,7 +180,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
 
     @Override
     public void onClick(View v) {
-        if (dialog!=null && dialog.isShowing()) dialog.dismiss();
+        if (dialog != null && dialog.isShowing()) dialog.dismiss();
         UMWeb web = new UMWeb(share.share_url);
         web.setTitle(share.share_title);//标题
         web.setThumb(new UMImage(getActivity(), share.share_img));  //缩略图
@@ -230,12 +226,6 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
             case R.id.imageView:
                 break;
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override

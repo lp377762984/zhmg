@@ -45,11 +45,11 @@ public class MainActivity extends BaseLoadingActivity {
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                if (position == 2) {
+                /*if (position == 2) {
                     if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
                         ArmsUtils.startActivity(LoginActivity.class);
                     else tabLayout.setCurrentTab(position);
-                } else tabLayout.setCurrentTab(position);
+                } else */tabLayout.setCurrentTab(position);
             }
 
             @Override

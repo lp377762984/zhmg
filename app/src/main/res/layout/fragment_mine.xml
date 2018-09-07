@@ -38,6 +38,7 @@
                         app:srcCompat="@mipmap/mine_setting" />
 
                     <LinearLayout
+                        android:id="@+id/lat_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -69,7 +70,7 @@
                             android:layout_marginStart="8dp"
                             android:maxLines="1"
                             android:ellipsize="end"
-                            android:text="一只可爱的小狗"
+                            android:text="登陆/注册"
                             android:textColor="@color/white"
                             android:textSize="17sp" />
                     </LinearLayout>
