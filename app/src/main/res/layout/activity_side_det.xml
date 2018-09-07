@@ -115,6 +115,7 @@
                     android:layout_height="67dp">
                     <com.makeramen.roundedimageview.RoundedImageView
                         app:riv_corner_radius="5dp"
+                        app:riv_oval="false"
                         android:scaleType="centerCrop"
                         android:visibility="visible"
                         android:id="@+id/im_store_01"
@@ -122,6 +123,7 @@
                         android:layout_weight="1"
                         android:layout_height="match_parent" />
                     <com.makeramen.roundedimageview.RoundedImageView
+                        app:riv_oval="false"
                         app:riv_corner_radius="5dp"
                         android:scaleType="centerCrop"
                         android:visibility="visible"
@@ -131,6 +133,7 @@
                         android:layout_weight="1"
                         android:layout_height="match_parent" />
                     <com.makeramen.roundedimageview.RoundedImageView
+                        app:riv_oval="false"
                         app:riv_corner_radius="5dp"
                         android:scaleType="centerCrop"
                         android:visibility="visible"

@@ -55,11 +55,19 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
-    channel{
-        //多渠道包的输出目录，默认为new File(project.buildDir,"channel")
-        baseOutputDir = new File(project.buildDir,"great")
-        //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}
-        apkNameFormat ='${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}'
+//    channel{
+//        //多渠道包的输出目录，默认为new File(project.buildDir,"channel")
+//        baseOutputDir = new File(project.buildDir,"great")
+//        //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}
+//        apkNameFormat ='${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}'
+//    }
+    flavorDimensions "lefan"
+    productFlavors {
+        a{}
+        b{}
+    }
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
 }
 

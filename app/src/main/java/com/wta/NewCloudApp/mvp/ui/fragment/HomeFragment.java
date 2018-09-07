@@ -15,6 +15,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.base.delegate.IFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerHomeComponent;
 import com.wta.NewCloudApp.di.module.HomeModule;
@@ -52,6 +56,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static android.util.TypedValue.COMPLEX_UNIT_SP;
+
 
 public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements HomeContract.View {
 
@@ -72,6 +78,8 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     private List<Bill> billData;
     private int position;
     private List<HomeBanner> imgs = new ArrayList<>();
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -90,6 +98,20 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        ClassicsHeader ch = new ClassicsHeader(getContext());
+        ch.setTextSizeTitle(COMPLEX_UNIT_SP, 14);
+        ch.setDrawableArrowSize(15);
+        ch.setDrawableProgressSize(15);
+        ch.setEnableLastTime(false);
+        refreshLayout.setRefreshHeader(ch);
+        refreshLayout.setHeaderHeight(48);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                mPresenter.getHomeBanner();
+                mPresenter.getMsgList();
+            }
+        });
         mPresenter.getHomeBanner();
         mPresenter.getMsgList();
     }
@@ -99,7 +121,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         if (adapter == null) {
             billData = new ArrayList<>();
             for (int i = 0; i < result.data.size(); i++) {
-                if (result.data.get(i)!=null){
+                if (result.data.get(i) != null) {
                     billData.add(result.data.get(i));
                 }
             }
@@ -109,9 +131,9 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                     Bill bill = billData.get(position);
                     String totalType = bill.totalType;
-                    if (totalType.equals("moneyProfit")){
-                        CashGetMActivity.startCashList(getActivity(),0);
-                    }else if (totalType.equals("integralProfit")){
+                    if (totalType.equals("moneyProfit")) {
+                        CashGetMActivity.startCashList(getActivity(), 0);
+                    } else if (totalType.equals("integralProfit")) {
                         ArmsUtils.startActivity(ScoreListActivity.class);
                     }
                 }
@@ -120,7 +142,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     Bill bill = billData.get(position);
-                    if (bill.totalType.equals("integralProfit")){
+                    if (bill.totalType.equals("integralProfit")) {
                         String status = bill.status;
                         switch (status) {
                             case "saleStatus":
@@ -133,17 +155,23 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                                 RScoreDetActivity.startDet(getActivity(), bill.bill_id);
                                 break;
                         }
-                    }else if (bill.totalType.equals("moneyProfit")){
-                        CashDetActivity.startCashDet(getActivity(),bill.bill_id);
+                    } else if (bill.totalType.equals("moneyProfit")) {
+                        CashDetActivity.startCashDet(getActivity(), bill.bill_id);
                     }
                 }
             });
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setNestedScrollingEnabled(false);
             recyclerView.setAdapter(adapter);
+            adapter.bindToRecyclerView(recyclerView);
+            adapter.setEmptyView(R.layout.home_empty);
         } else {
             billData.clear();
-            billData.addAll(result.data);
+            for (int i = 0; i < result.data.size(); i++) {
+                if (result.data.get(i) != null) {
+                    billData.add(result.data.get(i));
+                }
+            }
             adapter.notifyDataSetChanged();
         }
     }
@@ -170,6 +198,12 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
 //        banner.setLayoutParams(lp2);
         banner.setImages(imgs);
         banner.start();
+    }
+
+    @Override
+    public void stopRefresh() {
+        if (refreshLayout.isRefreshing())
+            refreshLayout.finishRefresh();
     }
 
     @Override

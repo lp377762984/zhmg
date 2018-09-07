@@ -44,7 +44,7 @@
             android:value="5b5ad513b27b0a11d10002b1" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="unknown" /> <!-- 跟推广渠道有关系，暂时写unknown -->
+            android:value="${UMENG_CHANNEL_VALUE}" /> <!-- 跟推广渠道有关系，暂时写unknown -->
         <meta-data
             android:name="com.wta.NewCloudApp.config.GlobalConfiguration"
             android:value="ConfigModule" />

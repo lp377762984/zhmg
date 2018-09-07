@@ -18,6 +18,8 @@ public interface HomeContract {
         void showBState(Result<Business> businessResult);
 
         void showHomeBanner(List<HomeBanner> homeBanners);
+
+        void stopRefresh();
     }
 
     interface Model extends IModel {

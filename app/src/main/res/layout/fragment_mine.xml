@@ -8,15 +8,15 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <!--head-->
                 <android.support.constraint.ConstraintLayout
@@ -68,6 +68,7 @@
                             android:layout_marginRight="8dp"
                             android:layout_marginStart="8dp"
                             android:maxLines="1"
+                            android:ellipsize="end"
                             android:text="一只可爱的小狗"
                             android:textColor="@color/white"
                             android:textSize="17sp" />
@@ -186,6 +187,7 @@
                     </RelativeLayout>
                     <!--兑换记录-->
                     <RelativeLayout
+                        android:visibility="gone"
                         android:id="@+id/lat_record"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"

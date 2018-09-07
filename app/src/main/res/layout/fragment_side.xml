@@ -7,7 +7,7 @@
         android:background="@color/style_color"
         android:layout_width="match_parent"
         android:layout_height="@dimen/status_bar"/>
-    <FrameLayout
+    <LinearLayout
         android:paddingLeft="15dp"
         android:background="@color/style_color"
         android:layout_width="match_parent"
@@ -22,19 +22,20 @@
             android:drawablePadding="10dp"
             android:drawableLeft="@mipmap/side_search"
             android:background="@drawable/side_search_bg"
-            android:layout_width="247dp"
+            android:layout_width="0dp"
+            android:layout_weight="3"
             android:layout_height="28dp" />
         <TextView
-            android:paddingRight="15dp"
             android:id="@+id/tv_go_in"
             android:layout_gravity="right"
             android:textColor="#fff"
             android:textSize="14sp"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:text="商家入驻"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent" />
-    </FrameLayout>
+    </LinearLayout>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"

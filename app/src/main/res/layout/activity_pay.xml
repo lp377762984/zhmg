@@ -33,7 +33,6 @@
                     android:layout_gravity="center_horizontal"
                     android:textSize="16sp"
                     android:textColor="#333"
-                    android:text="大润发超市"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <LinearLayout
@@ -162,8 +161,9 @@
             </LinearLayout>
             <com.makeramen.roundedimageview.RoundedImageView
                 android:elevation="6dp"
-                android:src="@color/style_color"
-                app:riv_oval="true"
+                app:riv_oval="false"
+                app:riv_corner_radius="45dp"
+                android:scaleType="centerCrop"
                 android:layout_marginTop="82dp"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/im_head"

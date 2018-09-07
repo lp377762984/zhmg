@@ -21,7 +21,6 @@ import com.wta.NewCloudApp.mvp.contract.SideContract;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.presenter.SidePresenter;
-import com.wta.NewCloudApp.mvp.ui.activity.BServiceActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantAuthActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInfoActivity;
@@ -29,20 +28,15 @@ import com.wta.NewCloudApp.mvp.ui.activity.SideDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SideSearchActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.SideAdapter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
-import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
-import timber.log.Timber;
 
 
 public class SideFragment extends BaseListFragment<SidePresenter> implements SideContract.View {
     @BindView(R.id.et_content)
     TextView etContent;
-    Unbinder unbinder;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -147,19 +141,6 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
                 });
                 break;
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override

@@ -84,13 +84,13 @@ public class ActivityLifecycleCallbacksImpl implements Application.ActivityLifec
     @Override
     public void onActivityResumed(Activity activity) {
         //Timber.w("%s - onActivityResumed", activity);
-        if (activity instanceof BaseActivity) MobclickAgent.onResume(activity);
+        MobclickAgent.onResume(activity);
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
         //Timber.w("%s - onActivityPaused", activity);
-        if (activity instanceof BaseActivity) MobclickAgent.onResume(activity);
+        MobclickAgent.onResume(activity);
     }
 
     @Override

@@ -36,11 +36,49 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
         if (what == 1) {
+            stopRefresh(what);
             mRootView.showList((Result<List<Bill>>) result);
         } else if (what == 2) {
             mRootView.showBState((Result<Business>) result);
-        } else if (what == 3){
+        } else if (what == 3) {
+            stopRefresh(what);
             mRootView.showHomeBanner(((List<HomeBanner>) result.data));
+        }
+    }
+
+    @Override
+    public <T> void handle404(int what, Result<T> result) {
+        super.handle404(what, result);
+        stopRefresh(what);
+    }
+
+    @Override
+    public void handle20(int what, Result result) {
+        super.handle20(what, result);
+        stopRefresh(what);
+    }
+
+    @Override
+    public void handle10(int what, Result result) {
+        super.handle10(what, result);
+        stopRefresh(what);
+    }
+
+    @Override
+    public void handle11(int what, Result result) {
+        super.handle11(what, result);
+        stopRefresh(what);
+    }
+
+    @Override
+    public void handleException(int what, Throwable t) {
+        super.handleException(what, t);
+        stopRefresh(what);
+    }
+
+    private void stopRefresh(int what) {
+        if (what == 1 || what == 3) {
+            mRootView.stopRefresh();
         }
     }
 }

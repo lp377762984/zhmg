@@ -159,9 +159,13 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
 
     private TreeMap<String, Object> buildPictureStr() {
         TreeMap<String, Object> map = new TreeMap<>();
-        map.put("image1", business.picture.image1);
-        map.put("image2", business.picture.image2);
-        map.put("image3", business.picture.image3);
+        Business.PictureBean picture = business.picture;
+        String image1 = picture.image1;
+        String image2 = picture.image2;
+        String image3 = picture.image3;
+        if (image1 != null) map.put("image1", image1);
+        if (image2 != null) map.put("image1", image2);
+        if (image3 != null) map.put("image1", image3);
         return map;
     }
 
@@ -213,7 +217,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     @Override
     public void showStoreInfo(Business data) {
         this.business = data;
-        GlideArms.with(this).load(data.shop_doorhead).into(imHead);
+        GlideArms.with(this).load(data.shop_doorhead).placeholder(R.mipmap.side_b_placeholder).into(imHead);
         tvName.setText(data.shop_name);
         tvClass.setText(data.level_name);
         tvLocation.setText(data.location_address);
@@ -227,15 +231,15 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         boolean a2 = false;
         boolean a3 = false;
         if (picture != null && !TextUtils.isEmpty(picture.image1)) {//第一张有图片
-            GlideArms.with(this).load(picture.image1).into(imStore01);
+            GlideArms.with(this).load(picture.image1).placeholder(R.mipmap.side_b_placeholder).into(imStore01);
             a1 = true;
         }
         if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第二张有图片
-            GlideArms.with(this).load(picture.image2).into(imStore02);
+            GlideArms.with(this).load(picture.image2).placeholder(R.mipmap.side_b_placeholder).into(imStore02);
             a2 = true;
         }
         if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第三张有图片
-            GlideArms.with(this).load(picture.image3).into(imStore03);
+            GlideArms.with(this).load(picture.image3).placeholder(R.mipmap.side_b_placeholder).into(imStore03);
             a3 = true;
         }
         if (!a1) {//没有一张图片
