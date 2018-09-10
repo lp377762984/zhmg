@@ -112,7 +112,6 @@ public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implement
         mInactivityTimer.onActivity();
         vibrate();
         String text = result.getText();
-        boolean needReSweep = true;
         if (TextUtils.isEmpty(text)) {
             ArmsUtils.makeText(this, getString(R.string.warn_not_business_qr_code));
         } else {
@@ -123,7 +122,6 @@ public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implement
                     String[] split1 = number.split("=");
                     if (split1.length == 2) {
                         if ("number".equals(split1[0])) {
-                            needReSweep = false;
                             sellerID = split1[1];
                             mPresenter.getBusinessInfo(sellerID);
                         } else {
@@ -139,7 +137,7 @@ public class SweepActivity extends BaseLoadingActivity<SweepPresenter> implement
                 ArmsUtils.makeText(this, getString(R.string.warn_not_business_qr_code));
             }
         }
-        if (needReSweep) restartPreview();
+        restartPreview();
     }
 
     @Override

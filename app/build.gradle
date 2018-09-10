@@ -61,14 +61,14 @@ android {
 //        //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}
 //        apkNameFormat ='${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}'
 //    }
-    flavorDimensions "lefan"
-    productFlavors {
-        a{}
-        b{}
-    }
-    productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-    }
+//    flavorDimensions "lefan"
+//    productFlavors {
+//        a{}
+//        b{}
+//    }
+//    productFlavors.all {
+//        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+//    }
 }
 
 dependencies {
