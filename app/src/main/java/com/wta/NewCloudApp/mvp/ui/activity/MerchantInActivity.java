@@ -89,16 +89,25 @@ public class MerchantInActivity extends BaseLoadingActivity<MerchantInPresenter>
     }
 
     @Override
-    public void getIsBindAlipay(int is_alipay) {
-        if (is_alipay == 1) {
-            MerchantAuthActivity.startAuth(this, 6);
-        } else if (is_alipay == 0) {
-            DialogUtils.showAlertDialog(this,"需要绑定支付宝才可以继续，是否绑定支付宝？",new DetDialogCallback(){
+    public void getIsBindAlipay(int is_alipay, int card_status) {
+        if (card_status == 0) {
+            DialogUtils.showAlertDialog(this, "需要实名认证才可以继续，是否实名认证？", new DetDialogCallback() {
                 @Override
                 public void handleRight(Dialog dialog) {
-                    mPresenter.getAuthInfo();
+                    AuthActivity.startAuth(MerchantInActivity.this);
                 }
             });
+        } else {
+            if (is_alipay == 1) {
+                MerchantAuthActivity.startAuth(this, 6);
+            } else if (is_alipay == 0) {
+                DialogUtils.showAlertDialog(this, "需要绑定支付宝才可以继续，是否绑定支付宝？", new DetDialogCallback() {
+                    @Override
+                    public void handleRight(Dialog dialog) {
+                        mPresenter.getAuthInfo();
+                    }
+                });
+            }
         }
     }
 

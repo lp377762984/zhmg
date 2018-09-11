@@ -67,7 +67,11 @@ public class MerchantInPresenter extends BBasePresenter<BusinessModel, MerchantI
         } else if (what == 3) {
             showToast("支付宝授权成功");
         } else if (what == 4) {
-            mRootView.getIsBindAlipay(((User) result.data).is_alipay);
+            User user = ((User) result.data);
+            int is_alipay = user.is_alipay;
+            int card_status = user.card_status;
+
+            mRootView.getIsBindAlipay(is_alipay,card_status);
         } else if (what == 5) {
             mRootView.showPower(((User) result.data));
         }
@@ -81,7 +85,7 @@ public class MerchantInPresenter extends BBasePresenter<BusinessModel, MerchantI
             if ("9000".equals(resultStatus)) {
                 String result = k1.get("result");
                 handleResults(result);
-            } else if ("6001".equals(resultStatus)){
+            } else if ("6001".equals(resultStatus)) {
                 showToast("支付宝绑定已取消");
             } else {
                 showToast("支付宝授权失败，code:" + resultStatus);

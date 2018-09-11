@@ -13,7 +13,7 @@ public interface MerchantInContract {
 
         Activity getActivityCet();
 
-        void getIsBindAlipay(int is_alipay);
+        void getIsBindAlipay(int is_alipay,int card_status);
 
         void showPower(User user);
     }
