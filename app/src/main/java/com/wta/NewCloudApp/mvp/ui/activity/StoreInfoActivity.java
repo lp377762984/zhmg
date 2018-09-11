@@ -164,8 +164,8 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         String image2 = picture.image2;
         String image3 = picture.image3;
         if (image1 != null) map.put("image1", image1);
-        if (image2 != null) map.put("image1", image2);
-        if (image3 != null) map.put("image1", image3);
+        if (image2 != null) map.put("image2", image2);
+        if (image3 != null) map.put("image3", image3);
         return map;
     }
 

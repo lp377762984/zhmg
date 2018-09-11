@@ -21,10 +21,10 @@ public class RoundImageLoader extends ImageLoader {
                     .into(imageView);
     }
 
-//    @Override
-//    public ImageView createImageView(Context context) {
-//        RoundedImageView imageView = new RoundedImageView(context);
-//        imageView.setCornerRadius(ScreenDpiUtils.dp2px(context, 5));
-//        return imageView;
-//    }
+    @Override
+    public ImageView createImageView(Context context) {
+        RoundedImageView imageView = new RoundedImageView(context);
+        imageView.setCornerRadius(ScreenDpiUtils.dp2px(context, 5));
+        return imageView;
+    }
 }

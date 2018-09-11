@@ -44,6 +44,7 @@ import com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.HomeListAdapter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.PJImageLoader;
+import com.wta.NewCloudApp.mvp.ui.widget.RoundImageLoader;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -153,25 +154,9 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         adapter.setEmptyView(R.layout.home_empty);
         mPresenter.getHomeBanner();
         mPresenter.getMsgList();
-    }
 
-    @Override
-    public void showList(Result<List<Bill>> result) {
-        billData.clear();
-        for (int i = 0; i < result.data.size(); i++) {
-            if (result.data.get(i) != null) {
-                billData.add(result.data.get(i));
-            }
-        }
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void showHomeBanner(List<HomeBanner> homeBanners) {
-        imgs.clear();
-        imgs.addAll(homeBanners);
         banner.setIndicatorGravity(BannerConfig.RIGHT);
-        banner.setImageLoader(new PJImageLoader());
+        banner.setImageLoader(new RoundImageLoader());
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
@@ -188,6 +173,22 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
 //        banner.setLayoutParams(lp2);
         banner.setImages(imgs);
         banner.start();
+    }
+
+    @Override
+    public void showList(Result<List<Bill>> result) {
+        billData.clear();
+        for (int i = 0; i < result.data.size(); i++) {
+            if (result.data.get(i) != null) {
+                billData.add(result.data.get(i));
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showHomeBanner(List<HomeBanner> homeBanners) {
+        banner.update(homeBanners);
     }
 
     @Override

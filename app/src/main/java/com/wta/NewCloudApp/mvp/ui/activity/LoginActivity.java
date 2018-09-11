@@ -277,9 +277,9 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
 
         } else {
             ArmsUtils.makeText(getApplicationContext(), results.msg);
-            if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
+            /*if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
                 EventBus.getDefault().post(new TabWhat(2));
-            else
+            else*/
                 EventBus.getDefault().post(getIntent().getStringExtra("class"));
             //用于判断是否显示注册协议,点击主页面第三个tab的判断
             AppConfig.getInstance().putBoolean(ConfigTag.IS_LOGIN, true);
