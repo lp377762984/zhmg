@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -277,10 +278,9 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
 
         } else {
             ArmsUtils.makeText(getApplicationContext(), results.msg);
-            /*if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
-                EventBus.getDefault().post(new TabWhat(2));
-            else*/
-                EventBus.getDefault().post(getIntent().getStringExtra("class"));
+            String aClass = getIntent().getStringExtra("class");
+            if (!TextUtils.isEmpty(aClass))
+                EventBus.getDefault().post(aClass);
             //用于判断是否显示注册协议,点击主页面第三个tab的判断
             AppConfig.getInstance().putBoolean(ConfigTag.IS_LOGIN, true);
             //save user

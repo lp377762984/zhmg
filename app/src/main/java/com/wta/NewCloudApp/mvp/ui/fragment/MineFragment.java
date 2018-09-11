@@ -35,6 +35,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.MinePresenter;
+import com.wta.NewCloudApp.mvp.ui.activity.AboutUsActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.AddressListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.CardListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.GroupActivity;
@@ -134,7 +135,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
         if (AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
             tvNickName.setText(AppConfig.getInstance().getString("nickname", null));
         else tvNickName.setText("登陆/注册");
-            tvClass.setText(AppConfig.getInstance().getString("group_name", null));
+        tvClass.setText(AppConfig.getInstance().getString("group_name", "会员"));
         tvScore.setText(String.valueOf(AppConfig.getInstance().getInt("white_score", 0)));
     }
 
@@ -170,7 +171,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
                 ArmsUtils.startActivity(AddressListActivity.class);
                 break;
             case R.id.lat_about_us:
-                WebViewActivity.start(getActivity(), "关于我们", FinalUtils.ABOUT_US);
+                ArmsUtils.startActivity(AboutUsActivity.class);
                 break;
             case R.id.lat_bill:
                 ArmsUtils.startActivity(ScoreListActivity.class);

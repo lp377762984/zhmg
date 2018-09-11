@@ -6,13 +6,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -21,24 +18,24 @@ import android.widget.TextView;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.wta.NewCloudApp.BuildConfig;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerSettingComponent;
 import com.wta.NewCloudApp.di.module.SettingModule;
 import com.wta.NewCloudApp.mvp.contract.SettingContract;
-import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.model.entity.WXAccessToken;
+import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.presenter.SettingPresenter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.DataCleanUtils;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
+import com.wta.NewCloudApp.uitls.InstallUtil;
 import com.wta.NewCloudApp.uitls.PackageUtils;
 import com.wta.NewCloudApp.wxapi.login_share.ThirdAuthManager;
 import com.wta.NewCloudApp.wxapi.login_share.WXOpenIdListener;
@@ -51,6 +48,8 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
+
+import static com.wta.NewCloudApp.uitls.InstallUtil.UNKNOWN_CODE;
 
 
 public class SettingActivity extends BaseLoadingActivity<SettingPresenter> implements SettingContract.View {
@@ -79,6 +78,8 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
     RelativeLayout latAli;
     private ProgressDialog progressDialog;
     private Dialog updateDialog;
+    private InstallUtil mInstallUtil;
+
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -120,7 +121,7 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
 
     }
 
-    @OnClick({R.id.lat_phone, R.id.lat_wx, R.id.lat_clear, R.id.lat_update, R.id.btn_exit,R.id.lat_ali})
+    @OnClick({R.id.lat_phone, R.id.lat_wx, R.id.lat_clear, R.id.lat_update, R.id.btn_exit, R.id.lat_ali})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_phone:
@@ -185,6 +186,8 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_BIND) {
             tvPhoneState.setText(AppConfig.getInstance().getString(ConfigTag.MOBILE, null));
+        }else if(resultCode == RESULT_OK && requestCode == UNKNOWN_CODE){
+            mInstallUtil.install();
         }
     }
 
@@ -223,18 +226,8 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
             showToast("文件不存在");
             return;
         }
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        if (Build.VERSION.SDK_INT > 23) {
-            Uri uri = FileProvider.getUriForFile(SettingActivity.this, BuildConfig.APPLICATION_ID + ".provider", file);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.setDataAndType(uri, "application/vnd.android.package-archive");
-            i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(i);
-        } else {
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.setDataAndType(Uri.parse("file://" + file.getAbsolutePath()), "application/vnd.android.package-archive");
-            startActivity(i);
-        }
+        mInstallUtil = new InstallUtil(this, file);
+        mInstallUtil.install();
     }
 
     @Override
@@ -264,7 +257,7 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
 
     @Override
     public void bindAliSuccess() {
-        AppConfig.getInstance().putInt(ConfigTag.IS_ALIPAY,1);
+        AppConfig.getInstance().putInt(ConfigTag.IS_ALIPAY, 1);
         tvAliState.setText("已绑定");
         latAli.setEnabled(false);
     }
