@@ -75,6 +75,11 @@ public class TestActivity extends AppCompatActivity {
                 public boolean onLocateFailed(AMapLocation location) {
                     return false;
                 }
+
+                @Override
+                public void noPermission() {
+
+                }
             });
         }
         manager.start();

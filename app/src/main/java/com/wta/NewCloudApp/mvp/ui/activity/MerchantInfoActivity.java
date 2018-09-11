@@ -166,6 +166,11 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
                 public boolean onLocateFailed(AMapLocation location) {
                     return false;
                 }
+
+                @Override
+                public void noPermission() {
+
+                }
             });
         }
         locationManager.start();

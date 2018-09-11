@@ -42,6 +42,9 @@ public class LocationManager {
                             startLocation();
                         } else {
                             ArmsUtils.makeText(activity,"没有定位权限");
+                            if (locateListener != null) {
+                                locateListener.noPermission();
+                            }
                         }
                     }
                 });
@@ -49,8 +52,8 @@ public class LocationManager {
 
     public interface LocateListener {
         void onLocateSuccess(AMapLocation location);
-
         boolean onLocateFailed(AMapLocation location);
+        void noPermission();
     }
 
     /**

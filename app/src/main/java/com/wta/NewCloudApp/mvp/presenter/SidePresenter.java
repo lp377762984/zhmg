@@ -7,6 +7,7 @@ import com.wta.NewCloudApp.mvp.contract.SideContract;
 import com.wta.NewCloudApp.mvp.model.BusinessModel;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.ui.fragment.SideFragment;
 import com.wta.NewCloudApp.mvp.view.BaseDataView;
 
 import java.util.List;
@@ -71,7 +72,13 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
 
                 @Override
                 public boolean onLocateFailed(AMapLocation location) {
+                    ((BaseDataView) mRootView).hideListLoading();
                     return false;
+                }
+
+                @Override
+                public void noPermission() {
+                    ((BaseDataView) mRootView).hideListLoading();
                 }
             });
         }
