@@ -6,10 +6,12 @@ import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.model.entity.Update;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 
 public interface HomeContract {
@@ -22,11 +24,21 @@ public interface HomeContract {
         void stopRefresh();
 
         void showListFailed();
+
+        void showUpdate(Update update);
+
+        void showProgress();
+
+        void updateProgress(int progress);
     }
 
     interface Model extends IModel {
         Observable<Result<List<Bill>>> getBillList();
         Observable<Result<Business>> getStoreState();
         Observable<Result<List<HomeBanner>>> getHomeBanner();
+
+        Observable<Result<Update>> checkUpdate(String packageVersion);
+
+        Observable<ResponseBody> downloadApp(String url);
     }
 }

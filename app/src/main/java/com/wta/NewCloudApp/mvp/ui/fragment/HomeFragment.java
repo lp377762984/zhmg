@@ -1,7 +1,11 @@
 package com.wta.NewCloudApp.mvp.ui.fragment;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +23,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerHomeComponent;
 import com.wta.NewCloudApp.di.module.HomeModule;
@@ -27,6 +32,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.presenter.HomePresenter;
 import com.wta.NewCloudApp.mvp.ui.activity.BQRActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.BScoreDetActivity;
@@ -38,6 +44,7 @@ import com.wta.NewCloudApp.mvp.ui.activity.MerchantInActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInfoActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.RScoreDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.ScoreListActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.SettingActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SweepActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UScoreDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity;
@@ -46,16 +53,19 @@ import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.PJImageLoader;
 import com.wta.NewCloudApp.mvp.ui.widget.RoundImageLoader;
 import com.wta.NewCloudApp.uitls.DialogUtils;
+import com.wta.NewCloudApp.uitls.InstallUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.functions.Consumer;
 
 import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
@@ -80,6 +90,8 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     private List<HomeBanner> imgs = new ArrayList<>();
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
+    private Dialog updateDialog;
+    private ProgressDialog progressDialog;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -108,6 +120,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
+                mPresenter.checkUpdate();
                 mPresenter.getHomeBanner();
                 mPresenter.getMsgList();
             }
@@ -152,6 +165,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         recyclerView.setAdapter(adapter);
         adapter.bindToRecyclerView(recyclerView);
         adapter.setEmptyView(R.layout.home_empty);
+        mPresenter.checkUpdate();
         mPresenter.getHomeBanner();
         mPresenter.getMsgList();
 
@@ -279,4 +293,56 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     public void exitAndRefreshData(){
         mPresenter.getMsgList();
     }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void showUpdate(Update update) {
+        if (updateDialog == null) {
+            updateDialog = DialogUtils.createUpdateDialog(getActivity(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateDialog.dismiss();
+                    new RxPermissions(getActivity()).request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            .subscribe(new Consumer<Boolean>() {
+                                @Override
+                                public void accept(Boolean aBoolean) throws Exception {
+                                    if (aBoolean) {
+                                        mPresenter.downLoadApp(update.version_stable_url);
+                                    } else showToast("请打开读写权限");
+                                }
+                            });
+                }
+            });
+        }
+        updateDialog.show();
+    }
+    @Override
+    public void showProgress() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        }
+        progressDialog.show();
+    }
+
+    @Override
+    public void updateProgress(int progress) {
+        progressDialog.setProgress(progress);
+        if (progress == 100) {
+            progressDialog.dismiss();
+            installApp(new File(Environment.getExternalStorageDirectory() + "/temp/zhmg.apk"));
+        }
+    }
+
+    public void installApp(File file) {
+        if (file == null || !file.exists()) {
+            showToast("文件不存在");
+            return;
+        }
+        InstallUtil mInstallUtil = new InstallUtil(getActivity(), file);
+        mInstallUtil.install();
+    }
+
 }
