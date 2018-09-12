@@ -35,6 +35,7 @@ import timber.log.Timber;
 @FragmentScope
 public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContract.View> {
     private ProgressInfo mLastDownloadingInfo;
+
     @Inject
     public HomePresenter(HomeContract.Model model, HomeContract.View rootView) {
         super(model, rootView);
@@ -67,14 +68,14 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
         } else if (what == 3) {
             stopRefresh(what);
             mRootView.showHomeBanner(((List<HomeBanner>) result.data));
-        } else if (what == 4){
+        } else if (what == 4) {
             mRootView.showUpdate(((Update) result.data));
         }
     }
 
     @Override
     public <T> void handle404(int what, Result<T> result) {
-        if (what != 1)
+        if (what != 1 && what != 4)
             super.handle404(what, result);
         else
             mRootView.showListFailed();

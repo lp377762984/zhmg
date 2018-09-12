@@ -114,7 +114,7 @@ public class BGroupListActivity extends BaseListActivity<BGroupListPresenter> im
             if (msgs != null) {
                 data.addAll(msgs);
                 //latHead.setVisibility(View.VISIBLE);
-                tvScore.setText(result.white_score + "");
+                tvScore.setText(result.white_score);
                 adapter.notifyDataSetChanged();
             } else {
                 //latHead.setVisibility(View.GONE);

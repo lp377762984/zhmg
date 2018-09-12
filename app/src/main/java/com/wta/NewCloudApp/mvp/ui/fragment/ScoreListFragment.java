@@ -144,7 +144,7 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
             if (msgs != null) {
                 data.addAll(msgs);
                 //latHead.setVisibility(View.VISIBLE);
-                tvScore.setText(result.white_score + "");
+                tvScore.setText(result.white_score );
                 adapter.notifyDataSetChanged();
             } else {
                 //latHead.setVisibility(View.GONE);

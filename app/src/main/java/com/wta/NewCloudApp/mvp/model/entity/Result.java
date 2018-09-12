@@ -6,7 +6,7 @@ public class Result<T> {
     public int code;
     public String msg;
     public T data;
-    public long white_score;
+    public String white_score;
     @SerializedName("version_upgrade")
     public AppUpdate update;
     /**
@@ -40,6 +40,6 @@ public class Result<T> {
 
         public String sumProfit;
         public int receivablesNumber;
-        public int integralIncome;
+        public String integralIncome;
     }
 }

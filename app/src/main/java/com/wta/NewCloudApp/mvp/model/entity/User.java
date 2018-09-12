@@ -19,7 +19,7 @@ public class User {
      */
 
     public String avatar;
-    public int white_score;
+    public String white_score;
     public String nickname;
     public int card_status;
     public String number;

@@ -1,12 +1,11 @@
 package com.wta.NewCloudApp.mvp.model;
 
-import com.jess.arms.mvp.IModel;
+import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
-import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
@@ -17,7 +16,7 @@ import java.util.TreeMap;
 
 import io.reactivex.Observable;
 
-public interface IBusinessModel extends IModel {
+public interface IBusinessModel extends IUserModel {
     Observable<Result<List<Business>>> getBusiness(boolean isRefresh, double lat, double lag);
     Observable<Result<Business>> getBusinessState();
     Observable<Result<List<BType>>> getBTypeList();

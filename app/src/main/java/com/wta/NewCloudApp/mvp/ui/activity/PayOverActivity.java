@@ -49,15 +49,13 @@ public class PayOverActivity extends BaseLoadingActivity<PayOverPresenter> imple
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        String orderId = getIntent().getStringExtra("out_trade_no");
-        String type = getIntent().getStringExtra("type");
-        mPresenter.checkSuccess(orderId, type);
+        Payback payback = (Payback) getIntent().getSerializableExtra("payback");
+        showPayback(payback);
     }
 
-    public static void startPayStatus(Activity context, String type, String orderId) {
+    public static void startPayStatus(Activity context, Payback payback) {
         Intent intent = new Intent(context, PayOverActivity.class);
-        intent.putExtra("out_trade_no", orderId);
-        intent.putExtra("type", type);
+        intent.putExtra("payback", payback);
         context.startActivity(intent);
     }
 

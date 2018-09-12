@@ -135,8 +135,12 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
         if (AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
             tvNickName.setText(AppConfig.getInstance().getString("nickname", null));
         else tvNickName.setText("登陆/注册");
-        tvClass.setText(AppConfig.getInstance().getString("group_name", "会员"));
-        tvScore.setText(String.valueOf(AppConfig.getInstance().getInt("white_score", 0)));
+        tvClass.setText(AppConfig.getInstance().getString("group_name", ""));
+        try {
+            tvScore.setText(String.valueOf(AppConfig.getInstance().getString("white_score", "")));
+        } catch (Exception e) {
+            tvScore.setText("");
+        }
     }
 
     @OnClick({R.id.lat_user, R.id.im_setting, R.id.lat_record, R.id.lat_card, R.id.lat_bill,

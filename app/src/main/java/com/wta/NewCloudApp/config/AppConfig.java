@@ -87,7 +87,7 @@ public class AppConfig {
 
     public void putUser(User user){
         AppConfig.getInstance().putString("avatar", user.avatar);
-        AppConfig.getInstance().putInt("white_score", user.white_score);
+        AppConfig.getInstance().putString("white_score", user.white_score);
         AppConfig.getInstance().putString("nickname", user.nickname);
         AppConfig.getInstance().putInt("card_status", user.card_status);
         AppConfig.getInstance().putString("number", user.number);

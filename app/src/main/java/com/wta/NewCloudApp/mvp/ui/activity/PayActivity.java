@@ -20,6 +20,7 @@ import com.wta.NewCloudApp.di.module.PayModule;
 import com.wta.NewCloudApp.mvp.contract.PayContract;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
+import com.wta.NewCloudApp.mvp.model.entity.Payback;
 import com.wta.NewCloudApp.mvp.presenter.PayPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
 import com.wta.NewCloudApp.wxapi.pay.PayListener;
@@ -123,7 +124,7 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
     public void payComplete(int payType, int errorCode) {
         if (errorCode == 0) {
             showToast("支付成功");
-            PayOverActivity.startPayStatus(this, type, orderID);
+            mPresenter.checkSuccess(type, orderID);
         } else if (errorCode == -1) {
             showToast("支付失败");
         } else if (errorCode == -2) {
@@ -133,6 +134,11 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
         } else if (errorCode == -4) {
             showToast("支付失败");
         }
+    }
+
+    @Override
+    public void showPayback(Payback payback) {
+        PayOverActivity.startPayStatus(this, payback);
     }
 
     @Override

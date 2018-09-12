@@ -1,6 +1,8 @@
 package com.wta.NewCloudApp.mvp.model.entity;
 
-public class Payback {
+import java.io.Serializable;
+
+public class Payback implements Serializable {
 
     /**
      * msg : 支付成功
@@ -13,6 +15,6 @@ public class Payback {
     public String msg;
     public int status;
     public String money;
-    public int white_score;
+    public String white_score;
     public String store_name;
 }
