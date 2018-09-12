@@ -35,6 +35,7 @@ public class MainActivity extends BaseLoadingActivity {
     @BindView(R.id.tab_layout)
     CommonTabLayout2 tabLayout;
     private Unbinder bind;
+    private ArrayList<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class MainActivity extends BaseLoadingActivity {
     }
 
     private ArrayList<Fragment> createFragments() {
-        ArrayList<Fragment> fragments = new ArrayList<>(3);
+        fragments = new ArrayList<>(3);
         fragments.add(new HomeFragment());
         fragments.add(new SideFragment());
         fragments.add(new MineFragment());
@@ -144,6 +145,7 @@ public class MainActivity extends BaseLoadingActivity {
     public void onLoginSuccess(TabWhat no) {
         Timber.d("onLoginSuccess: %s", no.position);
         tabLayout.setCurrentTab(no.position);
+        ((HomeFragment) fragments.get(0)).exitAndRefreshData();
     }
 
     @Override

@@ -280,4 +280,8 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 break;
         }
     }
+
+    public void exitAndRefreshData(){
+        mPresenter.getMsgList();
+    }
 }
