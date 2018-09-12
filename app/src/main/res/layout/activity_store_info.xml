@@ -36,7 +36,7 @@
                 <RelativeLayout
                     android:id="@+id/lat_head"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp">
+                    android:layout_height="74dp">
 
                     <TextView
                         android:id="@+id/tv_01"
@@ -95,8 +95,9 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:layout_marginBottom="17dp"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/tv_str"
@@ -104,6 +105,10 @@
                         android:text="店铺地址" />
 
                     <TextView
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:text="我家租住在黄土高坡我家租住在黄土高坡我家租住在黄土高坡我家租住在黄土高坡我家租住在黄土高坡"
+                        android:lineSpacingMultiplier="1.2"
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@id/tv_str"
                         android:layout_marginRight="15dp"

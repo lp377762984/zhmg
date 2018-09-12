@@ -25,8 +25,6 @@ import butterknife.OnClick;
 
 public class AboutUsActivity extends BaseLoadingActivity<AboutUsPresenter> implements AboutUsContract.View {
 
-    @BindView(R.id.tv_version)
-    TextView tvVersion;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
 
@@ -47,7 +45,7 @@ public class AboutUsActivity extends BaseLoadingActivity<AboutUsPresenter> imple
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        tvVersion.setText(String.format("V %s", PackageUtils.getPackageVersion(this)));
+
     }
 
     @OnClick({R.id.tv_phone, R.id.lat_desc, R.id.lat_protocol})

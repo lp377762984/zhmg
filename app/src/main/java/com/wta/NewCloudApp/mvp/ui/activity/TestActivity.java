@@ -1,7 +1,6 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +9,15 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
+import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
+import com.wta.NewCloudApp.config.DefaultHandleSubscriber;
 import com.wta.NewCloudApp.manager.LocationManager;
+import com.wta.NewCloudApp.mvp.model.api.HttpServices;
 import com.wta.NewCloudApp.mvp.model.entity.Province;
+import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.City;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.County;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.LinkDialog;
@@ -26,6 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class TestActivity extends AppCompatActivity {
     private ArrayList<Province> options1Items = new ArrayList<>();
@@ -51,24 +58,24 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void showLocation() {
-        if (manager==null){
-            manager=new LocationManager(this, new LocationManager.LocateListener() {
+        if (manager == null) {
+            manager = new LocationManager(this, new LocationManager.LocateListener() {
                 @Override
                 public void onLocateSuccess(AMapLocation location) {
-                    btn.setText(location.getAddress()+"\n"
-                            +location.getLocationDetail()+"\n"
-                            +location.getAoiName()+"\n"
-                            +location.getDescription()+"\n"
-                            +location.getStreetNum()+"\n"
-                            +location.toStr(1)+"\n"
-                            +location.toStr(2)+"\n"
-                            +location.toStr(3)+"\n"
-                            +location.getAccuracy()+"\n"
-                            +location.getCountry()+","
-                            +location.getProvince()+","
-                            +location.getCity()+","
-                            +location.getDistrict()+","
-                            +location.getStreet());
+                    btn.setText(location.getAddress() + "\n"
+                            + location.getLocationDetail() + "\n"
+                            + location.getAoiName() + "\n"
+                            + location.getDescription() + "\n"
+                            + location.getStreetNum() + "\n"
+                            + location.toStr(1) + "\n"
+                            + location.toStr(2) + "\n"
+                            + location.toStr(3) + "\n"
+                            + location.getAccuracy() + "\n"
+                            + location.getCountry() + ","
+                            + location.getProvince() + ","
+                            + location.getCity() + ","
+                            + location.getDistrict() + ","
+                            + location.getStreet());
                 }
 
                 @Override
@@ -92,7 +99,7 @@ public class TestActivity extends AppCompatActivity {
                 @Override
                 public void onAddressSelected(com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Province province, City city, County county, Street street) {
                     dialog.dismiss();
-                    btn.setText(province.getName()+","+city.getName()+","+county.getName()+","+street.getName());
+                    btn.setText(province.getName() + "," + city.getName() + "," + county.getName() + "," + street.getName());
                 }
             });
         }
@@ -169,5 +176,14 @@ public class TestActivity extends AppCompatActivity {
         }
     };
 
+    void showNotifycationDown() {
+        ArmsUtils.obtainAppComponentFromContext(this).repositoryManager().obtainRetrofitService(HttpServices.class)
+                .checkUpdate("1.0.0")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultHandleSubscriber<Result<Update>>(ArmsUtils.obtainAppComponentFromContext(this).rxErrorHandler()){
+
+                });
+    }
 
 }

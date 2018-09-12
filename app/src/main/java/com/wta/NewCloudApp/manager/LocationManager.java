@@ -3,6 +3,9 @@ package com.wta.NewCloudApp.manager;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
@@ -12,8 +15,14 @@ import com.amap.api.location.AMapLocationListener;
 import com.jess.arms.utils.ArmsUtils;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
+import com.wta.NewCloudApp.uitls.DialogUtils;
+import com.wta.NewCloudApp.uitls.PackageUtils;
 
 import io.reactivex.functions.Consumer;
+
+import static com.jess.arms.utils.ArmsUtils.startActivity;
+import static com.umeng.socialize.utils.ContextUtil.getPackageName;
 
 /**
  * 定位管理类
@@ -31,20 +40,28 @@ public class LocationManager {
     }
 
     @SuppressLint("CheckResult")
-    public void start(){
-        RxPermissions permissions=new RxPermissions(activity);
+    public void start() {
+        RxPermissions permissions = new RxPermissions(activity);
         permissions.requestEach(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE)
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE)
                 .subscribe(new Consumer<Permission>() {
                     @Override
                     public void accept(Permission permission) throws Exception {
                         if (permission.granted) {
                             startLocation();
                         } else {
-                            ArmsUtils.makeText(activity,"没有定位权限");
                             if (locateListener != null) {
                                 locateListener.noPermission();
                             }
+                            DialogUtils.showAlertDialog(activity,"您需要打开定位权限才能继续",new DetDialogCallback(){
+                                @Override
+                                public void handleRight(Dialog dialog) {
+                                    Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.setData(Uri.parse("package:" + PackageUtils.getPacageName(activity)));
+                                    activity.startActivity(intent);
+                                }
+                            });
                         }
                     }
                 });
@@ -52,7 +69,9 @@ public class LocationManager {
 
     public interface LocateListener {
         void onLocateSuccess(AMapLocation location);
+
         boolean onLocateFailed(AMapLocation location);
+
         void noPermission();
     }
 
