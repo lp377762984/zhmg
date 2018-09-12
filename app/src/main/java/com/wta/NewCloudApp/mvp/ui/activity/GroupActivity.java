@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.di.component.DaggerGroupComponent;
 import com.wta.NewCloudApp.di.module.GroupModule;
@@ -34,6 +36,8 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
     TextView tvScore;
     @BindView(R.id.tv_add)
     TextView tvAdd;
+    @BindView(R.id.im_head)
+    ImageView imHead;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -70,6 +74,7 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
     @Override
     public void showTeam(Result<User> userResult) {
         User user = userResult.data;
+        GlideArms.with(this).load(user.team_img).into(imHead);
         tvCode.setText("我的推广码：" + user.number);
         tvAdd.setVisibility(user.is_referee == 0 ? View.VISIBLE : View.GONE);
         if (user.is_referee == 0) {

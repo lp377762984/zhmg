@@ -80,7 +80,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:text="121231321231"
                 android:textColor="@color/text_color2"
                 android:textSize="18sp" />
         </LinearLayout>

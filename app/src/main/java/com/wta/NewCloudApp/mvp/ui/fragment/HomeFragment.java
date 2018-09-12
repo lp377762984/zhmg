@@ -166,11 +166,6 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 }
             }
         });
-//        int margin = (int) ScreenDpiUtils.dp2px(getContext(), 15);
-//        ConstraintLayout.LayoutParams lp2 = (ConstraintLayout.LayoutParams) banner.getLayoutParams();
-//        lp2.height = (getContext().getResources().getDisplayMetrics().widthPixels - 2 * margin) * 537 / 1038;
-//        lp2.width = getContext().getResources().getDisplayMetrics().widthPixels - 2 * margin;
-//        banner.setLayoutParams(lp2);
         banner.setImages(imgs);
         banner.start();
     }

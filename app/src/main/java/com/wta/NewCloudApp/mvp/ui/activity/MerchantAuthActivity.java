@@ -203,7 +203,7 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                String compressPath = tResult.getImage().getOriginalPath();
+                String compressPath = tResult.getImage().getCompressPath();
                 File file = new File(compressPath);
                 switch (currentId) {
                     case R.id.im_passport:
@@ -316,7 +316,7 @@ public class MerchantAuthActivity extends BaseLoadingActivity<MerchantAuthPresen
     }
 
     private void configCompress() {
-        int maxSize = 1024 * 500;
+        int maxSize = 1024 * 300;
         LubanOptions option = new LubanOptions.Builder().setMaxSize(maxSize).create();
         CompressConfig config = CompressConfig.ofLuban(option);
         takePhoto.onEnableCompress(config, false);
