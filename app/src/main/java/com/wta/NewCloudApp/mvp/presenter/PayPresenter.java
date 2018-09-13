@@ -10,6 +10,8 @@ import com.wta.NewCloudApp.mvp.model.entity.Result;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 
 @ActivityScope
 public class PayPresenter extends BBasePresenter<IBusinessModel, PayContract.View> {

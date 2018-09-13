@@ -1,5 +1,6 @@
 package com.wta.NewCloudApp.mvp.model;
 
+import com.jess.arms.mvp.IModel;
 import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
@@ -7,6 +8,7 @@ import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
+import com.wta.NewCloudApp.mvp.model.entity.Payback;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
@@ -16,7 +18,7 @@ import java.util.TreeMap;
 
 import io.reactivex.Observable;
 
-public interface IBusinessModel extends IUserModel {
+public interface IBusinessModel extends IModel {
     Observable<Result<List<Business>>> getBusiness(boolean isRefresh, double lat, double lag);
     Observable<Result<Business>> getBusinessState();
     Observable<Result<List<BType>>> getBTypeList();
@@ -49,4 +51,6 @@ public interface IBusinessModel extends IUserModel {
     Observable<Result<PayInfo>> pay(int pay_type,String sellerId,String total);
 
     Observable<Result<Business>> getBusinessInfo(String sellerID);
+
+    Observable<Result<Payback>> getPayback(String orderID, String type);
 }

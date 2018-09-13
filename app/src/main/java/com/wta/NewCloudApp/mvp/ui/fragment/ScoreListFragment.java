@@ -50,6 +50,8 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
     @BindView(R.id.tv_date)
     TextView tvDate;
     private String date;
+    @BindView(R.id.tv_total_score_str)
+    TextView tvTitle;
 
     public static ScoreListFragment getInstance(BillType billType) {
         ScoreListFragment fragment = new ScoreListFragment();
@@ -86,6 +88,7 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
                 return false;
             }
         });
+        tvTitle.setText(billType.title);
 
     }
 
@@ -143,11 +146,8 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
             data.clear();
             if (msgs != null) {
                 data.addAll(msgs);
-                //latHead.setVisibility(View.VISIBLE);
                 tvScore.setText(result.white_score );
                 adapter.notifyDataSetChanged();
-            } else {
-                //latHead.setVisibility(View.GONE);
             }
         } else {
             int beforeSize = data.size();

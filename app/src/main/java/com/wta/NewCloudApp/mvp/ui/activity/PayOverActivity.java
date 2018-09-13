@@ -51,11 +51,22 @@ public class PayOverActivity extends BaseLoadingActivity<PayOverPresenter> imple
     public void initData(@Nullable Bundle savedInstanceState) {
         Payback payback = (Payback) getIntent().getSerializableExtra("payback");
         showPayback(payback);
+//        String type = getIntent().getStringExtra("type");
+//        String orderId = getIntent().getStringExtra("orderId");
+//        mPresenter.checkSuccess(orderId, type);
     }
 
     public static void startPayStatus(Activity context, Payback payback) {
         Intent intent = new Intent(context, PayOverActivity.class);
         intent.putExtra("payback", payback);
+        context.startActivity(intent);
+    }
+
+    public static void startPayStatus(Activity context, String type, String orderId) {
+        Intent intent = new Intent(context, PayOverActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("orderId", orderId);
+
         context.startActivity(intent);
     }
 

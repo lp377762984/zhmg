@@ -28,6 +28,7 @@ import com.wta.NewCloudApp.wxapi.pay.PayManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 
 public class PayActivity extends BaseLoadingActivity<PayPresenter> implements PayContract.View, PayListener {

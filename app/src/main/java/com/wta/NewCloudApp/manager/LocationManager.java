@@ -96,7 +96,7 @@ public class LocationManager {
         locationOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
         locationOption.setInterval(2000);//可选，设置定位间隔。默认为2秒
         locationOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
-        locationOption.setOnceLocation(false);//可选，设置是否单次定位。默认是false
+        locationOption.setOnceLocation(true);//可选，设置是否单次定位。默认是false
         locationOption.setOnceLocationLatest(false);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
         AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
         locationOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
