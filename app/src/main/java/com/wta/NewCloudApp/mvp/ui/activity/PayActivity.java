@@ -103,7 +103,7 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
             return;
         }
         if (Double.parseDouble(money) < 0.2) {
-            showToast("输入金额须至少0.2");
+            showToast("输入金额至少0.2");
             return;
         }
         switch (view.getId()) {

@@ -53,6 +53,7 @@ import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.PJImageLoader;
 import com.wta.NewCloudApp.mvp.ui.widget.RoundImageLoader;
 import com.wta.NewCloudApp.uitls.DialogUtils;
+import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.InstallUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -285,12 +286,12 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 mPresenter.getStoreState();
                 break;
             case R.id.im_score_shop:
-                showToast("暂未开放");
+                WebViewActivity.start(getActivity(), "商家活动", FinalUtils.HOME_DESC);
                 break;
         }
     }
 
-    public void exitAndRefreshData(){
+    public void exitAndRefreshData() {
         mPresenter.getMsgList();
     }
 
@@ -316,6 +317,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         }
         updateDialog.show();
     }
+
     @Override
     public void showProgress() {
         if (progressDialog == null) {

@@ -100,6 +100,11 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
     public void initData(@Nullable Bundle savedInstanceState) {
         tvVersion.setText(PackageUtils.getPackageVersion(this));
         tvMemory.setText(DataCleanUtils.getApplicationDataSize(this));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (AppConfig.getInstance().getInt(ConfigTag.IS_MOBILE, 0) == 0) {
             tvPhoneState.setText("未绑定");
         } else {
@@ -118,30 +123,37 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
             tvAliState.setText("已绑定");
             latAli.setEnabled(false);
         }
-
     }
 
     @OnClick({R.id.lat_phone, R.id.lat_wx, R.id.lat_clear, R.id.lat_update, R.id.btn_exit, R.id.lat_ali})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_phone:
-                BindPhoneActivity.startBind(this);
+                if (AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false)) {
+                    BindPhoneActivity.startBind(this);
+                } else {
+                    ArmsUtils.startActivity(LoginActivity.class);
+                }
                 break;
             case R.id.lat_wx:
-                if (!App.getInstance().getWXAPI().isWXAppInstalled()) {
-                    ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
+                if (AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false)) {
+                    if (!App.getInstance().getWXAPI().isWXAppInstalled()) {
+                        ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
+                    } else {
+                        ThirdAuthManager.getInstance().requestAuth(this, new WXOpenIdListener() {
+                            @Override
+                            public void showWXOpenId(WXAccessToken wxAccessToken) {
+                                ThirdAuthManager.getInstance().requestWXUserInfo(wxAccessToken.access_token, wxAccessToken.openid, new WXUserListener() {
+                                    @Override
+                                    public void showWXUser(WXUserInfo info) {
+                                        mPresenter.bindWX(info);
+                                    }
+                                });
+                            }
+                        });
+                    }
                 } else {
-                    ThirdAuthManager.getInstance().requestAuth(this, new WXOpenIdListener() {
-                        @Override
-                        public void showWXOpenId(WXAccessToken wxAccessToken) {
-                            ThirdAuthManager.getInstance().requestWXUserInfo(wxAccessToken.access_token, wxAccessToken.openid, new WXUserListener() {
-                                @Override
-                                public void showWXUser(WXUserInfo info) {
-                                    mPresenter.bindWX(info);
-                                }
-                            });
-                        }
-                    });
+                    ArmsUtils.startActivity(LoginActivity.class);
                 }
                 break;
             case R.id.lat_clear:
@@ -176,7 +188,11 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
                 }).show();
                 break;
             case R.id.lat_ali:
-                mPresenter.bindAli();
+                if (AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false)) {
+                    mPresenter.bindAli();
+                } else {
+                    ArmsUtils.startActivity(LoginActivity.class);
+                }
                 break;
         }
     }
@@ -186,7 +202,7 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_BIND) {
             tvPhoneState.setText(AppConfig.getInstance().getString(ConfigTag.MOBILE, null));
-        }else if(resultCode == RESULT_OK && requestCode == UNKNOWN_CODE){
+        } else if (resultCode == RESULT_OK && requestCode == UNKNOWN_CODE) {
             mInstallUtil.install();
         }
     }
