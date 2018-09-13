@@ -2,6 +2,7 @@ package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,9 +33,12 @@ import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.model.entity.WXAccessToken;
 import com.wta.NewCloudApp.mvp.presenter.LoginPresenter;
+import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
+import com.wta.NewCloudApp.mvp.ui.listener.DialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
 import com.wta.NewCloudApp.uitls.ConfigTag;
+import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.RegexUtils;
 import com.wta.NewCloudApp.wxapi.login_share.ThirdAuthManager;
@@ -268,14 +272,18 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     @Override
     public void loginSuccess(Result<LoginEntity> results) {
         if (results.data.code_type == 0) {//微信登陆需要绑定手机号
-            ThirdAuthManager.getInstance().requestWXUserInfo(wxAccessToken.access_token, wxAccessToken.openid, new WXUserListener() {
+            DialogUtils.showAlertDialog(this, "需要绑定手机号，是否去绑定？", new DetDialogCallback(){
                 @Override
-                public void showWXUser(WXUserInfo info) {
-                    LoginActivity.this.wxUserInfo = info;
-                    BindPhoneActivity.startBind(LoginActivity.this);
+                public void handleRight(Dialog dialog) {
+                    ThirdAuthManager.getInstance().requestWXUserInfo(wxAccessToken.access_token, wxAccessToken.openid, new WXUserListener() {
+                        @Override
+                        public void showWXUser(WXUserInfo info) {
+                            LoginActivity.this.wxUserInfo = info;
+                            BindPhoneActivity.startBind(LoginActivity.this);
+                        }
+                    });
                 }
             });
-
         } else {
             ArmsUtils.makeText(getApplicationContext(), results.msg);
             String aClass = getIntent().getStringExtra("class");

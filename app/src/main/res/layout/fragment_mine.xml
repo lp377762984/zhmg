@@ -153,8 +153,8 @@
                         android:id="@+id/lat_bill"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:paddingLeft="17dp"
-                        android:paddingRight="17dp">
+                        android:paddingLeft="13dp"
+                        android:paddingRight="15dp">
 
                         <ImageView
                             android:id="@+id/im_10"
@@ -237,8 +237,8 @@
                         android:id="@+id/lat_group"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:paddingLeft="17dp"
-                        android:paddingRight="17dp">
+                        android:paddingLeft="13dp"
+                        android:paddingRight="15dp">
 
                         <ImageView
                             android:id="@+id/im_06"
@@ -275,8 +275,8 @@
                         android:id="@+id/lat_msg"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:paddingLeft="17dp"
-                        android:paddingRight="17dp">
+                        android:paddingLeft="13dp"
+                        android:paddingRight="15dp">
 
                         <ImageView
                             android:id="@+id/im_11"
@@ -396,8 +396,8 @@
                         android:id="@+id/lat_share"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:paddingLeft="17dp"
-                        android:paddingRight="17dp">
+                        android:paddingLeft="13dp"
+                        android:paddingRight="15dp">
 
                         <ImageView
                             android:id="@+id/im_03"
@@ -434,8 +434,8 @@
                         android:id="@+id/lat_about_us"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:paddingLeft="17dp"
-                        android:paddingRight="17dp">
+                        android:paddingLeft="13dp"
+                        android:paddingRight="15dp">
 
                         <ImageView
                             android:id="@+id/im_05"

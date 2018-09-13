@@ -52,7 +52,7 @@ public interface HttpServices {
 
     @FormUrlEncoded
     @POST("/login")
-    Observable<Result<LoginEntity>> login(@Field("mobile") String phone, @Field("verify") String code, @Field("recCode") String recCode);
+    Observable<Result<LoginEntity>> login(@Field("mobile") String phone, @Field("verify") String code, @Field("number") String recCode);
 
     @FormUrlEncoded
     @POST("/user/set")

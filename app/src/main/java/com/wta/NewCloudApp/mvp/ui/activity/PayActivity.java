@@ -99,7 +99,11 @@ public class PayActivity extends BaseLoadingActivity<PayPresenter> implements Pa
     public void onViewClicked(View view) {
         String money = etMoney.getText().toString();
         if (TextUtils.isEmpty(money) || 0 == Double.parseDouble(money)) {
-            showToast("请输入有效金额");
+            showToast("请输入金额");
+            return;
+        }
+        if (Double.parseDouble(money) < 0.2) {
+            showToast("输入金额须至少0.2");
             return;
         }
         switch (view.getId()) {
