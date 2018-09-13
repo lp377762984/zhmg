@@ -114,7 +114,7 @@ public class SettingActivity extends BaseLoadingActivity<SettingPresenter> imple
         if (AppConfig.getInstance().getInt(ConfigTag.IS_WEIXIN, 0) == 0) {
             tvWxState.setText("未绑定");
         } else {
-            tvWxState.setText(AppConfig.getInstance().getString(ConfigTag.WX_NAME, null));
+            tvWxState.setText(AppConfig.getInstance().getString(ConfigTag.WX_NAME, "已绑定"));
             latWx.setEnabled(false);
         }
         if (AppConfig.getInstance().getInt(ConfigTag.IS_ALIPAY, 0) == 0) {
