@@ -63,7 +63,6 @@ public class AppLifecyclesImpl implements AppLifecycles {
         PlatformConfig.setWeixin(FinalUtils.WX_APP_ID,FinalUtils.WX_APP_SECRET);
         PlatformConfig.setQQZone("1107234154","l1lPLxXmLuMS6AyK");
         CrashReport.initCrashReport(application, "77f70c3b36", BuildConfig.CRASH);
-
     }
 
     @Override
