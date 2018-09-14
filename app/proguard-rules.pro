@@ -453,3 +453,12 @@ public static final int *;
 -keep class com.tencent.wxop.** {*;}
 
 -keep class com.tencent.mm.sdk.** {*;}
+#takephoto
+-keep class org.devio.takephoto.** { *; }
+-dontwarn org.devio.takephoto.**
+
+-keep class com.darsh.multipleimageselect.** { *; }
+-dontwarn com.darsh.multipleimageselect.**
+
+-keep class com.soundcloud.android.crop.** { *; }
+-dontwarn com.soundcloud.android.crop.**

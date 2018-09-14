@@ -2,13 +2,9 @@ package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -17,8 +13,6 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -27,11 +21,9 @@ import com.wta.NewCloudApp.di.component.DaggerStoreInfoComponent;
 import com.wta.NewCloudApp.di.module.StoreInfoModule;
 import com.wta.NewCloudApp.manager.IconSelector;
 import com.wta.NewCloudApp.mvp.contract.StoreInfoContract;
-import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.presenter.StoreInfoPresenter;
-import com.wta.NewCloudApp.mvp.ui.adapter.ClassAdapter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
 import com.wta.NewCloudApp.uitls.BitmapUtils;
@@ -53,9 +45,7 @@ import org.devio.takephoto.permission.TakePhotoInvocationHandler;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TreeMap;
 

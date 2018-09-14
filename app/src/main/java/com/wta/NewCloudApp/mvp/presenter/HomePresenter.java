@@ -75,7 +75,7 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
 
     @Override
     public <T> void handle404(int what, Result<T> result) {
-        if (what != 1 && what != 4)
+        if (what==2)
             super.handle404(what, result);
         else
             mRootView.showListFailed();

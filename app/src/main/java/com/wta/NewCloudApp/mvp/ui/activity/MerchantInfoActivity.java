@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +36,6 @@ import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.presenter.MerchantInfoPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.ClassAdapter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
-import com.wta.NewCloudApp.mvp.ui.listener.DialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.City;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.County;

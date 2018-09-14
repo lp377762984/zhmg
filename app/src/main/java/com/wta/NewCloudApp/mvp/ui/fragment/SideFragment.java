@@ -146,8 +146,11 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LocationManager locationManager = mPresenter.getLocationManager();
-        if (locationManager!=null)
-            locationManager.destroyLocation();
+        LocationManager locationManager = null;
+        if (mPresenter != null) {
+            locationManager = mPresenter.getLocationManager();
+            if (locationManager!=null)
+                locationManager.destroyLocation();
+        }
     }
 }
