@@ -64,6 +64,6 @@ public class RScoreDetActivity extends BaseLoadingActivity<RScorePresenter> impl
         tvTopScore.setText(bill.score);
         tvDetType.setText(bill.title);
         tvMoney.setText(bill.money);
-        tvTime.setText(bill.title);
+        tvTime.setText(bill.time);
     }
 }

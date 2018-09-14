@@ -74,7 +74,7 @@ public class UScoreDetActivity extends BaseLoadingActivity<UScoreDetPresenter> i
         tvPayType.setText(bill.pay_type);
         tvStoreName.setText(bill.shop_name);
         tvStoreType.setText(bill.level_name);
-        tvTime.setText(bill.title);
+        tvTime.setText(bill.time);
         tvTradeNo.setText(bill.ordersn);
     }
 }
