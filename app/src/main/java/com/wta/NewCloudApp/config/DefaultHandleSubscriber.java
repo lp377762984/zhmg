@@ -54,25 +54,21 @@ public class DefaultHandleSubscriber<K> extends ErrorHandleSubscriber<K> {
     public void onNext(K k) {
         if (k instanceof Result) {
             Result rt = (Result) k;
-            switch (rt.code) {
-                case 10:
+            if (rt.code == 200) {
+                if (handler != null) handler.handle200(what, rt);
+            } else {
+                if (handler != null) handler.handleExcept200(what, rt);
+                if ((rt.code == 10)) {
                     if (handler != null) handler.handle10(what, rt);
-                    break;
-                case 11:
+                } else if (rt.code == 11) {
                     if (handler != null) handler.handle11(what, rt);
-                    break;
-                case 20:
+                } else if (rt.code == 20) {
                     if (handler != null) handler.handle20(what, rt);
-                    break;
-                case 200:
-                    if (handler != null) handler.handle200(what, rt);
-                    break;
-                case 404:
+                } else if (rt.code == 404) {
                     if (handler != null) handler.handle404(what, rt);
-                    break;
-                default:
+                } else {
                     ArmsUtils.snackbarText("没有和客户端约定的响应码");
-                    break;
+                }
             }
         } else {
             if (handler != null) handler.handleOther(what, k);
@@ -82,7 +78,7 @@ public class DefaultHandleSubscriber<K> extends ErrorHandleSubscriber<K> {
     @Override
     public void onError(Throwable t) {
         //super.onError(t);
-        Timber.i("onError: "+t.toString());
+        Timber.i("onError: " + t.toString());
         String msg;
         if (t instanceof UnknownHostException) {
             msg = "网络不可用";

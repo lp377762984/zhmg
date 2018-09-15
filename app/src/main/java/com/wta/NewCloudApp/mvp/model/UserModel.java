@@ -16,6 +16,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.mvp.model.entity.UserClass;
 import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.uitls.EncodeUtils;
 
@@ -224,6 +225,11 @@ public class UserModel extends BaseModel implements IUserModel {
         if (isRefresh) index = 1;
         else index++;
         return  getService().getGBillsList(index,type,month,date);
+    }
+
+    @Override
+    public Observable<Result<List<UserClass>>> getVIPList() {
+        return getService().getVIPList();
     }
 
 

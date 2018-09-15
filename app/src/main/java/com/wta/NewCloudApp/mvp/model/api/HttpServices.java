@@ -2,6 +2,7 @@ package com.wta.NewCloudApp.mvp.model.api;
 
 
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
+import com.wta.NewCloudApp.mvp.model.entity.UserClass;
 import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
@@ -239,4 +240,7 @@ public interface HttpServices {
     Observable<Result<List<Bill>>> getHomeBillList();
     @GET("bill/billList")
     Observable<Result<List<Bill>>> getGBillsList(@Query("page")int index, @Query("type")int type, @Query("searchType")String month, @Query("date")String date);
+
+    @GET("/superMember/getRegList")
+    Observable<Result<List<UserClass>>> getVIPList();
 }

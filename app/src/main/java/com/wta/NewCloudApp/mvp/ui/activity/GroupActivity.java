@@ -11,9 +11,9 @@ import android.widget.TextView;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.jess.arms.utils.ArmsUtils;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerGroupComponent;
 import com.wta.NewCloudApp.di.module.GroupModule;
-import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.GroupContract;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
@@ -23,21 +23,24 @@ import com.wta.NewCloudApp.uitls.FinalUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-
+/**
+ * 我的伙伴
+ */
 public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implements GroupContract.View {
 
     @BindView(R.id.tv_code)
     TextView tvCode;
-    @BindView(R.id.tv_rec)
-    TextView tvRec;
     @BindView(R.id.tv_count)
     TextView tvCount;
     @BindView(R.id.tv_score)
     TextView tvScore;
-    @BindView(R.id.tv_add)
-    TextView tvAdd;
     @BindView(R.id.im_head)
     ImageView imHead;
+
+    @BindView(R.id.tv_class_name)
+    TextView tvClassName;
+    @BindView(R.id.im_class)
+    ImageView imClass;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -59,14 +62,19 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
         mPresenter.getTeam();
     }
 
-    @OnClick({R.id.tv_add, R.id.tv_details})
+    @OnClick({R.id.lat_money, R.id.lat_score, R.id.tv_update, R.id.im_code})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_add:
-                AddRecActivity.start(this);
+            case R.id.lat_money:
+
                 break;
-            case R.id.tv_details:
+            case R.id.lat_score:
                 ArmsUtils.startActivity(BGroupListActivity.class);
+                break;
+            case R.id.tv_update:
+                break;
+            case R.id.im_code:
+                ArmsUtils.startActivity(UserQRActivity.class);
                 break;
         }
     }
@@ -76,12 +84,6 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
         User user = userResult.data;
         GlideArms.with(this).load(user.team_img).into(imHead);
         tvCode.setText("我的推广码：" + user.number);
-        tvAdd.setVisibility(user.is_referee == 0 ? View.VISIBLE : View.GONE);
-        if (user.is_referee == 0) {
-            tvRec.setText("我的推荐人：暂无");
-        } else {
-            tvRec.setText("我的推荐人：" + user.referee);
-        }
         tvCount.setText(user.people + "");
         tvScore.setText(user.white_score + "");
     }

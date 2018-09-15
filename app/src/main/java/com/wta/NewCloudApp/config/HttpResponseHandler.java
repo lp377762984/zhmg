@@ -17,4 +17,6 @@ public interface HttpResponseHandler {
     <K> void handleOther(int what, K k);
 
     void handleException(int what, Throwable t);
+
+    void handleExcept200(int what, Result rt);
 }

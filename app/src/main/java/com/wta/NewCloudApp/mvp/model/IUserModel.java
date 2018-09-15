@@ -13,6 +13,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.mvp.model.entity.UserClass;
 import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 
 import java.io.File;
@@ -88,4 +89,6 @@ public interface IUserModel extends IModel {
     Observable<Result<Bill>> getRScore(int billId);
 
     Observable<Result<List<Bill>>> getGBillsList(boolean isRefresh, int type, String month, String date);
+
+    Observable<Result<List<UserClass>>> getVIPList();
 }

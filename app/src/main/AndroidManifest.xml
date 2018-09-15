@@ -169,11 +169,26 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                　　　　　　<category android:name="android.intent.category.DEFAULT" />
-                　　　　　　<category android:name="android.intent.category.BROWSABLE" />
-                　　　　　　<data
-                android:host="com.wta.newcloudapp"
-                android:scheme="lefaner" />
+
+
+                　　　　　　
+
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+
+                　　　　　　
+
+
+                <category android:name="android.intent.category.BROWSABLE" />
+
+
+                　　　　　　
+
+
+                <data
+                    android:host="com.wta.newcloudapp"
+                    android:scheme="lefaner" />
             </intent-filter>
         </activity>
         <activity
@@ -216,7 +231,14 @@
         <activity android:name=".mvp.ui.activity.UScoreDetActivity" />
         <activity android:name=".mvp.ui.activity.BScoreDetActivity" />
         <activity android:name=".mvp.ui.activity.RScoreDetActivity" />
-        <activity android:name=".mvp.ui.activity.AboutUsActivity"></activity>
+        <activity android:name=".mvp.ui.activity.AboutUsActivity" />
+        <activity android:name=".mvp.ui.activity.VIPListActivity"
+            android:exported="true"/>
+        <activity android:name=".mvp.ui.activity.UpdateClazzActivity" />
+        <activity android:name=".mvp.ui.activity.PayUpdateActivity" />
+        <activity android:name=".mvp.ui.activity.UpdatePaySuccessActivity" />
+        <activity android:name=".mvp.ui.activity.RecAwardListActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
