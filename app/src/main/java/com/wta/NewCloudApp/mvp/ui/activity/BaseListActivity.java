@@ -37,7 +37,7 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
     public void initData(@Nullable Bundle savedInstanceState) {
         getAdapter();
         if (adapter == null) throw new NullPointerException("adapter is null");
-        if (needLoadmore()) {
+        if (needLoadMore()) {
             adapter.setEnableLoadMore(true);
             adapter.setLoadMoreView(new CustomLoadMoreView());
             adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -124,7 +124,7 @@ public class BaseListActivity<P extends IPresenter> extends BaseLoadingActivity<
 
     }
 
-    public boolean needLoadmore() {
+    public boolean needLoadMore() {
         return true;
     }
 
