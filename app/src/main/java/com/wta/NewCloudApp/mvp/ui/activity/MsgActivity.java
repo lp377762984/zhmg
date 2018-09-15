@@ -53,7 +53,7 @@ public class MsgActivity extends BaseListActivity<MsgPresenter> implements MsgCo
     }
 
     @Override
-    public boolean needLoadmore() {
+    public boolean needLoadMore() {
         return true;
     }
 }

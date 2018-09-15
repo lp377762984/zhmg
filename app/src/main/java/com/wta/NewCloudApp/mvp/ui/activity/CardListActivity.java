@@ -95,7 +95,7 @@ public class CardListActivity extends BaseListActivity<CardListPresenter> implem
         adapter.notifyItemRemoved(delPosition);
         showToast("银行卡删除成功。");
     }
-    public boolean needLoadmore(){
+    public boolean needLoadMore(){
         return false;
     }
 }

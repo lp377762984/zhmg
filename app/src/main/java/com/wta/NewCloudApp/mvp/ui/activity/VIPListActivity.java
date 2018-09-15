@@ -59,7 +59,7 @@ public class VIPListActivity extends BaseListActivity<VIPListPresenter> implemen
     }
 
     @Override
-    public boolean needLoadmore() {
+    public boolean needLoadMore() {
         return false;
     }
 }

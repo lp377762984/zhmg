@@ -96,7 +96,7 @@ public class AddressListActivity extends BaseListActivity<AddressListPresenter> 
     }
 
     @Override
-    public boolean needLoadmore() {
+    public boolean needLoadMore() {
         return false;
     }
 
