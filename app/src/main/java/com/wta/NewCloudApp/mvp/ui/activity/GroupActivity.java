@@ -72,6 +72,7 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
                 ArmsUtils.startActivity(BGroupListActivity.class);
                 break;
             case R.id.tv_update:
+                ArmsUtils.startActivity(VIPListActivity.class);
                 break;
             case R.id.im_code:
                 ArmsUtils.startActivity(UserQRActivity.class);

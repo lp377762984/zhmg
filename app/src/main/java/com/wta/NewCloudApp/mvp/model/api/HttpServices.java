@@ -3,6 +3,7 @@ package com.wta.NewCloudApp.mvp.model.api;
 
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.UserClass;
+import com.wta.NewCloudApp.mvp.model.entity.VIPInfo;
 import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
@@ -243,4 +244,6 @@ public interface HttpServices {
 
     @GET("/superMember/getRegList")
     Observable<Result<List<UserClass>>> getVIPList();
+    @GET("/superMember/getRegInfo")
+    Observable<Result<VIPInfo>> getVIPInfo(@Query("grade_id")int gradeId);
 }

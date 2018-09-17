@@ -17,6 +17,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.model.entity.UserClass;
+import com.wta.NewCloudApp.mvp.model.entity.VIPInfo;
 import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.uitls.EncodeUtils;
 
@@ -230,6 +231,11 @@ public class UserModel extends BaseModel implements IUserModel {
     @Override
     public Observable<Result<List<UserClass>>> getVIPList() {
         return getService().getVIPList();
+    }
+
+    @Override
+    public Observable<Result<VIPInfo>> getVIPInfo(int gradeId) {
+        return getService().getVIPInfo(gradeId);
     }
 
 

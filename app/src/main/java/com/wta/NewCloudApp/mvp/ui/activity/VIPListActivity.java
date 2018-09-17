@@ -12,6 +12,8 @@ import com.wta.NewCloudApp.di.component.DaggerVIPListComponent;
 import com.wta.NewCloudApp.di.module.VIPListModule;
 import com.wta.NewCloudApp.mvp.contract.VIPListContract;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.model.entity.UserClass;
+import com.wta.NewCloudApp.mvp.model.entity.VIPInfo;
 import com.wta.NewCloudApp.mvp.presenter.VIPListPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.ClazzAdapter;
 
@@ -48,7 +50,7 @@ public class VIPListActivity extends BaseListActivity<VIPListPresenter> implemen
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                UpdateClazzActivity.startUpdate(VIPListActivity.this, ((UserClass) data.get(position)).grade_id);
             }
         });
     }

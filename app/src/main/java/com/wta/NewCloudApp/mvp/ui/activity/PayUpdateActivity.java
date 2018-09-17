@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerPayUpdateComponent;
 import com.wta.NewCloudApp.di.module.PayUpdateModule;
@@ -51,6 +52,7 @@ public class PayUpdateActivity extends BaseLoadingActivity<PayUpdatePresenter> i
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_alipay:
+                ArmsUtils.startActivity(UpdatePaySuccessActivity.class);
                 break;
             case R.id.lat_wx:
                 break;

@@ -1,5 +1,7 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,15 +9,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.http.imageloader.glide.GlideArms;
+import com.jess.arms.utils.ArmsUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerUpdateClazzComponent;
 import com.wta.NewCloudApp.di.module.UpdateClazzModule;
 import com.wta.NewCloudApp.mvp.contract.UpdateClazzContract;
+import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.mvp.model.entity.UserClass;
+import com.wta.NewCloudApp.mvp.model.entity.VIPInfo;
 import com.wta.NewCloudApp.mvp.presenter.UpdateClazzPresenter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -59,7 +65,7 @@ public class UpdateClazzActivity extends BaseLoadingActivity<UpdateClazzPresente
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        mPresenter.getVIPInfo(getIntent().getIntExtra("grade_id", -1));
     }
 
     @Override
@@ -69,6 +75,25 @@ public class UpdateClazzActivity extends BaseLoadingActivity<UpdateClazzPresente
 
     @OnClick(R.id.btn_open)
     public void onViewClicked() {
+        ArmsUtils.startActivity(PayUpdateActivity.class);
+    }
 
+    public static void startUpdate(Activity activity, int grade_id) {
+        Intent intent = new Intent(activity, UpdateClazzActivity.class);
+        intent.putExtra("grade_id", grade_id);
+        activity.startActivity(intent);
+    }
+
+    @Override
+    public void showVIPInfo(VIPInfo vipInfo) {
+        User user = vipInfo.member_info;
+        GlideArms.with(this).load(user.avatar).placeholder(R.mipmap.user_default).into(imHead);
+        tvUserName.setText(user.nickname);
+
+        UserClass userClass = vipInfo.grade;
+        GlideArms.with(this).load(userClass.classLogo).into(imClassLogo);
+        tvClassName.setText(userClass.clazz);
+        tvMoney.setText(userClass.money);
+        tvDesc.setText(userClass.status);
     }
 }
