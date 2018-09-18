@@ -56,6 +56,7 @@ public class SideSearchActivity extends BaseListActivity<SideSearchPresenter> im
             showToast("请输入关键词");
             return;
         }
+        isRefresh = true;
         mPresenter.getSearchResult(isRefresh, keywords);
     }
 

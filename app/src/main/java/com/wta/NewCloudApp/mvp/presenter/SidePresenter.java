@@ -28,26 +28,26 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
 
     public void getData(boolean isRefresh) {
         if (isRefresh) {
-            if (lat == 0) {
-                startLocation();
-            } else {
-                doRequest(buildListRequest(mModel.getBusiness(isRefresh, lat, lng)), 1);
-            }
-
+            if (lat == 0) startLocation();
+            else getData(isRefresh, lat, lng);
         } else
-            doRequest(buildListRequest(mModel.getBusiness(isRefresh, lat, lng)), 1);
+            getData(isRefresh, lat, lng);
     }
 
-    public void getBState(){
-        doRequest(buildRequest(mModel.getStoreState()),2);
+    private void getData(boolean isRefresh, double lat, double lng) {
+        doRequest(buildListRequest(mModel.getBusiness(isRefresh, lat, lng)), 1);
+    }
+
+    public void getBState() {
+        doRequest(buildRequest(mModel.getStoreState()), 2);
     }
 
     @Override
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
         if (what == 1) {
-            ((BaseDataView) mRootView).getData(what, (Result<List>) result);
-        }else if (what==2){
+            (mRootView).getData(what, (Result<List>) result);
+        } else if (what == 2) {
             mRootView.handleBState((Result<Business>) result);
         }
     }
@@ -55,7 +55,7 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
     @Override
     public void handleException(int what, Throwable t) {
         super.handleException(what, t);
-        if (what==1) mRootView.loadFailed();
+        if (what == 1) mRootView.loadFailed();
     }
 
     private void startLocation() {
@@ -64,7 +64,7 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
                 @Override
                 public void onLocateSuccess(AMapLocation location) {
                     if (lat == 0) {
-                        doRequest(buildListRequest(mModel.getBusiness(true, location.getLatitude(), location.getLongitude())), 1);
+                        getData(true, location.getLatitude(), location.getLongitude());
                     }
                     SidePresenter.this.lat = location.getLatitude();
                     SidePresenter.this.lng = location.getLongitude();

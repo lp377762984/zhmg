@@ -3,6 +3,7 @@ package com.wta.NewCloudApp.mvp.presenter;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.ArmsUtils;
+import com.wta.NewCloudApp.BuildConfig;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.mvp.contract.UserMsgContract;
@@ -43,7 +44,7 @@ public class UserMsgPresenter extends BBasePresenter<IUserModel, UserMsgContract
             mRootView.showUserName();
         } else if (what == 1) {
             ArmsUtils.makeText(App.getInstance(), "设置头像成功");
-            AppConfig.getInstance().putString(ConfigTag.AVATAR, Api.APP_DOMAIN+((User) result.data).avatar);
+            AppConfig.getInstance().putString(ConfigTag.AVATAR, BuildConfig.APP_DOMAIN+((User) result.data).avatar);
         }
     }
 }

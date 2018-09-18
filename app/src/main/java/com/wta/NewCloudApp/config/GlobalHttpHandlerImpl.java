@@ -19,6 +19,7 @@ import android.content.Context;
 
 import com.jess.arms.http.GlobalHttpHandler;
 
+import com.wta.NewCloudApp.BuildConfig;
 import com.wta.NewCloudApp.mvp.model.api.Api;
 import com.wta.NewCloudApp.uitls.EncodeUtils;
 import com.wta.NewCloudApp.uitls.PackageUtils;
@@ -53,7 +54,7 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
         String nonceStr = EncodeUtils.makeNonceStr();
         String url = request.url().toString();
-        if (request.method().equals("GET") && url.contains(Api.APP_DOMAIN) && url.contains("?")) {
+        if (request.method().equals("GET") && url.contains(BuildConfig.APP_DOMAIN) && url.contains("?")) {
             String[] split = url.split("\\?");
             url = split[0];
         }

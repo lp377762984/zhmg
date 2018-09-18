@@ -60,7 +60,7 @@ public final class GlobalConfiguration implements ConfigModule {
             builder.printHttpLogLevel(RequestInterceptor.Level.NONE);
         }
 
-        builder.baseurl(Api.APP_DOMAIN)
+        builder.baseurl(BuildConfig.APP_DOMAIN)
                 //想支持多 BaseUrl, 以及运行时动态切换任意一个 BaseUrl, 请使用 https://github.com/JessYanCoding/RetrofitUrlManager
                 //如果 BaseUrl 在 App 启动时不能确定, 需要请求服务器接口动态获取, 请使用以下代码
                 //以下方式是 Arms 框架自带的切换 BaseUrl 的方式, 在整个 App 生命周期内只能切换一次, 若需要无限次的切换 BaseUrl, 以及各种复杂的应用场景还是需要使用 RetrofitUrlManager 框架
