@@ -103,6 +103,9 @@ ext {
             "lifecyclemodel"             : "me.jessyan:lifecyclemodel:1.0.1",
             "wxpay"                      : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.4",
             "multi-channal"              : "com.leon.channel:helper:2.0.1",
+            "crashreport"                : "com.tencent.bugly:crashreport:2.6.6.1",
+            "hotfix"                     : "com.aliyun.ams:alicloud-android-hotfix:3.2.4",
+
             //test
             "junit"                      : "junit:junit:4.12",
             "androidJUnitRunner"         : "android.support.test.runner.AndroidJUnitRunner",
