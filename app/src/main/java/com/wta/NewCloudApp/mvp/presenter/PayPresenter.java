@@ -26,7 +26,7 @@ public class PayPresenter extends BBasePresenter<IBusinessModel, PayContract.Vie
     }
 
     public void checkSuccess(String type, String orderID) {
-        doRequest(buildRequest(mModel.getPayback(orderID, type)), 2);
+        doRequest(buildRequest(false,mModel.getPayback(orderID, type),true,false), 2);
     }
 
     @Override

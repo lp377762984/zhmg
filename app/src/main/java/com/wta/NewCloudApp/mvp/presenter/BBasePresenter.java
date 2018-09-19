@@ -110,13 +110,13 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
 
 
     //生成网络请求
-    protected <T> Observable<T> buildRequest(boolean isList, Observable<T> observable, boolean needLoading) {
-        return observable
+    protected <T> Observable<T> buildRequest(boolean isList, Observable<T> observable, boolean needLoading, boolean needBind) {
+        Observable<T> tObservable = observable
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(disposable -> {
                     if (!isList && needLoading) mRootView.showLoading();
                     else if (isList) {
-                        if (mRootView instanceof BaseDataView )
+                        if (mRootView instanceof BaseDataView)
                             ((BaseDataView) mRootView).showListLoading();
                     }
                 })
@@ -129,8 +129,13 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
                     } else {
                         if (needLoading) mRootView.hideLoading();
                     }
-                })
-                .compose(RxLifecycleUtils.bindToLifecycle(mRootView));
+                });
+        if (needBind) return tObservable.compose(RxLifecycleUtils.bindToLifecycle(mRootView));
+        else return tObservable;
+    }
+
+    protected <T> Observable<T> buildRequest(boolean isList, Observable<T> observable, boolean needLoading) {
+        return buildRequest(isList, observable, needLoading, true);
     }
 
     //生成网络请求

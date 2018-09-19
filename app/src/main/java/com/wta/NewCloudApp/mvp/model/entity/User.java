@@ -29,6 +29,8 @@ public class User {
     public int is_alipay;
     public String wx_name;
     public String group_name;
+    public String group_avatar;
+    public String group_money;
 
     /**
      * team_img : http://zhmg.jjzbest.com/public/static/base/images/join_picbak.png
@@ -42,5 +44,6 @@ public class User {
     public String referee;
     public int people;
     public String share_url;
+    public String status;
     public List<Power> condition;
 }

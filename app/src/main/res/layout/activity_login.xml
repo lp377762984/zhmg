@@ -204,7 +204,7 @@
         android:drawableLeft="@drawable/other_login_line"
         android:drawableRight="@drawable/other_login_line"
         android:drawableStart="@drawable/other_login_line"
-        android:text="其他登陆方式"
+        android:text="其他登录方式"
         android:textColor="#999"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"

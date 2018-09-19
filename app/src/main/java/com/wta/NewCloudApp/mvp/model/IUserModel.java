@@ -8,6 +8,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.BillType;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
+import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Payback;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
@@ -94,4 +95,12 @@ public interface IUserModel extends IModel {
     Observable<Result<List<UserClass>>> getVIPList();
 
     Observable<Result<VIPInfo>> getVIPInfo(int gradeId);
+
+    Observable<Result<List<Bill>>> getAwardBill(boolean isRefresh);
+
+    Observable<Result<UserClass>> getVIPayInfo(int gradeId);
+
+    Observable<Result<PayInfo>> payVIP(int gradeId, String payType);
+
+    Observable<Result<UserClass>> checkVIPSuccess(String orderID);
 }

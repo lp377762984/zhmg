@@ -41,6 +41,8 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
     TextView tvClassName;
     @BindView(R.id.im_class)
     ImageView imClass;
+    @BindView(R.id.tv_money)
+    TextView tvMoney;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -66,7 +68,7 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_money:
-
+                ArmsUtils.startActivity(RecAwardListActivity.class);
                 break;
             case R.id.lat_score:
                 ArmsUtils.startActivity(BGroupListActivity.class);
@@ -84,9 +86,12 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
     public void showTeam(Result<User> userResult) {
         User user = userResult.data;
         GlideArms.with(this).load(user.team_img).into(imHead);
+        GlideArms.with(this).load(user.group_avatar).into(imClass);
+        tvClassName.setText(user.group_name);
         tvCode.setText("我的推广码：" + user.number);
-        tvCount.setText(user.people + "");
-        tvScore.setText(user.white_score + "");
+        tvCount.setText(user.people + "位小伙伴");
+        tvScore.setText(user.white_score );
+        tvMoney.setText(user.group_money);
     }
 
     @Override

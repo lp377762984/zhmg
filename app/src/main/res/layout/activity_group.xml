@@ -100,8 +100,8 @@
             android:id="@+id/tv_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="33dp"
-            android:layout_marginStart="33dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="23dp"
             android:drawableLeft="@mipmap/group_code"
             android:drawablePadding="13dp"
@@ -171,7 +171,7 @@
             android:gravity="center"
             android:text="0位小伙伴"
             android:textColor="#333"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
         <View
             style="@style/Line"/>
         <LinearLayout

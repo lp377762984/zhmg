@@ -36,7 +36,7 @@ android {
             buildConfigField "boolean", "USE_CANARY", "false"
             buildConfigField "boolean", "CRASH", "true"
             buildConfigField "String", "APP_DOMAIN", "\"http://appdemo.jjzbest.com\""
-            applicationIdSuffix ".appdemo.debug"
+            //applicationIdSuffix ".appdemo.debug"
             resValue "string", "app_name", "appdemo测试版"
             minifyEnabled false
             signingConfig signingConfigs.release

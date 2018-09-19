@@ -17,10 +17,11 @@ public class ClazzAdapter extends BaseQuickAdapter<UserClass, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, UserClass item) {
+    protected void convert(BaseViewHolder helper, UserClass item) {//im_bg
         GlideArms.with(mContext).load(item.classLogo).into((ImageView) helper.getView(R.id.im_class_logo));
+        GlideArms.with(mContext).load(item.bg).into((ImageView) helper.getView(R.id.im_bg));
         helper.setText(R.id.tv_class, item.clazz);
         helper.setText(R.id.tv_money, item.money);
-        //helper.setText(R.id.tv_desc, item.desc);
+        helper.setText(R.id.tv_desc, item.desc);
     }
 }

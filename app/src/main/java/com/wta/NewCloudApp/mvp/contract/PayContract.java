@@ -1,8 +1,6 @@
 package com.wta.NewCloudApp.mvp.contract;
 
 import com.jess.arms.mvp.IView;
-import com.jess.arms.mvp.IModel;
-import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Payback;
 

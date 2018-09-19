@@ -246,4 +246,14 @@ public interface HttpServices {
     Observable<Result<List<UserClass>>> getVIPList();
     @GET("/superMember/getRegInfo")
     Observable<Result<VIPInfo>> getVIPInfo(@Query("grade_id")int gradeId);
+    @GET("/superMember/superBill")
+    Observable<Result<List<Bill>>> getAwardBill(@Query("page")int index);
+    @GET("/superMember/getRegPay")
+    Observable<Result<UserClass>> getVIPayInfo(@Query("grade_id")int gradeId);
+    @FormUrlEncoded
+    @POST("/superMember/GradePurchase")
+    Observable<Result<PayInfo>> payVIP(@Field("grade_id") int gradeId, @Field("pay_type")String payType);
+    @FormUrlEncoded
+    @POST("/superPayBack")
+    Observable<Result<UserClass>> checkVIPSuccess(@Field("out_trade_no")String orderID);
 }

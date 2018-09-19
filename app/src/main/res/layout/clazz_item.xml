@@ -11,6 +11,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <com.makeramen.roundedimageview.RoundedImageView
+        app:riv_corner_radius="5dp"
+        app:riv_oval="false"
+        android:id="@+id/im_bg"
+        android:scaleType="centerCrop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <ImageView
         android:id="@+id/im_class_logo"
         android:layout_width="31dp"
@@ -19,8 +30,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/app_logo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_class"
@@ -30,7 +40,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="黄金会员"
         android:textColor="#996736"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/im_class_logo"
@@ -48,7 +57,6 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="14dp"
-        android:text="￥1000.00/年"
         android:textColor="#800000"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +73,6 @@
         android:layout_marginRight="15dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="13dp"
-        android:text="开启你的黄金之旅"
         android:textColor="#996b3d"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

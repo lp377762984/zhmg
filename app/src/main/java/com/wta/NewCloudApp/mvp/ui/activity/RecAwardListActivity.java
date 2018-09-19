@@ -34,7 +34,7 @@ public class RecAwardListActivity extends BaseListActivity<RecAwardListPresenter
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        super.initData(savedInstanceState);
     }
 
     @Override
@@ -44,6 +44,6 @@ public class RecAwardListActivity extends BaseListActivity<RecAwardListPresenter
 
     @Override
     public void loadData(boolean isRefresh) {
-
+        mPresenter.getAwardBill(isRefresh);
     }
 }

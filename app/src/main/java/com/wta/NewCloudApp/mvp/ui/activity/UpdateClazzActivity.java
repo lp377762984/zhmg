@@ -1,10 +1,13 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +23,8 @@ import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.model.entity.UserClass;
 import com.wta.NewCloudApp.mvp.model.entity.VIPInfo;
 import com.wta.NewCloudApp.mvp.presenter.UpdateClazzPresenter;
+import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
+import com.wta.NewCloudApp.uitls.DialogUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -37,6 +42,8 @@ public class UpdateClazzActivity extends BaseLoadingActivity<UpdateClazzPresente
     TextView tvIsOpen;
     @BindView(R.id.im_class_logo)
     ImageView imClassLogo;
+    @BindView(R.id.im_bg)
+    ImageView imBg;
     @BindView(R.id.tv_money)
     TextView tvMoney;
     @BindView(R.id.tv_desc)
@@ -47,6 +54,9 @@ public class UpdateClazzActivity extends BaseLoadingActivity<UpdateClazzPresente
     TextView tvUserName;
     @BindView(R.id.tv_class_name)
     TextView tvClassName;
+    private UserClass userClass;
+    @BindView(R.id.btn_open)
+    Button btnOpen;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -75,7 +85,17 @@ public class UpdateClazzActivity extends BaseLoadingActivity<UpdateClazzPresente
 
     @OnClick(R.id.btn_open)
     public void onViewClicked() {
-        ArmsUtils.startActivity(PayUpdateActivity.class);
+        if (userClass.open_member == 1) {//线上
+            PayUpdateActivity.start(this, userClass.grade_id);
+        } else {//线下
+            DialogUtils.showAlertDialog(this, userClass.closing_prompt, new DetDialogCallback() {
+                @Override
+                public void handleRight(Dialog dialog) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + userClass.telephone));
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     public static void startUpdate(Activity activity, int grade_id) {
@@ -88,12 +108,19 @@ public class UpdateClazzActivity extends BaseLoadingActivity<UpdateClazzPresente
     public void showVIPInfo(VIPInfo vipInfo) {
         User user = vipInfo.member_info;
         GlideArms.with(this).load(user.avatar).placeholder(R.mipmap.user_default).into(imHead);
+        GlideArms.with(this).load(user.group_avatar).into(imUserClass);
         tvUserName.setText(user.nickname);
-
-        UserClass userClass = vipInfo.grade;
+        // TODO: 2018/9/19
+        //btnOpen.setEnabled(user.is_member == 0);
+        tvIsOpen.setText(user.status);
+        userClass = vipInfo.grade;
         GlideArms.with(this).load(userClass.classLogo).into(imClassLogo);
+        GlideArms.with(this).load(userClass.bg).into(imBg);
+
         tvClassName.setText(userClass.clazz);
         tvMoney.setText(userClass.money);
         tvDesc.setText(userClass.status);
+        tvPower.setText(userClass._abstract);
+
     }
 }

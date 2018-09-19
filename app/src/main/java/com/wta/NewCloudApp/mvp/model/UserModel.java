@@ -11,6 +11,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.BillType;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
+import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Payback;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
@@ -88,7 +89,7 @@ public class UserModel extends BaseModel implements IUserModel {
 
     @Override
     public Observable<Result<LoginEntity>> bindPhone(String mobile, String verify, WXUserInfo info) {
-        Map<String,String> userMap=new HashMap<>();
+        Map<String, String> userMap = new HashMap<>();
         userMap.put("nickname", info.nickname);
         userMap.put("type", "weixin");
         userMap.put("openid", info.openid);
@@ -99,7 +100,7 @@ public class UserModel extends BaseModel implements IUserModel {
 
     @Override
     public Observable<Result<User>> bindWX(WXUserInfo info) {
-        Map<String,String> userMap=new HashMap<>();
+        Map<String, String> userMap = new HashMap<>();
         userMap.put("openid", info.openid);
         userMap.put("unionid", info.unionid);
         userMap.put("nickname", info.nickname);
@@ -158,7 +159,7 @@ public class UserModel extends BaseModel implements IUserModel {
 
     @Override
     public Observable<Result<Address>> editAddress(int id, String consignee, String mobile, int province, int city, int district, String address, int type) {
-        return getService().editAddress(id,consignee, mobile, province, city, district, address, type);
+        return getService().editAddress(id, consignee, mobile, province, city, district, address, type);
     }
 
     @Override
@@ -172,16 +173,17 @@ public class UserModel extends BaseModel implements IUserModel {
     }
 
     @Override
-    public Observable<Result<AliInfo>> bindAlipay(String openID,String type) {
-        return getService().bindAlipay(openID,type);
+    public Observable<Result<AliInfo>> bindAlipay(String openID, String type) {
+        return getService().bindAlipay(openID, type);
     }
+
     public Observable<Result<AliInfo>> getAlipayAuthInfo() {
-        return  getService().getAlipayAuthInfo();
+        return getService().getAlipayAuthInfo();
     }
 
     @Override
     public Observable<Result<Payback>> getPayback(String orderId, String type) {
-        return getService().getPayback(orderId,type);
+        return getService().getPayback(orderId, type);
     }
 
     @Override
@@ -190,10 +192,10 @@ public class UserModel extends BaseModel implements IUserModel {
     }
 
     @Override
-    public Observable<Result<List<Bill>>> getBillsList(boolean isRefresh, String status,String type,String searchType,String date) {
+    public Observable<Result<List<Bill>>> getBillsList(boolean isRefresh, String status, String type, String searchType, String date) {
         if (isRefresh) index = 1;
         else index++;
-        return  getService().getBillsList(index,status,type,searchType,date);
+        return getService().getBillsList(index, status, type, searchType, date);
     }
 
     @Override
@@ -205,27 +207,29 @@ public class UserModel extends BaseModel implements IUserModel {
     public Observable<Result<List<Bill>>> getBReceiveList(boolean isRefresh, int type, String searchType, String date) {
         if (isRefresh) index = 1;
         else index++;
-        return  getService().getBReceiveList(index,type,searchType,date);
+        return getService().getBReceiveList(index, type, searchType, date);
     }
 
     @Override
     public Observable<Result<Bill>> getUScore(int billId) {
-        return getService().getUScore(billId,"consumeStatus");
+        return getService().getUScore(billId, "consumeStatus");
     }
+
     @Override
     public Observable<Result<Bill>> getBScore(int billId) {
-        return getService().getBScore(billId,"saleStatus");
+        return getService().getBScore(billId, "saleStatus");
     }
+
     @Override
     public Observable<Result<Bill>> getRScore(int billId) {
-        return getService().getRScore(billId,"recommendStatus");
+        return getService().getRScore(billId, "recommendStatus");
     }
 
     @Override
     public Observable<Result<List<Bill>>> getGBillsList(boolean isRefresh, int type, String month, String date) {
         if (isRefresh) index = 1;
         else index++;
-        return  getService().getGBillsList(index,type,month,date);
+        return getService().getGBillsList(index, type, month, date);
     }
 
     @Override
@@ -236,6 +240,28 @@ public class UserModel extends BaseModel implements IUserModel {
     @Override
     public Observable<Result<VIPInfo>> getVIPInfo(int gradeId) {
         return getService().getVIPInfo(gradeId);
+    }
+
+    @Override
+    public Observable<Result<List<Bill>>> getAwardBill(boolean isRefresh) {
+        if (isRefresh) index = 1;
+        else index++;
+        return getService().getAwardBill(index);
+    }
+
+    @Override
+    public Observable<Result<UserClass>> getVIPayInfo(int gradeId) {
+        return getService().getVIPayInfo(gradeId);
+    }
+
+    @Override
+    public Observable<Result<PayInfo>> payVIP(int gradeId, String payType) {
+        return getService().payVIP(gradeId,payType);
+    }
+
+    @Override
+    public Observable<Result<UserClass>> checkVIPSuccess(String orderID) {
+        return getService().checkVIPSuccess(orderID);
     }
 
 
