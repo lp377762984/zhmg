@@ -17,7 +17,7 @@ public class RecAwardAdapter extends BaseQuickAdapter<Bill, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Bill item) {
         helper.setText(R.id.tv_title, item.title);
-        helper.setText(R.id.tv_time, item.time);
+        helper.setText(R.id.tv_time, item.create_time);
         helper.setText(R.id.tv_money, item.money);
     }
 }

@@ -50,6 +50,7 @@ public class Bill {
     public String maxTitle;
     public String minTtile;
     public String createTime;
+    public String create_time;
 
 
     public String getMoney() {

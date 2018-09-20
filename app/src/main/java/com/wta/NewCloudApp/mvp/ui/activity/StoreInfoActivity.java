@@ -383,7 +383,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_TAG) {
             BType type = ((BType) data.getSerializableExtra("tag"));
-            business.code_type = type.type_id;
+            business.type_id = type.type_id;
             business.type_name = type.type_name;
             isChanged = true;
             tvType.setText(business.type_name);

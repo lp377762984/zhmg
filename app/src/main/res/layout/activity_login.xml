@@ -226,7 +226,7 @@
         app:srcCompat="@mipmap/login_wx" />
 
     <ImageView
-        style="@style/SelectBackgroundWhile"
+        style="@style/SelectBackgroundBorderless"
         android:id="@+id/im_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

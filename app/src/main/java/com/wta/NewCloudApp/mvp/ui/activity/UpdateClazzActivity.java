@@ -110,8 +110,7 @@ public class UpdateClazzActivity extends BaseLoadingActivity<UpdateClazzPresente
         GlideArms.with(this).load(user.avatar).placeholder(R.mipmap.user_default).into(imHead);
         GlideArms.with(this).load(user.group_avatar).into(imUserClass);
         tvUserName.setText(user.nickname);
-        // TODO: 2018/9/19
-        //btnOpen.setEnabled(user.is_member == 0);
+        btnOpen.setEnabled(user.is_member == 0);
         tvIsOpen.setText(user.status);
         userClass = vipInfo.grade;
         GlideArms.with(this).load(userClass.classLogo).into(imClassLogo);

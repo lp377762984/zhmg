@@ -7,18 +7,14 @@ import android.support.v4.app.Fragment;
 
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
-import com.jess.arms.utils.ArmsUtils;
 import com.umeng.socialize.UMShareAPI;
-import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.ui.fragment.HomeFragment;
 import com.wta.NewCloudApp.mvp.ui.fragment.MineFragment;
 import com.wta.NewCloudApp.mvp.ui.fragment.SideFragment;
 import com.wta.NewCloudApp.mvp.ui.widget.tabLayout.CommonTabLayout2;
-import com.wta.NewCloudApp.uitls.ConfigTag;
 
 import org.simple.eventbus.Subscriber;
 
