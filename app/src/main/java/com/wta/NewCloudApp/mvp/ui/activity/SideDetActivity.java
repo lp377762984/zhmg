@@ -124,10 +124,9 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
                     Uri uri = Uri.parse(url);
                     intentMap.setData(uri);
                     startActivity(intentMap);
-                } else{
+                } else {
                     showToast("请先安装高德地图！");
                 }
-
         }
 
     }
