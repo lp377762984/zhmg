@@ -5,14 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -23,12 +27,12 @@ import com.wta.NewCloudApp.manager.IconSelector;
 import com.wta.NewCloudApp.mvp.contract.StoreInfoContract;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
+import com.wta.NewCloudApp.mvp.model.entity.PictureC;
 import com.wta.NewCloudApp.mvp.presenter.StoreInfoPresenter;
+import com.wta.NewCloudApp.mvp.ui.adapter.PictureAdapter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
-import com.wta.NewCloudApp.uitls.BitmapUtils;
 import com.wta.NewCloudApp.uitls.DialogUtils;
-import com.wta.NewCloudApp.uitls.EncodeUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import org.devio.takephoto.app.TakePhoto;
@@ -38,19 +42,22 @@ import org.devio.takephoto.model.CropOptions;
 import org.devio.takephoto.model.InvokeParam;
 import org.devio.takephoto.model.LubanOptions;
 import org.devio.takephoto.model.TContextWrap;
+import org.devio.takephoto.model.TImage;
 import org.devio.takephoto.model.TResult;
 import org.devio.takephoto.permission.InvokeListener;
 import org.devio.takephoto.permission.PermissionManager;
 import org.devio.takephoto.permission.TakePhotoInvocationHandler;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 
 public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> implements StoreInfoContract.View, TakePhoto.TakeResultListener, InvokeListener {
@@ -93,6 +100,8 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     ImageView imAdd03;
     @BindView(R.id.lat_im_03)
     FrameLayout latIm03;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
     private Business business;
@@ -102,6 +111,8 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     private TimePickerView startTimePicker;
     private TimePickerView endTimePicker;
     private boolean isBack;//用户是否想要退出界面
+    private PictureAdapter adapter;
+    private int limit;//上传图片限制
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -120,6 +131,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        initPictureRecyclerView();
         mPresenter.getAllStoreInfo();
         mb.setCallBack(mb.new CallbackImp() {
             @Override
@@ -136,6 +148,45 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
                 backAndSave();
             }
         });
+    }
+
+    private void initPictureRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
+        List<PictureC> pictures = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            PictureC picture = new PictureC();
+            picture.url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537524513627&di=de2ac55de07e0ce328f13c52a2325ad1&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F8ad4b31c8701a18b7e47295c932f07082838fe71.jpg";
+            pictures.add(picture);
+        }
+        adapter = new PictureAdapter(R.layout.picture_item, pictures);
+        adapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                view.findViewById(R.id.im_close).setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                view.findViewById(R.id.im_close).setVisibility(View.GONE);
+            }
+        });
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                adapter.remove(position);
+            }
+        });
+        View footView = getLayoutInflater().inflate(R.layout.picture_foot, recyclerView,false);
+        footView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectIcon();
+            }
+        });
+        adapter.setFooterView(footView,-1,LinearLayout.HORIZONTAL);
+        recyclerView.setAdapter(adapter);
     }
 
     public void saveChange() {
@@ -200,6 +251,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     private void selectIcon() {
         if (iconSelector == null) {
             iconSelector = new IconSelector(this, takePhoto, "zhmg_head.jpg", getCompressConfig(), getCropConfig());
+            iconSelector.limit=3;
         }
         iconSelector.showIconSelector();
     }
@@ -274,10 +326,14 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     @Override
     public void takeSuccess(TResult tResult) {
         String compressPath = tResult.getImage().getCompressPath();
+        ArrayList<TImage> images = tResult.getImages();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                switch (position) {
+                for (int i = 0; i < images.size(); i++) {
+                    Timber.i("image"+i+": "+images.get(i).getCompressPath()+"\n");
+                }
+                /*switch (position) {
                     case 0:
                         imHead.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 270, 134));
                         business.shop_doorhead = EncodeUtils.fileToBase64(new File(compressPath));
@@ -312,7 +368,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
                         business.picture.image3 = EncodeUtils.fileToBase64(new File(compressPath));
                         isChanged = true;
                         break;
-                }
+                }*/
             }
         });
     }

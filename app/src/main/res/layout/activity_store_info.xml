@@ -132,8 +132,17 @@
                     style="@style/Text_Left_CenterVertical"
                     android:layout_marginTop="17dp"
                     android:text="店内实景照" />
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginBottom="18dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/recyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="67dp"/>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="67dp"
                     android:layout_marginBottom="18dp"
@@ -324,6 +333,7 @@
                         android:id="@+id/im_07"
                         style="@style/Image_Go" />
                     <TextView
+                        android:background="@drawable/text_rect_bg"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="12sp"
@@ -332,7 +342,8 @@
                         android:layout_marginTop="10dp"
                         android:layout_below="@id/tv_07"
                         android:id="@+id/tv_desc"
-                        style="@style/Text_Right_CenterVertical" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

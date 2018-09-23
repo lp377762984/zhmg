@@ -26,6 +26,7 @@ public class IconSelector implements View.OnClickListener {
     private CropOptions cropOptions;
     private TakePhoto takePhoto;
     private BottomSheetDialog btmDialog;
+    public int limit = 1;//默片限制个数
 
     public IconSelector(Activity activity, TakePhoto takePhoto, String fileName, CompressConfig compressConfig, CropOptions cropOptions) {
         this.activity = activity;
@@ -60,9 +61,19 @@ public class IconSelector implements View.OnClickListener {
                     public void accept(Boolean aBoolean) throws Exception {
                         if (aBoolean) {
                             configCompress();
-                            if (cropOptions != null)
-                                takePhoto.onPickFromGalleryWithCrop(getImageUri(), cropOptions);
-                            else takePhoto.onPickFromGallery();
+                            if (cropOptions != null) {
+                                if (limit > 1) {
+                                    takePhoto.onPickMultipleWithCrop(limit, cropOptions);
+                                } else {
+                                    takePhoto.onPickFromGalleryWithCrop(getImageUri(), cropOptions);
+                                }
+                            } else {
+                                if (limit > 1) {
+                                    takePhoto.onPickMultiple(limit);
+                                } else {
+                                    takePhoto.onPickFromGallery();
+                                }
+                            }
                         } else {
                             ArmsUtils.makeText(activity, "没有权限不能修改头像");
                         }
@@ -76,8 +87,8 @@ public class IconSelector implements View.OnClickListener {
                     public void accept(Boolean aBoolean) throws Exception {
                         if (aBoolean) {
                             configCompress();
-                            if (cropOptions!=null)
-                            takePhoto.onPickFromCaptureWithCrop(getImageUri(), cropOptions);
+                            if (cropOptions != null)
+                                takePhoto.onPickFromCaptureWithCrop(getImageUri(), cropOptions);
                             else takePhoto.onPickFromCapture(getImageUri());
                         } else {
                             ArmsUtils.makeText(activity, "没有权限不能修改头像");
