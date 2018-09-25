@@ -99,6 +99,8 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
     TextView tvNameStr;
     @BindView(R.id.tv_08)
     TextView tvHeadStr;
+    @BindView(R.id.et_location_det)
+    EditTextHint etLocationDet;
     private LinkDialog locationDialog;
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
@@ -199,6 +201,7 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
                 }
                 break;
             case R.id.lat_location:
+
                 break;
             case R.id.lat_loc_4:
                 if (errorBusiness == null)

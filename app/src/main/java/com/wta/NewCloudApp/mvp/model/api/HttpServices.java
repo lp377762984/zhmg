@@ -2,6 +2,7 @@ package com.wta.NewCloudApp.mvp.model.api;
 
 
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
+import com.wta.NewCloudApp.mvp.model.entity.PictureC;
 import com.wta.NewCloudApp.mvp.model.entity.UserClass;
 import com.wta.NewCloudApp.mvp.model.entity.VIPInfo;
 import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
@@ -160,14 +161,14 @@ public interface HttpServices {
     @GET("/errorStore")
     Observable<Result<ErrorBusiness>> getStoreErrorMsg();
 
-    @GET("/myStore")
+    @GET("/newMyStore")
     Observable<Result<Business>> getAllStoreMsg();
 
     @FormUrlEncoded
-    @POST("/setMyStore")
+    @POST("/newSetMyStore")
     Observable<Result<Business>> modifyStore(@Field("shop_doorhead") String shop_doorhead, @Field("start_time") String start_time, @Field("end_time") String end_time,
                                              @Field("shop_type") int shop_type, @Field("telephone") String telephone
-            , @Field("introduction") String introduction, @FieldMap() TreeMap<String, Object> map);
+            , @Field("introduction") String introduction, @Field("picture") List<PictureC> picture);
 
     @FormUrlEncoded
     @POST("/nearbyDetails")

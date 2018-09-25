@@ -221,52 +221,6 @@
                 android:background="@drawable/merchant_in_head_bg"
                 android:elevation="5dp"
                 android:orientation="vertical">
-
-                <RelativeLayout
-                    android:id="@+id/lat_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp">
-
-                    <TextView
-                        android:id="@+id/tv_06"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="店铺定位"
-                        android:textColor="#333"
-                        android:textSize="14sp" />
-
-                    <ImageView
-                        android:id="@+id/im_position"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/b_position" />
-
-                    <TextView
-                        android:maxLines="2"
-                        android:ellipsize="end"
-                        android:id="@+id/tv_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="37dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_toLeftOf="@id/im_position"
-                        android:layout_toRightOf="@id/tv_06"
-                        android:background="@null" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/line" />
-                </RelativeLayout>
-
                 <RelativeLayout
                     android:id="@+id/lat_loc_4"
                     android:layout_width="match_parent"
@@ -303,18 +257,73 @@
                         android:textColor="#333"
                         android:textSize="14sp" />
 
-
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/line" />
                 </RelativeLayout>
-
-                <TextView
+                <RelativeLayout
+                    android:id="@+id/lat_location"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_06"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="店铺定位"
+                        android:textColor="#333"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/im_position"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/b_position" />
+
+                    <TextView
+                        android:textColor="#333"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:id="@+id/tv_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="37dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@id/im_position"
+                        android:layout_toRightOf="@id/tv_06"
+                        android:background="@null" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/line" />
+                </RelativeLayout>
+
+                <com.wta.NewCloudApp.mvp.ui.widget.EditTextHint
+                    android:id="@+id/et_location_det"
+                    android:lineSpacingMultiplier="1.2"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:text="请精确定位，便于消费者寻找"
-                    android:textColor="#ccc"
-                    android:textSize="12sp" />
+                    android:hint="地址详情：如街道、门牌号、小区、楼栋号、单元室等"
+                    android:textColorHint="#999"
+                    android:textColor="#333"
+                    android:textSize="14sp" />
             </LinearLayout>
 
 

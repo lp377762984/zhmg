@@ -131,7 +131,7 @@
                 <TextView
                     style="@style/Text_Left_CenterVertical"
                     android:layout_marginTop="17dp"
-                    android:text="店内实景照" />
+                    android:text="店铺相册（点击编辑图片说明）" />
                 <android.support.v7.widget.RecyclerView
                     android:layout_marginBottom="18dp"
                     android:layout_marginLeft="15dp"

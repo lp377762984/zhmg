@@ -232,13 +232,16 @@
         <activity android:name=".mvp.ui.activity.BScoreDetActivity" />
         <activity android:name=".mvp.ui.activity.RScoreDetActivity" />
         <activity android:name=".mvp.ui.activity.AboutUsActivity" />
-        <activity android:name=".mvp.ui.activity.VIPListActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".mvp.ui.activity.VIPListActivity"
+            android:exported="true" />
         <activity android:name=".mvp.ui.activity.UpdateClazzActivity" />
         <activity android:name=".mvp.ui.activity.PayUpdateActivity" />
         <activity android:name=".mvp.ui.activity.UpdatePaySuccessActivity" />
-        <activity android:name=".mvp.ui.activity.RecAwardListActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".mvp.ui.activity.RecAwardListActivity"
+            android:exported="true" />
+        <activity android:name=".mvp.ui.activity.PicDetActivity"></activity>
     </application>
 
 </manifest>

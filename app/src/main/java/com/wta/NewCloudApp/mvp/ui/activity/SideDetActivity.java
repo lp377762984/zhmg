@@ -138,45 +138,6 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         tvName.setText(business.shop_name);
         GlideArms.with(this).load(business.level_img).into(imClass);
         tvLocation.setText(business.location_address);
-        Business.PictureBean picture = business.picture;
-        boolean a1 = false;
-        boolean a2 = false;
-        boolean a3 = false;
-        if (picture != null && !TextUtils.isEmpty(picture.image1)) {//第一张有图片
-            GlideArms.with(this).load(picture.image1).placeholder(R.mipmap.side_b_placeholder).into(imStore01);
-            urls.add(picture.image1);
-            a1 = true;
-        }
-        if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第二张有图片
-            GlideArms.with(this).load(picture.image2).placeholder(R.mipmap.side_b_placeholder).into(imStore02);
-            urls.add(picture.image2);
-            a2 = true;
-        }
-        if (picture != null && !TextUtils.isEmpty(picture.image3)) {//第三张有图片
-            GlideArms.with(this).load(picture.image3).placeholder(R.mipmap.side_b_placeholder).into(imStore03);
-            urls.add(picture.image3);
-            a3 = true;
-        }
-        if (!a1) {//没有一张图片
-            latPics.setVisibility(View.GONE);
-        } else {
-            latPics.setVisibility(View.VISIBLE);
-            if (!a2) {//只有一张图片
-                imStore01.setVisibility(View.VISIBLE);
-                imStore02.setVisibility(View.INVISIBLE);
-                imStore03.setVisibility(View.INVISIBLE);
-            } else {
-                if (!a3) {//只有2张图片
-                    imStore01.setVisibility(View.VISIBLE);
-                    imStore02.setVisibility(View.VISIBLE);
-                    imStore03.setVisibility(View.INVISIBLE);
-                } else {//有3张图片
-                    imStore01.setVisibility(View.VISIBLE);
-                    imStore02.setVisibility(View.VISIBLE);
-                    imStore03.setVisibility(View.VISIBLE);
-                }
-            }
-        }
         tvTime.setText(String.format("%s-%s", business.start_time, business.end_time));
         tvType.setText(business.type_name);
         if (TextUtils.isEmpty(business.introduction)) {

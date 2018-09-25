@@ -4,8 +4,10 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.wta.NewCloudApp.mvp.contract.StoreInfoContract;
 import com.wta.NewCloudApp.mvp.model.IBusinessModel;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
+import com.wta.NewCloudApp.mvp.model.entity.PictureC;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -24,7 +26,7 @@ public class StoreInfoPresenter extends BBasePresenter<IBusinessModel, StoreInfo
         doRequest(buildRequest(mModel.getAllStoreInfo()), 1);
     }
 
-    public void modifyStore(String shop_doorhead, String start_time, String end_time, int shop_type, String telephone, String introduction, TreeMap<String,Object> picture) {
+    public void modifyStore(String shop_doorhead, String start_time, String end_time, int shop_type, String telephone, String introduction, List<PictureC> picture) {
         doRequest(buildRequest(mModel.modifyStore(shop_doorhead, start_time, end_time, shop_type, telephone, introduction, picture)),2);
     }
 

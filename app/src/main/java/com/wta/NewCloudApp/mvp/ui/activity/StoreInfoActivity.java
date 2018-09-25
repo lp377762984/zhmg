@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -32,7 +31,9 @@ import com.wta.NewCloudApp.mvp.presenter.StoreInfoPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.PictureAdapter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
+import com.wta.NewCloudApp.uitls.BitmapUtils;
 import com.wta.NewCloudApp.uitls.DialogUtils;
+import com.wta.NewCloudApp.uitls.EncodeUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import org.devio.takephoto.app.TakePhoto;
@@ -48,12 +49,12 @@ import org.devio.takephoto.permission.InvokeListener;
 import org.devio.takephoto.permission.PermissionManager;
 import org.devio.takephoto.permission.TakePhotoInvocationHandler;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -107,12 +108,13 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     private Business business;
     private IconSelector iconSelector;
     private boolean isChanged;//是否有内容改变
-    private int position;//当前点击的哪张图片 0 head 1 店内实景照片1 2 店内实景照片2 3 店内实景照片3
+    private boolean isClickHead = true;//true 点击店铺封面，false 点击店铺相册
     private TimePickerView startTimePicker;
     private TimePickerView endTimePicker;
     private boolean isBack;//用户是否想要退出界面
     private PictureAdapter adapter;
-    private int limit;//上传图片限制
+    private int maxCount;
+    private int limit = maxCount = 2;//上传图片限制
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -153,39 +155,22 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     private void initPictureRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
         List<PictureC> pictures = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            PictureC picture = new PictureC();
-            picture.url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537524513627&di=de2ac55de07e0ce328f13c52a2325ad1&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F8ad4b31c8701a18b7e47295c932f07082838fe71.jpg";
-            pictures.add(picture);
-        }
         adapter = new PictureAdapter(R.layout.picture_item, pictures);
-        adapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                view.findViewById(R.id.im_close).setVisibility(View.VISIBLE);
-                return true;
-            }
-        });
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 view.findViewById(R.id.im_close).setVisibility(View.GONE);
             }
         });
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                adapter.remove(position);
-            }
-        });
-        View footView = getLayoutInflater().inflate(R.layout.picture_foot, recyclerView,false);
+        View footView = getLayoutInflater().inflate(R.layout.picture_foot, recyclerView, false);
         footView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isClickHead = false;
                 selectIcon();
             }
         });
-        adapter.setFooterView(footView,-1,LinearLayout.HORIZONTAL);
+        adapter.setFooterView(footView, -1, LinearLayout.HORIZONTAL);
         recyclerView.setAdapter(adapter);
     }
 
@@ -195,19 +180,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
                 , business.type_id
                 , tvPhone.getText().toString()
                 , tvDesc.getText().toString()
-                , buildPictureStr());
-    }
-
-    private TreeMap<String, Object> buildPictureStr() {
-        TreeMap<String, Object> map = new TreeMap<>();
-        Business.PictureBean picture = business.picture;
-        String image1 = picture.image1;
-        String image2 = picture.image2;
-        String image3 = picture.image3;
-        if (image1 != null) map.put("image1", image1);
-        if (image2 != null) map.put("image2", image2);
-        if (image3 != null) map.put("image3", image3);
-        return map;
+                , business.picture);
     }
 
 
@@ -215,7 +188,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_head:
-                position = 0;
+                isClickHead = true;
                 selectIcon();
                 break;
             case R.id.lat_start_time:
@@ -233,26 +206,15 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
             case R.id.lat_desc:
                 StoreDescActivity.startDesc(this, tvDesc.getText().toString());
                 break;
-            case R.id.im_store_01:
-                position = 1;
-                selectIcon();
-                break;
-            case R.id.im_store_02:
-                position = 2;
-                selectIcon();
-                break;
-            case R.id.im_store_03:
-                position = 3;
-                selectIcon();
-                break;
         }
     }
 
     private void selectIcon() {
         if (iconSelector == null) {
             iconSelector = new IconSelector(this, takePhoto, "zhmg_head.jpg", getCompressConfig(), getCropConfig());
-            iconSelector.limit=3;
         }
+        if (isClickHead) iconSelector.limit = 1;
+        else iconSelector.limit = limit;
         iconSelector.showIconSelector();
     }
 
@@ -268,52 +230,9 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         tvType.setText(data.type_name);
         tvPhone.setText(data.telephone);
         tvDesc.setText(data.introduction);
-        Business.PictureBean picture = data.picture;
-        boolean a1 = false;
-        boolean a2 = false;
-        boolean a3 = false;
-        if (picture != null && !TextUtils.isEmpty(picture.image1)) {//第一张有图片
-            GlideArms.with(this).load(picture.image1).placeholder(R.mipmap.side_b_placeholder).into(imStore01);
-            a1 = true;
-        }
-        if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第二张有图片
-            GlideArms.with(this).load(picture.image2).placeholder(R.mipmap.side_b_placeholder).into(imStore02);
-            a2 = true;
-        }
-        if (picture != null && !TextUtils.isEmpty(picture.image2)) {//第三张有图片
-            GlideArms.with(this).load(picture.image3).placeholder(R.mipmap.side_b_placeholder).into(imStore03);
-            a3 = true;
-        }
-        if (!a1) {//没有一张图片
-            imAdd01.setVisibility(View.VISIBLE);
-            imAdd02.setVisibility(View.GONE);
-            imAdd03.setVisibility(View.GONE);
-            imStore01.setEnabled(true);
-            imStore02.setEnabled(false);
-            imStore03.setEnabled(false);
-        } else {
-            if (!a2) {//只有一张图片
-                imAdd01.setVisibility(View.GONE);
-                imAdd02.setVisibility(View.VISIBLE);
-                imAdd03.setVisibility(View.GONE);
-                imStore01.setEnabled(true);
-                imStore02.setEnabled(true);
-                imStore03.setEnabled(false);
-            } else {
-                if (!a3) {//只有2张图片
-                    imAdd01.setVisibility(View.GONE);
-                    imAdd02.setVisibility(View.GONE);
-                    imAdd03.setVisibility(View.VISIBLE);
-                } else {//有3张图片
-                    imAdd01.setVisibility(View.GONE);
-                    imAdd02.setVisibility(View.GONE);
-                    imAdd03.setVisibility(View.GONE);
-                }
-                imStore01.setEnabled(true);
-                imStore02.setEnabled(true);
-                imStore03.setEnabled(true);
-            }
-        }
+        List<PictureC> pictureCList = data.picture;
+        if (maxCount == pictureCList.size()) adapter.removeAllFooterView();
+        adapter.setNewData(pictureCList);
     }
 
     @Override
@@ -330,45 +249,24 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < images.size(); i++) {
-                    Timber.i("image"+i+": "+images.get(i).getCompressPath()+"\n");
+                if (isClickHead) {//获取店铺封面
+                    imHead.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 270, 134));
+                    business.shop_doorhead = EncodeUtils.fileToBase64(new File(compressPath));
+                    isChanged = true;
+                } else {//获取店铺相册
+                    List<PictureC> addData = new ArrayList<>(images.size());
+                    for (int i = 0; i < images.size(); i++) {
+                        String path = images.get(i).getCompressPath();
+                        PictureC pictureC = new PictureC();
+                        pictureC.file = new File(path);
+                        addData.add(pictureC);
+                    }
+                    adapter.addData(addData);
+                    limit = limit - adapter.getData().size();
+                    if (limit <= 0) {
+                        adapter.removeAllFooterView();
+                    }
                 }
-                /*switch (position) {
-                    case 0:
-                        imHead.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 270, 134));
-                        business.shop_doorhead = EncodeUtils.fileToBase64(new File(compressPath));
-                        isChanged = true;
-                        break;
-                    case 1:
-                        imStore01.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 270, 134));
-                        imAdd01.setVisibility(View.GONE);
-                        imAdd02.setVisibility(View.VISIBLE);
-                        imStore01.setEnabled(true);
-                        imStore02.setEnabled(true);
-                        imStore03.setEnabled(false);
-                        business.picture.image1 = EncodeUtils.fileToBase64(new File(compressPath));
-                        isChanged = true;
-                        break;
-                    case 2:
-                        imStore02.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 270, 134));
-                        imAdd02.setVisibility(View.GONE);
-                        imAdd03.setVisibility(View.VISIBLE);
-                        imStore01.setEnabled(true);
-                        imStore02.setEnabled(true);
-                        imStore03.setEnabled(true);
-                        business.picture.image2 = EncodeUtils.fileToBase64(new File(compressPath));
-                        isChanged = true;
-                        break;
-                    case 3:
-                        imStore03.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 270, 134));
-                        imAdd03.setVisibility(View.GONE);
-                        imStore01.setEnabled(true);
-                        imStore02.setEnabled(true);
-                        imStore03.setEnabled(true);
-                        business.picture.image3 = EncodeUtils.fileToBase64(new File(compressPath));
-                        isChanged = true;
-                        break;
-                }*/
             }
         });
     }

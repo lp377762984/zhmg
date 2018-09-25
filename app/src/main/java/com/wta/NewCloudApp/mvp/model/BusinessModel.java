@@ -11,6 +11,7 @@ import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Payback;
+import com.wta.NewCloudApp.mvp.model.entity.PictureC;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
@@ -83,7 +84,7 @@ public class BusinessModel extends UserModel implements IBusinessModel {
     }
 
     @Override
-    public Observable<Result<Business>> modifyStore(String shop_doorhead, String start_time, String end_time, int shop_type, String telephone, String introduction, TreeMap<String, Object> picture) {
+    public Observable<Result<Business>> modifyStore(String shop_doorhead, String start_time, String end_time, int shop_type, String telephone, String introduction,List<PictureC> picture) {
         return getService().modifyStore(shop_doorhead, start_time, end_time, shop_type, telephone, introduction, picture);
     }
 
