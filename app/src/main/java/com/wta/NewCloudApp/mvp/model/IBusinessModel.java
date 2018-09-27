@@ -6,6 +6,7 @@ import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
+import com.wta.NewCloudApp.mvp.model.entity.BusinessNew;
 import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Payback;
@@ -34,7 +35,7 @@ public interface IBusinessModel extends IModel {
 
     Observable<Result<Business>> modifyStore(Business business);
 
-    Observable<Result<Business>> getStoreDet(int storeID);
+    Observable<Result<BusinessNew>> getStoreDet(int storeID);
 
     Observable<Result<AliInfo>> getAlipayAuthInfo();
 

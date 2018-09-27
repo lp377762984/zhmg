@@ -103,4 +103,6 @@ public interface IUserModel extends IModel {
     Observable<Result<PayInfo>> payVIP(int gradeId, String payType);
 
     Observable<Result<UserClass>> checkVIPSuccess(String orderID);
+
+    Observable<Result<Share>> shareBigImage();
 }

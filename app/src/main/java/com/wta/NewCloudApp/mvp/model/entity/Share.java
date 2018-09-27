@@ -13,5 +13,6 @@ public class Share {
     public String share_desc;
     public String share_img;
     public String share_url;
+    public String share_newImg;
     public int share_status;
 }

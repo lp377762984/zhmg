@@ -44,6 +44,7 @@ import com.wta.NewCloudApp.mvp.ui.activity.MsgActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.ScoreListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SettingActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UserMsgActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.UserQRActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity;
 import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.FinalUtils;
@@ -169,7 +170,8 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
                 ArmsUtils.startActivity(GroupActivity.class);
                 break;
             case R.id.lat_share:
-                mPresenter.startShare();
+                //mPresenter.startShare();
+                ArmsUtils.startActivity(UserQRActivity.class);
                 break;
             case R.id.lat_location:
                 ArmsUtils.startActivity(AddressListActivity.class);

@@ -12,6 +12,13 @@ public class PictureC implements Serializable,Cloneable {
     public String desc;
     public File file;
 
+    public PictureC() {
+    }
+
+    public PictureC(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         return "{" +

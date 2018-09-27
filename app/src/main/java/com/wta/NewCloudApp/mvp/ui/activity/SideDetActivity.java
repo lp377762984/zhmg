@@ -6,24 +6,31 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.http.imageloader.glide.GlideArms;
-import com.makeramen.roundedimageview.RoundedImageView;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerSideDetComponent;
 import com.wta.NewCloudApp.di.module.SideDetModule;
 import com.wta.NewCloudApp.mvp.contract.SideDetContract;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
+import com.wta.NewCloudApp.mvp.model.entity.BusinessNew;
+import com.wta.NewCloudApp.mvp.model.entity.PictureC;
 import com.wta.NewCloudApp.mvp.presenter.SideDetPresenter;
+import com.wta.NewCloudApp.mvp.ui.adapter.PictureAdapter;
 import com.wta.NewCloudApp.uitls.PackageUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -44,12 +51,6 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     TextView tvLocation;
     @BindView(R.id.lat_head)
     RelativeLayout latHead;
-    @BindView(R.id.im_store_01)
-    RoundedImageView imStore01;
-    @BindView(R.id.im_store_02)
-    RoundedImageView imStore02;
-    @BindView(R.id.im_store_03)
-    RoundedImageView imStore03;
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.tv_type)
@@ -58,8 +59,10 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     TextView tvDesc;
     @BindView(R.id.lat_pics)
     RelativeLayout latPics;
-    private Business business;
-    ArrayList<String> urls = new ArrayList<>();
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    private BusinessNew business;
+    PictureAdapter adapter;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -79,6 +82,20 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mPresenter.getStoreDet(getIntent().getIntExtra("store_id", 0));
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
+        List<PictureC> pictures = new ArrayList<>();
+        adapter = new PictureAdapter(R.layout.picture_item, pictures);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                PhotoViewActivity.startViewPhoto(SideDetActivity.this, (ArrayList<PictureC>) business.new_picture, position);
+            }
+        });
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -92,7 +109,7 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         activity.startActivity(intent);
     }
 
-    @OnClick({R.id.im_phone, R.id.lat_imgs, R.id.tv_location})
+    @OnClick({R.id.im_phone, R.id.tv_location})
     public void startPhone(View view) {
         switch (view.getId()) {
             case R.id.im_phone:
@@ -103,15 +120,7 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + business.telephone));
                 startActivity(intent);
                 break;
-            case R.id.lat_imgs:
-                PhotoViewActivity.startViewPhoto(this, urls);
-                break;
             case R.id.tv_location:
-//                Intent intentMap = new Intent("android.intent.action.VIEW",
-//                        android.net.Uri.parse("androidamap://navi?sourceApplication=lefaner&lat=" + business.shop_address_x + "&lon=" + business.shop_address_y + "&dev=1&style=0"));
-//                intentMap.setPackage("com.autonavi.minimap");
-//                intentMap.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intentMap);
                 if (PackageUtils.appIsInstalled(this, "com.autonavi.minimap")) {
                     Intent intentMap = new Intent();
                     intentMap.setAction(Intent.ACTION_VIEW);
@@ -132,7 +141,7 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     }
 
     @Override
-    public void showStoreDet(Business business) {
+    public void showStoreDet(BusinessNew business) {
         this.business = business;
         GlideArms.with(this).load(business.shop_doorhead).placeholder(R.mipmap.side_b_placeholder).into(imHead);
         tvName.setText(business.shop_name);
@@ -145,6 +154,25 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         } else {
             tvDesc.setText(business.introduction);
         }
+        BusinessNew.PictureBean pictureOld = business.picture;
+        if (pictureOld!=null){
+            String image1 = pictureOld.image1;
+            String image2 = pictureOld.image2;
+            String image3 = pictureOld.image3;
+            if (business.new_picture==null){
+                business.new_picture=new ArrayList<>();
+            }
+            if (!TextUtils.isEmpty(image1)) business.new_picture.add(new PictureC(image1));
+            if (!TextUtils.isEmpty(image2)) business.new_picture.add(new PictureC(image2));
+            if (!TextUtils.isEmpty(image3)) business.new_picture.add(new PictureC(image3));
+        }
+        if (business.new_picture != null && business.new_picture.size() > 0) {
+            latPics.setVisibility(View.VISIBLE);
+            adapter.setNewData(business.new_picture);
+        } else {
+            latPics.setVisibility(View.GONE);
+        }
+
     }
 
 }

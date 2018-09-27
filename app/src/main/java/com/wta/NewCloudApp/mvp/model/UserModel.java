@@ -264,5 +264,10 @@ public class UserModel extends BaseModel implements IUserModel {
         return getService().checkVIPSuccess(orderID);
     }
 
+    @Override
+    public Observable<Result<Share>> shareBigImage() {
+        return getService().shareBigImage();
+    }
+
 
 }

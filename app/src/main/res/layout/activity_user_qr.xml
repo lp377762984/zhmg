@@ -7,110 +7,108 @@
     android:orientation="vertical">
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
         android:id="@+id/mb"
-        app:tailImg="@mipmap/qr_more"
-        app:textTitle="我的二维码"
+        app:textTail="我的伙伴"
+        app:textTitle="邀请伙伴"
         android:layout_width="match_parent"
         android:layout_height="@dimen/money_bar_height"/>
+
     <android.support.constraint.ConstraintLayout
-        android:elevation="5dp"
-        android:background="@drawable/user_qr_bg"
-        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="30dp"
+        android:background="@drawable/user_qr_bg"
+        android:elevation="5dp">
 
         <ImageView
             android:id="@+id/im_qr"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="19dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+            app:layout_constraintTop_toBottomOf="@+id/im_info" />
 
-        <TextView
-            android:id="@+id/tv_btm_str"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:paddingBottom="20dp"
-            android:text="扫描上面的二维码，可注册成会员，注册成功后成为您团队中的一员"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/divider4" />
-
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/linearLayout3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="31dp"
-            android:gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@mipmap/partner_head_bg"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tv_com_str"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我的推荐码"
-                android:textColor="@color/text_color_gray2"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="15dp" />
+                android:layout_gravity="center">
 
-            <TextView
-                android:id="@+id/tv_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/text_color2"
-                android:textSize="18sp" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_com_str"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的推荐码："
+                    android:textColor="#fff"
+                    android:textSize="14sp" />
 
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/line"
+                <TextView
+                    android:id="@+id/tv_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textColor="#fff"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/im_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="15dp"
+            android:src="@mipmap/share_info"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
-        <View
-            android:id="@+id/divider4"
-            android:layout_width="0dp"
-            android:layout_height="0.5dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
+        <Button
+            android:id="@+id/btn_link"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/det_btn_bg"
+            android:text="分享链接"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_big"
+            app:layout_constraintEnd_toStartOf="@+id/btn_big"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_big" />
+
+        <Button
+            android:id="@+id/btn_big"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/det_btn_bg"
+            android:text="分享二维码"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_link"
             app:layout_constraintTop_toBottomOf="@+id/im_qr" />
+
+
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

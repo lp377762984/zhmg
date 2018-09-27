@@ -29,4 +29,5 @@ public class FinalUtils {
     public static final int REQUEST_PIC_DET = 2029;
     public static final int REQUEST_LOC = 2030;
     public static final int REQUEST_LOC_DET = 2031;
+    public static final String SHARE_EXPLAIN = BuildConfig.APP_DOMAIN +"/shareExplain";
 }

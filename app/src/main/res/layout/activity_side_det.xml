@@ -77,7 +77,6 @@
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:lineSpacingExtra="5dp"
-                        android:text="我家住在黄土高坡我家住在黄土"
                         android:layout_marginTop="10dp"
                         android:layout_toLeftOf="@id/im_phone"
                         android:layout_alignParentLeft="true"
@@ -94,7 +93,6 @@
 
             </RelativeLayout>
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/lat_pics"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
@@ -111,45 +109,16 @@
                     android:text="店内实景照"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <LinearLayout
-                    android:id="@+id/lat_imgs"
-                    android:layout_marginTop="10dp"
+                <android.support.v7.widget.RecyclerView
+                    android:layout_below="@id/tv_01"
+                    android:layout_marginBottom="18dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginBottom="18dp"
-                    android:layout_below="@id/tv_01"
-                    android:layout_width="match_parent"
-                    android:layout_height="67dp">
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        app:riv_corner_radius="5dp"
-                        app:riv_oval="false"
-                        android:scaleType="centerCrop"
-                        android:visibility="visible"
-                        android:id="@+id/im_store_01"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent" />
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        app:riv_oval="false"
-                        app:riv_corner_radius="5dp"
-                        android:scaleType="centerCrop"
-                        android:visibility="visible"
-                        android:id="@+id/im_store_02"
-                        android:layout_marginLeft="15dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent" />
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        app:riv_oval="false"
-                        app:riv_corner_radius="5dp"
-                        android:scaleType="centerCrop"
-                        android:visibility="visible"
-                        android:id="@+id/im_store_03"
-                        android:layout_marginLeft="15dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/recyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="67dp"/>
+
             </RelativeLayout>
 
             <TextView

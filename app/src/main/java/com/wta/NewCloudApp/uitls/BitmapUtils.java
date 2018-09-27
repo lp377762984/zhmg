@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -24,7 +25,7 @@ public class BitmapUtils {
      * @param logo logo
      * @return 新的二维码图片
      */
-    public static Bitmap addLogoToQRCode(Bitmap src, Bitmap logo) {
+    public static Bitmap addLogoToQRCode(Bitmap src, Bitmap logo, int screenWidth) {
         if (src == null || logo == null) {
             return src;
         }
@@ -32,14 +33,13 @@ public class BitmapUtils {
         int srcHeight = src.getHeight();
         int logoWidth = logo.getWidth();
         int logoHeight = logo.getHeight();
-
         float scaleFactor = srcWidth * 1.0f / 5 / logoWidth;
         Bitmap bitmap = Bitmap.createBitmap(srcWidth, srcHeight, Bitmap.Config.ARGB_8888);
         try {
             Canvas canvas = new Canvas(bitmap);
             canvas.drawBitmap(src, 0, 0, null);
-            canvas.scale(scaleFactor, scaleFactor, srcWidth / 2, srcHeight / 2);
-            canvas.drawBitmap(logo, (srcWidth - logoWidth) / 2, (srcHeight - logoHeight) / 2, null);
+            //canvas.scale(scaleFactor, scaleFactor, srcWidth / 2, srcHeight / 2);
+            canvas.drawBitmap(logo, (srcWidth - logoWidth) / 2, 1406, null);
             canvas.save(Canvas.ALL_SAVE_FLAG);
             canvas.restore();
         } catch (Exception e) {
@@ -110,6 +110,17 @@ public class BitmapUtils {
         return BitmapFactory.decodeByteArray(data, 0, data.length, opts);
     }
 
+    public static Bitmap zoomBitmap(Bitmap bitmap, int w, int h) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        Matrix matrix = new Matrix();
+        float scaleWidth = ((float) w / width);
+        float scaleHeight = ((float) h / height);
+        matrix.postScale(scaleWidth, scaleHeight);
+        return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+    }
+
+
     public static Bitmap scaleBitmap(String filePath, int setWidth, int setHeight) {
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inJustDecodeBounds = true; //不加载实际内容,只有图片的边框信息
@@ -121,7 +132,7 @@ public class BitmapUtils {
         opts.inSampleSize = scaleWidth < scaleHeight ? scaleWidth : scaleHeight;
         opts.inPreferredConfig = Bitmap.Config.RGB_565;
         opts.inJustDecodeBounds = false; //要获取图片内容
-        return BitmapFactory.decodeFile(filePath,opts);
+        return BitmapFactory.decodeFile(filePath, opts);
     }
 
     /**

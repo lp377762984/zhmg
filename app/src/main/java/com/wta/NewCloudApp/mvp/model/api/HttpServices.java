@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.model.api;
 
 
+import com.wta.NewCloudApp.mvp.model.entity.BusinessNew;
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.Pic;
 import com.wta.NewCloudApp.mvp.model.entity.PictureC;
@@ -175,7 +176,7 @@ public interface HttpServices {
 
     @FormUrlEncoded
     @POST("/nearbyDetails")
-    Observable<Result<Business>> getStoreDet(@Field("store_id") int storeID);
+    Observable<Result<BusinessNew>> getStoreDet(@Field("store_id") int storeID);
 
     @GET("/set/getSign")
     Observable<Result<AliInfo>> getAlipayAuthInfo();
@@ -269,5 +270,6 @@ public interface HttpServices {
     @FormUrlEncoded
     @POST("/superPayBack")
     Observable<Result<UserClass>> checkVIPSuccess(@Field("out_trade_no") String orderID);
-
+    @GET("/user/shareUrl")
+    Observable<Result<Share>> shareBigImage();
 }

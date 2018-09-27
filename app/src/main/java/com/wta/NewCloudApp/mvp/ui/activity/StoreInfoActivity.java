@@ -33,6 +33,7 @@ import com.wta.NewCloudApp.mvp.ui.adapter.PictureAdapter;
 import com.wta.NewCloudApp.uitls.BitmapUtils;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.EncodeUtils;
+import com.wta.NewCloudApp.uitls.FileUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import org.devio.takephoto.app.TakePhoto;
@@ -58,6 +59,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 
 public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> implements StoreInfoContract.View, TakePhoto.TakeResultListener, InvokeListener {
@@ -237,10 +239,10 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         tvType.setText(data.type_name);
         tvPhone.setText(data.telephone);
         tvDesc.setText(data.introduction);
+        limit = maxCount = data.img_sum;
         List<PictureC> pictureCList = data.picture;
         if (maxCount == pictureCList.size()) adapter.removeAllFooterView();
         adapter.setNewData(pictureCList);
-        limit = maxCount = data.img_sum;
     }
 
     @Override
@@ -257,7 +259,8 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
             public void run() {
                 if (isClickHead) {//获取店铺封面
                     imHead.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 270, 134));
-                    saveChange(business.shop_doorhead, null, null, null, null, null, null, null, null, null, null);
+                    saveChange(EncodeUtils.fileToBase64(new File(compressPath)), null, null, null,
+                            null, null, null, null, null, null, null);
                 } else {//获取店铺相册
                     List<PictureC> addData = new ArrayList<>(images.size());
                     for (int i = 0; i < images.size(); i++) {
@@ -268,6 +271,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
                     }
                     adapter.addData(addData);
                     limit = limit - adapter.getData().size();
+                    Timber.i("run: "+limit);
                     if (limit <= 0) {
                         adapter.removeAllFooterView();
                     }
@@ -387,7 +391,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     }
 
     private CropOptions getCropConfig() {
-        return new CropOptions.Builder().setWithOwnCrop(false).create();
+        return new CropOptions.Builder().setWithOwnCrop(false).setAspectX(90).setAspectY(67).create();
     }
 
     @Override

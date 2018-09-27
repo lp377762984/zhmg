@@ -7,6 +7,7 @@ import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
+import com.wta.NewCloudApp.mvp.model.entity.BusinessNew;
 import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
@@ -94,7 +95,7 @@ public class BusinessModel extends UserModel implements IBusinessModel {
     }
 
     @Override
-    public Observable<Result<Business>> getStoreDet(int storeID) {
+    public Observable<Result<BusinessNew>> getStoreDet(int storeID) {
         return getService().getStoreDet(storeID);
     }
 
