@@ -1,18 +1,19 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.amap.api.services.core.PoiItem;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,8 +30,6 @@ import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.PictureC;
 import com.wta.NewCloudApp.mvp.presenter.StoreInfoPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.PictureAdapter;
-import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
-import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
 import com.wta.NewCloudApp.uitls.BitmapUtils;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.EncodeUtils;
@@ -50,6 +49,7 @@ import org.devio.takephoto.permission.PermissionManager;
 import org.devio.takephoto.permission.TakePhotoInvocationHandler;
 
 import java.io.File;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,13 +58,10 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 
 public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> implements StoreInfoContract.View, TakePhoto.TakeResultListener, InvokeListener {
 
-    @BindView(R.id.mb)
-    MoneyBar mb;
     @BindView(R.id.im_head)
     RoundedImageView imHead;
     @BindView(R.id.tv_name)
@@ -103,18 +100,19 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     FrameLayout latIm03;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.tv_location_det)
+    TextView tvLocDet;
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
     private Business business;
     private IconSelector iconSelector;
-    private boolean isChanged;//是否有内容改变
     private boolean isClickHead = true;//true 点击店铺封面，false 点击店铺相册
     private TimePickerView startTimePicker;
     private TimePickerView endTimePicker;
-    private boolean isBack;//用户是否想要退出界面
     private PictureAdapter adapter;
     private int maxCount;
-    private int limit = maxCount = 2;//上传图片限制
+    private int limit;//上传图片限制
+    private PoiItem poiItem;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -135,21 +133,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     public void initData(@Nullable Bundle savedInstanceState) {
         initPictureRecyclerView();
         mPresenter.getAllStoreInfo();
-        mb.setCallBack(mb.new CallbackImp() {
-            @Override
-            public void clickTail() {
-                if (isChanged) {
-                    saveChange();
-                } else {
-                    showToast("内容没有更改");
-                }
-            }
-
-            @Override
-            public void clickBack(View back) {
-                backAndSave();
-            }
-        });
+        limit = maxCount = 6;
     }
 
     private void initPictureRecyclerView() {
@@ -159,7 +143,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                view.findViewById(R.id.im_close).setVisibility(View.GONE);
+                PicDetActivity.startPicDet(StoreInfoActivity.this, (ArrayList<PictureC>) adapter.getData(), position);
             }
         });
         View footView = getLayoutInflater().inflate(R.layout.picture_foot, recyclerView, false);
@@ -174,19 +158,41 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         recyclerView.setAdapter(adapter);
     }
 
-    public void saveChange() {
-        mPresenter.modifyStore(business.shop_doorhead, tvStartTime.getText().toString()
-                , tvEndTime.getText().toString()
-                , business.type_id
-                , tvPhone.getText().toString()
-                , tvDesc.getText().toString()
-                , business.picture);
+    public void saveChange(String head, String startTime, String endTime, Integer typeId, String phone, String desc,
+                           List<PictureC> pictures, String location_address, String address_details, String shop_address_x, String shop_address_y) {
+        if (pictures != null && pictures.size() > 0)
+            for (int i = 0; i < pictures.size(); i++) {
+                PictureC pictureC = pictures.get(i);
+                if (pictureC.file != null) {
+                    pictureC.url = EncodeUtils.fileToBase64(pictureC.file);
+                }
+            }
+        Business business = new Business();
+        business.shop_doorhead = head;
+        business.start_time = startTime;
+        business.end_time = endTime;
+        if (typeId != null) business.shop_type = String.valueOf(typeId);
+        business.telephone = phone;
+        business.introduction = desc;
+        business.picture = pictures;
+        business.location_address = location_address;
+        business.address_details = address_details;
+        business.shop_address_x = shop_address_x;
+        business.shop_address_y = shop_address_y;
+        mPresenter.modifyStore(business);
     }
 
 
-    @OnClick({R.id.lat_head, R.id.lat_start_time, R.id.lat_end_time, R.id.lat_type, R.id.lat_phone, R.id.lat_desc, R.id.im_store_01, R.id.im_store_02, R.id.im_store_03})
+    @OnClick({R.id.lat_head, R.id.lat_start_time, R.id.lat_end_time, R.id.lat_type, R.id.lat_phone, R.id.lat_desc
+            , R.id.lat_location, R.id.lat_location_det})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.lat_location:
+                BSelectLocActivity.start(this);
+                break;
+            case R.id.lat_location_det:
+                StoreLocDetActivity.startLocDet(this, tvLocDet.getText().toString());
+                break;
             case R.id.lat_head:
                 isClickHead = true;
                 selectIcon();
@@ -225,6 +231,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         tvName.setText(data.shop_name);
         tvClass.setText(data.level_name);
         tvLocation.setText(data.location_address);
+        tvLocDet.setText(data.address_details);
         tvStartTime.setText(data.start_time);
         tvEndTime.setText(data.end_time);
         tvType.setText(data.type_name);
@@ -233,13 +240,12 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
         List<PictureC> pictureCList = data.picture;
         if (maxCount == pictureCList.size()) adapter.removeAllFooterView();
         adapter.setNewData(pictureCList);
+        limit = maxCount = data.img_sum;
     }
 
     @Override
     public void saveSuccess(Business data) {
         showToast("修改成功");
-        isChanged = false;
-        if (isBack) finish();
     }
 
     @Override
@@ -251,8 +257,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
             public void run() {
                 if (isClickHead) {//获取店铺封面
                     imHead.setImageBitmap(BitmapUtils.scaleBitmap(compressPath, 270, 134));
-                    business.shop_doorhead = EncodeUtils.fileToBase64(new File(compressPath));
-                    isChanged = true;
+                    saveChange(business.shop_doorhead, null, null, null, null, null, null, null, null, null, null);
                 } else {//获取店铺相册
                     List<PictureC> addData = new ArrayList<>(images.size());
                     for (int i = 0; i < images.size(); i++) {
@@ -266,6 +271,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
                     if (limit <= 0) {
                         adapter.removeAllFooterView();
                     }
+                    saveChange(null, null, null, null, null, null, business.picture, null, null, null, null);
                 }
             }
         });
@@ -276,8 +282,8 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
             startTimePicker = DialogUtils.showTimePicker(this, new OnTimeSelectListener() {
                 @Override
                 public void onTimeSelect(Date date, View v) {
-                    isChanged = true;
                     tvStartTime.setText(getTime(date));
+                    saveChange(null, tvStartTime.getText().toString(), null, null, null, null, null, null, null, null, null);
                 }
             });
         }
@@ -289,8 +295,8 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
             endTimePicker = DialogUtils.showTimePicker(this, new OnTimeSelectListener() {
                 @Override
                 public void onTimeSelect(Date date, View v) {
-                    isChanged = true;
                     tvEndTime.setText(getTime(date));
+                    saveChange(null, null, tvEndTime.getText().toString(), null, null, null, null, null, null, null, null);
                 }
             });
         }
@@ -303,35 +309,6 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     }
 
     @Override
-    public void takeFail(TResult tResult, String s) {
-
-    }
-
-    @Override
-    public void takeCancel() {
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        getTakePhoto().onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        getTakePhoto().onSaveInstanceState(outState);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionManager.handlePermissionsResult(this, type, invokeParam, this);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         getTakePhoto().onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
@@ -339,16 +316,48 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
             BType type = ((BType) data.getSerializableExtra("tag"));
             business.type_id = type.type_id;
             business.type_name = type.type_name;
-            isChanged = true;
             tvType.setText(business.type_name);
+            saveChange(null, null, null, type.type_id, null, null, null
+                    , null, null, null, null);
         } else if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_PHONE) {
             business.telephone = data.getStringExtra("phone");
-            isChanged = true;
             tvPhone.setText(business.telephone);
+            saveChange(null, null, null, null, business.telephone, null, null,
+                    null, null, null, null);
         } else if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_DESC) {
             business.introduction = data.getStringExtra("desc");
             tvDesc.setText(business.introduction);
-            isChanged = true;
+            saveChange(null, null, null, null, null, business.introduction, null,
+                    null, null, null, null);
+        } else if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_PIC_DET) {
+            if (data.getBooleanExtra("isNeedChange", false)){
+                ArrayList<PictureC> pictures = (ArrayList<PictureC>) data.getSerializableExtra("pictures");
+                adapter.setNewData(pictures);
+                saveChange(null, null, null, null, null, null, pictures,
+                        null, null, null, null);
+            }
+        } else if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_LOC) {
+            poiItem = data.getParcelableExtra("poiItem");
+            String cityName = poiItem.getCityName();
+            String adName = poiItem.getAdName();
+            String snippet = poiItem.getSnippet();
+            StringBuilder sb = new StringBuilder();
+            if (!TextUtils.isEmpty(cityName) && !"null".equals(cityName)) sb.append(cityName);
+            if (!TextUtils.isEmpty(adName) && !"null".equals(adName)) sb.append(adName);
+            if (!TextUtils.isEmpty(snippet) && !"null".equals(snippet)) sb.append(snippet);
+            business.location_address = sb.toString();
+            tvLocation.setText(sb.toString());
+            saveChange(null, null, null, null, null, null,
+                    null, business.location_address, null,
+                    poiItem.getLatLonPoint().getLatitude()+"",
+                    poiItem.getLatLonPoint().getLongitude()+"");
+        } else if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_LOC_DET) {
+            String locDet = data.getStringExtra("locDet");
+            business.address_details = locDet;
+            tvLocDet.setText(locDet);
+            saveChange(null, null, null, null, null, null,
+                    null, null, business.address_details, null, null);
+
         }
     }
 
@@ -382,26 +391,31 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     }
 
     @Override
-    public void onBackPressed() {
-        backAndSave();
+    public void takeFail(TResult tResult, String s) {
+
     }
 
-    private void backAndSave() {
-        isBack = true;
-        if (isChanged) {
-            DialogUtils.showAlertDialog(this, "您的修改没有保存，是否要保存？", new DetDialogCallback() {
-                @Override
-                public void handleRight(Dialog dialog) {
-                    saveChange();
-                }
+    @Override
+    public void takeCancel() {
 
-                @Override
-                public void handleLeft(Dialog dialog) {
-                    finish();
-                }
-            });
-        } else {
-            super.onBackPressed();
-        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        getTakePhoto().onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        getTakePhoto().onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.handlePermissionsResult(this, type, invokeParam, this);
     }
 }

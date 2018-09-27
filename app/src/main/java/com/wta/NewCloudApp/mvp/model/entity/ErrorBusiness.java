@@ -28,6 +28,7 @@ public class ErrorBusiness {
         public int shop_level;
         public String level_name;
         public String location_address;
+        public String address_details;
         public String start_time;
         public String end_time;
         public String address;

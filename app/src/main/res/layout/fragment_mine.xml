@@ -253,7 +253,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="10dp"
                             android:layout_toRightOf="@id/im_06"
-                            android:text="我的团队"
+                            android:text="我的伙伴"
                             android:textColor="@color/text_color2"
                             android:textSize="16sp" />
 
@@ -412,7 +412,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="10dp"
                             android:layout_toRightOf="@id/im_03"
-                            android:text="我的分享"
+                            android:text="邀请伙伴"
                             android:textColor="@color/text_color2"
                             android:textSize="16sp" />
 

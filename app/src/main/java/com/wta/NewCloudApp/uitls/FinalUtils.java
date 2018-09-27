@@ -26,4 +26,7 @@ public class FinalUtils {
     public static final String SELLER_QR_DESC = BuildConfig.APP_DOMAIN + "/receiptCode";
     public static final String SCORE_DESC = BuildConfig.APP_DOMAIN + "/integralExplain ";
     public static final String HOME_DESC = BuildConfig.APP_DOMAIN + "/IntegralStore";
+    public static final int REQUEST_PIC_DET = 2029;
+    public static final int REQUEST_LOC = 2030;
+    public static final int REQUEST_LOC_DET = 2031;
 }

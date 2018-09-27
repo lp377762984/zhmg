@@ -2,6 +2,7 @@ package com.wta.NewCloudApp.mvp.model.api;
 
 
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
+import com.wta.NewCloudApp.mvp.model.entity.Pic;
 import com.wta.NewCloudApp.mvp.model.entity.PictureC;
 import com.wta.NewCloudApp.mvp.model.entity.UserClass;
 import com.wta.NewCloudApp.mvp.model.entity.VIPInfo;
@@ -29,17 +30,22 @@ import com.wta.NewCloudApp.mvp.model.entity.WXAccessToken;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
@@ -152,7 +158,7 @@ public interface HttpServices {
     @FormUrlEncoded
     @POST("/shopDetails")
     Observable<Result<Business>> addStoreInfo(@Field("shop_name") String shop_name, @Field("shop_type") int shop_type, @Field("shop_level") int shop_level, @Field("shop_address_x") double shop_address_x, @Field("shop_address_y") double shop_address_y, @Field("start_time") String start_time, @Field("end_time") String end_time,
-                                              @Field("shop_doorhead") String shop_door_head, @Field("province") int province, @Field("city") int city, @Field("district") int district, @Field("twon") int town, @Field("location_address") String location_address, @Field("address") String address);
+                                              @Field("shop_doorhead") String shop_door_head, @Field("province") int province, @Field("city") int city, @Field("district") int district, @Field("twon") int town, @Field("location_address") String location_address, @Field("address") String address, @Field("address_details") String address_details);
 
     @FormUrlEncoded
     @POST("/nearbyList")
@@ -164,11 +170,8 @@ public interface HttpServices {
     @GET("/newMyStore")
     Observable<Result<Business>> getAllStoreMsg();
 
-    @FormUrlEncoded
     @POST("/newSetMyStore")
-    Observable<Result<Business>> modifyStore(@Field("shop_doorhead") String shop_doorhead, @Field("start_time") String start_time, @Field("end_time") String end_time,
-                                             @Field("shop_type") int shop_type, @Field("telephone") String telephone
-            , @Field("introduction") String introduction, @Field("picture") List<PictureC> picture);
+    Observable<Result<Business>> modifyStore(@Body() Business picture);
 
     @FormUrlEncoded
     @POST("/nearbyDetails")
@@ -228,33 +231,43 @@ public interface HttpServices {
 
     @GET("/bill/dayProfit")
     Observable<BEntity> getBMoney();
-    @GET("/bill/billDetail")
-    Observable<Result<Bill>> getUScore(@Query("billId") int billId,@Query("status") String status);
 
     @GET("/bill/billDetail")
-    Observable<Result<Bill>> getBScore(@Query("billId") int billId,@Query("status") String status);
+    Observable<Result<Bill>> getUScore(@Query("billId") int billId, @Query("status") String status);
 
     @GET("/bill/billDetail")
-    Observable<Result<Bill>> getRScore(@Query("billId") int billId,@Query("status") String status);
+    Observable<Result<Bill>> getBScore(@Query("billId") int billId, @Query("status") String status);
+
+    @GET("/bill/billDetail")
+    Observable<Result<Bill>> getRScore(@Query("billId") int billId, @Query("status") String status);
+
     @GET("/banner")
     Observable<Result<List<HomeBanner>>> getHomeBanner();
+
     @GET("bill/indexBill")
     Observable<Result<List<Bill>>> getHomeBillList();
+
     @GET("bill/billList")
-    Observable<Result<List<Bill>>> getGBillsList(@Query("page")int index, @Query("type")int type, @Query("searchType")String month, @Query("date")String date);
+    Observable<Result<List<Bill>>> getGBillsList(@Query("page") int index, @Query("type") int type, @Query("searchType") String month, @Query("date") String date);
 
     @GET("/superMember/getRegList")
     Observable<Result<List<UserClass>>> getVIPList();
+
     @GET("/superMember/getRegInfo")
-    Observable<Result<VIPInfo>> getVIPInfo(@Query("grade_id")int gradeId);
+    Observable<Result<VIPInfo>> getVIPInfo(@Query("grade_id") int gradeId);
+
     @GET("/superMember/superBill")
-    Observable<Result<List<Bill>>> getAwardBill(@Query("page")int index);
+    Observable<Result<List<Bill>>> getAwardBill(@Query("page") int index);
+
     @GET("/superMember/getRegPay")
-    Observable<Result<UserClass>> getVIPayInfo(@Query("grade_id")int gradeId);
+    Observable<Result<UserClass>> getVIPayInfo(@Query("grade_id") int gradeId);
+
     @FormUrlEncoded
     @POST("/superMember/GradePurchase")
-    Observable<Result<PayInfo>> payVIP(@Field("grade_id") int gradeId, @Field("pay_type")String payType);
+    Observable<Result<PayInfo>> payVIP(@Field("grade_id") int gradeId, @Field("pay_type") String payType);
+
     @FormUrlEncoded
     @POST("/superPayBack")
-    Observable<Result<UserClass>> checkVIPSuccess(@Field("out_trade_no")String orderID);
+    Observable<Result<UserClass>> checkVIPSuccess(@Field("out_trade_no") String orderID);
+
 }

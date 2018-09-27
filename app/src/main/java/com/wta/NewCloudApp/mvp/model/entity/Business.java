@@ -43,4 +43,6 @@ public class Business implements Serializable {
     public int store_id;
     public String level_img;
     public int type_id;
+    public int img_sum;
+    public String address_details;
 }

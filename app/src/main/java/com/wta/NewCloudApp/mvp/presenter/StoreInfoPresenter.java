@@ -26,11 +26,9 @@ public class StoreInfoPresenter extends BBasePresenter<IBusinessModel, StoreInfo
         doRequest(buildRequest(mModel.getAllStoreInfo()), 1);
     }
 
-    public void modifyStore(String shop_doorhead, String start_time, String end_time, int shop_type, String telephone, String introduction, List<PictureC> picture) {
-        doRequest(buildRequest(mModel.modifyStore(shop_doorhead, start_time, end_time, shop_type, telephone, introduction, picture)),2);
+    public void modifyStore(Business business) {
+        doRequest(buildRequest(mModel.modifyStore(business)),2);
     }
-
-
 
     @Override
     public <T> void handle200(int what, Result<T> result) {

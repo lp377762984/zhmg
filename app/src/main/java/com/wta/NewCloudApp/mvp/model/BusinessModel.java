@@ -11,17 +11,22 @@ import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
 import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Payback;
+import com.wta.NewCloudApp.mvp.model.entity.Pic;
 import com.wta.NewCloudApp.mvp.model.entity.PictureC;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 
 public class BusinessModel extends UserModel implements IBusinessModel {
     private int index = 0;
@@ -69,8 +74,8 @@ public class BusinessModel extends UserModel implements IBusinessModel {
 
     @Override
     public Observable<Result<Business>> addStoreInfo(String name, int shop_type, int shop_level, double shop_address_x, double shop_address_y, String start_time, String end_time,
-                                                     String shop_door_head, int province, int city, int district, int town, String location_address, String address) {
-        return getService().addStoreInfo(name, shop_type, shop_level, shop_address_x, shop_address_y, start_time, end_time, shop_door_head, province, city, district, town, location_address, address);
+                                                     String shop_door_head, int province, int city, int district, int town, String location_address, String address,String details) {
+        return getService().addStoreInfo(name, shop_type, shop_level, shop_address_x, shop_address_y, start_time, end_time, shop_door_head, province, city, district, town, location_address, address,details);
     }
 
     @Override
@@ -84,8 +89,8 @@ public class BusinessModel extends UserModel implements IBusinessModel {
     }
 
     @Override
-    public Observable<Result<Business>> modifyStore(String shop_doorhead, String start_time, String end_time, int shop_type, String telephone, String introduction,List<PictureC> picture) {
-        return getService().modifyStore(shop_doorhead, start_time, end_time, shop_type, telephone, introduction, picture);
+    public Observable<Result<Business>> modifyStore(Business business) {
+        return getService().modifyStore(business);
     }
 
     @Override
@@ -141,6 +146,6 @@ public class BusinessModel extends UserModel implements IBusinessModel {
     }
 
     public Observable<Result<Payback>> getPayback(String orderID, String type) {
-        return getService().getPayback(orderID,type);
+        return getService().getPayback(orderID, type);
     }
 }

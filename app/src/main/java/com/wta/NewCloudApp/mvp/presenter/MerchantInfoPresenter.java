@@ -22,9 +22,9 @@ public class MerchantInfoPresenter extends BBasePresenter<IBusinessModel, Mercha
     }
 
     public void addStoreInfo(String name, int shop_type, int shop_level, double shop_address_x, double shop_address_y, String start_time, String end_time,
-                             String shop_door_head, int province, int city, int district, int town, String location_address, String address) {
+                             String shop_door_head, int province, int city, int district, int town, String location_address, String address,String details) {
         doRequest(buildRequest(mModel.addStoreInfo(name, shop_type, shop_level, shop_address_x, shop_address_y, start_time,
-                end_time, shop_door_head, province, city, district, town, location_address, address)), 1);
+                end_time, shop_door_head, province, city, district, town, location_address, address,details)), 1);
     }
 
     public void getBClass() {

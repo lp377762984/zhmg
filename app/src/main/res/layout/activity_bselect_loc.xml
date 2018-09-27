@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mvp.ui.activity.BSelectLocActivity">
+
+    <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
+        android:id="@+id/mb"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/money_bar_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textTail="确定"
+        app:textTitle="选择定位" />
+
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/lat_search"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/style_color"
+        app:layout_constraintTop_toBottomOf="@+id/mb">
+
+        <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/et_keywords"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#666"
+            android:textSize="14sp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@mipmap/side_search"
+            android:drawableRight="@mipmap/side_clear"
+            android:background="@drawable/side_search_bg"
+            android:layout_weight="3.8"
+            android:layout_width="0dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lat_search" />
+</android.support.constraint.ConstraintLayout>

@@ -27,12 +27,12 @@ public interface IBusinessModel extends IModel {
     Observable<Result<List<Street>>> getStreets(int townID);
     Observable<Result<AuthInfo>> uploadAuth(String a,String b,String c,String d);
     Observable<Result<Business>> addStoreInfo(String name,int shop_type,int shop_level,double shop_address_x,double shop_address_y,String start_time,String end_time,
-                                              String shop_door_head,int province,int city,int district,int town,String location_address,String address);
+                                              String shop_door_head,int province,int city,int district,int town,String location_address,String address,String details);
     Observable<Result<ErrorBusiness>> getStoreMsg();
 
     Observable<Result<Business>> getAllStoreInfo();
 
-    Observable<Result<Business>> modifyStore(String shop_doorhead, String start_time, String end_time, int shop_type, String telephone, String introduction, List<PictureC> picture);
+    Observable<Result<Business>> modifyStore(Business business);
 
     Observable<Result<Business>> getStoreDet(int storeID);
 

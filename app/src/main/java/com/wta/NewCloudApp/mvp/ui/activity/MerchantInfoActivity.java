@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
+import com.amap.api.services.core.PoiItem;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -120,6 +121,7 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
     private int iType;//6未入住店铺 1店铺详情错误 3店铺资质和详情错误 5店铺详情未填写
     private BClass bClass;
     private ErrorBusiness errorBusiness;
+    private PoiItem poiItem;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -143,6 +145,11 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
             startLocation();
         } else if (iType == 1 || iType == 3) {
             mPresenter.getErrorStore();
+        }
+        if (iType == 1 || iType == 3) {
+            etLocationDet.setEnabled(false);
+        } else {
+            etLocationDet.setEnabled(true);
         }
     }
 
@@ -201,7 +208,8 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
                 }
                 break;
             case R.id.lat_location:
-
+                if (errorBusiness == null)
+                    BSelectLocActivity.start(this);
                 break;
             case R.id.lat_loc_4:
                 if (errorBusiness == null)
@@ -257,7 +265,8 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
                         , (iType == 6 || iType == 5) ? districitID : errorBusiness.store.district
                         , (iType == 6 || iType == 5) ? townID : errorBusiness.store.twon
                         , tvLocation.getText().toString()
-                        , tvLoc4.getText().toString());
+                        , tvLoc4.getText().toString()
+                        , etLocationDet.getText().toString());
                 break;
             case R.id.im_head:
                 if (iconSelector == null) {
@@ -366,6 +375,18 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
         if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_TAG) {
             type = ((BType) data.getSerializableExtra("tag"));
             tvType.setText(type.type_name);
+        } else if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_LOC) {
+            poiItem = ((PoiItem) data.getParcelableExtra("poiItem"));
+            latitude = poiItem.getLatLonPoint().getLatitude();
+            longitude = poiItem.getLatLonPoint().getLongitude();
+            String cityName = poiItem.getCityName();
+            String adName = poiItem.getAdName();
+            String snippet = poiItem.getSnippet();
+            StringBuilder sb = new StringBuilder();
+            if (!TextUtils.isEmpty(cityName) && !"null".equals(cityName)) sb.append(cityName);
+            if (!TextUtils.isEmpty(adName) && !"null".equals(adName)) sb.append(adName);
+            if (!TextUtils.isEmpty(snippet) && !"null".equals(snippet)) sb.append(snippet);
+            tvLocation.setText(sb.toString());
         }
     }
 
@@ -458,5 +479,6 @@ public class MerchantInfoActivity extends BaseLoadingActivity<MerchantInfoPresen
             imgHeadStr = store.shop_doorhead.info;
             imHead.setEnabled(false);
         }
+        etLocationDet.setText(store.address_details);
     }
 }

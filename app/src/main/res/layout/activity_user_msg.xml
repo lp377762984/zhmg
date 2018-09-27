@@ -99,6 +99,7 @@
 
         <!--二维码-->
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/lat_code"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"

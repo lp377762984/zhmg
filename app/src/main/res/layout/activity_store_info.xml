@@ -10,7 +10,6 @@
         android:id="@+id/mb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:textTail="保存"
         app:textTitle="我的店铺" />
 
     <ScrollView
@@ -96,7 +95,8 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_marginBottom="17dp"
+                    android:id="@+id/lat_location"
+                    android:minHeight="48dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -104,17 +104,45 @@
                         android:id="@+id/tv_str"
                         style="@style/Text_Left_CenterVertical"
                         android:text="店铺地址" />
+                    <ImageView
+                        android:layout_marginRight="15dp"
+                        android:id="@+id/im_12"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/ic_loc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        android:gravity="right"
                         android:maxLines="2"
                         android:ellipsize="end"
                         android:lineSpacingMultiplier="1.2"
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@id/tv_str"
+                        android:layout_toLeftOf="@id/im_12"
                         android:layout_marginRight="15dp"
                         android:id="@+id/tv_location"
-                        style="@style/Text_Right_CenterVertical"
-                        android:layout_alignParentRight="true" />
+                        style="@style/Text_Right_CenterVertical" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/lat_location_det"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:minHeight="48dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_location_det"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/go"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
             </LinearLayout>
             <!--2-->

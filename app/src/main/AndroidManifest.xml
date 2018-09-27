@@ -169,23 +169,8 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
-
-                　　　　　　
-
-
                 <category android:name="android.intent.category.DEFAULT" />
-
-
-                　　　　　　
-
-
                 <category android:name="android.intent.category.BROWSABLE" />
-
-
-                　　　　　　
-
-
                 <data
                     android:host="com.wta.newcloudapp"
                     android:scheme="lefaner" />
@@ -204,7 +189,9 @@
         <activity android:name=".mvp.ui.activity.AddCardActivity" />
         <activity android:name=".mvp.ui.activity.AddressListActivity" />
         <activity android:name=".mvp.ui.activity.AddAddressActivity" />
-        <activity android:name=".mvp.ui.activity.TestActivity" />
+        <activity
+            android:name=".mvp.ui.activity.TestActivity"
+            android:exported="true" />
         <activity android:name=".mvp.ui.activity.MerchantInActivity" />
         <activity android:name=".mvp.ui.activity.MerchantAuthActivity" />
         <activity android:name=".mvp.ui.activity.MerchantInfoActivity" />
@@ -241,7 +228,11 @@
         <activity
             android:name=".mvp.ui.activity.RecAwardListActivity"
             android:exported="true" />
-        <activity android:name=".mvp.ui.activity.PicDetActivity"></activity>
+        <activity android:name=".mvp.ui.activity.PicDetActivity" />
+        <activity
+            android:name=".mvp.ui.activity.BSelectLocActivity"
+            android:exported="true" />
+        <activity android:name=".mvp.ui.activity.StoreLocDetActivity"/>
     </application>
 
 </manifest>

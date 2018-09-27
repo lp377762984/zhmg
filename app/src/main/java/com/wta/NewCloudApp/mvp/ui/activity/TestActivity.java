@@ -13,8 +13,12 @@ import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.DefaultHandleSubscriber;
+import com.wta.NewCloudApp.config.DetSubscriber;
 import com.wta.NewCloudApp.manager.LocationManager;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
+import com.wta.NewCloudApp.mvp.model.entity.Business;
+import com.wta.NewCloudApp.mvp.model.entity.Pic;
+import com.wta.NewCloudApp.mvp.model.entity.PictureC;
 import com.wta.NewCloudApp.mvp.model.entity.Province;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
@@ -33,6 +37,8 @@ import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class TestActivity extends AppCompatActivity {
     private ArrayList<Province> options1Items = new ArrayList<>();
@@ -55,6 +61,28 @@ public class TestActivity extends AppCompatActivity {
         //show1();
         //show2();
         //showLocation();
+        Pic pic = new Pic();
+        ArrayList<PictureC> pictureCS = new ArrayList<>();
+
+        for (int i = 0; i < 2; i++) {
+            PictureC pictureC = new PictureC();
+            pictureC.url = "www.baidu.com";
+            pictureC.desc = "test";
+            pictureCS.add(pictureC);
+        }
+
+        pic.picture = pictureCS;
+
+//        ArmsUtils.obtainAppComponentFromContext(this).repositoryManager().obtainRetrofitService(HttpServices.class)
+//                .modifyStore1(pic).subscribeOn(Schedulers.io())
+//                .subscribeOn(AndroidSchedulers.mainThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new DetSubscriber<Result<Business>>() {
+//                    @Override
+//                    public void onNext(Result<Business> businessResult) {
+//                        super.onNext(businessResult);
+//                    }
+//                });
     }
 
     private void showLocation() {
@@ -181,7 +209,7 @@ public class TestActivity extends AppCompatActivity {
                 .checkUpdate("1.0.0")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultHandleSubscriber<Result<Update>>(ArmsUtils.obtainAppComponentFromContext(this).rxErrorHandler()){
+                .subscribe(new DefaultHandleSubscriber<Result<Update>>(ArmsUtils.obtainAppComponentFromContext(this).rxErrorHandler()) {
 
                 });
     }
