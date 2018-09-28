@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.widget.ImageView;
@@ -34,7 +35,11 @@ public class SideAdapter extends BaseQuickAdapter<Business, BaseViewHolder> {
         ss.setSpan(new ForegroundColorSpan(0xfff24965), 0, level_name.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         ss.setSpan(new StyleSpan(Typeface.BOLD), 0, level_name.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         tvClass.setText(ss);
-        helper.setText(R.id.tv_location, item.location_address);
+        if (TextUtils.isEmpty(item.address_details)){
+            helper.setText(R.id.tv_location, item.location_address);
+        }else {
+            helper.setText(R.id.tv_location, item.location_address + item.address_details);
+        }
         helper.setText(R.id.tv_distance, item.distance);
     }
 }

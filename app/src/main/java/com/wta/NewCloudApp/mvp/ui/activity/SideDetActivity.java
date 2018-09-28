@@ -146,7 +146,11 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         GlideArms.with(this).load(business.shop_doorhead).placeholder(R.mipmap.side_b_placeholder).into(imHead);
         tvName.setText(business.shop_name);
         GlideArms.with(this).load(business.level_img).into(imClass);
-        tvLocation.setText(business.location_address);
+        if (TextUtils.isEmpty(business.address_details)) {
+            tvLocation.setText(business.location_address);
+        } else {
+            tvLocation.setText(business.location_address + business.address_details);
+        }
         tvTime.setText(String.format("%s-%s", business.start_time, business.end_time));
         tvType.setText(business.type_name);
         if (TextUtils.isEmpty(business.introduction)) {
@@ -155,12 +159,12 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
             tvDesc.setText(business.introduction);
         }
         BusinessNew.PictureBean pictureOld = business.picture;
-        if (pictureOld!=null){
+        if (pictureOld != null) {
             String image1 = pictureOld.image1;
             String image2 = pictureOld.image2;
             String image3 = pictureOld.image3;
-            if (business.new_picture==null){
-                business.new_picture=new ArrayList<>();
+            if (business.new_picture == null) {
+                business.new_picture = new ArrayList<>();
             }
             if (!TextUtils.isEmpty(image1)) business.new_picture.add(new PictureC(image1));
             if (!TextUtils.isEmpty(image2)) business.new_picture.add(new PictureC(image2));
