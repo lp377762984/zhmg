@@ -35,7 +35,6 @@ import com.wta.NewCloudApp.mvp.contract.UserQRContract;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.presenter.UserQRPresenter;
-import com.wta.NewCloudApp.mvp.ui.fragment.MineFragment;
 import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
 import com.wta.NewCloudApp.uitls.BitmapUtils;
 import com.wta.NewCloudApp.uitls.ConfigTag;
@@ -163,20 +162,23 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
         super.onDestroy();
         qrCode = null;
         shareNew = null;
+        GlideArms.get(this).clearMemory();
     }
 
     @Override
     public void share(Result<Share> shareResult) {
         share = shareResult.data;
         if (position == 1) {
-            GlideArms.with(this).load(share.share_newImg).error(R.drawable.share_big).into(new SimpleTarget<Drawable>() {
+            GlideArms.with(this).load(share.share_newImg).error(R.drawable.share_big).override(1242, 2209).into(new SimpleTarget<Drawable>() {
                 @Override
                 public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                    Timber.i("onResourceReady: ");
                     addQRToImage(resource);
                 }
 
                 @Override
                 public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                    Timber.i("onLoadFailed: ");
                     addQRToImage(errorDrawable);
                 }
             });
@@ -188,7 +190,7 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
             dialog.findViewById(R.id.tv_wx_friends).setOnClickListener(this);
             dialog.findViewById(R.id.tv_qq).setOnClickListener(this);
             dialog.findViewById(R.id.tv_qq_zone).setOnClickListener(this);
-            dialog.findViewById(R.id.imageView).setOnClickListener(this);
+            dialog.findViewById(R.id.tv_cancel).setOnClickListener(this);
         }
         dialog.show();
     }
@@ -196,7 +198,6 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
 
     @Override
     public void onClick(View v) {
-        if (dialog != null && dialog.isShowing()) dialog.dismiss();
         UMWeb web = null;
         UMImage umImage = null;
         if (position == 0) {
@@ -211,6 +212,7 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
             }
             umImage = new UMImage(this, shareNew);
         }
+        if (dialog != null && dialog.isShowing()) dialog.dismiss();
         switch (v.getId()) {
             case R.id.tv_wx:
                 if (!UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN)) {
@@ -253,7 +255,7 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
                 if (position == 0) shareAction4.withMedia(web).share();
                 else shareAction4.withMedia(umImage).share();
                 break;
-            case R.id.imageView:
+            case R.id.tv_cancel:
                 break;
         }
     }

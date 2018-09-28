@@ -1,104 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#80ffffff"
+    android:background="@drawable/det_half_bg"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:padding="10dp"
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="41dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/share_close" />
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="67dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tv_wx"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="11dp"
-            android:drawableTop="@mipmap/wx"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/wx_round"
             android:gravity="center"
             android:text="微信"
-            android:textColor="@color/text_color_gray2"
-            android:textSize="16sp" />
+            android:textColor="#666"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_wx_friends"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="11dp"
-            android:drawableTop="@mipmap/wx_friends"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/wx_circle_round"
             android:gravity="center"
             android:text="朋友圈"
-            android:textColor="@color/text_color_gray2"
-            android:textSize="16sp" />
+            android:textColor="#666"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_qq"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="11dp"
-            android:drawableTop="@mipmap/qq"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/qq_round"
             android:gravity="center"
             android:text="QQ"
-            android:textColor="@color/text_color_gray2"
-            android:textSize="16sp" />
+            android:textColor="#666"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_qq_zone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawablePadding="11dp"
-            android:drawableTop="@mipmap/qq_zone"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/q_zone_round"
             android:gravity="center"
             android:text="QQ空间"
-            android:textColor="@color/text_color_gray2"
-            android:textSize="16sp" />
+            android:textColor="#666"
+            android:textSize="12sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="49dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="49dp"
-        android:drawableLeft="@drawable/tv_line"
-        android:drawablePadding="20dp"
-        android:drawableRight="@drawable/tv_line"
-        android:text="分享到"
-        android:textColor="@color/text_color_gray2"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+    <View
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/line"
+        style="@style/Line"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="#999"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
+
+
 </android.support.constraint.ConstraintLayout>

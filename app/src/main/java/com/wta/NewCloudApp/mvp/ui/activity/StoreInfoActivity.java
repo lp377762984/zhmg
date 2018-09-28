@@ -167,6 +167,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
                 PictureC pictureC = pictures.get(i);
                 if (pictureC.file != null) {
                     pictureC.url = EncodeUtils.fileToBase64(pictureC.file);
+                    pictureC.file = null;
                 }
             }
         Business business = new Business();

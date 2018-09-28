@@ -45,9 +45,7 @@ import com.wta.NewCloudApp.mvp.ui.activity.ScoreListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SettingActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UserMsgActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UserQRActivity;
-import com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity;
 import com.wta.NewCloudApp.uitls.ConfigTag;
-import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import java.util.List;
 
@@ -230,7 +228,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
                         .setCallback(new ShareListener())
                         .withMedia(web).share();
                 break;
-            case R.id.imageView:
+            case R.id.tv_cancel:
                 break;
         }
     }
@@ -245,7 +243,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
             dialog.findViewById(R.id.tv_wx_friends).setOnClickListener(this);
             dialog.findViewById(R.id.tv_qq).setOnClickListener(this);
             dialog.findViewById(R.id.tv_qq_zone).setOnClickListener(this);
-            dialog.findViewById(R.id.imageView).setOnClickListener(this);
+            dialog.findViewById(R.id.tv_cancel).setOnClickListener(this);
         }
         dialog.show();
     }

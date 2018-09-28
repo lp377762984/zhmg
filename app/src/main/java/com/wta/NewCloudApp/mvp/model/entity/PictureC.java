@@ -9,7 +9,7 @@ public class PictureC implements Serializable,Cloneable {
     @SerializedName("image")
     public String url;
     @SerializedName("title")
-    public String desc;
+    public String desc="";
     public File file;
 
     public PictureC() {

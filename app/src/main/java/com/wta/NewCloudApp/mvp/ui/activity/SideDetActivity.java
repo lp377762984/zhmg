@@ -129,7 +129,7 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
                             "&dlat=" + business.shop_address_x +
                             "&dlon=" + business.shop_address_y +
                             "&dname=" + business.shop_name +
-                            "&dev=0&t=0";
+                            "&dev=0&t=2";
                     Uri uri = Uri.parse(url);
                     intentMap.setData(uri);
                     startActivity(intentMap);
