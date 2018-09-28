@@ -25,7 +25,7 @@ public class BitmapUtils {
      * @param logo logo
      * @return 新的二维码图片
      */
-    public static Bitmap addLogoToQRCode(Bitmap src, Bitmap logo, int screenWidth) {
+    public static Bitmap addLogoToQRCode(Bitmap src, Bitmap logo) {
         if (src == null || logo == null) {
             return src;
         }
@@ -110,7 +110,7 @@ public class BitmapUtils {
         return BitmapFactory.decodeByteArray(data, 0, data.length, opts);
     }
 
-    public static Bitmap zoomBitmap(Bitmap bitmap, int w, int h) {
+    public static Bitmap zoomBitmap(Bitmap bitmap, float w, float h) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         Matrix matrix = new Matrix();

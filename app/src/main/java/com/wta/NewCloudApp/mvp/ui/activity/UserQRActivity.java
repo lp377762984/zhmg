@@ -197,8 +197,8 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
     @Override
     public void onClick(View v) {
         if (dialog != null && dialog.isShowing()) dialog.dismiss();
-        UMWeb web=null;
-        UMImage umImage=null;
+        UMWeb web = null;
+        UMImage umImage = null;
         if (position == 0) {
             web = new UMWeb(share.share_url);
             web.setTitle(share.share_title);//标题
@@ -219,7 +219,7 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
                 }
                 ShareAction shareAction1 = new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN)
                         .setCallback(new ShareListener());
-                if (position==0) shareAction1.withMedia(web).share();
+                if (position == 0) shareAction1.withMedia(web).share();
                 else shareAction1.withMedia(umImage).share();
                 break;
             case R.id.tv_wx_friends:
@@ -229,7 +229,7 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
                 }
                 ShareAction shareAction2 = new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
                         .setCallback(new ShareListener());
-                if (position==0) shareAction2.withMedia(web).share();
+                if (position == 0) shareAction2.withMedia(web).share();
                 else shareAction2.withMedia(umImage).share();
                 break;
             case R.id.tv_qq:
@@ -239,7 +239,7 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
                 }
                 ShareAction shareAction3 = new ShareAction(this).setPlatform(SHARE_MEDIA.QQ)
                         .setCallback(new ShareListener());
-                if (position==0) shareAction3.withMedia(web).share();
+                if (position == 0) shareAction3.withMedia(web).share();
                 else shareAction3.withMedia(umImage).share();
 
                 break;
@@ -250,7 +250,7 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
                 }
                 ShareAction shareAction4 = new ShareAction(this).setPlatform(SHARE_MEDIA.QZONE)
                         .setCallback(new ShareListener());
-                if (position==0) shareAction4.withMedia(web).share();
+                if (position == 0) shareAction4.withMedia(web).share();
                 else shareAction4.withMedia(umImage).share();
                 break;
             case R.id.imageView:
@@ -285,6 +285,6 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
         Bitmap srcBitmap = ((BitmapDrawable) drawable).getBitmap();
         Bitmap srcNew = BitmapUtils.zoomBitmap(srcBitmap, 1242, 2209);
         Bitmap qrNew = BitmapUtils.zoomBitmap(qrCode, 397, 397);
-        shareNew = BitmapUtils.addLogoToQRCode(srcNew, qrNew, ArmsUtils.getScreenWidth(this));
+        shareNew = BitmapUtils.addLogoToQRCode(srcNew, qrNew);
     }
 }

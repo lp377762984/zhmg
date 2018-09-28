@@ -248,6 +248,9 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
     @Override
     public void saveSuccess(Business data) {
         showToast("修改成功");
+        if (data != null && data.picture != null && data.picture.size() > 0) {
+            adapter.setNewData(data.picture);
+        }
     }
 
     @Override
@@ -271,11 +274,10 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
                     }
                     adapter.addData(addData);
                     limit = limit - adapter.getData().size();
-                    Timber.i("run: "+limit);
                     if (limit <= 0) {
                         adapter.removeAllFooterView();
                     }
-                    saveChange(null, null, null, null, null, null, business.picture, null, null, null, null);
+                    saveChange(null, null, null, null, null, null, adapter.getData(), null, null, null, null);
                 }
             }
         });
@@ -334,7 +336,7 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
             saveChange(null, null, null, null, null, business.introduction, null,
                     null, null, null, null);
         } else if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_PIC_DET) {
-            if (data.getBooleanExtra("isNeedChange", false)){
+            if (data.getBooleanExtra("isNeedChange", false)) {
                 ArrayList<PictureC> pictures = (ArrayList<PictureC>) data.getSerializableExtra("pictures");
                 adapter.setNewData(pictures);
                 saveChange(null, null, null, null, null, null, pictures,
@@ -353,8 +355,8 @@ public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> i
             tvLocation.setText(sb.toString());
             saveChange(null, null, null, null, null, null,
                     null, business.location_address, null,
-                    poiItem.getLatLonPoint().getLatitude()+"",
-                    poiItem.getLatLonPoint().getLongitude()+"");
+                    poiItem.getLatLonPoint().getLatitude() + "",
+                    poiItem.getLatLonPoint().getLongitude() + "");
         } else if (resultCode == RESULT_OK && requestCode == FinalUtils.REQUEST_LOC_DET) {
             String locDet = data.getStringExtra("locDet");
             business.address_details = locDet;

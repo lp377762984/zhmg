@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
-        app:textTitle="团队收益明细"
+        app:textTitle="伙伴收益明细"
         style="@style/MoneyBar"/>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"

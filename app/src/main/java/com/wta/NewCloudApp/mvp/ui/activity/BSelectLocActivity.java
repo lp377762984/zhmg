@@ -89,7 +89,8 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
     private PoiSearch.Query query;// Poi查询条件类
     private PoiSearch poiSearch;
     private String city;
-    private PoiItem poiItem;
+    private PoiItem firstPoiItem;
+    private int position = -1;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -112,7 +113,7 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
             @Override
             public void clickTail() {
                 Intent intent = getIntent();
-                intent.putExtra("poiItem", poiItem);
+                intent.putExtra("poiItem", position == -1 ? firstPoiItem : adapter.getItem(position));
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -123,8 +124,12 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                poiItem = (PoiItem) adapter.getData().get(position);
-                searchPoi(poiItem);
+                BSelectLocActivity.this.position = position;
+                //searchPoi((PoiItem) adapter.getItem(position));
+                Intent intent = getIntent();
+                intent.putExtra("poiItem",(PoiItem) adapter.getItem(position));
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
         recyclerView.setAdapter(adapter);
@@ -146,9 +151,10 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
             @Override
             public void onCameraChangeFinish(CameraPosition cameraPosition) {
                 Timber.i("onCameraChangeFinish: ");
+                position = -1;
                 if (!isItemClickAction && !isInputKeySearch) {
                     geoAddress();
-                    startJumpAnimation();
+                    //startJumpAnimation();
                 }
                 searchLatlonPoint = new LatLonPoint(cameraPosition.target.latitude, cameraPosition.target.longitude);
                 isInputKeySearch = false;
@@ -255,7 +261,6 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
         //设置Marker在屏幕上,不跟随地图移动
         locationMarker.setPositionByPixels(screenPosition.x, screenPosition.y);
         locationMarker.setZIndex(1);
-
     }
 
     @Override
@@ -266,6 +271,7 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
                     && amapLocation.getErrorCode() == 0) {
                 mListener.onLocationChanged(amapLocation);
                 LatLng curLatlng = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
+                city = amapLocation.getCity();
                 searchLatlonPoint = new LatLonPoint(curLatlng.latitude, curLatlng.longitude);
                 aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLatlng, 16f));
                 isInputKeySearch = false;
@@ -316,9 +322,11 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
         if (rCode == AMapException.CODE_AMAP_SUCCESS) {
             if (result != null && result.getRegeocodeAddress() != null
                     && result.getRegeocodeAddress().getFormatAddress() != null) {
-                city = result.getRegeocodeAddress().getCity();
-                String address = result.getRegeocodeAddress().getProvince() + result.getRegeocodeAddress().getCity() + result.getRegeocodeAddress().getDistrict() + result.getRegeocodeAddress().getTownship();
-                poiItem = new PoiItem("regeo", searchLatlonPoint, address, address);
+                //city = result.getRegeocodeAddress().getCity();
+                //String address = result.getRegeocodeAddress().getProvince() + result.getRegeocodeAddress().getCity() + result.getRegeocodeAddress().getDistrict() + result.getRegeocodeAddress().getTownship();
+                String address = result.getRegeocodeAddress().getFormatAddress();
+                if (firstPoiItem == null)
+                    firstPoiItem = new PoiItem("regeo", searchLatlonPoint, address, address);
                 Timber.i("onRegeocodeSearched: poiItem");
                 doSearchQuery();
             }
@@ -349,7 +357,7 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
      */
     protected void doSearchQuery() {
         currentPage = 0;
-        query = new PoiSearch.Query(etKeywords.getText().toString(), "", "");// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
+        query = new PoiSearch.Query(etKeywords.getText().toString(), "", city);// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
         query.setCityLimit(true);
         query.setPageSize(20);
         query.setPageNum(currentPage);
@@ -370,7 +378,6 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
                 if (poiResult.getQuery().equals(query)) {
                     List<PoiItem> poiItems = poiResult.getPois();
                     if (poiItems != null && poiItems.size() > 0) {
-                        poiItems.add(poiItem);
                         adapter.setNewData(poiItems);
                     } else {
                         Toast.makeText(BSelectLocActivity.this, "无搜索结果", Toast.LENGTH_SHORT).show();

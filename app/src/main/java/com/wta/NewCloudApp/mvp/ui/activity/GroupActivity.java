@@ -68,7 +68,7 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_money:
-                ArmsUtils.startActivity(RecAwardListActivity.class);
+                //ArmsUtils.startActivity(RecAwardListActivity.class);
                 break;
             case R.id.lat_score:
                 ArmsUtils.startActivity(BGroupListActivity.class);
@@ -85,13 +85,13 @@ public class GroupActivity extends BaseLoadingActivity<GroupPresenter> implement
     @Override
     public void showTeam(Result<User> userResult) {
         User user = userResult.data;
-        GlideArms.with(this).load(user.team_img).into(imHead);
-        GlideArms.with(this).load(user.group_avatar).into(imClass);
-        tvClassName.setText(user.group_name);
+        GlideArms.with(this).load(user.team_img).placeholder(R.mipmap.side_b_placeholder).into(imHead);
+        //GlideArms.with(this).load(user.group_avatar).into(imClass);
+        //tvClassName.setText(user.group_name);
         tvCode.setText("我的推广码：" + user.number);
-        tvCount.setText(user.people + "位小伙伴");
+        tvMoney.setText(user.people + "");
         tvScore.setText(user.white_score );
-        tvMoney.setText(user.group_money);
+        //tvMoney.setText(user.group_money);
     }
 
     @Override
