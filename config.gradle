@@ -61,7 +61,7 @@ ext {
             "takePhoto"                  : "com.github.crazycodeboy:TakePhoto:v4.1.0",
             "gaode_location"             : "com.amap.api:location:latest.integration",
             "gaode_search"               : "com.amap.api:search:latest.integration",
-            "gaode_3dmap"                : "com.amap.api:3dmap:latest.integration",
+            "gaode_3dmap"                : "com.amap.api:map2d:latest.integration",
             "refreshLayout"              : "com.scwang.smartrefresh:SmartRefreshLayout:1.0.3",
             "tag-group"                  : "me.gujun.android.taggroup:library:1.4@aar",
             "FlowLayout"                 : "com.hyman:flowlayout-lib:1.1.2",
