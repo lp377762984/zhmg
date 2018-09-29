@@ -14,7 +14,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Interpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -22,17 +21,15 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.LocationSource;
-import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
-import com.amap.api.maps.model.CameraPosition;
-import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.Marker;
-import com.amap.api.maps.model.MarkerOptions;
-import com.amap.api.maps.model.animation.Animation;
-import com.amap.api.maps.model.animation.TranslateAnimation;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.LocationSource;
+import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.CameraPosition;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
@@ -54,7 +51,6 @@ import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
 import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
-import com.wta.NewCloudApp.uitls.ScreenDpiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,7 +175,6 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
         aMap.setLocationSource(this);// 设置定位监听
         aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
-        aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
     }
 
     @Override
@@ -280,38 +275,6 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
                 String errText = "定位失败," + amapLocation.getErrorCode() + ": " + amapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);
             }
-        }
-    }
-
-    public void startJumpAnimation() {
-        if (locationMarker != null) {
-            //根据屏幕距离计算需要移动的目标点
-            final LatLng latLng = locationMarker.getPosition();
-            Point point = aMap.getProjection().toScreenLocation(latLng);
-            point.y -= ScreenDpiUtils.dp2px(this, 125);
-            LatLng target = aMap.getProjection()
-                    .fromScreenLocation(point);
-            //使用TranslateAnimation,填写一个需要移动的目标点
-            Animation animation = new TranslateAnimation(target);
-            animation.setInterpolator(new Interpolator() {
-                @Override
-                public float getInterpolation(float input) {
-                    // 模拟重加速度的interpolator
-                    if (input <= 0.5) {
-                        return (float) (0.5f - 2 * (0.5 - input) * (0.5 - input));
-                    } else {
-                        return (float) (0.5f - Math.sqrt((input - 0.5f) * (1.5f - input)));
-                    }
-                }
-            });
-            //整个移动所需要的时间
-            animation.setDuration(600);
-            //设置动画
-            locationMarker.setAnimation(animation);
-            //开始动画
-            locationMarker.startAnimation();
-        } else {
-            Log.e("ama", "screenMarker is null");
         }
     }
 

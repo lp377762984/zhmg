@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,6 +13,8 @@
         android:layout_height="@dimen/money_bar_height"/>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/lat_qr"
+        android:layout_below="@id/mb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -113,4 +115,9 @@
 
 
     </android.support.constraint.ConstraintLayout>
-</LinearLayout>
+    <ImageView
+        android:layout_below="@id/mb"
+        android:id="@+id/im"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

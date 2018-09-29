@@ -14,8 +14,11 @@ import android.view.View;
 
 import com.wta.NewCloudApp.config.App;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class BitmapUtils {
     /**
@@ -166,5 +169,18 @@ public class BitmapUtils {
         view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
         view.buildDrawingCache();
         return view.getDrawingCache();
+    }
+
+    public static File bitmap2File(Bitmap bitmap, File file) {
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            bos.flush();
+            bos.close();
+            return file;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

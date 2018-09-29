@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -19,6 +20,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.jess.arms.utils.ArmsUtils;
+import com.jess.arms.utils.DataHelper;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -49,6 +51,10 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.shaohui.advancedluban.Luban;
+import me.shaohui.advancedluban.OnCompressListener;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import timber.log.Timber;
 
 /**
@@ -62,11 +68,15 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
     TextView tvCode;
     @BindView(R.id.im_qr)
     ImageView imQr;
+    @BindView(R.id.im)
+    ImageView im;
+    @BindView(R.id.lat_qr)
+    View latQr;
     private Bitmap qrCode;
     private BottomSheetDialog dialog;
     private Share share;
     private int position;//0 分享链接 1 分享二维码
-    private Bitmap shareNew;
+    private File shareFile;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -86,7 +96,7 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mb.setCallBack(this);
-        Glide.with(this).load(AppConfig.getInstance().getString(ConfigTag.AVATAR, null)).into(new SimpleTarget<Drawable>() {
+        GlideArms.with(this).load(AppConfig.getInstance().getString(ConfigTag.AVATAR, null)).into(new SimpleTarget<Drawable>() {
             @Override
             public void onLoadFailed(@Nullable Drawable errorDrawable) {
                 setImQr(null);
@@ -99,7 +109,6 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
 
         });
         tvCode.setText(AppConfig.getInstance().getString(ConfigTag.NUMBER, null));
-
     }
 
     private void setImQr(Drawable drawable) {
@@ -140,7 +149,7 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
         }
     }
 
-    @OnClick({R.id.im_info, R.id.btn_link, R.id.btn_big})
+    @OnClick({R.id.im_info, R.id.btn_link, R.id.btn_big, R.id.im_qr})
     public void clickView(View view) {
         switch (view.getId()) {
             case R.id.im_info:
@@ -154,6 +163,9 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
                 position = 1;
                 mPresenter.shareBigImage();
                 break;
+            case R.id.im_qr:
+
+                break;
         }
     }
 
@@ -161,26 +173,25 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
     protected void onDestroy() {
         super.onDestroy();
         qrCode = null;
-        shareNew = null;
-        GlideArms.get(this).clearMemory();
     }
 
     @Override
     public void share(Result<Share> shareResult) {
         share = shareResult.data;
         if (position == 1) {
-            GlideArms.with(this).load(share.share_newImg).error(R.drawable.share_big).override(1242, 2209).into(new SimpleTarget<Drawable>() {
+            GlideArms.with(this).load(share.share_newImg).error(R.mipmap.share_big).into(new SimpleTarget<Drawable>() {
                 @Override
                 public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                     Timber.i("onResourceReady: ");
-                    addQRToImage(resource);
+                    addQRToImage(((BitmapDrawable) resource).getBitmap());
                 }
 
                 @Override
                 public void onLoadFailed(@Nullable Drawable errorDrawable) {
                     Timber.i("onLoadFailed: ");
-                    addQRToImage(errorDrawable);
+                    addQRToImage(((BitmapDrawable) errorDrawable).getBitmap());
                 }
+
             });
         }
         if (dialog == null) {
@@ -190,7 +201,12 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
             dialog.findViewById(R.id.tv_wx_friends).setOnClickListener(this);
             dialog.findViewById(R.id.tv_qq).setOnClickListener(this);
             dialog.findViewById(R.id.tv_qq_zone).setOnClickListener(this);
-            dialog.findViewById(R.id.tv_cancel).setOnClickListener(this);
+            dialog.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
         }
         dialog.show();
     }
@@ -206,11 +222,11 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
             web.setThumb(new UMImage(this, share.share_img));  //缩略图
             web.setDescription(share.share_desc);//描述
         } else {
-            if (shareNew == null) {
+            if (shareFile == null) {
                 showToast("图片正在生成，请稍后");
-                return;
+            } else {
+                umImage = new UMImage(this, shareFile);
             }
-            umImage = new UMImage(this, shareNew);
         }
         if (dialog != null && dialog.isShowing()) dialog.dismiss();
         switch (v.getId()) {
@@ -283,10 +299,13 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
         }
     }
 
-    private void addQRToImage(Drawable drawable) {
-        Bitmap srcBitmap = ((BitmapDrawable) drawable).getBitmap();
+    private void addQRToImage(Bitmap srcBitmap) {
         Bitmap srcNew = BitmapUtils.zoomBitmap(srcBitmap, 1242, 2209);
         Bitmap qrNew = BitmapUtils.zoomBitmap(qrCode, 397, 397);
-        shareNew = BitmapUtils.addLogoToQRCode(srcNew, qrNew);
+        Bitmap shareNew = BitmapUtils.addLogoToQRCode(srcNew, qrNew);
+        File file = BitmapUtils.bitmap2File(shareNew,
+                new File(DataHelper.getCacheFile(this),"zhmg_share_20180929.jpg"));
+        Timber.i("addQRToImage: "+file.getAbsolutePath()+","+file.length());
+        UserQRActivity.this.shareFile=file;
     }
 }
