@@ -1,12 +1,10 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.jess.arms.di.component.AppComponent;
@@ -44,17 +41,10 @@ import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.QRCodeEncoder;
 import com.wta.NewCloudApp.uitls.ScreenDpiUtils;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import me.shaohui.advancedluban.Luban;
-import me.shaohui.advancedluban.OnCompressListener;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import timber.log.Timber;
 
 /**
@@ -132,21 +122,6 @@ public class UserQRActivity extends BaseLoadingActivity<UserQRPresenter> impleme
     @Override
     public void clickTail() {
         ArmsUtils.startActivity(GroupActivity.class);
-    }
-
-    private void saveBitmap() {
-        File file = new File(Environment.getExternalStorageDirectory() + "/temp", "zhmg_user_code_20180627.png");
-        if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
-        try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-            qrCode.compress(Bitmap.CompressFormat.PNG, 100, bos);
-            bos.flush();
-            bos.close();
-            ArmsUtils.makeText(App.getInstance(), "已保存到" + file.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
-            ArmsUtils.makeText(App.getInstance(), "保存失败");
-        }
     }
 
     @OnClick({R.id.im_info, R.id.btn_link, R.id.btn_big, R.id.im_qr})

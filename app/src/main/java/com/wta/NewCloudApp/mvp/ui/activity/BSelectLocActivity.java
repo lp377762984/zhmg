@@ -105,6 +105,8 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        mapView.onCreate(savedInstanceState);
+        initMap();
         mb.setCallBack(mb.new CallbackImp() {
             @Override
             public void clickTail() {
@@ -123,15 +125,13 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
                 BSelectLocActivity.this.position = position;
                 //searchPoi((PoiItem) adapter.getItem(position));
                 Intent intent = getIntent();
-                intent.putExtra("poiItem",(PoiItem) adapter.getItem(position));
+                intent.putExtra("poiItem", (PoiItem) adapter.getItem(position));
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
         recyclerView.setAdapter(adapter);
         etKeywords.addTextChangedListener(this);
-        mapView.onCreate(savedInstanceState);
-        initMap();
     }
 
     private void initMap() {
@@ -308,7 +308,8 @@ public class BSelectLocActivity extends BaseActivity implements TextWatcher, Inp
      */
     public void geoAddress() {
         showDialog();
-        etKeywords.setText("");
+        if (etKeywords != null)
+            etKeywords.setText("");
         if (searchLatlonPoint != null) {
             RegeocodeQuery query = new RegeocodeQuery(searchLatlonPoint, 2000, GeocodeSearch.AMAP);// 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
             geocoderSearch.getFromLocationAsyn(query);
