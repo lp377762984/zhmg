@@ -17,6 +17,7 @@ package com.wta.NewCloudApp.config;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.utils.ArmsUtils;

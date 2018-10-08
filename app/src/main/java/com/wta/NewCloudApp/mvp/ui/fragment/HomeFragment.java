@@ -2,6 +2,7 @@ package com.wta.NewCloudApp.mvp.ui.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.wta.NewCloudApp.BuildConfig;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerHomeComponent;
 import com.wta.NewCloudApp.di.module.HomeModule;
@@ -271,7 +273,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         }
     }
 
-    @OnClick({R.id.im_sweep, R.id.im_bus_code, R.id.im_business, R.id.im_score_shop})
+    @OnClick({R.id.im_sweep, R.id.im_bus_code, R.id.im_business, R.id.im_score_shop,R.id.lat_head})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_sweep:
@@ -287,6 +289,9 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 break;
             case R.id.im_score_shop:
                 WebViewActivity.start(getActivity(), "商家活动", FinalUtils.HOME_DESC);
+                break;
+            case R.id.lat_head:
+                mPresenter.switchServer();
                 break;
         }
     }
@@ -336,6 +341,11 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
             progressDialog.dismiss();
             installApp(new File(Environment.getExternalStorageDirectory() + "/temp/zhmg.apk"));
         }
+    }
+
+    @Override
+    public Activity getMActivity() {
+        return getActivity();
     }
 
     public void installApp(File file) {

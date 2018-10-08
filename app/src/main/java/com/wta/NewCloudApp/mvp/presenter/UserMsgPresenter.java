@@ -12,6 +12,7 @@ import com.wta.NewCloudApp.mvp.model.api.Api;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.uitls.ConfigTag;
+import com.wta.NewCloudApp.uitls.FinalUtils;
 
 import java.io.File;
 
@@ -44,7 +45,7 @@ public class UserMsgPresenter extends BBasePresenter<IUserModel, UserMsgContract
             mRootView.showUserName();
         } else if (what == 1) {
             ArmsUtils.makeText(App.getInstance(), "设置头像成功");
-            AppConfig.getInstance().putString(ConfigTag.AVATAR, BuildConfig.APP_DOMAIN+((User) result.data).avatar);
+            AppConfig.getInstance().putString(ConfigTag.AVATAR, FinalUtils.SERVER_URL + ((User) result.data).avatar);
         }
     }
 }

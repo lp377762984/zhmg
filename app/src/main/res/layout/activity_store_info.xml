@@ -127,22 +127,32 @@
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/lat_location_det"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
                     android:minHeight="48dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/tv_location_det"
-                        android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:id="@+id/tv_00"
+                        style="@style/Text_Left_CenterVertical"
+                        android:text="详细地址" />
                     <ImageView
+                        android:id="@+id/im_00"
+                        android:layout_marginRight="15dp"
                         android:layout_alignParentRight="true"
                         android:src="@mipmap/go"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+                    <TextView
+                        android:gravity="right"
+                        android:layout_toLeftOf="@id/im_00"
+                        android:layout_toRightOf="@id/tv_00"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:id="@+id/tv_location_det"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
                 </RelativeLayout>
             </LinearLayout>
             <!--2-->
@@ -360,18 +370,18 @@
                         android:layout_alignParentRight="true"
                         android:id="@+id/im_07"
                         style="@style/Image_Go" />
+
                     <TextView
-                        android:background="@drawable/text_rect_bg"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="12sp"
-                        android:lineSpacingMultiplier="1.3"
-                        android:textColor="#999"
-                        android:layout_marginTop="10dp"
-                        android:layout_below="@id/tv_07"
                         android:id="@+id/tv_desc"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_07"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/text_rect_bg"
+                        android:lineSpacingMultiplier="1.3"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="#999" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

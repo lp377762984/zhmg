@@ -15,6 +15,7 @@ public class ConfigTag {
     public static final String GROUP_NAME= "group_name";
     public static final String SHARE_URL= "share_url";
     public static final String IS_LOGIN= "is_login";
+    public static final String SERVER_URL= "server_url";
 
     public static final String ACCESS_TOKEN ="accessToken";
     public static final String SESSIONID ="sessionId";

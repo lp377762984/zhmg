@@ -1,5 +1,7 @@
 package com.wta.NewCloudApp.mvp.contract;
 
+import android.app.Activity;
+
 import com.jess.arms.mvp.IModel;
 import com.jess.arms.mvp.IView;
 import com.wta.NewCloudApp.mvp.model.entity.Bill;
@@ -30,6 +32,8 @@ public interface HomeContract {
         void showProgress();
 
         void updateProgress(int progress);
+
+        Activity getMActivity();
     }
 
     interface Model extends IModel {

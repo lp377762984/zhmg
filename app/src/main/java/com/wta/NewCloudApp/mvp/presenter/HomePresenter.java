@@ -1,10 +1,16 @@
 package com.wta.NewCloudApp.mvp.presenter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 
 import com.jess.arms.di.scope.FragmentScope;
+import com.jess.arms.utils.ArmsUtils;
+import com.wta.NewCloudApp.BuildConfig;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
+import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.config.DefaultHandleSubscriber;
 import com.wta.NewCloudApp.mvp.contract.HomeContract;
 import com.wta.NewCloudApp.mvp.model.entity.Bill;
@@ -12,7 +18,10 @@ import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
+import com.wta.NewCloudApp.mvp.ui.activity.MainActivity;
+import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.FileUtils;
+import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.PackageUtils;
 
 import java.io.File;
@@ -35,6 +44,7 @@ import timber.log.Timber;
 @FragmentScope
 public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContract.View> {
     private ProgressInfo mLastDownloadingInfo;
+    private int position;
 
     @Inject
     public HomePresenter(HomeContract.Model model, HomeContract.View rootView) {
@@ -75,7 +85,7 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
 
     @Override
     public <T> void handle404(int what, Result<T> result) {
-        if (what==2)
+        if (what == 2)
             super.handle404(what, result);
         else
             mRootView.showListFailed();
@@ -170,5 +180,34 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
 
             }
         };
+    }
+
+    public void switchServer() {
+        if (BuildConfig.DEBUG) {
+            showServerSwitch();
+        }
+    }
+
+    private void showServerSwitch() {
+        final String items[] = {FinalUtils.SEVER_DEBUG, FinalUtils.SEVER_RELEASE};
+        AlertDialog.Builder builder = new AlertDialog.Builder(mRootView.getMActivity());
+        builder.setTitle("选择服务端地址");
+        builder.setIcon(R.mipmap.app_logo);
+        builder.setSingleChoiceItems(items, FinalUtils.SERVER_URL.equals(items[0]) ? 0 : 1,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        position = which;
+                    }
+                });
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                AppConfig.getInstance().putString(ConfigTag.SERVER_URL, items[position]);
+                dialog.dismiss();
+                ArmsUtils.obtainAppComponentFromContext(mRootView.getMActivity()).appManager().appExit();
+            }
+        });
+        builder.create().show();
     }
 }

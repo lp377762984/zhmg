@@ -3,10 +3,10 @@ package com.wta.NewCloudApp.mvp.presenter;
 import com.jess.arms.di.scope.ActivityScope;
 import com.wta.NewCloudApp.mvp.contract.LoginContract;
 import com.wta.NewCloudApp.mvp.model.IUserModel;
-import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 
 import javax.inject.Inject;
 
@@ -31,8 +31,8 @@ public class LoginPresenter extends BBasePresenter<IUserModel, LoginContract.Vie
         doRequest(buildRequest(mModel.wxLogin(openID)), 2);
     }
 
-    public void bindPhoneLogin(String mobile, String verify, WXUserInfo info){
-        doRequest(buildRequest(mModel.bindPhone(mobile,verify,info)),4);
+    public void bindPhoneLogin(String mobile, String verify, WXUserInfo info) {
+        doRequest(buildRequest(mModel.bindPhone(mobile, verify, info)), 4);
     }
 
     @Override
@@ -52,4 +52,5 @@ public class LoginPresenter extends BBasePresenter<IUserModel, LoginContract.Vie
     public boolean useEventBus() {
         return false;
     }
+
 }

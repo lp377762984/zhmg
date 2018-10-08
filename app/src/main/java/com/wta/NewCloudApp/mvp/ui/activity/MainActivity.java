@@ -163,4 +163,5 @@ public class MainActivity extends BaseLoadingActivity {
     public boolean useEventBus() {
         return true;
     }
+
 }

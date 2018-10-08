@@ -156,20 +156,31 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
                 ArmsUtils.startActivity(SettingActivity.class);
                 break;
             case R.id.lat_msg:
-                ArmsUtils.startActivity(MsgActivity.class);
+                if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
+                    ArmsUtils.startActivity(LoginActivity.class);
+                else
+                    ArmsUtils.startActivity(MsgActivity.class);
                 break;
             case R.id.lat_record:
                 showToast("未开放");
                 break;
             case R.id.lat_card:
-                ArmsUtils.startActivity(CardListActivity.class);
+                if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
+                    ArmsUtils.startActivity(LoginActivity.class);
+                else
+                    ArmsUtils.startActivity(CardListActivity.class);
                 break;
             case R.id.lat_group:
-                ArmsUtils.startActivity(GroupActivity.class);
+                if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
+                    ArmsUtils.startActivity(LoginActivity.class);
+                else
+                    ArmsUtils.startActivity(GroupActivity.class);
                 break;
             case R.id.lat_share:
-                //mPresenter.startShare();
-                ArmsUtils.startActivity(UserQRActivity.class);
+                if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
+                    ArmsUtils.startActivity(LoginActivity.class);
+                else
+                    ArmsUtils.startActivity(UserQRActivity.class);
                 break;
             case R.id.lat_location:
                 ArmsUtils.startActivity(AddressListActivity.class);
@@ -178,7 +189,10 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
                 ArmsUtils.startActivity(AboutUsActivity.class);
                 break;
             case R.id.lat_bill:
-                ArmsUtils.startActivity(ScoreListActivity.class);
+                if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
+                    ArmsUtils.startActivity(LoginActivity.class);
+                else
+                    ArmsUtils.startActivity(ScoreListActivity.class);
                 break;
         }
     }

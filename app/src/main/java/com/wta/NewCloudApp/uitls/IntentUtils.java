@@ -49,4 +49,13 @@ public class IntentUtils {
         activity.startActivity(intent);
     }
 
+    public static void restartApp(Activity activity){
+        Intent i = activity.getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage(activity.getBaseContext().getPackageName());
+        if (i != null) {
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            activity.startActivity(i);
+        }
+    }
+
 }

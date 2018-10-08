@@ -20,21 +20,19 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.integration.lifecycle.Lifecycleable;
 import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.RxLifecycleUtils;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerLoginComponent;
 import com.wta.NewCloudApp.di.module.LoginModule;
-import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.LoginContract;
-import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
-import com.wta.NewCloudApp.mvp.model.entity.TabWhat;
 import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.model.entity.WXAccessToken;
+import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.presenter.LoginPresenter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
-import com.wta.NewCloudApp.mvp.ui.listener.DialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
 import com.wta.NewCloudApp.uitls.ConfigTag;
@@ -272,7 +270,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
     @Override
     public void loginSuccess(Result<LoginEntity> results) {
         if (results.data.code_type == 0) {//微信登陆需要绑定手机号
-            DialogUtils.showAlertDialog(this, "需要绑定手机号，是否去绑定？", new DetDialogCallback(){
+            DialogUtils.showAlertDialog(this, "需要绑定手机号，是否去绑定？", new DetDialogCallback() {
                 @Override
                 public void handleRight(Dialog dialog) {
                     ThirdAuthManager.getInstance().requestWXUserInfo(wxAccessToken.access_token, wxAccessToken.openid, new WXUserListener() {

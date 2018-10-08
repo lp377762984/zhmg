@@ -12,8 +12,8 @@ public class App extends BaseApplication {
 
     @Override
     public void onCreate() {
-        super.onCreate();
         app = this;
+        super.onCreate();
     }
 
     public static App getInstance() {
