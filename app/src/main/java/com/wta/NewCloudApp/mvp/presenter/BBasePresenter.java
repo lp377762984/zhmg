@@ -9,6 +9,8 @@ import com.jess.arms.mvp.IModel;
 import com.jess.arms.mvp.IView;
 import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.RxLifecycleUtils;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.config.DefaultHandleSubscriber;
@@ -130,7 +132,11 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
                         if (needLoading) mRootView.hideLoading();
                     }
                 });
-        if (needBind) return tObservable.compose(RxLifecycleUtils.bindToLifecycle(mRootView));
+        if (needBind)
+            if (isActivity())
+                return tObservable.compose(RxLifecycleUtils.bindUntilEvent(mRootView, ActivityEvent.DESTROY));
+            else
+                return tObservable.compose(RxLifecycleUtils.bindUntilEvent(mRootView, FragmentEvent.DESTROY));
         else return tObservable;
     }
 
@@ -161,6 +167,15 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
 
     public void showToast(String content) {
         ArmsUtils.makeText(App.getInstance(), content);
+    }
+
+    /**
+     * 是否是Activity，用于区分compose中Event
+     *
+     * @return true activity ,false fragment
+     */
+    protected boolean isActivity() {
+        return true;
     }
 
 }

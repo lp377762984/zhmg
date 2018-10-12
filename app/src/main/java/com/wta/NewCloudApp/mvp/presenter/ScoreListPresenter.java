@@ -47,4 +47,8 @@ public class ScoreListPresenter extends BBasePresenter<IUserModel, ScoreListCont
             mRootView.getMContext().finish();
         }
     }
+    @Override
+    protected boolean isActivity() {
+        return false;
+    }
 }

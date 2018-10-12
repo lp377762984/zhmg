@@ -88,4 +88,8 @@ public class SidePresenter extends BBasePresenter<BusinessModel, SideContract.Vi
     public LocationManager getLocationManager() {
         return locationManager;
     }
+    @Override
+    protected boolean isActivity() {
+        return false;
+    }
 }

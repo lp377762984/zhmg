@@ -35,4 +35,8 @@ public class MinePresenter extends BBasePresenter<UserModel, MineContract.View> 
             mRootView.showUser((Result<User>) result);
         }
     }
+    @Override
+    protected boolean isActivity() {
+        return false;
+    }
 }

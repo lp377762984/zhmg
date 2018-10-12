@@ -20,6 +20,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.integration.lifecycle.Lifecycleable;
 import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.RxLifecycleUtils;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.config.AppConfig;
@@ -224,7 +225,7 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
         ArmsUtils.makeText(getApplicationContext(), "短信验证码已发送");
         setAgreeVisible(results.data.is_member);
         Observable.interval(0, 1, TimeUnit.SECONDS)
-                .compose(RxLifecycleUtils.bindToLifecycle((Lifecycleable) this))
+                .compose(RxLifecycleUtils.bindUntilEvent((Lifecycleable<ActivityEvent>) this, ActivityEvent.DESTROY))
                 .subscribeOn(Schedulers.io())
                 .take(CODE_TIME, TimeUnit.SECONDS)
                 .doOnSubscribe(disposable -> tvGetCode.setEnabled(false))
@@ -251,8 +252,10 @@ public class LoginActivity extends BaseLoadingActivity<LoginPresenter> implement
 
                     @Override
                     public void onComplete() {
-                        tvGetCode.setEnabled(true);
-                        tvGetCode.setText("获取验证码");
+                        if (tvGetCode != null) {
+                            tvGetCode.setEnabled(true);
+                            tvGetCode.setText("获取验证码");
+                        }
                     }
                 });
     }

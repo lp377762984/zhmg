@@ -210,4 +210,9 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
         });
         builder.create().show();
     }
+
+    @Override
+    protected boolean isActivity() {
+        return false;
+    }
 }
