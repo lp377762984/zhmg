@@ -5,7 +5,6 @@ import com.wta.NewCloudApp.mvp.contract.ScoreListContract;
 import com.wta.NewCloudApp.mvp.model.IUserModel;
 import com.wta.NewCloudApp.mvp.model.entity.BillType;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
-import com.wta.NewCloudApp.mvp.ui.activity.ScoreListActivity;
 import com.wta.NewCloudApp.mvp.view.BaseDataView;
 
 import java.util.List;
@@ -22,10 +21,12 @@ public class ScoreListPresenter extends BBasePresenter<IUserModel, ScoreListCont
     }
 
     public void getBillsType() {
+        setActivity(true);
         doRequest(buildRequest(mModel.getBillsType()), 1);
     }
 
     public void getBillsList(boolean isRefresh,String status,String type,String searchType,String date) {
+        setActivity(false);
         doRequest(buildListRequest(mModel.getBillsList(isRefresh,status,type,searchType,date)), 2);
     }
 
@@ -46,9 +47,5 @@ public class ScoreListPresenter extends BBasePresenter<IUserModel, ScoreListCont
         if (what == 1) {
             mRootView.getMContext().finish();
         }
-    }
-    @Override
-    protected boolean isActivity() {
-        return false;
     }
 }

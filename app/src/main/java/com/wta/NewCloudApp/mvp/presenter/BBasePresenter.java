@@ -37,6 +37,7 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
     @Inject
     RxErrorHandler mErrorHandler;
     protected Resend resend;
+    protected boolean isActivity = true;
 
     public BBasePresenter(M model, V rootView) {
         super(model, rootView);
@@ -175,7 +176,10 @@ public class BBasePresenter<M extends IModel, V extends IView> extends BasePrese
      * @return true activity ,false fragment
      */
     protected boolean isActivity() {
-        return true;
+        return isActivity;
     }
 
+    protected void setActivity(boolean activity) {
+        isActivity = activity;
+    }
 }
