@@ -169,8 +169,10 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="com.wta.newcloudapp"
                     android:scheme="lefaner" />
@@ -232,7 +234,8 @@
         <activity
             android:name=".mvp.ui.activity.BSelectLocActivity"
             android:exported="true" />
-        <activity android:name=".mvp.ui.activity.StoreLocDetActivity"/>
+        <activity android:name=".mvp.ui.activity.StoreLocDetActivity" />
+        <activity android:name=".mvp.ui.activity.ScoreShopActivity"></activity>
     </application>
 
 </manifest>

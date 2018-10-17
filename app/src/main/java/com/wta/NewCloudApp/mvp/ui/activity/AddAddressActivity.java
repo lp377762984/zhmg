@@ -25,6 +25,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Province;
 import com.wta.NewCloudApp.mvp.presenter.AddAddressPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
 import com.wta.NewCloudApp.uitls.FinalUtils;
+import com.wta.NewCloudApp.uitls.KeyBoardUtils;
 import com.wta.NewCloudApp.uitls.RegexUtils;
 
 
@@ -75,7 +76,8 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
             etName.setText(address.consignee);
             etName.setSelection(etName.length());
             etNumber.setText(address.mobile);
-            etAddress.setText(address.address_detail);
+            tvRegion.setText(address.address_region);
+            etAddress.setText(address.address);
             switchButton.setChecked(address.type == 1);
         }
     }
@@ -111,13 +113,14 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
                     return;
                 }
                 if (address == null) {
-                    mPresenter.saveAddress(name, mobile, 1, 710682, 1106, addresss, switchButton.isChecked() ? 1 : 0);
+                    mPresenter.saveAddress(name, mobile, address.province, address.city, address.district, addresss, switchButton.isChecked() ? 1 : 0);
                 } else {
-                    mPresenter.editAddress(address.address_id, name, mobile, 1, 710682, 1106, addresss, switchButton.isChecked() ? 1 : 0);
+                    mPresenter.editAddress(address.address_id, name, mobile, address.province, address.city, address.district, addresss, switchButton.isChecked() ? 1 : 0);
                 }
                 break;
             case R.id.tv_region:
-                if (options1Items.size()==0) {
+                KeyBoardUtils.hideKeyBoard(this);
+                if (options1Items.size() == 0) {
                     showToast("数据正在初始化");
                     return;
                 }
@@ -125,23 +128,57 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         //返回的分别是三个级别的选中位置
-                        String tx = options1Items.get(options1).getPickerViewText() +
-                                options2Items.get(options1).get(options2).getPickerViewText() +
-                                options3Items.get(options1).get(options2).get(options3).getPickerViewText();
-
+                        Province province = options1Items.get(options1);
+                        Province.City city = options2Items.get(options1).get(options2);
+                        Province.City.District district = options3Items.get(options1).get(options2).get(options3);
+                        if (address == null) address = new Address();
+                        address.province = province.getId();
+                        address.city = city.getId();
+                        address.district = district.getId();
+                        String tx = province.getPickerViewText() +" "+ city.getPickerViewText() +" "+ district.getPickerViewText();
                         tvRegion.setText(tx);
                     }
                 })
 
                         .setTitleText("城市选择")
-                        .setDividerColor(Color.BLACK)
-                        .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
-                        .setContentTextSize(20)
+                        .setDividerColor(Color.GRAY)
+                        .setTextColorCenter(Color.GRAY) //设置选中项文字颜色
+                        .setContentTextSize(15)
+                        .setCancelText("取消")
+                        .setSubmitText("确定")
                         .build();
                 pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+                if (address != null) {
+                    int selects[] = calculateSelect();
+                    pvOptions.setSelectOptions(selects[0], selects[1], selects[2]);
+                }
                 pvOptions.show();
                 break;
         }
+    }
+
+    private int[] calculateSelect() {
+        int[] selects = new int[3];
+        for (int i = 0; i < options1Items.size(); i++) {
+            if (options1Items.get(i).getId() == address.province) {
+                selects[0] = i;
+                break;
+            }
+        }
+        ArrayList<Province.City> cities = options2Items.get(selects[0]);
+        for (int i = 0; i < cities.size(); i++) {
+            if (cities.get(i).getId() == address.city) {
+                selects[1] = i;
+                break;
+            }
+        }
+        ArrayList<Province.City.District> districts = options3Items.get(selects[0]).get(selects[1]);
+        for (int i = 0; i < districts.size(); i++) {
+            if (districts.get(i).getId() == address.district) {
+                selects[2] = i;
+            }
+        }
+        return selects;
     }
 
     @Override

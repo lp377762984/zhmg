@@ -355,11 +355,10 @@
                     android:orientation="vertical">
                     <!--收货地址-->
                     <RelativeLayout
-                        android:visibility="gone"
                         android:id="@+id/lat_location"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:paddingLeft="17dp"
+                        android:paddingLeft="13dp"
                         android:paddingRight="17dp">
 
                         <ImageView
@@ -373,7 +372,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_toRightOf="@id/im_04"
                             android:text="收货地址"
                             android:textColor="@color/text_color2"

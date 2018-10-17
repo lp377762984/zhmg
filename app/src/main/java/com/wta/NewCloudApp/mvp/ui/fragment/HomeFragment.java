@@ -46,6 +46,7 @@ import com.wta.NewCloudApp.mvp.ui.activity.MerchantInActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInfoActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.RScoreDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.ScoreListActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.ScoreShopActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SettingActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SweepActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UScoreDetActivity;
@@ -288,7 +289,8 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 mPresenter.getStoreState();
                 break;
             case R.id.im_score_shop:
-                WebViewActivity.start(getActivity(), "商家活动", FinalUtils.HOME_DESC);
+                //WebViewActivity.start(getActivity(), "商家活动", FinalUtils.HOME_DESC);
+                ArmsUtils.startActivity(ScoreShopActivity.class);
                 break;
             case R.id.lat_head:
                 mPresenter.switchServer();
