@@ -27,6 +27,7 @@ import com.wta.NewCloudApp.mvp.model.entity.BusinessNew;
 import com.wta.NewCloudApp.mvp.model.entity.PictureC;
 import com.wta.NewCloudApp.mvp.presenter.SideDetPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.PictureAdapter;
+import com.wta.NewCloudApp.uitls.IntentUtils;
 import com.wta.NewCloudApp.uitls.PackageUtils;
 
 import java.util.ArrayList;
@@ -121,21 +122,20 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
                 startActivity(intent);
                 break;
             case R.id.tv_location:
-                if (PackageUtils.appIsInstalled(this, "com.autonavi.minimap")) {
-                    Intent intentMap = new Intent();
-                    intentMap.setAction(Intent.ACTION_VIEW);
-                    intentMap.addCategory(Intent.CATEGORY_DEFAULT);
-                    String url = "androidamap://route?sourceApplication=lefaner" +
-                            "&dlat=" + business.shop_address_x +
-                            "&dlon=" + business.shop_address_y +
-                            "&dname=" + business.shop_name +
-                            "&dev=0&t=2";
-                    Uri uri = Uri.parse(url);
-                    intentMap.setData(uri);
-                    startActivity(intentMap);
+                if (PackageUtils.appIsInstalled(this, IntentUtils.GAODE_MAP_APP)) {
+                    IntentUtils.goNaviByGaoDeMap(this, business.shop_address_x, business.shop_address_y, business.shop_name);
                 } else {
-                    showToast("请先安装高德地图！");
+                    if (PackageUtils.appIsInstalled(this, IntentUtils.BAIDU_MAP_APP)) {
+                        IntentUtils.baiduMarker(this, business.shop_address_x, business.shop_address_y, business.shop_name);
+                    } else {
+                        if (PackageUtils.appIsInstalled(this, IntentUtils.TX_MAP_APP)) {
+                            IntentUtils.txMarker(this, business.shop_address_x, business.shop_address_y, business.shop_name);
+                        } else {
+                            showToast("请安装地图应用！");
+                        }
+                    }
                 }
+
         }
 
     }
