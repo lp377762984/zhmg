@@ -280,4 +280,6 @@ public interface HttpServices {
     Observable<Result<List<ScoreGoods>>> getSGListSelf(@Query("page") int index);
     @GET("/exchangeRecord")
     Observable<Result<List<ScoreGoods>>> getExchangeRec(@Query("status")String status, @Query("page")int index);
+    @GET("/exchangeType")
+    Observable<Result<List<BType>>> getSearchTypeList();
 }

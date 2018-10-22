@@ -51,6 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.design.widget.AppBarLayout
+            app:elevation="0dp"
             android:background="@color/transparent"
             android:id="@+id/barLayout"
             android:layout_width="match_parent"
@@ -91,8 +92,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
                 <com.flyco.tablayout.SlidingTabLayout
-                    app:tl_indicator_height="0dp"
-                    app:tl_indicator_width_equal_title="true"
+                    app:tl_textsize="14sp"
+                    app:tl_textUnselectColor="#666"
+                    app:tl_indicator_width="80dp"
+                    app:tl_indicator_color="@color/style_color"
                     app:tl_tab_space_equal="true"
                     app:tl_textSelectColor="@color/style_color"
                     android:id="@+id/tabLayout"
@@ -100,11 +103,16 @@
                     android:layout_weight="2.5"
                     android:layout_height="match_parent"/>
                 <TextView
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:drawablePadding="3dp"
+                    android:drawableRight="@mipmap/tri_down"
+                    android:textSize="14sp"
+                    android:textColor="#666"
                     android:id="@+id/tv_filter"
                     android:gravity="center"
-                    android:text="分类"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:text="全部"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
             </LinearLayout>
 

@@ -144,6 +144,7 @@ public class ScoreGoodsListFragment extends BaseListFragment<ScoreGoodsListPrese
     }
 
     public void refresh() {
+        recyclerView.scrollToPosition(0);
         isRefresh = true;
         loadData(isRefresh);
     }
