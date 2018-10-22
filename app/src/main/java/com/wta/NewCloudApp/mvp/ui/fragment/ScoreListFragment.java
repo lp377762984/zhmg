@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerScoreListComponent;
 import com.wta.NewCloudApp.di.module.ScoreListModule;
@@ -25,6 +26,7 @@ import com.wta.NewCloudApp.mvp.presenter.ScoreListPresenter;
 import com.wta.NewCloudApp.mvp.ui.activity.BScoreDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.CashDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.RScoreDetActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.ScoreShopActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UScoreDetActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.ScoreAdapter;
 import com.wta.NewCloudApp.uitls.DialogUtils;
@@ -89,7 +91,6 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
             }
         });
         tvTitle.setText(billType.title);
-
     }
 
     @Override
@@ -124,19 +125,26 @@ public class ScoreListFragment extends BaseListFragment<ScoreListPresenter> impl
         mPresenter.getBillsList(isRefresh, billType.status, "1", "month", date);
     }
 
-    @OnClick(R.id.im_calendar)
+    @OnClick({R.id.im_calendar,R.id.tv_exchange})
     public void onClickView(View view) {
-        DialogUtils.showMonthTimePicker(getActivity(), new OnTimeSelectListener() {
-            @Override
-            public void onTimeSelect(Date date, View v) {
-                isRefresh = true;
-                ScoreListFragment.this.date = formateTime(date, "yyyy-MM");
-                tvDate.setText(ScoreListFragment.this.date);
-                getData(isRefresh);
-            }
-        }).show();
-    }
+        switch (view.getId()){
+            case R.id.im_calendar:
+                DialogUtils.showMonthTimePicker(getActivity(), new OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {
+                        isRefresh = true;
+                        ScoreListFragment.this.date = formateTime(date, "yyyy-MM");
+                        tvDate.setText(ScoreListFragment.this.date);
+                        getData(isRefresh);
+                    }
+                }).show();
+                break;
+            case R.id.tv_exchange:
+                ArmsUtils.startActivity(ScoreShopActivity.class);
+                break;
+        }
 
+    }
     @Override
     public void getData(int what, Result<List> result) {
         List msgs = result.data;

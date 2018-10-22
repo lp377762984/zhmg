@@ -26,6 +26,7 @@ public class BusinessNew implements Serializable {
     public String address;
     public int create_time;
     public String url;
+    public int is_gift;
 
     /**
      * telephone : 400000

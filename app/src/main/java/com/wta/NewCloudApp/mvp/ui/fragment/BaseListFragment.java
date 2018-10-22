@@ -68,7 +68,8 @@ public class BaseListFragment<P extends IPresenter> extends BaseLoadingFragment<
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.setEmptyView(R.layout.empty_side);
-        loadData(isRefresh);
+        if (autoRequest())
+            loadData(isRefresh);
     }
 
     protected void getAdapter() {
@@ -119,5 +120,9 @@ public class BaseListFragment<P extends IPresenter> extends BaseLoadingFragment<
 
     public void loadData(boolean isRefresh) {
 
+    }
+
+    protected boolean autoRequest() {
+        return true;
     }
 }

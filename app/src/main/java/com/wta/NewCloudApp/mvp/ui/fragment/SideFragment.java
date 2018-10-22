@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,8 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                SideDetActivity.startDet(getActivity(), ((Business) data.get(position)).store_id);
+                Business business = (Business) data.get(position);
+                SideDetActivity.startDet(getActivity(), business.store_id, business.is_gift);
             }
         });
     }
@@ -87,9 +89,10 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
     }
 
     @OnClick(R.id.tv_go_in)
-    public void click(){
+    public void click() {
         mPresenter.getBState();
     }
+
     @Override
     public void handleBState(Result<Business> businessResult) {
         String msg = businessResult.data.msg;
@@ -149,7 +152,7 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
         LocationManager locationManager = null;
         if (mPresenter != null) {
             locationManager = mPresenter.getLocationManager();
-            if (locationManager!=null)
+            if (locationManager != null)
                 locationManager.destroyLocation();
         }
     }

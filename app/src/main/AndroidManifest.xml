@@ -38,7 +38,7 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="66e8559c8e8a3ec03f6bb1e028721bcc" />
-        <!-- <service android:name="com.amap.api.location.APSService"/> -->
+        <service android:name="com.amap.api.location.APSService"/>
         <!-- 会持续定位 -->
         <meta-data
             android:name="UMENG_APPKEY"
@@ -235,7 +235,11 @@
             android:name=".mvp.ui.activity.BSelectLocActivity"
             android:exported="true" />
         <activity android:name=".mvp.ui.activity.StoreLocDetActivity" />
-        <activity android:name=".mvp.ui.activity.ScoreShopActivity"></activity>
+        <activity
+            android:name=".mvp.ui.activity.ScoreShopActivity"
+            android:exported="true" />
+        <activity android:name=".mvp.ui.activity.StoreGoodsListActivity" />
+        <activity android:name=".mvp.ui.activity.ExchangeRecordActivity"></activity>
     </application>
 
 </manifest>

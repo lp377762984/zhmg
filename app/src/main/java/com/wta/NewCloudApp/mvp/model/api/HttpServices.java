@@ -1,14 +1,8 @@
 package com.wta.NewCloudApp.mvp.model.api;
 
 
-import com.wta.NewCloudApp.mvp.model.entity.BusinessNew;
-import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
-import com.wta.NewCloudApp.mvp.model.entity.Pic;
-import com.wta.NewCloudApp.mvp.model.entity.PictureC;
-import com.wta.NewCloudApp.mvp.model.entity.UserClass;
-import com.wta.NewCloudApp.mvp.model.entity.VIPInfo;
-import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
+import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.AuthInfo;
 import com.wta.NewCloudApp.mvp.model.entity.BClass;
 import com.wta.NewCloudApp.mvp.model.entity.BEntity;
@@ -17,24 +11,28 @@ import com.wta.NewCloudApp.mvp.model.entity.BankCard;
 import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.BillType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
+import com.wta.NewCloudApp.mvp.model.entity.BusinessNew;
 import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
+import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
-import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Payback;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.model.entity.SG2;
+import com.wta.NewCloudApp.mvp.model.entity.ScoreGoods;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.model.entity.User;
+import com.wta.NewCloudApp.mvp.model.entity.UserClass;
+import com.wta.NewCloudApp.mvp.model.entity.VIPInfo;
 import com.wta.NewCloudApp.mvp.model.entity.WXAccessToken;
+import com.wta.NewCloudApp.mvp.model.entity.WXUserInfo;
 import com.wta.NewCloudApp.mvp.ui.widget.link_with4_class.Street;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -43,10 +41,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
@@ -270,6 +265,19 @@ public interface HttpServices {
     @FormUrlEncoded
     @POST("/superPayBack")
     Observable<Result<UserClass>> checkVIPSuccess(@Field("out_trade_no") String orderID);
+
     @GET("/user/shareUrl")
     Observable<Result<Share>> shareBigImage();
+
+    @GET("/exchangeList")
+    Observable<Result<SG2>> getScoreGoods(@Query("type") int position, @Query("type_id") int type, @Query("search") String keywords,
+                                          @Query("lat") Double lat, @Query("lng") Double lon, @Query("page") int index);
+
+    @GET("/moreGifts")
+    Observable<Result<List<ScoreGoods>>> getSGList(@Query("shop_id") int shopId, @Query("page") int index);
+
+    @GET("/myGift")
+    Observable<Result<List<ScoreGoods>>> getSGListSelf(@Query("page") int index);
+    @GET("/exchangeRecord")
+    Observable<Result<List<ScoreGoods>>> getExchangeRec(@Query("status")String status, @Query("page")int index);
 }

@@ -60,6 +60,8 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     TextView tvDesc;
     @BindView(R.id.lat_pics)
     RelativeLayout latPics;
+    @BindView(R.id.lat_gifts)
+    View latGifts;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private BusinessNew business;
@@ -82,6 +84,8 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        int isGift = getIntent().getIntExtra("is_gift", 0);
+        latGifts.setVisibility(isGift ==0? View.GONE : View.VISIBLE);
         mPresenter.getStoreDet(getIntent().getIntExtra("store_id", 0));
         initRecyclerView();
     }
@@ -104,13 +108,14 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         return UIMODE_TRANSPARENT_NOTALL;
     }
 
-    public static void startDet(Activity activity, int storeID) {
+    public static void startDet(Activity activity, int storeID, int isGift) {
         Intent intent = new Intent(activity, SideDetActivity.class);
         intent.putExtra("store_id", storeID);
+        intent.putExtra("is_gift", isGift);
         activity.startActivity(intent);
     }
 
-    @OnClick({R.id.im_phone, R.id.tv_location})
+    @OnClick({R.id.im_phone, R.id.tv_location, R.id.lat_gifts})
     public void startPhone(View view) {
         switch (view.getId()) {
             case R.id.im_phone:
@@ -135,7 +140,10 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
                         }
                     }
                 }
-
+                break;
+            case R.id.lat_gifts:
+                StoreGoodsListActivity.start(this, business.store_id);
+                break;
         }
 
     }

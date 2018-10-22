@@ -18,59 +18,60 @@
         android:layout_marginTop="@dimen/status_bar"
         app:barBg="@android:color/transparent"
         app:textTitle="商家服务" />
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/lat_head"
+        android:layout_below="@id/mb"
+        android:layout_width="match_parent"
+        android:layout_height="119dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bs_head_bg"
+        android:elevation="5dp">
+
+        <TextView
+            android:id="@+id/tv_benefit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:text="0元"
+            android:textColor="@color/style_color"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:text="今日收益"
+            android:textColor="#666"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_benefit" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:layout_below="@id/lat_head"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="119dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/bs_head_bg"
-                android:elevation="5dp">
-
-                <TextView
-                    android:id="@+id/tv_benefit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="30dp"
-                    android:text="0元"
-                    android:textColor="@color/style_color"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
-                    android:text="今日收益"
-                    android:textColor="#666"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_benefit" />
-
-            </android.support.constraint.ConstraintLayout>
 
             <TextView
                 android:layout_marginTop="15dp"
@@ -116,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="边经营边赚钱"
+                    android:text="边经营，边赚钱"
                     android:textColor="@color/text_color_gray2"
                     android:textSize="14sp" />
             </RelativeLayout>
@@ -156,11 +157,88 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="一账户一店铺"
+                    android:text="一账户，一店铺"
                     android:textColor="@color/text_color_gray2"
                     android:textSize="14sp" />
             </RelativeLayout>
+            <RelativeLayout
+                android:elevation="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/lat_bs_gifts"
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/merchant_in_head_bg"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/im_08"
+                    android:src="@mipmap/bs_gift"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
 
+                <TextView
+                    android:layout_marginLeft="11dp"
+                    android:layout_toRightOf="@id/im_08"
+                    android:id="@+id/tv_08"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="我的礼品"
+                    android:textColor="@color/text_color2"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_alignLeft="@id/tv_08"
+                    android:layout_below="@id/tv_08"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="消费多多，礼品多多"
+                    android:textColor="@color/text_color_gray2"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:elevation="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/lat_bs_order"
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/merchant_in_head_bg"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/im_09"
+                    android:src="@mipmap/bs_order"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+
+                <TextView
+                    android:layout_marginLeft="11dp"
+                    android:layout_toRightOf="@id/im_09"
+                    android:id="@+id/tv_09"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="礼品订单"
+                    android:textColor="@color/text_color2"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_alignLeft="@id/tv_09"
+                    android:layout_below="@id/tv_09"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="用户的礼品订单将在这里展示"
+                    android:textColor="@color/text_color_gray2"
+                    android:textSize="14sp" />
+            </RelativeLayout>
 
             <com.makeramen.roundedimageview.RoundedImageView
                 app:riv_corner_radius="5dp"

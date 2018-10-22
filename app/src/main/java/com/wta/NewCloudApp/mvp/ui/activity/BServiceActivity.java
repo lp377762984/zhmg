@@ -48,7 +48,7 @@ public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> imp
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        mb.setCallBack(mb.new CallbackImp(){
+        mb.setCallBack(mb.new CallbackImp() {
             @Override
             public void clickTail() {
                 ArmsUtils.startActivity(BQRActivity.class);
@@ -57,7 +57,7 @@ public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> imp
         mPresenter.getBMoney();
     }
 
-    @OnClick({R.id.lat_bs_benefit, R.id.lat_bs_details, R.id.im_btm})
+    @OnClick({R.id.lat_bs_benefit, R.id.lat_bs_details, R.id.lat_bs_gifts, R.id.lat_bs_order, R.id.im_btm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_bs_benefit://收款明细
@@ -67,6 +67,11 @@ public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> imp
                 ArmsUtils.startActivity(StoreInfoActivity.class);
                 break;
             case R.id.im_btm:
+                break;
+            case R.id.lat_bs_gifts:
+                StoreGoodsListActivity.start(this, -1);
+                break;
+            case R.id.lat_bs_order:
                 break;
         }
     }

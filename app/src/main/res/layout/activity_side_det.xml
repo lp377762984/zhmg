@@ -120,14 +120,41 @@
                     android:layout_height="67dp"/>
 
             </RelativeLayout>
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/lat_gifts"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_below="@id/lat_pics"
+                android:elevation="5dp"
+                android:background="@drawable/merchant_in_head_bg"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_mm"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="店铺礼品"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_marginRight="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/go"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
+            </RelativeLayout>
             <TextView
                 android:textSize="13sp"
                 android:textColor="#999"
                 android:id="@+id/tv_base_str"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="15dp"
-                android:layout_below="@id/lat_pics"
+                android:layout_below="@id/lat_gifts"
                 android:text="基础信息"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

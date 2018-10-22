@@ -66,7 +66,8 @@ public class SideSearchActivity extends BaseListActivity<SideSearchPresenter> im
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                SideDetActivity.startDet(SideSearchActivity.this, ((Business) data.get(position)).store_id);
+                Business business = (Business) data.get(position);
+                SideDetActivity.startDet(SideSearchActivity.this, business.store_id, business.is_gift);
             }
         });
     }
