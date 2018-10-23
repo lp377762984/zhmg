@@ -282,4 +282,6 @@ public interface HttpServices {
     Observable<Result<List<ScoreGoods>>> getExchangeRec(@Query("status")String status, @Query("page")int index);
     @GET("/exchangeType")
     Observable<Result<List<BType>>> getSearchTypeList();
+    @GET("/exchangeBanner")
+    Observable<Result<List<HomeBanner>>> getSGBanner();
 }

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import com.wta.NewCloudApp.mvp.contract.ScoreShopContract;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
+import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 
 import java.util.List;
@@ -23,12 +24,17 @@ public class ScoreShopPresenter extends BBasePresenter<ScoreShopContract.Model, 
         doRequest(buildRequest(false, mModel.getSearchTypeList(), false), 1);
     }
 
+    public void getSGBanner() {
+        doRequest(buildRequest(false, mModel.getSGBanner(), false), 2);
+    }
+
     @Override
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
         if (what == 1) {
             mRootView.showTypeList(((List<BType>) result.data));
+        } else if (what == 2) {
+            mRootView.showBanner(((List<HomeBanner>) result.data));
         }
     }
-
 }

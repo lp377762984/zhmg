@@ -42,4 +42,23 @@ public class ScoreGoods {
     public int type;
     public int store_id;
     public String store_name;
+
+    /**
+     * integral : 100
+     * type_id : 1
+     * shop_name : 中国人民
+     * address : 北京市北京市丰台区新村街道办事处
+     * address_details :  地下3楼
+     * location_address : 北京市丰台区五圈南路
+     * distance : 0km
+     * type_name : 海鲜
+     */
+
+    public int type_id;
+    public String shop_name;
+    public String address;
+    public String address_details;
+    public String location_address;
+    public String distance;
+    public String type_name;
 }

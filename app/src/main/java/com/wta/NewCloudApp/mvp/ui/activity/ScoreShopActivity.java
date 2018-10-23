@@ -1,7 +1,5 @@
 package com.wta.NewCloudApp.mvp.ui.activity;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,8 +11,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.RelativeSizeSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,11 +35,16 @@ import com.wta.NewCloudApp.di.component.DaggerScoreShopComponent;
 import com.wta.NewCloudApp.di.module.ScoreShopModule;
 import com.wta.NewCloudApp.mvp.contract.ScoreShopContract;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
+import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.presenter.ScoreShopPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.SGSearchTypeAdapter;
 import com.wta.NewCloudApp.mvp.ui.fragment.ScoreGoodsListFragment;
 import com.wta.NewCloudApp.mvp.ui.widget.ClearEditText;
+import com.wta.NewCloudApp.mvp.ui.widget.RoundImageLoader;
+import com.wta.NewCloudApp.uitls.ScreenDpiUtils;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +79,7 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
     PopupWindow popupWindow;
     private List<BType> types;
     private int itemPosition;
+    private boolean isBannerStared;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -95,6 +102,7 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
         etSearch.addTextChangedListener(this);
         tabLayout.setViewPager(viewPager, titles, this, createFragments());
         tabLayout.setOnTabSelectListener(this);
+        mPresenter.getSGBanner();
     }
 
     private ArrayList<Fragment> createFragments() {
@@ -133,7 +141,8 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
                 showToast("搜索内容不能为空");
                 return false;
             } else {
-                // TODO: 2018/10/17
+                off.refresh(keywords, -1);
+                on.refresh(keywords, -1);
                 return true;
             }
         }
@@ -164,7 +173,10 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
      * @param score 要设置的积分
      */
     public void setScore(String score) {
-        tvScore.setText(score);
+        String scoTrs = "积分";
+        SpannableStringBuilder ss = new SpannableStringBuilder(score + scoTrs);
+        ss.setSpan(new RelativeSizeSpan(0.8f), score.length(), ss.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        tvScore.setText(ss);
     }
 
     @Override
@@ -179,8 +191,8 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
 
     @Override
     public void onTabReselect(int position) {
-        if (position == 0) off.refresh();
-        else on.refresh();
+        if (position == 0) off.refresh("", -1);
+        else on.refresh("", -1);
         appBarLayout.setExpanded(true, true);
     }
 
@@ -189,6 +201,33 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
         this.types = types;
         this.types.add(0, new BType(0, "全部"));
         showPopList();
+    }
+
+    @Override
+    public void showBanner(List<HomeBanner> banners) {
+        if (banners != null && banners.size() > 0) {
+            banner.setVisibility(View.VISIBLE);
+            if (isBannerStared) {
+                banner.update(banners);
+            } else {
+                banner.setIndicatorGravity(BannerConfig.RIGHT);
+                banner.setImageLoader(new RoundImageLoader());
+                banner.setOnBannerListener(new OnBannerListener() {
+                    @Override
+                    public void OnBannerClick(int position) {
+                        HomeBanner homeBanner = banners.get(position);
+                        if (homeBanner.type == 1) {
+                            WebViewActivity.start(ScoreShopActivity.this, "活动详情", homeBanner.jump_url);
+                        }
+                    }
+                });
+                banner.setImages(banners);
+                banner.start();
+                isBannerStared = true;
+            }
+        } else {
+            banner.setVisibility(View.GONE);
+        }
     }
 
     private void showPopList() {
@@ -202,13 +241,16 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
                 recyclerView.addOnItemTouchListener(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        typeAdapter.setSelectTypeId(types.get(position).type_id);
+                        BType bType = types.get(position);
+                        typeAdapter.setSelectTypeId(bType.type_id);
                         typeAdapter.notifyDataSetChanged();
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 popupWindow.dismiss();
-                                tvFilter.setText(types.get(position).type_name);
+                                tvFilter.setText(bType.type_name);
+                                on.refresh("", bType.type_id);
+                                off.refresh("", bType.type_id);
                             }
                         }, 200);
                     }
@@ -216,7 +258,7 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
                 popupWindow = new PopupWindow(view, WRAP_CONTENT, WRAP_CONTENT);
                 popupWindow.setOutsideTouchable(true);
             }
-            popupWindow.showAsDropDown(tvFilter, 0, 0);
+            popupWindow.showAsDropDown(tvFilter, 0, (int) ScreenDpiUtils.dp2px(this, 7));
             //set filter drawable
             Drawable drawable = getResources().getDrawable(R.mipmap.tri_up);
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());

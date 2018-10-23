@@ -7,6 +7,7 @@ import com.wta.NewCloudApp.mvp.contract.ScoreShopContract;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
 import com.wta.NewCloudApp.mvp.model.api.cache.CommonCache;
 import com.wta.NewCloudApp.mvp.model.entity.BType;
+import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 
 import java.util.List;
@@ -33,5 +34,10 @@ public class ScoreShopModel extends BaseModel implements ScoreShopContract.Model
     @Override
     public Observable<Result<List<BType>>> getSearchTypeList() {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).getSearchTypeList();
+    }
+
+    @Override
+    public Observable<Result<List<HomeBanner>>> getSGBanner() {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getSGBanner();
     }
 }

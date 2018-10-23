@@ -143,7 +143,11 @@ public class ScoreGoodsListFragment extends BaseListFragment<ScoreGoodsListPrese
         }
     }
 
-    public void refresh() {
+    public void refresh(String keywords, int typeId) {
+        this.keywords = keywords;
+        if (typeId!=-1){
+            this.type = typeId;
+        }
         recyclerView.scrollToPosition(0);
         isRefresh = true;
         loadData(isRefresh);
