@@ -134,7 +134,7 @@ public interface HttpServices {
 
     @FormUrlEncoded
     @POST("/memberAddress/del")
-    Observable<Result<Address>> delAddress(@Field("address_id") int address_id);
+    Observable<Result> delAddress(@Field("address_id") int address_id);
 
     @GET("/admission")
     Observable<Result<Business>> getBState();
@@ -294,4 +294,8 @@ public interface HttpServices {
     Observable<Result> sureGetGift(@Query("order_id")int orderId);
     @GET("/recordDetails")
     Observable<Result<SGDet>> getExRecDet(@Query("order_id")int orderId);
+    @GET("/giftOrder")
+    Observable<Result<List<SGDet>>> getBSGOrder(@Query("status")int status,@Query("page")int index);
+    @GET("/determined")
+    Observable<Result> confirmGetGoods(@Query("order_id")int orderId);
 }

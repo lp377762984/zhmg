@@ -43,7 +43,11 @@ public class AddAddressPresenter extends BBasePresenter<UserModel, AddAddressCon
         doRequest(buildRequest(mModel.editAddress(id, name, mobile, province, city, district, address, isDefault)), 2);
     }
 
-    public void parseLocalAddressData(){
+    public void delAddress(int addressId) {
+        doRequest(buildRequest(mModel.delAddress(addressId)), 3);
+    }
+
+    public void parseLocalAddressData() {
         buildRequest(Observable.create(new ObservableOnSubscribe<ArrayList<Province>>() {
             @Override
             public void subscribe(ObservableEmitter<ArrayList<Province>> emitter) throws Exception {
@@ -63,10 +67,15 @@ public class AddAddressPresenter extends BBasePresenter<UserModel, AddAddressCon
     @Override
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
-        mRootView.showAddress((Address) result.data);
+        if (what == 1 || what == 2) {
+            mRootView.showAddress((Address) result.data);
+        }else if (what==3){
+            mRootView.deleteSuccess();
+        }
     }
+
     private ArrayList<Province> parseJson(String json) throws JSONException {
-        JSONObject jsonObject=new JSONObject(json);
+        JSONObject jsonObject = new JSONObject(json);
         JSONArray p = jsonObject.getJSONArray("province");
         ArrayList<Province> data = new ArrayList<>();
         for (int i = 0; i < p.length(); i++) {

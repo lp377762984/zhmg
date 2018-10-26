@@ -12,5 +12,7 @@ public interface AddAddressContract {
     interface View extends IView {
         void showAddress(Address address);
         void initAddressSuccess(ArrayList<Province> provinces);
+
+        void deleteSuccess();
     }
 }

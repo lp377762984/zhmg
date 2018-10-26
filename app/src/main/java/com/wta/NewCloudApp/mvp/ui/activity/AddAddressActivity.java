@@ -24,6 +24,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.model.entity.Province;
 import com.wta.NewCloudApp.mvp.presenter.AddAddressPresenter;
 import com.wta.NewCloudApp.mvp.ui.widget.EditTextHint;
+import com.wta.NewCloudApp.mvp.ui.widget.MoneyBar;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.KeyBoardUtils;
 import com.wta.NewCloudApp.uitls.RegexUtils;
@@ -48,7 +49,10 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
     EditTextHint etAddress;
     @BindView(R.id.switchButton)
     Switch switchButton;
+    @BindView(R.id.mb)
+    MoneyBar mb;
     private Address address;
+    private boolean hasAddress;
     private ArrayList<Province> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<Province.City>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<Province.City.District>>> options3Items = new ArrayList<>();
@@ -73,12 +77,23 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
         mPresenter.parseLocalAddressData();
         address = (Address) getIntent().getSerializableExtra("address");
         if (address != null) {
+            hasAddress = true;
             etName.setText(address.consignee);
             etName.setSelection(etName.length());
             etNumber.setText(address.mobile);
             tvRegion.setText(address.address_region);
             etAddress.setText(address.address);
             switchButton.setChecked(address.type == 1);
+            mb.setTextTail("删除");
+            mb.setCallBack(mb.new CallbackImp() {
+                @Override
+                public void clickTail() {
+                    mPresenter.delAddress(address.address_id);
+                }
+            });
+        } else {
+            hasAddress = false;
+            mb.setTextTail("");
         }
     }
 
@@ -112,7 +127,7 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
                     showToast("请输入详细地址");
                     return;
                 }
-                if (address == null) {
+                if (!hasAddress) {
                     mPresenter.saveAddress(name, mobile, address.province, address.city, address.district, addresss, switchButton.isChecked() ? 1 : 0);
                 } else {
                     mPresenter.editAddress(address.address_id, name, mobile, address.province, address.city, address.district, addresss, switchButton.isChecked() ? 1 : 0);
@@ -135,7 +150,7 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
                         address.province = province.getId();
                         address.city = city.getId();
                         address.district = district.getId();
-                        String tx = province.getPickerViewText() +" "+ city.getPickerViewText() +" "+ district.getPickerViewText();
+                        String tx = province.getPickerViewText() + " " + city.getPickerViewText() + " " + district.getPickerViewText();
                         tvRegion.setText(tx);
                     }
                 })
@@ -186,6 +201,12 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
         Intent intent = getIntent();
         intent.putExtra("address", address);
         setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
+    public void deleteSuccess() {
+        setResult(RESULT_OK, getIntent());
         finish();
     }
 

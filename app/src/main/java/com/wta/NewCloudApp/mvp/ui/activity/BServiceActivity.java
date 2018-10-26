@@ -72,6 +72,7 @@ public class BServiceActivity extends BaseLoadingActivity<BServicePresenter> imp
                 StoreGoodsListActivity.start(this, -1);
                 break;
             case R.id.lat_bs_order:
+                ArmsUtils.startActivity(BSGOrderActivity.class);
                 break;
         }
     }

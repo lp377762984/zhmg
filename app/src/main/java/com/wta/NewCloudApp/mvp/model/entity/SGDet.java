@@ -62,7 +62,7 @@ public class SGDet {
     public int num;
     public String ordersn;
     public String create_time;
-    public String status;
+    public int status;
 
     /**
      * consignee : hjskad

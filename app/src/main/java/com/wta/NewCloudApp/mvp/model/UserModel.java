@@ -168,7 +168,7 @@ public class UserModel extends BaseModel implements IUserModel {
     }
 
     @Override
-    public Observable<Result<Address>> delAddress(int id) {
+    public Observable<Result> delAddress(int id) {
         return getService().delAddress(id);
     }
 

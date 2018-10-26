@@ -69,7 +69,7 @@ public interface IUserModel extends IModel {
 
     Observable<Result<Address>> setDefaultAddress(int id);//设置默认地址
 
-    Observable<Result<Address>> delAddress(int id);//删除地址
+    Observable<Result> delAddress(int id);//删除地址
 
     Observable<Result<AliInfo>> bindAlipay(String openID, String type);
 
