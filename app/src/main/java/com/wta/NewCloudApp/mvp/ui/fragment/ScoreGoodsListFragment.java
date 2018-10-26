@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.amap.api.location.AMapLocation;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerScoreGoodsListComponent;
@@ -18,6 +19,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.SG2;
 import com.wta.NewCloudApp.mvp.model.entity.ScoreGoods;
 import com.wta.NewCloudApp.mvp.presenter.ScoreGoodsListPresenter;
+import com.wta.NewCloudApp.mvp.ui.activity.SGDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.ScoreShopActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.ScoreGoodsAdapter;
 
@@ -75,6 +77,13 @@ public class ScoreGoodsListFragment extends BaseListFragment<ScoreGoodsListPrese
         if (position == 2)
             adapter = new ScoreGoodsAdapter(position, R.layout.score_goods_item_offline, data);
         else adapter = new ScoreGoodsAdapter(position, R.layout.score_goods_item_online, data);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ScoreGoods sg = (ScoreGoods) adapter.getItem(position);
+                SGDetActivity.start(getActivity(), sg.goods_id, ScoreGoodsListFragment.this.position);
+            }
+        });
     }
 
     @Override
@@ -145,7 +154,7 @@ public class ScoreGoodsListFragment extends BaseListFragment<ScoreGoodsListPrese
 
     public void refresh(String keywords, int typeId) {
         this.keywords = keywords;
-        if (typeId!=-1){
+        if (typeId != -1) {
             this.type = typeId;
         }
         recyclerView.scrollToPosition(0);

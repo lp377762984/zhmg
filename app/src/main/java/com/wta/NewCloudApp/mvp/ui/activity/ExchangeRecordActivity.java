@@ -18,7 +18,6 @@ import com.wta.NewCloudApp.mvp.ui.fragment.ExchangeRecordFFragment;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 兑换记录
@@ -29,7 +28,8 @@ public class ExchangeRecordActivity extends BaseLoadingActivity<ExchangeRecordPr
     SlidingTabLayout tabLayout;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
-    private String titles[] = new String[]{"全部", "待发货", "已完成"};
+    private String titles[] = new String[]{"全部", "待收货", "已完成"};
+    ArrayList<Fragment> fragments;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -48,18 +48,18 @@ public class ExchangeRecordActivity extends BaseLoadingActivity<ExchangeRecordPr
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        tabLayout.setViewPager(viewPager, titles, this, createFragments());
+        createFragments();
+        tabLayout.setViewPager(viewPager, titles, this, fragments);
     }
 
-    private ArrayList<Fragment> createFragments() {
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        ExchangeRecordFFragment all = ExchangeRecordFFragment.getInstance("all");
-        ExchangeRecordFFragment collect = ExchangeRecordFFragment.getInstance("collect");
-        ExchangeRecordFFragment complete = ExchangeRecordFFragment.getInstance("complete");
+    private void createFragments() {
+        fragments = new ArrayList<>();
+        ExchangeRecordFFragment all = ExchangeRecordFFragment.getInstance("-1");
+        ExchangeRecordFFragment collect = ExchangeRecordFFragment.getInstance("0");
+        ExchangeRecordFFragment complete = ExchangeRecordFFragment.getInstance("1");
         fragments.add(all);
         fragments.add(collect);
         fragments.add(complete);
-        return fragments;
     }
 
     @Override

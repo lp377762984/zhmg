@@ -61,4 +61,6 @@ public class ScoreGoods {
     public String location_address;
     public String distance;
     public String type_name;
+    public String store_img;
+    public String sign_img;
 }

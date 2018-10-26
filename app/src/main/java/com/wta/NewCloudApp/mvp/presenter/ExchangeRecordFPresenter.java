@@ -19,21 +19,27 @@ public class ExchangeRecordFPresenter extends BBasePresenter<ExchangeRecordFCont
     }
 
     public void getExchangeRec(String status, boolean isRefresh) {
-        doRequest(buildListRequest(mModel.getExchangeRec(status,isRefresh)),1);
+        doRequest(buildListRequest(mModel.getExchangeRec(status, isRefresh)), 1);
+    }
+
+    public void sureGetGift(int orderId) {
+        doRequest(buildListRequest(mModel.sureGetGift(orderId)), 2);
     }
 
     @Override
     public <T> void handle200(int what, Result<T> result) {
         super.handle200(what, result);
-        if (what==1){
+        if (what == 1) {
             mRootView.getData(what, (Result<List>) result);
+        } else if (what == 2) {
+            mRootView.confirmSuccess(result);
         }
     }
 
     @Override
     public void handleException(int what, Throwable t) {
         super.handleException(what, t);
-        if (what==1){
+        if (what == 1) {
             mRootView.loadFailed();
         }
     }

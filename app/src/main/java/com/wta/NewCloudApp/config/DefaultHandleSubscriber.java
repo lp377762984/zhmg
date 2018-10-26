@@ -78,7 +78,6 @@ public class DefaultHandleSubscriber<K> extends ErrorHandleSubscriber<K> {
     @Override
     public void onError(Throwable t) {
         //super.onError(t);
-        Timber.i("onError: " + t.toString());
         String msg;
         if (t instanceof UnknownHostException) {
             msg = "网络不可用";
@@ -92,7 +91,7 @@ public class DefaultHandleSubscriber<K> extends ErrorHandleSubscriber<K> {
         } else {
             msg = t.getMessage();
         }
-        ArmsUtils.snackbarText(msg);
+        ArmsUtils.makeText(App.getInstance(),msg);
         if (handler != null) handler.handleException(what, t);
     }
 

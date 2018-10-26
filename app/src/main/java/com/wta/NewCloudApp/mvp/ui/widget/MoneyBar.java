@@ -80,7 +80,7 @@ public class MoneyBar extends LinearLayout implements View.OnClickListener {
         boolean needLine = ta.getBoolean(R.styleable.MoneyBar_needLine, false);
         int backImgId = ta.getResourceId(R.styleable.MoneyBar_backImg, initBackImg());
         int tailImgId = ta.getResourceId(R.styleable.MoneyBar_tailImg, initTailImg());
-        if (tailImgId != 0) backIm.setBackgroundResource(backImgId);
+        backIm.setImageResource(backImgId);
         tailIm.setImageResource(tailImgId);
         //设置尾部文字
         setTextTail(tailStr);

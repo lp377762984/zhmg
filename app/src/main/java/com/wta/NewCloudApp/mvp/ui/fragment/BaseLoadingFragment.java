@@ -65,7 +65,7 @@ public class BaseLoadingFragment<P extends IPresenter> extends BaseFragment<P> i
 
     @Override
     public void killMyself() {
-
+        getActivity().finish();
     }
 
     public void showToast(String content){

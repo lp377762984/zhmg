@@ -14,10 +14,13 @@ public interface ExchangeRecordFContract {
 
     interface View extends BaseDataView {
 
+        void confirmSuccess(Result result);
     }
 
     interface Model extends IModel {
 
         Observable<Result<List<ScoreGoods>>> getExchangeRec(String status, boolean isRefresh);
+
+        Observable<Result> sureGetGift(int orderId);
     }
 }

@@ -5,14 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jess.arms.di.component.AppComponent;
+import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerAddressListComponent;
 import com.wta.NewCloudApp.di.module.AddressListModule;
-import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.mvp.contract.AddressListContract;
 import com.wta.NewCloudApp.mvp.model.entity.Address;
 import com.wta.NewCloudApp.mvp.presenter.AddressListPresenter;
@@ -38,6 +40,12 @@ public class AddressListActivity extends BaseListActivity<AddressListPresenter> 
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
         return R.layout.activity_address_list;
+    }
+
+    public static void start(Fragment fragment, int type) {
+        Intent intent = new Intent(fragment.getActivity(), AddressListActivity.class);
+        intent.putExtra("type", type);
+        fragment.startActivityForResult(intent, FinalUtils.REQUEST_ADDRESS);
     }
 
     @Override
@@ -75,6 +83,18 @@ public class AddressListActivity extends BaseListActivity<AddressListPresenter> 
                 }
             }
         });
+        int type = getIntent().getIntExtra("type", 0);
+        if (type == 1) {
+            recyclerView.addOnItemTouchListener(new OnItemClickListener() {
+                @Override
+                public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    Intent intent = getIntent();
+                    intent.putExtra("address", (Address) data.get(position));
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            });
+        }
     }
 
     @Override

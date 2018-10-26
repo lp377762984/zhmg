@@ -13,14 +13,18 @@ import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerExchangeRecordFComponent;
 import com.wta.NewCloudApp.di.module.ExchangeRecordFModule;
 import com.wta.NewCloudApp.mvp.contract.ExchangeRecordFContract;
+import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.ScoreGoods;
 import com.wta.NewCloudApp.mvp.presenter.ExchangeRecordFPresenter;
+import com.wta.NewCloudApp.mvp.ui.activity.ExRecDetActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.SGDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SideDetActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.ExchangeRecordAdapter;
 
-
+/**
+ * 兑换记录
+ */
 public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPresenter> implements ExchangeRecordFContract.View {
-
 
     private String status;
 
@@ -59,7 +63,8 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                ScoreGoods sg = (ScoreGoods) data.get(position);
+                ExRecDetActivity.start(getActivity(),sg.order_id,sg.type,sg.status);
             }
         });
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -67,10 +72,17 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 ScoreGoods scoreGoods = (ScoreGoods) data.get(position);
                 switch (view.getId()) {
-                    case R.id.btn_more://再次兑换
-
+                    case R.id.btn_more:
+                        if (scoreGoods.status == 0) {//确认收货
+                            mPresenter.sureGetGift(scoreGoods.order_id);
+                        } else {//再次兑换
+                            SGDetActivity.start(getActivity(), scoreGoods.goods_id, scoreGoods.type);
+                        }
                         break;
                     case R.id.tv_store_name:
+                        SideDetActivity.startDet(getActivity(), scoreGoods.store_id, 1);
+                        break;
+                    case R.id.im_store_logo:
                         SideDetActivity.startDet(getActivity(), scoreGoods.store_id, 1);
                         break;
                 }
@@ -81,5 +93,11 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
     @Override
     public void loadData(boolean isRefresh) {
         mPresenter.getExchangeRec(status, isRefresh);
+    }
+
+    @Override
+    public void confirmSuccess(Result result) {
+        showToast(result.msg);
+        loadData(true);
     }
 }

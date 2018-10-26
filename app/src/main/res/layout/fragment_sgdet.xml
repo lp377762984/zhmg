@@ -1,59 +1,93 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.wta.NewCloudApp.mvp.ui.widget.vertical_drag.CustScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.wta.NewCloudApp.mvp.ui.fragment.SGDetFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/lat_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.youth.banner.Banner
+            app:banner_layout="@layout/banner_my_style"
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="360dp"
             android:background="@color/white" />
 
-        <TextView
-            android:text="红米手机"
-            android:id="@+id/tv_name"
+        <LinearLayout
+            android:layout_marginTop="300dp"
+            android:id="@+id/lat_01"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="20dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lineSpacingExtra="7dp"
-            android:maxLines="2"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp"
-            android:paddingTop="20dp"
-            android:textColor="@color/grey_black_tv"
-            android:textSize="@dimen/text_15" />
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/merchant_in_head_bg"
+            android:elevation="5dp">
 
-        <TextView
-            android:text="200.02积分"
-            android:id="@+id/tv_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_14" />
-        <TextView
-            android:id="@+id/tv_express_fee"
-            android:text="快递：包邮"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_left_count"
-            android:text="库存：50"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/style_color"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:lineSpacingExtra="5dp"
+                android:maxLines="2"
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+           <RelativeLayout
+               android:layout_marginTop="12dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <TextView
+                   android:id="@+id/tv_left_count"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="#666"
+                   android:textSize="14sp" />
+
+               <TextView
+                   android:id="@+id/tv_express_fee"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:textColor="#999"
+                   android:textSize="14sp" />
+           </RelativeLayout>
+        </LinearLayout>
+
+        <!--numberButton-->
         <RelativeLayout
+            android:id="@+id/lat_btn"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_below="@id/lat_01"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginBottom="9dp"
-            android:layout_marginTop="9dp"
-            android:background="@color/white"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp">
+            android:layout_marginBottom="10dp"
+            android:elevation="5dp"
+            android:background="@drawable/merchant_in_head_bg">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,70 +104,176 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true" />
         </RelativeLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
+        <!--address/商户信息+注意事项-->
+        <RelativeLayout
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="19dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_below="@id/lat_btn"
             android:id="@+id/lat_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp">
-
-            <TextView
-                android:text="收件人：李平"
-                android:id="@+id/tv_user_name"
+            android:background="@drawable/merchant_in_head_bg"
+            android:elevation="5dp"
+            android:orientation="vertical">
+            <!--address-->
+            <RelativeLayout
+                android:id="@+id/lat_top"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@color/grey_black_tv"
-                android:textSize="@dimen/text_15" />
-
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/lat_has_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/im_loc_logo"
+                        android:layout_marginTop="20dp"
+                        android:src="@mipmap/score_det_loc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_toRightOf="@id/im_loc_logo"
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="17dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="李平"
+                        android:textColor="#333"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:layout_toRightOf="@id/tv_user_name"
+                        android:layout_alignBottom="@id/tv_user_name"
+                        android:id="@+id/tv_user_mobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="14dp"
+                        android:text="15510115653"
+                        android:textColor="#333"
+                        android:textSize="13sp" />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:layout_below="@id/tv_user_name"
+                        android:layout_alignLeft="@id/tv_user_name"
+                        android:id="@+id/tv_user_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#333"
+                        android:textSize="13sp"
+                        android:text="汉威国际广场" />
+                    <ImageView
+                        android:src="@mipmap/go"
+                        android:layout_marginTop="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_below="@id/tv_user_address"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/address_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <FrameLayout
+                    android:visibility="gone"
+                    android:id="@+id/lat_no_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="73dp">
+                    <TextView
+                        android:textColor="#666"
+                        android:drawablePadding="5dp"
+                        android:drawableLeft="@mipmap/btn_add"
+                        android:layout_gravity="center"
+                        android:text="添加收货地址"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_gravity="bottom"
+                        android:id="@+id/loc_line"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/address_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/lat_b_det"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:scaleType="centerCrop"
+                        app:riv_oval="false"
+                        android:id="@+id/im_b_logo"
+                        android:layout_marginTop="20dp"
+                        app:riv_corner_radius="5dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp" />
+                    <TextView
+                        android:id="@+id/gift_more"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="17dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:background="@drawable/gift_more_bg"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_alignParentRight="true"
+                        android:text="更多礼品"
+                        android:textSize="13sp"
+                        android:textColor="@color/style_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textSize="14sp"
+                        android:textColor="#333"
+                        android:gravity="center_vertical"
+                        android:layout_alignTop="@id/im_b_logo"
+                        android:layout_alignBottom="@id/im_b_logo"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:text="山间一壶酒"
+                        android:layout_toRightOf="@id/im_b_logo"
+                        android:layout_toLeftOf="@id/gift_more"
+                        android:id="@+id/tv_b_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <View
+                        android:layout_alignParentBottom="true"
+                        style="@style/Line"/>
+                </RelativeLayout>
+            </RelativeLayout>
+            <!--注意事项-->
             <TextView
-                android:text="15510115653"
-                android:id="@+id/tv_user_mobile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/grey_black_tv"
-                android:textSize="@dimen/text_15" />
-            <TextView
-                android:id="@+id/tv_user_address"
-                android:text="汉威国际广场"
+                android:layout_marginTop="20dp"
+                android:id="@+id/tv_att_str"
+                android:text="注意事项"
+                android:layout_below="@id/lat_top"
+                android:textSize="14sp"
+                android:textColor="#333"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            android:background="@color/grey_line" />
-
-        <TextView
-            android:id="@+id/tv_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:lineSpacingExtra="8dp"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp"
-            android:paddingTop="17dp"
-            android:visibility="gone" />
+            <TextView
+                android:layout_marginTop="15dp"
+                android:textColor="#999"
+                android:textSize="14sp"
+                android:lineSpacingMultiplier="1.3"
+                android:layout_below="@id/tv_att_str"
+                android:id="@+id/tv_attention"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_html"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp"
-            android:paddingTop="17dp" />
-
-        <TextView
+            android:layout_below="@id/lat_address"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:gravity="center"
@@ -142,6 +282,6 @@
             android:text="继续拖动，查看图文详情"
             android:textColor="@color/grey_black_tv2"
             android:textSize="@dimen/text_13" />
-    </LinearLayout>
+    </RelativeLayout>
 
-</ScrollView>
+</com.wta.NewCloudApp.mvp.ui.widget.vertical_drag.CustScrollView>

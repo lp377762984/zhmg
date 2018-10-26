@@ -36,7 +36,7 @@ import static android.support.v4.view.ViewPager.OnPageChangeListener;
 import static android.support.v4.view.ViewPager.PageTransformer;
 
 public class Banner2 extends FrameLayout implements OnPageChangeListener {
-    public String tag = "banner";
+    public String tag = "banner_my_style";
     private int mIndicatorMargin = BannerConfig.PADDING_SIZE;
     private int mIndicatorWidth;
     private int mIndicatorHeight;

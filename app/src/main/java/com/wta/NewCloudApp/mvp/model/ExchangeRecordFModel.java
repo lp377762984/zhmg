@@ -30,4 +30,9 @@ public class ExchangeRecordFModel extends BaseModel implements ExchangeRecordFCo
         else index++;
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).getExchangeRec(status, index);
     }
+
+    @Override
+    public Observable<Result> sureGetGift(int orderId) {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).sureGetGift(orderId);
+    }
 }

@@ -135,18 +135,18 @@ public class DialogUtils {
     }
 
     public static TimePickerView showTimePicker(Context cotext, OnTimeSelectListener listener) {
-        return showTimePicker(cotext,listener,false, false, false, true, true, false);
+        return showTimePicker(cotext, listener, false, false, false, true, true, false);
     }
 
     public static TimePickerView showMonthTimePicker(Context cotext, OnTimeSelectListener listener) {
-        return showTimePicker(cotext,listener,true, true, false, false, false, false);
+        return showTimePicker(cotext, listener, true, true, false, false, false, false);
     }
 
     public static TimePickerView showDayTimePicker(Context cotext, OnTimeSelectListener listener) {
-        return showTimePicker(cotext,listener,true, true, true, false, false, false);
+        return showTimePicker(cotext, listener, true, true, true, false, false, false);
     }
 
-    public static TimePickerView showTimePicker(Context cotext, OnTimeSelectListener listener,boolean year,boolean month,boolean day,boolean hour,boolean minute,boolean seconds) {
+    public static TimePickerView showTimePicker(Context cotext, OnTimeSelectListener listener, boolean year, boolean month, boolean day, boolean hour, boolean minute, boolean seconds) {
         TimePickerView pvTime = new TimePickerBuilder(cotext, listener)
                 .setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
                     @Override
@@ -180,5 +180,32 @@ public class DialogUtils {
             }
         }
         return pvTime;
+    }
+
+    public static Dialog createSureScoreDialog(Context context, String score,DialogCallback dialogClick) {
+        final Dialog dialogAlter = new Dialog(context, R.style.dialog);
+        View alertView = LayoutInflater.from(context).inflate(R.layout.alert_view_pay, null);
+        dialogAlter.setContentView(alertView);
+        TextView tvMsg = (TextView) alertView.findViewById(R.id.tv_alert_msg);//提示信息
+        tvMsg.setText(score);
+        TextView btSure = (TextView) alertView.findViewById(R.id.tv_alert_sure);//确定按钮
+        btSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialogClick != null) {
+                    dialogClick.handleLeft(dialogAlter);
+                }
+                dialogAlter.dismiss();
+            }
+        });
+        Window window = dialogAlter.getWindow();
+        WindowManager.LayoutParams wlp;
+        if (window != null) {
+            wlp = window.getAttributes();
+            wlp.width = (int) ScreenDpiUtils.dp2px(context, 275);
+            window.setAttributes(wlp);
+        }
+        dialogAlter.show();
+        return dialogAlter;
     }
 }

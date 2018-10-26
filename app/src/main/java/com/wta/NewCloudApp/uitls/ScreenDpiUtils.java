@@ -1,6 +1,7 @@
 package com.wta.NewCloudApp.uitls;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.TypedValue;
 
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
@@ -27,6 +28,19 @@ public class ScreenDpiUtils {
 
     public static float sp2px(Context context,float spValue){
         return TypedValue.applyDimension(COMPLEX_UNIT_SP,spValue,context.getResources().getDisplayMetrics());
+    }
+
+    public static int getStatusBarHeight(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            return 0;
+        }
+        int statusBarHeight;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0)
+            statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+        else
+            statusBarHeight = (int) ScreenDpiUtils.dp2px(context, 24);
+        return statusBarHeight;
     }
 
 }

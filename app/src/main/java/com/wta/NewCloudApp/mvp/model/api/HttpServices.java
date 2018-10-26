@@ -20,6 +20,8 @@ import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Payback;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.SG2;
+import com.wta.NewCloudApp.mvp.model.entity.SGDet;
+import com.wta.NewCloudApp.mvp.model.entity.SGOrder;
 import com.wta.NewCloudApp.mvp.model.entity.ScoreGoods;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
@@ -284,4 +286,12 @@ public interface HttpServices {
     Observable<Result<List<BType>>> getSearchTypeList();
     @GET("/exchangeBanner")
     Observable<Result<List<HomeBanner>>> getSGBanner();
+    @GET("/exchangeDetails")
+    Observable<Result<SGDet>> getSGDet(@Query("type") int type,@Query("goods_id") int goodsId);
+    @GET("/exchange")
+    Observable<Result<SGOrder>> exchange(@Query("type")int type, @Query("goods_id")int goodsId, @Query("num")int currentNum, @Query("address_id")int addressId);
+    @GET("/determined")
+    Observable<Result> sureGetGift(@Query("order_id")int orderId);
+    @GET("/recordDetails")
+    Observable<Result<SGDet>> getExRecDet(@Query("order_id")int orderId);
 }

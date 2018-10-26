@@ -1,11 +1,10 @@
 package com.wta.NewCloudApp.mvp.ui.adapter;
 
 import android.support.annotation.Nullable;
-import android.text.SpannableStringBuilder;
+import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,12 +31,12 @@ public class ScoreGoodsAdapter extends BaseQuickAdapter<ScoreGoods, BaseViewHold
         //set score start
         String score = item.integral;
         String scoTrs = " 积分";
-        SpannableStringBuilder ss = new SpannableStringBuilder(score + scoTrs);
-        ss.setSpan(new RelativeSizeSpan(0.8f), score.length(), ss.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new ForegroundColorSpan(0x808080), score.length(), ss.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        SpannableString ss = new SpannableString(score + scoTrs);
+        ss.setSpan(new RelativeSizeSpan(0.7f), score.length(), ss.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(0xff808080), score.length(), ss.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         TextView tvScore = helper.getView(R.id.tv_score);
         tvScore.setText(ss);
-
+        //set name
         helper.setText(R.id.tv_name, item.title);
         if (position == 2) {
             helper.setText(R.id.tv_b_name, item.shop_name + "(" + item.location_address + item.address_details + ")");

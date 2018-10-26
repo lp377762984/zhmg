@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mvp.ui.activity.SGDetActivity">
+
+    <LinearLayout
+        android:id="@+id/lat_btm"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_total_score"
+            android:background="@color/white"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="218"
+            android:gravity="center"
+            android:text="合计：3000积分"
+            android:textColor="#4c4c4c"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_exchange"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="143"
+            android:background="@color/style_color"
+            android:gravity="center"
+            android:text="立即兑换"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <com.wta.NewCloudApp.mvp.ui.widget.vertical_drag.DragLayout
+        android:id="@+id/dragLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/lat_btm">
+
+        <FrameLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.wta.NewCloudApp.mvp.ui.widget.vertical_drag.DragLayout>
+
+    <FrameLayout
+        android:id="@+id/lat_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/style_color"
+        android:fitsSystemWindows="true">
+        <ImageView
+            android:id="@+id/im_back"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="25dp"
+            android:src="@mipmap/back_with_bg" />
+    </FrameLayout>
+</RelativeLayout>

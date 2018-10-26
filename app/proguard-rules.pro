@@ -399,7 +399,7 @@ public static final int *;
   **[] $VALUES;
   public *;
 }
-# banner
+# banner_my_style
 -keep class com.youth.banner.** {
     *;
  }
