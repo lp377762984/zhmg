@@ -25,7 +25,7 @@ public class ExchangeRecordFModel extends BaseModel implements ExchangeRecordFCo
     }
 
     @Override
-    public Observable<Result<List<ScoreGoods>>> getExchangeRec(String status, boolean isRefresh) {
+    public Observable<Result<List<ScoreGoods>>> getExchangeRec(int status, boolean isRefresh) {
         if (isRefresh) index = 1;
         else index++;
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).getExchangeRec(status, index);

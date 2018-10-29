@@ -19,7 +19,7 @@ public interface ExchangeRecordFContract {
 
     interface Model extends IModel {
 
-        Observable<Result<List<ScoreGoods>>> getExchangeRec(String status, boolean isRefresh);
+        Observable<Result<List<ScoreGoods>>> getExchangeRec(int status, boolean isRefresh);
 
         Observable<Result> sureGetGift(int orderId);
     }

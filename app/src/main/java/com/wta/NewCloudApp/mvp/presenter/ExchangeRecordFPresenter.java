@@ -18,7 +18,7 @@ public class ExchangeRecordFPresenter extends BBasePresenter<ExchangeRecordFCont
         super(model, rootView);
     }
 
-    public void getExchangeRec(String status, boolean isRefresh) {
+    public void getExchangeRec(int status, boolean isRefresh) {
         doRequest(buildListRequest(mModel.getExchangeRec(status, isRefresh)), 1);
     }
 

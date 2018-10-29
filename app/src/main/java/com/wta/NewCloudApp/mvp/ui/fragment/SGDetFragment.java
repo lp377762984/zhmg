@@ -239,12 +239,17 @@ public class SGDetFragment extends BaseLoadingFragment<SGDetPresenter> implement
                 latNoAdd.setVisibility(View.VISIBLE);
                 latHasAdd.setVisibility(View.GONE);
             } else {//有地址
-                latNoAdd.setVisibility(View.GONE);
-                latHasAdd.setVisibility(View.VISIBLE);
-                tvUserName.setText(address.consignee);
-                tvUserMobile.setText(address.mobile);
-                tvUserAddress.setText(address.address);
-                addressId = address.address_id;
+                if (TextUtils.isEmpty(address.consignee)){
+                    latNoAdd.setVisibility(View.VISIBLE);
+                    latHasAdd.setVisibility(View.GONE);
+                }else {
+                    latNoAdd.setVisibility(View.GONE);
+                    latHasAdd.setVisibility(View.VISIBLE);
+                    tvUserName.setText(address.consignee);
+                    tvUserMobile.setText(address.mobile);
+                    tvUserAddress.setText(address.address);
+                    addressId = address.address_id;
+                }
             }
         } else {//线下
             latBDet.setVisibility(View.VISIBLE);
@@ -303,6 +308,6 @@ public class SGDetFragment extends BaseLoadingFragment<SGDetPresenter> implement
 
     @Override
     public void showOrderId(int orderId) {
-        ArmsUtils.startActivity(ExSucActivity.class);
+        ExSucActivity.start(getActivity(),orderId,type,0);
     }
 }

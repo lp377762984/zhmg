@@ -26,7 +26,7 @@ import com.wta.NewCloudApp.mvp.ui.adapter.ExchangeRecordAdapter;
  */
 public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPresenter> implements ExchangeRecordFContract.View {
 
-    private String status;
+    private int status;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -45,14 +45,14 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        status = getArguments().getString("status");
+        status = getArguments().getInt("status");
         super.initData(savedInstanceState);
     }
 
-    public static ExchangeRecordFFragment getInstance(String status) {
+    public static ExchangeRecordFFragment getInstance(int status) {
         ExchangeRecordFFragment fragment = new ExchangeRecordFFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("status", status);
+        bundle.putInt("status", status);
         fragment.setArguments(bundle);
         return fragment;
     }

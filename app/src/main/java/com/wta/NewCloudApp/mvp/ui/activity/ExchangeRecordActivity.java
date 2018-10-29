@@ -54,9 +54,9 @@ public class ExchangeRecordActivity extends BaseLoadingActivity<ExchangeRecordPr
 
     private void createFragments() {
         fragments = new ArrayList<>();
-        ExchangeRecordFFragment all = ExchangeRecordFFragment.getInstance("-1");
-        ExchangeRecordFFragment collect = ExchangeRecordFFragment.getInstance("0");
-        ExchangeRecordFFragment complete = ExchangeRecordFFragment.getInstance("1");
+        ExchangeRecordFFragment all = ExchangeRecordFFragment.getInstance(-1);
+        ExchangeRecordFFragment collect = ExchangeRecordFFragment.getInstance(0);
+        ExchangeRecordFFragment complete = ExchangeRecordFFragment.getInstance(1);
         fragments.add(all);
         fragments.add(collect);
         fragments.add(complete);

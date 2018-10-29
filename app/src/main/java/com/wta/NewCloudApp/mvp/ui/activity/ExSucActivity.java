@@ -15,6 +15,10 @@ import butterknife.OnClick;
 
 public class ExSucActivity extends BaseActivity {
 
+    private int orderId;
+    private int type;
+    private int status;
+
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
 
@@ -27,21 +31,30 @@ public class ExSucActivity extends BaseActivity {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        orderId = getIntent().getIntExtra("order_id", -1);
+        type = getIntent().getIntExtra("type", -1);
+        status = getIntent().getIntExtra("status", -1);
     }
 
-    public static void start(Activity activity, int orderId) {
+    public static void start(Activity activity, int orderId,int type,int status) {
         Intent intent = new Intent(activity, ExSucActivity.class);
         intent.putExtra("order_id", orderId);
+        intent.putExtra("type", type);
+        intent.putExtra("status", status);
         activity.startActivity(intent);
     }
 
-    @OnClick({R.id.btn_re, R.id.btn_sure})
+    @OnClick({R.id.btn_re, R.id.btn_sure,R.id.im_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_re:
+                finish();
+                break;
+            case R.id.im_back:
+                finish();
                 break;
             case R.id.btn_sure:
+                ExRecDetActivity.start(this,orderId,type,status);
                 break;
         }
     }
