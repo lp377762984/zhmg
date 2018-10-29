@@ -53,7 +53,7 @@ public class StoreGoodsListActivity extends BaseListActivity<StoreGoodsListPrese
 
     @Override
     protected void getAdapter() {
-        adapter = new ScoreGoodsAdapter(0, R.layout.score_goods_item_offline, data);
+        adapter = new ScoreGoodsAdapter(0, R.layout.score_goods_item_online, data);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

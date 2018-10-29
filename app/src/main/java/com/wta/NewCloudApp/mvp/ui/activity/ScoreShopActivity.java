@@ -162,8 +162,8 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (TextUtils.isEmpty(s.toString().trim())) {
-            // TODO: 2018/10/16
-            showToast("展示所有");
+            off.refresh("", -1);
+            on.refresh("", -1);
         }
     }
 

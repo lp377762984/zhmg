@@ -65,7 +65,6 @@ public class ScoreGoodsListFragment extends BaseListFragment<ScoreGoodsListPrese
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        startLocation();
         position = getArguments().getInt("position");
         type = getArguments().getInt("type");
         keywords = getArguments().getString("keywords");
@@ -95,6 +94,7 @@ public class ScoreGoodsListFragment extends BaseListFragment<ScoreGoodsListPrese
         if (position == 2) {
             if (isLocate)
                 mPresenter.getScoreGoods(position, type, keywords, latitude, longitude, isRefresh);
+            else startLocation();
         } else {
             mPresenter.getScoreGoods(position, type, keywords, null, null, isRefresh);
         }

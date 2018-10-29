@@ -79,7 +79,7 @@ public class BaseListFragment<P extends IPresenter> extends BaseLoadingFragment<
     @Override
     public void getData(int what, Result<List> result) {
         List msgs = result.data;
-        if (!isRefresh && (msgs == null || msgs.size() == 0))
+        if (msgs == null || msgs.size() == 0)
             isComplete = true;
         if (isRefresh) {
             data.clear();

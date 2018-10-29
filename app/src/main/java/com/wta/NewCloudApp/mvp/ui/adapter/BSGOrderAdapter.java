@@ -49,7 +49,11 @@ public class BSGOrderAdapter extends BaseQuickAdapter<SGDet, BaseViewHolder> {
         ((TextView) helper.getView(R.id.tv_total)).setText(ss1);
         helper.setText(R.id.tv_order_no, item.ordersn);
         helper.setText(R.id.tv_create_time, item.create_time);
+        //取货时间
+        helper.setGone(R.id.textView32,item.status==1);
+        helper.setGone(R.id.tv_confirm_time,item.status==1);
         helper.setText(R.id.tv_confirm_time, item.update_time);
+
         helper.setVisible(R.id.btn_line, item.status == 0);
         helper.setGone(R.id.btn_btm, item.status == 0);
         helper.addOnClickListener(R.id.btn_btm);

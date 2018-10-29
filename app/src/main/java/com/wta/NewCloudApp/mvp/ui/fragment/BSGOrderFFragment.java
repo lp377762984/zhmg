@@ -68,12 +68,13 @@ public class BSGOrderFFragment extends BaseListFragment<BSGOrderFPresenter> impl
 
     @Override
     public void loadData(boolean isRefresh) {
-        mPresenter.getBSGOrder(isRefresh,status);
+        mPresenter.getBSGOrder(isRefresh, status);
     }
 
     @Override
     public void confirmSuccess(Result result) {
         showToast("确认取货成功！");
-        loadData(true);
+        isRefresh = true;
+        loadData(isRefresh);
     }
 }

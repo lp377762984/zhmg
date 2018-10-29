@@ -55,6 +55,7 @@ public class ExSucActivity extends BaseActivity {
                 break;
             case R.id.btn_sure:
                 ExRecDetActivity.start(this,orderId,type,status);
+                finish();
                 break;
         }
     }

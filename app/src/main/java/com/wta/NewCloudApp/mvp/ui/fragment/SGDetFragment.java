@@ -203,6 +203,8 @@ public class SGDetFragment extends BaseLoadingFragment<SGDetPresenter> implement
 
     @Override
     public void showSGDet(SGDet sgDet) {
+        //set url
+        ((SGDetActivity) getActivity()).setUrl(sgDet.contents);
         //set banner_my_style
         this.sgDet = sgDet;
         banner.releaseBanner();

@@ -68,7 +68,7 @@ public class SGDetActivity extends BaseLoadingActivity {
         DragLayout.ShowNextPageNotifier notifier = new DragLayout.ShowNextPageNotifier() {
             @Override
             public void onDragNext() {
-                btmFragment.initView("http://www.baidu.com");
+                btmFragment.initView(url);
             }
 
             @Override

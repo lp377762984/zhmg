@@ -74,6 +74,8 @@ public class ExRecDetActivity extends BaseLoadingActivity<ExRecDetPresenter> imp
     TextView btnBtm;
     @BindView(R.id.tv_express)
     TextView tvExpress;
+    @BindView(R.id.textView36)
+    TextView tvCompleteTimeStr;
 
     private SGDet sgDet;
     private int type;
@@ -173,6 +175,9 @@ public class ExRecDetActivity extends BaseLoadingActivity<ExRecDetPresenter> imp
         tvOrderNo.setText(sgDet.ordersn);
         tvStatusBtm.setText(status == 0 ? "待收货" : "已完成");
         tvOrderTime.setText(sgDet.create_time);
+
+        tvCompleteTime.setVisibility(status==0?View.GONE:View.VISIBLE);
+        tvCompleteTimeStr.setVisibility(status==0?View.GONE:View.VISIBLE);
         tvCompleteTime.setText(sgDet.update_time);
 
         btnBtm.setVisibility(type == 2 && status == 0 ? View.GONE : View.VISIBLE);

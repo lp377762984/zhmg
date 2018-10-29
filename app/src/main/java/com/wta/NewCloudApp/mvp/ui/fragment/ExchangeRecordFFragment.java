@@ -97,7 +97,8 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
 
     @Override
     public void confirmSuccess(Result result) {
-        showToast(result.msg);
-        loadData(true);
+        showToast("确认收货成功");
+        isRefresh=true;
+        loadData(isRefresh);
     }
 }
