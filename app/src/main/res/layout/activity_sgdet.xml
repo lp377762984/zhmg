@@ -36,12 +36,17 @@
             android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>
-
+    <View
+        android:layout_above="@id/lat_btm"
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_wider"/>
     <com.wta.NewCloudApp.mvp.ui.widget.vertical_drag.DragLayout
         android:id="@+id/dragLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/lat_btm">
+        android:layout_above="@id/line">
 
         <FrameLayout
             android:id="@+id/top"

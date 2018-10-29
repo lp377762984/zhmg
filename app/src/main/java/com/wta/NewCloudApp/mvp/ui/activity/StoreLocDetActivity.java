@@ -39,21 +39,19 @@ public class StoreLocDetActivity extends BaseActivity {
         etDet.setText(locDet);
         etDet.setSelection(etDet.getText().length());
     }
-    public static void startLocDet(Activity activity, String locDet){
-        Intent intent=new Intent(activity,StoreLocDetActivity.class);
-        intent.putExtra("locDet",locDet);
+
+    public static void startLocDet(Activity activity, String locDet) {
+        Intent intent = new Intent(activity, StoreLocDetActivity.class);
+        intent.putExtra("locDet", locDet);
         activity.startActivityForResult(intent, FinalUtils.REQUEST_LOC_DET);
     }
 
     @OnClick(R.id.btn_apply)
     public void onViewClicked() {
         String s = etDet.getText().toString();
-        if (TextUtils.isEmpty(s)) ArmsUtils.makeText(this,"请输入详细地址");
-        else {
-            Intent intent = getIntent();
-            intent.putExtra("locDet",s);
-            setResult(RESULT_OK,getIntent());
-            finish();
-        }
+        Intent intent = getIntent();
+        intent.putExtra("locDet", s);
+        setResult(RESULT_OK, getIntent());
+        finish();
     }
 }

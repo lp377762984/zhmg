@@ -61,7 +61,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import timber.log.Timber;
 
-
+/**
+ * 我的店铺
+ */
 public class StoreInfoActivity extends BaseLoadingActivity<StoreInfoPresenter> implements StoreInfoContract.View, TakePhoto.TakeResultListener, InvokeListener {
 
     @BindView(R.id.im_head)

@@ -139,7 +139,7 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
             String keywords = etSearch.getText().toString().trim();
             if (TextUtils.isEmpty(keywords)) {
                 showToast("搜索内容不能为空");
-                return false;
+                return true;
             } else {
                 off.refresh(keywords, -1);
                 on.refresh(keywords, -1);
@@ -241,6 +241,7 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
                 recyclerView.addOnItemTouchListener(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        itemPosition = position;
                         BType bType = types.get(position);
                         typeAdapter.setSelectTypeId(bType.type_id);
                         typeAdapter.notifyDataSetChanged();
@@ -258,7 +259,7 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
                 popupWindow = new PopupWindow(view, WRAP_CONTENT, WRAP_CONTENT);
                 popupWindow.setOutsideTouchable(true);
             }
-            popupWindow.showAsDropDown(tvFilter, 0, (int) ScreenDpiUtils.dp2px(this, 7));
+            popupWindow.showAsDropDown(tvFilter, (int) ScreenDpiUtils.dp2px(this, -15), (int) ScreenDpiUtils.dp2px(this, -15));
             //set filter drawable
             Drawable drawable = getResources().getDrawable(R.mipmap.tri_up);
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());

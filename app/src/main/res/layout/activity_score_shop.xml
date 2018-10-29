@@ -32,6 +32,7 @@
             android:layout_height="match_parent" />
         <com.wta.NewCloudApp.mvp.ui.widget.ClearEditText
             android:imeOptions="actionSearch"
+            android:inputType="text"
             android:id="@+id/et_search"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/im_back"

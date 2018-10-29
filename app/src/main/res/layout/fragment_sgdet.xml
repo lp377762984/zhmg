@@ -20,10 +20,11 @@
             android:background="@color/white" />
 
         <LinearLayout
-            android:layout_marginTop="300dp"
+            android:layout_below="@id/banner"
             android:id="@+id/lat_01"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:layout_marginTop="10dp"
             android:paddingBottom="20dp"
             android:orientation="vertical"
             android:layout_width="match_parent"

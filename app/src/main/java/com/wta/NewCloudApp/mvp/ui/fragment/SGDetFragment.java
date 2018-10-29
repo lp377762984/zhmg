@@ -241,10 +241,10 @@ public class SGDetFragment extends BaseLoadingFragment<SGDetPresenter> implement
                 latNoAdd.setVisibility(View.VISIBLE);
                 latHasAdd.setVisibility(View.GONE);
             } else {//有地址
-                if (TextUtils.isEmpty(address.consignee)){
+                if (TextUtils.isEmpty(address.consignee)) {
                     latNoAdd.setVisibility(View.VISIBLE);
                     latHasAdd.setVisibility(View.GONE);
-                }else {
+                } else {
                     latNoAdd.setVisibility(View.GONE);
                     latHasAdd.setVisibility(View.VISIBLE);
                     tvUserName.setText(address.consignee);
@@ -310,6 +310,7 @@ public class SGDetFragment extends BaseLoadingFragment<SGDetPresenter> implement
 
     @Override
     public void showOrderId(int orderId) {
-        ExSucActivity.start(getActivity(),orderId,type,0);
+        getActivity().finish();
+        ExSucActivity.start(getActivity(), orderId, type, 0, goodsId);
     }
 }
