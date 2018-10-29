@@ -24,6 +24,8 @@ import com.wta.NewCloudApp.mvp.ui.adapter.BSGOrderAdapter;
 public class BSGOrderFFragment extends BaseListFragment<BSGOrderFPresenter> implements BSGOrderFContract.View {
 
     private int status;
+    private boolean isViewCreated;
+    private boolean hasLoadData;
 
     public static BSGOrderFFragment newInstance(int status) {
         BSGOrderFFragment fragment = new BSGOrderFFragment();
@@ -52,6 +54,22 @@ public class BSGOrderFFragment extends BaseListFragment<BSGOrderFPresenter> impl
     public void initData(@Nullable Bundle savedInstanceState) {
         status = getArguments().getInt("status");
         super.initData(savedInstanceState);
+        if (!hasLoadData) loadData(isRefresh);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        isViewCreated = true;
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        //Timber.tag("Exaar").i(status + ",isVisibleToUser = " + getUserVisibleHint() + ",isViewCreated = " + isViewCreated);
+        if (isVisibleToUser && isViewCreated) {
+            isRefresh = true;
+            loadData(isRefresh);
+        }
+        super.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override
@@ -76,5 +94,10 @@ public class BSGOrderFFragment extends BaseListFragment<BSGOrderFPresenter> impl
         showToast("确认取货成功！");
         isRefresh = true;
         loadData(isRefresh);
+    }
+
+    @Override
+    protected boolean autoRequest() {
+        return false;
     }
 }

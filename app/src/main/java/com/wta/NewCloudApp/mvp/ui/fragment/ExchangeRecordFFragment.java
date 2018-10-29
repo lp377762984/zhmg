@@ -21,12 +21,16 @@ import com.wta.NewCloudApp.mvp.ui.activity.SGDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SideDetActivity;
 import com.wta.NewCloudApp.mvp.ui.adapter.ExchangeRecordAdapter;
 
+import timber.log.Timber;
+
 /**
  * 兑换记录
  */
 public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPresenter> implements ExchangeRecordFContract.View {
 
-    private int status;
+    private int status = -1;
+    private boolean isViewCreated;
+    private boolean hasLoadData;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -47,6 +51,23 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
     public void initData(@Nullable Bundle savedInstanceState) {
         status = getArguments().getInt("status");
         super.initData(savedInstanceState);
+        if (!hasLoadData) loadData(isRefresh);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        isViewCreated = true;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        //Timber.tag("Exaar").i(status + ",isVisibleToUser = " + getUserVisibleHint() + ",isViewCreated = " + isViewCreated);
+        if (isVisibleToUser && isViewCreated) {
+            isRefresh = true;
+            loadData(isRefresh);
+        }
+        super.setUserVisibleHint(isVisibleToUser);
     }
 
     public static ExchangeRecordFFragment getInstance(int status) {
@@ -64,7 +85,7 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ScoreGoods sg = (ScoreGoods) data.get(position);
-                ExRecDetActivity.start(getActivity(),sg.order_id,sg.type,sg.status);
+                ExRecDetActivity.start(getActivity(), sg.order_id, sg.type, sg.status);
             }
         });
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -92,13 +113,19 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
 
     @Override
     public void loadData(boolean isRefresh) {
+        hasLoadData = true;
         mPresenter.getExchangeRec(status, isRefresh);
     }
 
     @Override
     public void confirmSuccess(Result result) {
         showToast("确认收货成功");
-        isRefresh=true;
+        isRefresh = true;
         loadData(isRefresh);
+    }
+
+    @Override
+    protected boolean autoRequest() {
+        return false;
     }
 }
