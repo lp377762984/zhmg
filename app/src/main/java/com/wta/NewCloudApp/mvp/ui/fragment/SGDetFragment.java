@@ -207,7 +207,6 @@ public class SGDetFragment extends BaseLoadingFragment<SGDetPresenter> implement
         ((SGDetActivity) getActivity()).setUrl(sgDet.contents);
         //set banner_my_style
         this.sgDet = sgDet;
-        banner.releaseBanner();
         List<String> photos = sgDet.photos;
         if (photos == null || photos.size() == 0) {
             banner.setVisibility(View.GONE);

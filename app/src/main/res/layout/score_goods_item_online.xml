@@ -11,7 +11,10 @@
     android:elevation="5dp">
 
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
+        app:riv_oval="false"
+        android:scaleType="centerCrop"
+        app:riv_corner_radius="5dp"
         android:id="@+id/im_icon"
         android:layout_width="126dp"
         android:layout_height="126dp"

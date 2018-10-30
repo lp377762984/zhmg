@@ -229,6 +229,7 @@
         </RelativeLayout>
     </ScrollView>
     <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
+        app:backImg="@mipmap/back_with_bg"
         android:id="@+id/mb"
         android:layout_marginTop="24dp"
         android:layout_width="match_parent"

@@ -15,10 +15,11 @@
         <com.youth.banner.Banner
             app:banner_default_image="@mipmap/side_b_placeholder"
             app:banner_layout="@layout/banner_my_style"
+            app:indicator_drawable_selected="@drawable/pink_point"
+            app:indicator_drawable_unselected="@drawable/gray_point"
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="360dp"
-            android:background="@color/white" />
+            android:layout_height="360dp" />
 
         <LinearLayout
             android:layout_below="@id/banner"
