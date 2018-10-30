@@ -14,6 +14,7 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.http.imageloader.glide.GlideArms;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.wta.NewCloudApp.R;
+import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerMerchantInComponent;
 import com.wta.NewCloudApp.di.module.MerchantInModule;
 import com.wta.NewCloudApp.mvp.contract.MerchantInContract;
@@ -23,6 +24,7 @@ import com.wta.NewCloudApp.mvp.model.entity.User;
 import com.wta.NewCloudApp.mvp.presenter.MerchantInPresenter;
 import com.wta.NewCloudApp.mvp.ui.adapter.BenifitAdapter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
+import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 
@@ -90,6 +92,7 @@ public class MerchantInActivity extends BaseLoadingActivity<MerchantInPresenter>
 
     @Override
     public void getIsBindAlipay(int is_alipay, int card_status) {
+        AppConfig.getInstance().putInt(ConfigTag.IS_ALIPAY, is_alipay);
         if (card_status == 0) {
             DialogUtils.showAlertDialog(this, "需要实名认证才可以继续，是否实名认证？", new DetDialogCallback() {
                 @Override

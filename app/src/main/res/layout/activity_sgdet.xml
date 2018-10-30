@@ -63,7 +63,6 @@
         android:id="@+id/lat_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/style_color"
         android:fitsSystemWindows="true">
         <ImageView
             android:id="@+id/im_back"

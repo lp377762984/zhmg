@@ -74,7 +74,7 @@
                     android:textSize="20sp"
                     android:textColor="@color/style_color"
                     android:layout_centerHorizontal="true"
-                    android:text="2000积分"
+                    android:text="0积分"
                     android:id="@+id/tv_score"
                     android:layout_width="245dp"
                     android:layout_height="40dp" />

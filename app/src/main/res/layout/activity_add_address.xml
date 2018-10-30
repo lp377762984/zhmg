@@ -136,6 +136,7 @@
                 android:layout_height="wrap_content" />
             <com.wta.NewCloudApp.mvp.ui.widget.EditTextHint
                 android:hint="如道路、门牌号、小区、楼牌号、单元室"
+                android:maxLines="2"
                 android:lineSpacingMultiplier="1.2"
                 android:id="@+id/et_address"
                 android:background="@null"

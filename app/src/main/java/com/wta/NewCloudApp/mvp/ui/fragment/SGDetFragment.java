@@ -131,7 +131,7 @@ public class SGDetFragment extends BaseLoadingFragment<SGDetPresenter> implement
     public void initData(@Nullable Bundle savedInstanceState) {
         goodsId = getArguments().getInt("goods_id");
         type = getArguments().getInt("type");
-        calculateHeight();
+        //calculateHeight();
         numberBtn.setListener(this);
         mPresenter.getSGDet(type, goodsId);
     }

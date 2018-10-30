@@ -19,6 +19,6 @@
         android:gravity="center_vertical"
         android:text="添加新地址"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
 </FrameLayout>

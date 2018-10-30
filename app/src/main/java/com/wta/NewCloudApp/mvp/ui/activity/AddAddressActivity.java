@@ -156,11 +156,16 @@ public class AddAddressActivity extends BaseLoadingActivity<AddAddressPresenter>
                 })
 
                         .setTitleText("城市选择")
+                        .setTitleSize(16)
                         .setDividerColor(Color.GRAY)
-                        .setTextColorCenter(Color.GRAY) //设置选中项文字颜色
-                        .setContentTextSize(15)
+                        .setContentTextSize(16)
                         .setCancelText("取消")
+                        .setLineSpacingMultiplier(2.5f)
+                        .setCancelColor(getResources().getColor(R.color.style_color))
+                        .setSubmitColor(getResources().getColor(R.color.style_color))
+                        .setSubCalSize(15)
                         .setSubmitText("确定")
+                        .setTextXOffset(6,6,6)
                         .build();
                 pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
                 if (address != null) {
