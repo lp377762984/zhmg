@@ -22,7 +22,6 @@ import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.di.component.DaggerSideDetComponent;
 import com.wta.NewCloudApp.di.module.SideDetModule;
 import com.wta.NewCloudApp.mvp.contract.SideDetContract;
-import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.BusinessNew;
 import com.wta.NewCloudApp.mvp.model.entity.PictureC;
 import com.wta.NewCloudApp.mvp.presenter.SideDetPresenter;
@@ -84,8 +83,6 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        int isGift = getIntent().getIntExtra("is_gift", 0);
-        latGifts.setVisibility(isGift ==0? View.GONE : View.VISIBLE);
         mPresenter.getStoreDet(getIntent().getIntExtra("store_id", 0));
         initRecyclerView();
     }
@@ -108,10 +105,9 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
         return UIMODE_TRANSPARENT_NOTALL;
     }
 
-    public static void startDet(Activity activity, int storeID, int isGift) {
+    public static void startDet(Activity activity, int storeID) {
         Intent intent = new Intent(activity, SideDetActivity.class);
         intent.putExtra("store_id", storeID);
-        intent.putExtra("is_gift", isGift);
         activity.startActivity(intent);
     }
 
@@ -151,6 +147,7 @@ public class SideDetActivity extends BaseLoadingActivity<SideDetPresenter> imple
     @Override
     public void showStoreDet(BusinessNew business) {
         this.business = business;
+        latGifts.setVisibility(business.is_gift == 0 ? View.GONE : View.VISIBLE);
         GlideArms.with(this).load(business.shop_doorhead).placeholder(R.mipmap.side_b_placeholder).into(imHead);
         tvName.setText(business.shop_name);
         GlideArms.with(this).load(business.level_img).into(imClass);

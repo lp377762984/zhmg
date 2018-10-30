@@ -218,6 +218,13 @@ public class ScoreShopActivity extends BaseLoadingActivity<ScoreShopPresenter> i
                         HomeBanner homeBanner = banners.get(position);
                         if (homeBanner.type == 1) {
                             WebViewActivity.start(ScoreShopActivity.this, "活动详情", homeBanner.jump_url);
+                        } else if (homeBanner.type == 2) {
+                            int jumpType = homeBanner.jump_type;//1 店铺 2礼品
+                            if (jumpType == 2) {
+                                SGDetActivity.start(ScoreShopActivity.this, Integer.parseInt(homeBanner.jump_url), Integer.parseInt(homeBanner.parameter));
+                            } else if (jumpType == 1) {
+                                SideDetActivity.startDet(ScoreShopActivity.this, Integer.parseInt(homeBanner.jump_url));
+                            }
                         }
                     }
                 });

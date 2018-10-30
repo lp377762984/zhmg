@@ -101,10 +101,10 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
                         }
                         break;
                     case R.id.tv_store_name:
-                        SideDetActivity.startDet(getActivity(), scoreGoods.store_id, 1);
+                        SideDetActivity.startDet(getActivity(), scoreGoods.store_id);
                         break;
                     case R.id.im_store_logo:
-                        SideDetActivity.startDet(getActivity(), scoreGoods.store_id, 1);
+                        SideDetActivity.startDet(getActivity(), scoreGoods.store_id);
                         break;
                 }
             }

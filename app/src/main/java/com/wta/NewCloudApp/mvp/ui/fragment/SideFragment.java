@@ -73,7 +73,7 @@ public class SideFragment extends BaseListFragment<SidePresenter> implements Sid
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Business business = (Business) data.get(position);
-                SideDetActivity.startDet(getActivity(), business.store_id, business.is_gift);
+                SideDetActivity.startDet(getActivity(), business.store_id);
             }
         });
     }

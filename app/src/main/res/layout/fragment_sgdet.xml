@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <com.youth.banner.Banner
+            app:banner_default_image="@mipmap/side_b_placeholder"
             app:banner_layout="@layout/banner_my_style"
             android:id="@+id/banner"
             android:layout_width="match_parent"

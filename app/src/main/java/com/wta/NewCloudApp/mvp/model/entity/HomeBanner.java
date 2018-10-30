@@ -10,4 +10,14 @@ public class HomeBanner {
     public String img_url;
     public String jump_url;
     public int type;
+
+    /**
+     * banner_id : 3
+     * jump_type : 0
+     * parameter : 0
+     */
+
+    public int banner_id;
+    public int jump_type;
+    public String parameter;
 }

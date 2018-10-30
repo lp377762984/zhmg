@@ -45,9 +45,11 @@ import com.wta.NewCloudApp.mvp.ui.activity.MerchantAuthActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInfoActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.RScoreDetActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.SGDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.ScoreListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.ScoreShopActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SettingActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.SideDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.SweepActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.UScoreDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.WebViewActivity;
@@ -181,6 +183,13 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 HomeBanner homeBanner = imgs.get(position);
                 if (homeBanner.type == 1) {
                     WebViewActivity.start(getActivity(), "活动详情", homeBanner.jump_url);
+                } else if (homeBanner.type == 2) {
+                    int jumpType = homeBanner.jump_type;//1 店铺 2礼品
+                    if (jumpType == 2) {
+                        SGDetActivity.start(getActivity(), Integer.parseInt(homeBanner.jump_url), Integer.parseInt(homeBanner.parameter));
+                    } else if (jumpType == 1) {
+                        SideDetActivity.startDet(getActivity(), Integer.parseInt(homeBanner.jump_url));
+                    }
                 }
             }
         });
@@ -274,7 +283,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         }
     }
 
-    @OnClick({R.id.im_sweep, R.id.im_bus_code, R.id.im_business, R.id.im_score_shop,R.id.lat_head})
+    @OnClick({R.id.im_sweep, R.id.im_bus_code, R.id.im_business, R.id.im_score_shop, R.id.lat_head})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_sweep:

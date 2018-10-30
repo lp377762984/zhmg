@@ -115,13 +115,13 @@ public class ExRecDetActivity extends BaseLoadingActivity<ExRecDetPresenter> imp
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_b_logo:
-                SideDetActivity.startDet(this, sgDet.store_id, 1);
+                SideDetActivity.startDet(this, sgDet.store_id);
                 break;
             case R.id.tv_b_name:
-                SideDetActivity.startDet(this, sgDet.store_id, 1);
+                SideDetActivity.startDet(this, sgDet.store_id);
                 break;
             case R.id.tv_b_loc:
-                SideDetActivity.startDet(this, sgDet.store_id, 1);
+                SideDetActivity.startDet(this, sgDet.store_id);
                 break;
             case R.id.btn_btm:
                 if (status == 0) {//待收货

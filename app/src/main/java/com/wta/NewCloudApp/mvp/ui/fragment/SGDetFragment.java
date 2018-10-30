@@ -179,10 +179,10 @@ public class SGDetFragment extends BaseLoadingFragment<SGDetPresenter> implement
                 StoreGoodsListActivity.start(getActivity(), sgDet.shop_id);
                 break;
             case R.id.im_b_logo:
-                SideDetActivity.startDet(getActivity(), sgDet.shop_id, 1);
+                SideDetActivity.startDet(getActivity(), sgDet.shop_id);
                 break;
             case R.id.tv_b_name:
-                SideDetActivity.startDet(getActivity(), sgDet.shop_id, 1);
+                SideDetActivity.startDet(getActivity(), sgDet.shop_id);
                 break;
         }
     }
