@@ -150,8 +150,10 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
                 .doOnNext(new Consumer<InputStream>() {
                     @Override
                     public void accept(InputStream inputStream) throws Exception {
-                        File file = new File(Environment.getExternalStorageDirectory() + "/temp/zhmg.apk");
-                        FileUtils.writeToFile(inputStream, file);
+                        File parentFile = new File(Environment.getExternalStorageDirectory() + "/temp");
+                        if (!parentFile.exists()) parentFile.mkdirs();
+                        File targetFile = new File(parentFile, "zhmg.apk");
+                        FileUtils.writeToFile(inputStream, targetFile);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())

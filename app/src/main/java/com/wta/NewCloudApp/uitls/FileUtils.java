@@ -70,9 +70,6 @@ public class FileUtils {
     }
 
     public static void writeToFile(InputStream inputStream, File file) {
-        if (file.exists()) {
-            file.delete();
-        }
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(file);
