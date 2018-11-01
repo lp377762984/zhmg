@@ -28,7 +28,7 @@ import timber.log.Timber;
  */
 public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPresenter> implements ExchangeRecordFContract.View {
 
-    private int status = -1;
+    private int status = -3;
     private boolean isViewCreated;
     private boolean hasLoadData;
 
@@ -51,7 +51,10 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
     public void initData(@Nullable Bundle savedInstanceState) {
         status = getArguments().getInt("status");
         super.initData(savedInstanceState);
-        if (!hasLoadData) loadData(isRefresh);
+        if (!hasLoadData && getUserVisibleHint()) {
+            loadData(isRefresh);
+           // Timber.tag("OnlyMeKnown").i(status+" is loading data on create");
+        }
     }
 
     @Override
@@ -61,13 +64,22 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
     }
 
     @Override
+    public void loadData(boolean isRefresh) {
+        //Timber.tag("OnlyMeKnown").i(status+" is loading data, isViewCreated "+isViewCreated+", getVisible "+getUserVisibleHint());
+        hasLoadData = true;
+        mPresenter.getExchangeRec(status, isRefresh);
+    }
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        //Timber.tag("Exaar").i(status + ",isVisibleToUser = " + getUserVisibleHint() + ",isViewCreated = " + isViewCreated);
+        super.setUserVisibleHint(isVisibleToUser);
+        //Timber.tag("OnlyMeKnown").i(status + ",isVisibleToUser = " + isVisibleToUser /*+ ",isViewCreated = " + isViewCreated*/);
         if (isVisibleToUser && isViewCreated) {
+            //Timber.tag("OnlyMeKnown").i(status+" is loading data on setUserVisibleHint");
             isRefresh = true;
             loadData(isRefresh);
         }
-        super.setUserVisibleHint(isVisibleToUser);
+
     }
 
     public static ExchangeRecordFFragment getInstance(int status) {
@@ -109,12 +121,6 @@ public class ExchangeRecordFFragment extends BaseListFragment<ExchangeRecordFPre
                 }
             }
         });
-    }
-
-    @Override
-    public void loadData(boolean isRefresh) {
-        hasLoadData = true;
-        mPresenter.getExchangeRec(status, isRefresh);
     }
 
     @Override

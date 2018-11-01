@@ -54,7 +54,7 @@ public class BSGOrderFFragment extends BaseListFragment<BSGOrderFPresenter> impl
     public void initData(@Nullable Bundle savedInstanceState) {
         status = getArguments().getInt("status");
         super.initData(savedInstanceState);
-        if (!hasLoadData) loadData(isRefresh);
+        if (!hasLoadData && getUserVisibleHint()) loadData(isRefresh);
     }
 
     @Override
@@ -62,14 +62,14 @@ public class BSGOrderFFragment extends BaseListFragment<BSGOrderFPresenter> impl
         super.onViewCreated(view, savedInstanceState);
         isViewCreated = true;
     }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        //Timber.tag("Exaar").i(status + ",isVisibleToUser = " + getUserVisibleHint() + ",isViewCreated = " + isViewCreated);
+        super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isViewCreated) {
             isRefresh = true;
             loadData(isRefresh);
         }
-        super.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override

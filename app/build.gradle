@@ -42,19 +42,6 @@ android {
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug2 {
-            debuggable true
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-            buildConfigField "boolean", "USE_CANARY", "false"
-            buildConfigField "boolean", "CRASH", "true"
-            buildConfigField "String", "APP_DOMAIN", "\"http://zhmg.jjzbest.com\""
-            applicationIdSuffix ".zhmg.debug"
-            resValue "string", "app_name", "zhmg测试版"
-            minifyEnabled false
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
         release {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "false"
@@ -128,7 +115,6 @@ dependencies {
     androidTestImplementation rootProject.ext.dependencies["espresso-core"]
     //canary
     debugImplementation rootProject.ext.dependencies["canary-debug"]
-    debug2Implementation rootProject.ext.dependencies["canary-debug"]
     releaseImplementation rootProject.ext.dependencies["canary-release"]
     testImplementation rootProject.ext.dependencies["canary-release"]
 
