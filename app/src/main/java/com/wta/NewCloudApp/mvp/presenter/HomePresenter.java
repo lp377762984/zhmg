@@ -205,7 +205,8 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
             public void onClick(DialogInterface dialog, int which) {
                 AppConfig.getInstance().putString(ConfigTag.SERVER_URL, items[position]);
                 dialog.dismiss();
-                ArmsUtils.obtainAppComponentFromContext(mRootView.getMActivity()).appManager().appExit();
+                //手动退出app
+                //ArmsUtils.obtainAppComponentFromContext(mRootView.getMActivity()).appManager().appExit();
             }
         });
         builder.create().show();
