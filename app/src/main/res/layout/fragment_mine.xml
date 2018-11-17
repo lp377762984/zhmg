@@ -135,8 +135,144 @@
                         app:layout_constraintEnd_toEndOf="@+id/tv_score_str"
                         app:layout_constraintStart_toStartOf="@+id/tv_score_str" />
                 </android.support.constraint.ConstraintLayout>
+                <!--卖钛喽-->
+                <LinearLayout
+                    android:id="@+id/lat_00"
+                    android:elevation="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/merchant_in_head_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lat_msg_main"
+                    android:orientation="vertical">
+                    <!--我的订单-->
+                    <RelativeLayout
+                        android:id="@+id/lat_extra_record"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:paddingLeft="13dp"
+                        android:paddingRight="15dp">
 
+                        <ImageView
+                            android:id="@+id/im_20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_extra_record" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/im_20"
+                            android:text="我的订单"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/line" />
+                    </RelativeLayout>
+                    <!--现金收益明细-->
+                    <RelativeLayout
+                        android:id="@+id/lat_extra_cash"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:paddingLeft="13dp"
+                        android:paddingRight="15dp">
+
+                        <ImageView
+                            android:id="@+id/im_21"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_rec_cash" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/im_21"
+                            android:text="现金收益明细"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/line" />
+                    </RelativeLayout>
+                    <!--绑定支付宝-->
+                    <RelativeLayout
+                        android:id="@+id/lat_extra_bind"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:paddingLeft="13dp"
+                        android:paddingRight="15dp">
+
+                        <ImageView
+                            android:id="@+id/im_22"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/mine_ali" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/im_22"
+                            android:text="绑定支付宝"
+                            android:textColor="@color/text_color2"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/im_00"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/go" />
+
+                        <TextView
+                            android:id="@+id/tv_extra_bind"
+                            android:text="未绑定"
+                            android:textColor="@color/text_color2"
+                            android:layout_marginRight="15dp"
+                            android:layout_toLeftOf="@id/im_00"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/line" />
+                    </RelativeLayout>
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lat_01"
                     android:elevation="5dp"
@@ -146,7 +282,7 @@
                     android:background="@drawable/merchant_in_head_bg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/lat_msg_main"
+                    android:layout_below="@id/lat_00"
                     android:orientation="vertical">
                     <!--积分明细-->
                     <RelativeLayout
@@ -390,7 +526,7 @@
                             android:layout_alignParentBottom="true"
                             android:background="@color/line_wider" />
                     </RelativeLayout>
-                    <!--我的分享-->
+                    <!--邀请伙伴-->
                     <RelativeLayout
                         android:id="@+id/lat_share"
                         android:layout_width="match_parent"

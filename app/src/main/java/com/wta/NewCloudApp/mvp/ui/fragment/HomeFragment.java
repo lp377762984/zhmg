@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,8 +26,14 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 import com.wta.NewCloudApp.BuildConfig;
 import com.wta.NewCloudApp.R;
+import com.wta.NewCloudApp.config.App;
 import com.wta.NewCloudApp.di.component.DaggerHomeComponent;
 import com.wta.NewCloudApp.di.module.HomeModule;
 import com.wta.NewCloudApp.mvp.contract.HomeContract;
@@ -34,6 +41,7 @@ import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
+import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.Update;
 import com.wta.NewCloudApp.mvp.presenter.HomePresenter;
 import com.wta.NewCloudApp.mvp.ui.activity.BQRActivity;
@@ -76,7 +84,7 @@ import io.reactivex.functions.Consumer;
 import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 
-public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements HomeContract.View {
+public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements HomeContract.View,View.OnClickListener {
 
     @BindView(R.id.im_sweep)
     ImageView imSweep;
@@ -99,6 +107,8 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     private Dialog updateDialog;
     private ProgressDialog progressDialog;
 
+    private BottomSheetDialog dialog;
+    private Share share;
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
         DaggerHomeComponent //如找不到该类,请编译一下项目
@@ -184,11 +194,21 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 if (homeBanner.type == 1) {
                     WebViewActivity.start(getActivity(), "活动详情", homeBanner.jump_url);
                 } else if (homeBanner.type == 2) {
-                    int jumpType = homeBanner.jump_type;//1 店铺 2礼品
+                    int jumpType = homeBanner.jump_type;//1 店铺 2礼品 3分享
                     if (jumpType == 2) {
                         SGDetActivity.start(getActivity(), Integer.parseInt(homeBanner.jump_url), Integer.parseInt(homeBanner.parameter));
                     } else if (jumpType == 1) {
                         SideDetActivity.startDet(getActivity(), Integer.parseInt(homeBanner.jump_url));
+                    } else if (jumpType == 3) {
+                        // TODO: 2018/11/17
+//                        UMWeb web = new UMWeb(share.share_url);//url
+//                        web.setTitle(share.share_title);//标题
+//                        web.setThumb(new UMImage(getActivity(), share.share_img));  //缩略图
+//                        web.setDescription(share.share_desc);//描述
+                        share=new Share();
+                        share.share_url=homeBanner.jump_url;
+                        share.share_img =homeBanner.img_url;
+                        showDialog();
                     }
                 }
             }
@@ -284,7 +304,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     }
 
     @OnClick({R.id.im_sweep, R.id.im_bus_code, R.id.im_business, R.id.im_score_shop, R.id.lat_head})
-    public void onClick(View view) {
+    public void onClickView(View view) {
         switch (view.getId()) {
             case R.id.im_sweep:
                 ArmsUtils.startActivity(SweepActivity.class);
@@ -298,13 +318,75 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 mPresenter.getStoreState();
                 break;
             case R.id.im_score_shop:
-                //WebViewActivity.start(getActivity(), "商家活动", FinalUtils.HOME_DESC);
                 ArmsUtils.startActivity(ScoreShopActivity.class);
                 break;
             case R.id.lat_head:
                 mPresenter.switchServer();
                 break;
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (share==null) return;
+        if (dialog != null && dialog.isShowing()) dialog.dismiss();
+        UMWeb web = new UMWeb(share.share_url);//url
+        web.setTitle("没有标题");//标题
+        web.setThumb(new UMImage(getActivity(), share.share_img));  //缩略图
+        web.setDescription("没有描述");//描述
+
+        switch (v.getId()) {
+            case R.id.tv_wx:
+                if (!UMShareAPI.get(getActivity()).isInstall(getActivity(), SHARE_MEDIA.WEIXIN)) {
+                    ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
+                    return;
+                }
+                new ShareAction(getActivity()).setPlatform(SHARE_MEDIA.WEIXIN)
+                        .setCallback(new MineFragment.ShareListener())
+                        .withMedia(web).share();
+                break;
+            case R.id.tv_wx_friends:
+                if (!UMShareAPI.get(getActivity()).isInstall(getActivity(), SHARE_MEDIA.WEIXIN)) {
+                    ArmsUtils.makeText(App.getInstance(), "您没有安装微信");
+                    return;
+                }
+                new ShareAction(getActivity()).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
+                        .setCallback(new MineFragment.ShareListener())
+                        .withMedia(web).share();
+                break;
+            case R.id.tv_qq:
+                if (!UMShareAPI.get(getActivity()).isInstall(getActivity(), SHARE_MEDIA.QQ)) {
+                    ArmsUtils.makeText(App.getInstance(), "您没有安装QQ");
+                    return;
+                }
+                new ShareAction(getActivity()).setPlatform(SHARE_MEDIA.QQ)
+                        .setCallback(new MineFragment.ShareListener())
+                        .withMedia(web).share();
+                break;
+            case R.id.tv_qq_zone:
+                if (!UMShareAPI.get(getActivity()).isInstall(getActivity(), SHARE_MEDIA.QQ)) {
+                    ArmsUtils.makeText(App.getInstance(), "您没有安装QQ");
+                    return;
+                }
+                new ShareAction(getActivity()).setPlatform(SHARE_MEDIA.QZONE)
+                        .setCallback(new MineFragment.ShareListener())
+                        .withMedia(web).share();
+                break;
+            case R.id.tv_cancel:
+                break;
+        }
+    }
+    private void showDialog(){
+        if (dialog == null) {
+            dialog = new BottomSheetDialog(getActivity());
+            dialog.setContentView(R.layout.share_dialog);
+            dialog.findViewById(R.id.tv_wx).setOnClickListener(this);
+            dialog.findViewById(R.id.tv_wx_friends).setOnClickListener(this);
+            dialog.findViewById(R.id.tv_qq).setOnClickListener(this);
+            dialog.findViewById(R.id.tv_qq_zone).setOnClickListener(this);
+            dialog.findViewById(R.id.tv_cancel).setOnClickListener(this);
+        }
+        dialog.show();
     }
 
     public void exitAndRefreshData() {

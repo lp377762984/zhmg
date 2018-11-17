@@ -1,5 +1,7 @@
 package com.wta.NewCloudApp.mvp.contract;
 
+import android.app.Activity;
+
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.Share;
 import com.wta.NewCloudApp.mvp.model.entity.User;
@@ -11,5 +13,9 @@ public interface MineContract {
     interface View extends BaseDataView {
         void share(Result<Share> result);
         void showUser(Result<User> result);
+
+        Activity getActivityCet();
+
+        void bindAliSuccess();
     }
 }

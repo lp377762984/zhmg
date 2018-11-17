@@ -13,11 +13,13 @@ import com.wta.NewCloudApp.mvp.model.entity.BillType;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.BusinessNew;
 import com.wta.NewCloudApp.mvp.model.entity.ErrorBusiness;
+import com.wta.NewCloudApp.mvp.model.entity.Goods2;
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
 import com.wta.NewCloudApp.mvp.model.entity.LoginEntity;
 import com.wta.NewCloudApp.mvp.model.entity.Msg;
 import com.wta.NewCloudApp.mvp.model.entity.PayInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Payback;
+import com.wta.NewCloudApp.mvp.model.entity.Red;
 import com.wta.NewCloudApp.mvp.model.entity.Result;
 import com.wta.NewCloudApp.mvp.model.entity.SG2;
 import com.wta.NewCloudApp.mvp.model.entity.SGDet;
@@ -280,22 +282,40 @@ public interface HttpServices {
 
     @GET("/myGift")
     Observable<Result<List<ScoreGoods>>> getSGListSelf(@Query("page") int index);
+
     @GET("/exchangeRecord")
-    Observable<Result<List<ScoreGoods>>> getExchangeRec(@Query("status")int status, @Query("page")int index);
+    Observable<Result<List<ScoreGoods>>> getExchangeRec(@Query("status") int status, @Query("page") int index);
+
     @GET("/exchangeType")
     Observable<Result<List<BType>>> getSearchTypeList();
+
     @GET("/exchangeBanner")
     Observable<Result<List<HomeBanner>>> getSGBanner();
+
     @GET("/exchangeDetails")
-    Observable<Result<SGDet>> getSGDet(@Query("type") int type,@Query("goods_id") int goodsId);
+    Observable<Result<SGDet>> getSGDet(@Query("type") int type, @Query("goods_id") int goodsId);
+
     @GET("/exchange")
-    Observable<Result<SGOrder>> exchange(@Query("type")int type, @Query("goods_id")int goodsId, @Query("num")int currentNum, @Query("address_id")int addressId);
+    Observable<Result<SGOrder>> exchange(@Query("type") int type, @Query("goods_id") int goodsId, @Query("num") int currentNum, @Query("address_id") int addressId);
+
     @GET("/determined")
-    Observable<Result> sureGetGift(@Query("order_id")int orderId);
+    Observable<Result> sureGetGift(@Query("order_id") int orderId);
+
     @GET("/recordDetails")
-    Observable<Result<SGDet>> getExRecDet(@Query("order_id")int orderId);
+    Observable<Result<SGDet>> getExRecDet(@Query("order_id") int orderId);
+
     @GET("/giftOrder")
-    Observable<Result<List<SGDet>>> getBSGOrder(@Query("status")int status,@Query("page")int index);
+    Observable<Result<List<SGDet>>> getBSGOrder(@Query("status") int status, @Query("page") int index);
+
     @GET("/determined")
-    Observable<Result> confirmGetGoods(@Query("order_id")int orderId);
+    Observable<Result> confirmGetGoods(@Query("order_id") int orderId);
+
+    @GET("/Activity/profit")
+    Observable<Result<List<Red>>> getRedList(@Query("page") int index);
+
+    @GET("/Activity/myOrder")
+    Observable<Result<List<Goods2>>> getExtraRecordList(@Query("express_status") int status, @Query("page") int index);
+
+    @GET("/Activity/determined")
+    Observable<Result> sureGetGoods(@Query("acid") int orderId);
 }

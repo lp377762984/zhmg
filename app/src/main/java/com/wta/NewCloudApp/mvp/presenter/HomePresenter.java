@@ -218,4 +218,5 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
     protected boolean isActivity() {
         return false;
     }
+
 }

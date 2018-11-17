@@ -1,5 +1,6 @@
 package com.wta.NewCloudApp.mvp.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -38,6 +39,8 @@ import com.wta.NewCloudApp.mvp.presenter.MinePresenter;
 import com.wta.NewCloudApp.mvp.ui.activity.AboutUsActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.AddressListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.CardListActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.ExtraRecordActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.GetListActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.GroupActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.LoginActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MsgActivity;
@@ -68,6 +71,8 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
     TextView tvClass;
     @BindView(R.id.tv_score)
     TextView tvScore;
+    @BindView(R.id.tv_extra_bind)
+    TextView tvExtraBind;
     @BindView(R.id.lat_record)
     RelativeLayout latRecord;
     @BindView(R.id.lat_card)
@@ -82,6 +87,14 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
     RelativeLayout latAboutUs;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
+
+    @BindView(R.id.lat_extra_record)
+    RelativeLayout latExtraRecord;
+    @BindView(R.id.lat_extra_cash)
+    RelativeLayout latExtraCash;
+    @BindView(R.id.lat_extra_bind)
+    RelativeLayout latExtraBind;
+
     private BottomSheetDialog dialog;
     private Share share;
 
@@ -140,10 +153,18 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
         } catch (Exception e) {
             tvScore.setText("");
         }
+        if (AppConfig.getInstance().getInt(ConfigTag.IS_ALIPAY, 0) == 0) {
+            tvExtraBind.setText("未绑定");
+            latExtraBind.setEnabled(true);
+        } else {
+            tvExtraBind.setText("已绑定");
+            latExtraBind.setEnabled(false);
+        }
     }
 
     @OnClick({R.id.lat_user, R.id.im_setting, R.id.lat_record, R.id.lat_card, R.id.lat_bill,
-            R.id.lat_group, R.id.lat_share, R.id.lat_location, R.id.lat_about_us, R.id.lat_msg})
+            R.id.lat_group, R.id.lat_share, R.id.lat_location, R.id.lat_about_us, R.id.lat_msg,
+            R.id.lat_extra_record, R.id.lat_extra_cash, R.id.lat_extra_bind})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lat_user:
@@ -193,6 +214,18 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
                     ArmsUtils.startActivity(LoginActivity.class);
                 else
                     ArmsUtils.startActivity(ScoreListActivity.class);
+                break;
+            case R.id.lat_extra_record:
+                ArmsUtils.startActivity(ExtraRecordActivity.class);
+                break;
+            case R.id.lat_extra_cash:
+                ArmsUtils.startActivity(GetListActivity.class);
+                break;
+            case R.id.lat_extra_bind:
+                if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false))
+                    ArmsUtils.startActivity(LoginActivity.class);
+                else
+                    mPresenter.getAlipayAuthInfo();
                 break;
         }
     }
@@ -266,6 +299,18 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
     public void showUser(Result<User> result) {
         AppConfig.getInstance().putUser(result.data);
         showUserMsg();
+    }
+
+    @Override
+    public Activity getActivityCet() {
+        return getActivity();
+    }
+
+    @Override
+    public void bindAliSuccess() {
+        AppConfig.getInstance().putInt("is_alipay", 1);
+        tvExtraBind.setText("已绑定");
+        latExtraBind.setEnabled(false);
     }
 
     @Override

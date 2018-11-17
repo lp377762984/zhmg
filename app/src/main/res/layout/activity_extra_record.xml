@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.wta.NewCloudApp.mvp.ui.widget.MoneyBar
+        app:needLine="true"
+        app:backImg="@mipmap/login_back"
+        app:barBg="@color/white"
+        app:textTitle="我的订单"
+        app:titleColor="#333"
+        style="@style/MoneyBar"/>
+    <com.flyco.tablayout.SlidingTabLayout
+        android:background="@color/white"
+        android:id="@+id/tabLayout"
+        app:tl_indicator_width="80dp"
+        app:tl_indicator_color="@color/style_color"
+        app:tl_indicator_height="2dp"
+        app:tl_tab_space_equal="true"
+        app:tl_textUnselectColor="#333"
+        app:tl_textSelectColor="@color/style_color"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

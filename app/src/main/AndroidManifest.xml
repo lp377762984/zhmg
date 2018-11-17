@@ -244,7 +244,9 @@
         <activity android:name=".mvp.ui.activity.SGDetActivity" />
         <activity android:name=".mvp.ui.activity.ExSucActivity" />
         <activity android:name=".mvp.ui.activity.ExRecDetActivity" />
-        <activity android:name=".mvp.ui.activity.BSGOrderActivity"></activity>
+        <activity android:name=".mvp.ui.activity.BSGOrderActivity" />
+        <activity android:name=".mvp.ui.activity.ExtraRecordActivity" />
+        <activity android:name=".mvp.ui.activity.GetListActivity"></activity>
     </application>
 
 </manifest>
