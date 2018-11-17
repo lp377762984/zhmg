@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.jess.arms.mvp.IModel;
 import com.jess.arms.mvp.IView;
+import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
@@ -34,6 +35,8 @@ public interface HomeContract {
         void updateProgress(int progress);
 
         Activity getMActivity();
+
+        void bindAliSuccess();
     }
 
     interface Model extends IModel {
@@ -44,5 +47,9 @@ public interface HomeContract {
         Observable<Result<Update>> checkUpdate(String packageVersion);
 
         Observable<ResponseBody> downloadApp(String url);
+
+        Observable<Result<AliInfo>> getAlipayAuthInfo();
+
+        Observable<Result<AliInfo>> bindAlipay(String openID, String alipay);
     }
 }

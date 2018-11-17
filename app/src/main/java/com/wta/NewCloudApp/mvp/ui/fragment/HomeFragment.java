@@ -34,6 +34,7 @@ import com.umeng.socialize.media.UMWeb;
 import com.wta.NewCloudApp.BuildConfig;
 import com.wta.NewCloudApp.R;
 import com.wta.NewCloudApp.config.App;
+import com.wta.NewCloudApp.config.AppConfig;
 import com.wta.NewCloudApp.di.component.DaggerHomeComponent;
 import com.wta.NewCloudApp.di.module.HomeModule;
 import com.wta.NewCloudApp.mvp.contract.HomeContract;
@@ -49,6 +50,7 @@ import com.wta.NewCloudApp.mvp.ui.activity.BScoreDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.BServiceActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.CashDetActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.CashGetMActivity;
+import com.wta.NewCloudApp.mvp.ui.activity.LoginActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantAuthActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInActivity;
 import com.wta.NewCloudApp.mvp.ui.activity.MerchantInfoActivity;
@@ -65,6 +67,7 @@ import com.wta.NewCloudApp.mvp.ui.adapter.HomeListAdapter;
 import com.wta.NewCloudApp.mvp.ui.listener.DetDialogCallback;
 import com.wta.NewCloudApp.mvp.ui.widget.PJImageLoader;
 import com.wta.NewCloudApp.mvp.ui.widget.RoundImageLoader;
+import com.wta.NewCloudApp.uitls.ConfigTag;
 import com.wta.NewCloudApp.uitls.DialogUtils;
 import com.wta.NewCloudApp.uitls.FinalUtils;
 import com.wta.NewCloudApp.uitls.InstallUtil;
@@ -84,7 +87,7 @@ import io.reactivex.functions.Consumer;
 import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 
-public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements HomeContract.View,View.OnClickListener {
+public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements HomeContract.View, View.OnClickListener {
 
     @BindView(R.id.im_sweep)
     ImageView imSweep;
@@ -109,6 +112,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
 
     private BottomSheetDialog dialog;
     private Share share;
+
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
         DaggerHomeComponent //如找不到该类,请编译一下项目
@@ -205,10 +209,31 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
 //                        web.setTitle(share.share_title);//标题
 //                        web.setThumb(new UMImage(getActivity(), share.share_img));  //缩略图
 //                        web.setDescription(share.share_desc);//描述
-                        share=new Share();
-                        share.share_url=homeBanner.jump_url;
-                        share.share_img =homeBanner.img_url;
-                        showDialog();
+                        if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false)) {
+                            ArmsUtils.startActivity(LoginActivity.class);
+                        } else {
+                            if (AppConfig.getInstance().getInt(ConfigTag.IS_ALIPAY, 0) == 0) {
+                                DialogUtils.showAlertDialog(getActivity(),"是否绑定支付宝，获取收益？",new DetDialogCallback(){
+                                    @Override
+                                    public void handleRight(Dialog dialog) {
+                                        mPresenter.getAlipayAuthInfo();
+                                    }
+
+                                    @Override
+                                    public void handleLeft(Dialog dialog) {
+                                        share = new Share();
+                                        share.share_url = homeBanner.jump_url;
+                                        share.share_img = homeBanner.img_url;
+                                        showDialog();
+                                    }
+                                });
+                            } else {
+                                share = new Share();
+                                share.share_url = homeBanner.jump_url;
+                                share.share_img = homeBanner.img_url;
+                                showDialog();
+                            }
+                        }
                     }
                 }
             }
@@ -328,7 +353,7 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
 
     @Override
     public void onClick(View v) {
-        if (share==null) return;
+        if (share == null) return;
         if (dialog != null && dialog.isShowing()) dialog.dismiss();
         UMWeb web = new UMWeb(share.share_url);//url
         web.setTitle("没有标题");//标题
@@ -376,7 +401,8 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                 break;
         }
     }
-    private void showDialog(){
+
+    private void showDialog() {
         if (dialog == null) {
             dialog = new BottomSheetDialog(getActivity());
             dialog.setContentView(R.layout.share_dialog);
@@ -448,6 +474,11 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         }
         InstallUtil mInstallUtil = new InstallUtil(getActivity(), file);
         mInstallUtil.install();
+    }
+
+    @Override
+    public void bindAliSuccess() {
+        AppConfig.getInstance().putInt(ConfigTag.IS_ALIPAY, 1);
     }
 
 }

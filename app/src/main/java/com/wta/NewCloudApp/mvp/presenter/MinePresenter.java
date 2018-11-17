@@ -57,7 +57,7 @@ public class MinePresenter extends BBasePresenter<UserModel, MineContract.View> 
     }
 
     private void uploadOpenId(String openID) {
-        doRequest(buildRequest(mModel.bindAlipay(openID,"alipay")), 4);
+        doRequest(buildRequest(mModel.bindAlipay(openID, "alipay")), 5);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class MinePresenter extends BBasePresenter<UserModel, MineContract.View> 
             mRootView.showUser((Result<User>) result);
         } else if (what == 2) {
             getAlipayClient(((AliInfo) result.data).info);
-        } else  if (what==4){
+        } else if (what == 5) {
             mRootView.bindAliSuccess();
         }
     }
@@ -82,7 +82,7 @@ public class MinePresenter extends BBasePresenter<UserModel, MineContract.View> 
         if ("9000".equals(resultStatus)) {
             String result = k1.get("result");
             handleResults(result);
-        } else if ("6001".equals(resultStatus)){
+        } else if ("6001".equals(resultStatus)) {
             showToast("支付宝绑定已取消");
         } else {
             showToast("支付宝授权失败，code:" + resultStatus);

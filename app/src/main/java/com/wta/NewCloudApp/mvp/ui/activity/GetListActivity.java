@@ -37,7 +37,7 @@ public class GetListActivity extends BaseListActivity<GetListPresenter> implemen
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        super.initData(savedInstanceState);
     }
 
     @Override

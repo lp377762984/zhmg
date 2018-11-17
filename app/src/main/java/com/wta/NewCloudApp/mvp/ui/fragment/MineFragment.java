@@ -308,7 +308,7 @@ public class MineFragment extends BaseLoadingFragment<MinePresenter> implements 
 
     @Override
     public void bindAliSuccess() {
-        AppConfig.getInstance().putInt("is_alipay", 1);
+        AppConfig.getInstance().putInt(ConfigTag.IS_ALIPAY, 1);
         tvExtraBind.setText("已绑定");
         latExtraBind.setEnabled(false);
     }
