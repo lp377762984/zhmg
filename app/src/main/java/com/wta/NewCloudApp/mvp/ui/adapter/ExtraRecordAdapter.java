@@ -17,6 +17,8 @@ import com.wta.NewCloudApp.mvp.model.entity.Goods2;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 public class ExtraRecordAdapter extends BaseQuickAdapter<Goods2, BaseViewHolder> {
     public ExtraRecordAdapter(int layoutResId, @Nullable List<Goods2> data) {
         super(layoutResId, data);
@@ -41,7 +43,11 @@ public class ExtraRecordAdapter extends BaseQuickAdapter<Goods2, BaseViewHolder>
         helper.setText(R.id.tv_total_count, "共计" + item.number + "件商品");
 
         int status = item.express_status;
+        Timber.i("ExtraAdapter: " + status);
         helper.setGone(R.id.btn_more, status == 2);
+        helper.setVisible(R.id.divider15, status == 2);
+        helper.setGone(R.id.tv_express, status == 2);
+        helper.setText(R.id.tv_express, item.express_name + ": " + item.express_number);
         helper.addOnClickListener(R.id.btn_more);
         if (status == 1) {
             helper.setText(R.id.tv_status, "待发货");

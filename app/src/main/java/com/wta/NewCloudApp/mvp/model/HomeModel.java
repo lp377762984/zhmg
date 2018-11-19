@@ -5,6 +5,7 @@ import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.wta.NewCloudApp.mvp.contract.HomeContract;
 import com.wta.NewCloudApp.mvp.model.api.HttpServices;
+import com.wta.NewCloudApp.mvp.model.entity.AliInfo;
 import com.wta.NewCloudApp.mvp.model.entity.Bill;
 import com.wta.NewCloudApp.mvp.model.entity.Business;
 import com.wta.NewCloudApp.mvp.model.entity.HomeBanner;
@@ -53,5 +54,15 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     @Override
     public Observable<ResponseBody> downloadApp(String url) {
         return mRepositoryManager.obtainRetrofitService(HttpServices.class).downApp(url);
+    }
+
+    @Override
+    public Observable<Result<AliInfo>> getAlipayAuthInfo() {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).getAlipayAuthInfo();
+    }
+
+    @Override
+    public Observable<Result<AliInfo>> bindAlipay(String openID, String alipay) {
+        return mRepositoryManager.obtainRetrofitService(HttpServices.class).bindAlipay(openID,alipay);
     }
 }

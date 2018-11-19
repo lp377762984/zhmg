@@ -315,7 +315,7 @@ public interface HttpServices {
 
     @GET("/Activity/myOrder")
     Observable<Result<List<Goods2>>> getExtraRecordList(@Query("express_status") int status, @Query("page") int index);
-
-    @GET("/Activity/determined")
-    Observable<Result> sureGetGoods(@Query("acid") int orderId);
+    @FormUrlEncoded
+    @POST("/Activity/determined")
+    Observable<Result> sureGetGoods(@Field("acid") int orderId);
 }

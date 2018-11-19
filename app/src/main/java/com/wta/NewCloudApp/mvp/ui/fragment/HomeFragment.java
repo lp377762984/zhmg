@@ -203,36 +203,35 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
                         SGDetActivity.start(getActivity(), Integer.parseInt(homeBanner.jump_url), Integer.parseInt(homeBanner.parameter));
                     } else if (jumpType == 1) {
                         SideDetActivity.startDet(getActivity(), Integer.parseInt(homeBanner.jump_url));
-                    } else if (jumpType == 3) {
-                        // TODO: 2018/11/17
-//                        UMWeb web = new UMWeb(share.share_url);//url
-//                        web.setTitle(share.share_title);//标题
-//                        web.setThumb(new UMImage(getActivity(), share.share_img));  //缩略图
-//                        web.setDescription(share.share_desc);//描述
-                        if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false)) {
-                            ArmsUtils.startActivity(LoginActivity.class);
-                        } else {
-                            if (AppConfig.getInstance().getInt(ConfigTag.IS_ALIPAY, 0) == 0) {
-                                DialogUtils.showAlertDialog(getActivity(),"是否绑定支付宝，获取收益？",new DetDialogCallback(){
-                                    @Override
-                                    public void handleRight(Dialog dialog) {
-                                        mPresenter.getAlipayAuthInfo();
-                                    }
+                    }
+                } else if (homeBanner.type == 3) {
+                    if (!AppConfig.getInstance().getBoolean(ConfigTag.IS_LOGIN, false)) {
+                        ArmsUtils.startActivity(LoginActivity.class);
+                    } else {
+                        if (AppConfig.getInstance().getInt(ConfigTag.IS_ALIPAY, 0) == 0) {
+                            DialogUtils.showAlertDialog(getActivity(), "是否绑定支付宝，获取收益？", new DetDialogCallback() {
+                                @Override
+                                public void handleRight(Dialog dialog) {
+                                    mPresenter.getAlipayAuthInfo();
+                                }
 
-                                    @Override
-                                    public void handleLeft(Dialog dialog) {
-                                        share = new Share();
-                                        share.share_url = homeBanner.jump_url;
-                                        share.share_img = homeBanner.img_url;
-                                        showDialog();
-                                    }
-                                });
-                            } else {
-                                share = new Share();
-                                share.share_url = homeBanner.jump_url;
-                                share.share_img = homeBanner.img_url;
-                                showDialog();
-                            }
+                                @Override
+                                public void handleLeft(Dialog dialog) {
+                                    share = new Share();
+                                    share.share_url = homeBanner.jump_url;
+                                    share.share_img = homeBanner.share_img;
+                                    share.share_title = homeBanner.share_title;
+                                    share.share_desc = homeBanner.share_msg;
+                                    showDialog();
+                                }
+                            });
+                        } else {
+                            share = new Share();
+                            share.share_url = homeBanner.jump_url;
+                            share.share_img = homeBanner.share_img;
+                            share.share_title = homeBanner.share_title;
+                            share.share_desc = homeBanner.share_msg;
+                            showDialog();
                         }
                     }
                 }
@@ -356,10 +355,9 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
         if (share == null) return;
         if (dialog != null && dialog.isShowing()) dialog.dismiss();
         UMWeb web = new UMWeb(share.share_url);//url
-        web.setTitle("没有标题");//标题
+        web.setTitle(share.share_title);//标题
         web.setThumb(new UMImage(getActivity(), share.share_img));  //缩略图
-        web.setDescription("没有描述");//描述
-
+        web.setDescription(share.share_desc);//描述
         switch (v.getId()) {
             case R.id.tv_wx:
                 if (!UMShareAPI.get(getActivity()).isInstall(getActivity(), SHARE_MEDIA.WEIXIN)) {
@@ -405,11 +403,9 @@ public class HomeFragment extends BaseLoadingFragment<HomePresenter> implements 
     private void showDialog() {
         if (dialog == null) {
             dialog = new BottomSheetDialog(getActivity());
-            dialog.setContentView(R.layout.share_dialog);
+            dialog.setContentView(R.layout.share_dialog1);
             dialog.findViewById(R.id.tv_wx).setOnClickListener(this);
             dialog.findViewById(R.id.tv_wx_friends).setOnClickListener(this);
-            dialog.findViewById(R.id.tv_qq).setOnClickListener(this);
-            dialog.findViewById(R.id.tv_qq_zone).setOnClickListener(this);
             dialog.findViewById(R.id.tv_cancel).setOnClickListener(this);
         }
         dialog.show();

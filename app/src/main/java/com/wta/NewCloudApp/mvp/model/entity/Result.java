@@ -7,6 +7,7 @@ public class Result<T> {
     public String msg;
     public T data;
     public String white_score;
+    public String p_money;
     @SerializedName("version_upgrade")
     public AppUpdate update;
     /**

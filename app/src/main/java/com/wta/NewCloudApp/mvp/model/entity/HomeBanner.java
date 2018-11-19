@@ -10,6 +10,7 @@ public class HomeBanner {
     public String img_url;
     public String jump_url;
     public int type;
+    public int url_type;
 
     /**
      * banner_id : 3
@@ -20,4 +21,7 @@ public class HomeBanner {
     public int banner_id;
     public int jump_type;
     public String parameter;
+    public String share_title;
+    public String share_img;
+    public String share_msg;
 }

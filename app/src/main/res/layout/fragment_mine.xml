@@ -267,6 +267,7 @@
                             android:layout_height="wrap_content" />
 
                         <View
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_alignParentBottom="true"
@@ -317,6 +318,7 @@
                             android:src="@mipmap/go" />
 
                         <View
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_alignParentBottom="true"
@@ -438,6 +440,7 @@
                             android:layout_centerVertical="true"
                             android:src="@mipmap/go" />
                         <View
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_alignParentBottom="true"

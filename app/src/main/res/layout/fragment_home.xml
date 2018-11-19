@@ -65,6 +65,7 @@
                     android:background="@drawable/merchant_in_bg" />
 
                 <com.youth.banner.Banner
+                    app:is_auto_play="false"
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
@@ -74,6 +75,9 @@
                     app:image_scale_type="center_crop"
                     app:indicator_drawable_selected="@drawable/pink_point"
                     app:indicator_drawable_unselected="@drawable/gray_point"
+                    app:indicator_margin="5dp"
+                    app:indicator_width="10dp"
+                    app:indicator_height="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
