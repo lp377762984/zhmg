@@ -72,6 +72,7 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
     public void checkUpdate() {
         doRequest(buildRequest(mModel.checkUpdate(PackageUtils.getPackageVersion(App.getInstance()))), 4);
     }
+
     //-------------------------------start
     public void getAlipayAuthInfo() {
         doRequest(buildRequest(mModel.getAlipayAuthInfo()), 5);
@@ -94,7 +95,7 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
     }
 
     private void uploadOpenId(String openID) {
-        doRequest(buildRequest(mModel.bindAlipay(openID,"alipay")), 7);
+        doRequest(buildRequest(mModel.bindAlipay(openID, "alipay")), 7);
     }
     //---------------------------------end
 
@@ -120,7 +121,7 @@ public class HomePresenter extends BBasePresenter<HomeContract.Model, HomeContra
 
     @Override
     public <T> void handle404(int what, Result<T> result) {
-        if (what == 2)
+        if (what == 2 || what == 5 || what == 7)
             super.handle404(what, result);
         else
             mRootView.showListFailed();

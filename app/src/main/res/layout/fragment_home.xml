@@ -65,12 +65,12 @@
                     android:background="@drawable/merchant_in_bg" />
 
                 <com.youth.banner.Banner
-                    app:is_auto_play="false"
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    app:delay_time="4000"
                     app:banner_default_image="@mipmap/home_banner_placeholder"
                     app:image_scale_type="center_crop"
                     app:indicator_drawable_selected="@drawable/pink_point"
